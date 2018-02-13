@@ -14,6 +14,17 @@ public class Bills implements Serializable {
 	private String bankID;
 	private Boolean paid;
 	
+	public Bills() {
+		paid = false;
+	}
+	
+	
+	public Bills(float totalCost, String bankID, boolean paid) {
+		this.totalCost=totalCost;
+		this.bankID=bankID;
+		this.paid=paid;
+	}
+	
 	//Constructor
 	public Bills (Integer id , float totalCost , String bankID, boolean paid) {
 		
@@ -75,23 +86,24 @@ public class Bills implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Bills other = (Bills) obj;
-		if (bankID == null) {
+		
+		/*if (bankID == null) { 
 			if (other.bankID != null)
 				return false;
 		} else if (!bankID.equals(other.bankID))
-			return false;
+			return false;*/
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!id.equals(other.getId()))
 			return false;
-		if (paid == null) {
+		/*if (paid == null) {
 			if (other.paid != null)
 				return false;
 		} else if (!paid.equals(other.paid))
 			return false;
 		if (Float.floatToIntBits(totalCost) != Float.floatToIntBits(other.totalCost))
-			return false;
+			return false;*/
 		return true;
 	}
 	
