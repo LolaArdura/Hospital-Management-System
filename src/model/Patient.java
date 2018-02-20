@@ -14,7 +14,10 @@ public class Patient implements Serializable {
  
 	private Integer id;
 	private String name;
-	private String gender;
+	private enum sex{
+		MEN, WOMEN
+	};
+	private sex gender;
 	private String medicalCondition;
 	private Date dob;
 	private LocalDate dateAdmission;
@@ -27,22 +30,21 @@ public class Patient implements Serializable {
    public Patient () {
 	
 	this.treatments = new LinkedList <Treatment> ();
-	this.nurses= new LinkedList<Nurse>();
+	this.nurses = new LinkedList<Nurse>();
 	this.bills = new LinkedList<Bills>();
    }
    
-   public Patient (Integer id, String name, String gender, String medicalCondition, String wayOfHosp, Date dob,
+   public Patient (String name, sex gender, String medicalCondition, Date dob,
 		   LocalDate dateAdmission) {
 	   
-	   this.id = id;
 	   this.name = name;
-	   this.gender=gender;
-	   this.medicalCondition= medicalCondition;
-	   this.dob= dob;
+	   this.gender = gender;
+	   this.medicalCondition = medicalCondition;
+	   this.dob = dob;
 	   this.dateAdmission = dateAdmission;
 	   this.treatments = new LinkedList <Treatment> ();
-	   this.nurses= new LinkedList<Nurse>();
-		this.bills = new LinkedList<Bills>();
+	   this.nurses = new LinkedList<Nurse>();
+	   this.bills = new LinkedList<Bills>();
 }	
    
 // Additional method to use LocalDate objects
@@ -63,10 +65,10 @@ public class Patient implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getGender() {
+	public sex getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(sex gender) {
 		this.gender = gender;
 	}
 	public String getMedicalCondition() {
@@ -107,7 +109,6 @@ public class Patient implements Serializable {
 		this.bills = bills;
 	}
 	
-
 
 	@Override
 	public int hashCode() {

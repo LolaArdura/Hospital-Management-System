@@ -20,16 +20,14 @@ public class Treatment implements Serializable {
 	
 	//Constructor
 	
-	public Treatment (Integer id, String routeOfAdmin, Date startDate, Date endDate, float cost ,
+	public Treatment (String routeOfAdmin, Date startDate, Date endDate, float cost ,
 			String treatmentType, String dose) {
-		this.id = id;
 		this.routeOfAdmin= routeOfAdmin;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.cost = cost;
 		this.treatmentType = treatmentType;
-		this.dose = dose;
-		
+		this.dose = dose;	
 	}
 	
 	public Integer getId() {
@@ -74,19 +72,17 @@ public class Treatment implements Serializable {
 	public void setDose(String dose) {
 		this.dose = dose;
 	}
+	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Float.floatToIntBits(cost);
-		result = prime * result + ((dose == null) ? 0 : dose.hashCode());
-		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((routeOfAdmin == null) ? 0 : routeOfAdmin.hashCode());
-		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
-		result = prime * result + ((treatmentType == null) ? 0 : treatmentType.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -96,40 +92,14 @@ public class Treatment implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Treatment other = (Treatment) obj;
-		if (Float.floatToIntBits(cost) != Float.floatToIntBits(other.cost))
-			return false;
-		if (dose == null) {
-			if (other.dose != null)
-				return false;
-		} else if (!dose.equals(other.dose))
-			return false;
-		if (endDate == null) {
-			if (other.endDate != null)
-				return false;
-		} else if (!endDate.equals(other.endDate))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (routeOfAdmin == null) {
-			if (other.routeOfAdmin != null)
-				return false;
-		} else if (!routeOfAdmin.equals(other.routeOfAdmin))
-			return false;
-		if (startDate == null) {
-			if (other.startDate != null)
-				return false;
-		} else if (!startDate.equals(other.startDate))
-			return false;
-		if (treatmentType == null) {
-			if (other.treatmentType != null)
-				return false;
-		} else if (!treatmentType.equals(other.treatmentType))
-			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Treatment [id=" + id + ", routeOfAdmin=" + routeOfAdmin + ", startDate=" + startDate + ", endDate="

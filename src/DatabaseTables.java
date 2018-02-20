@@ -95,6 +95,15 @@ public class DatabaseTables {
 			s7.executeUpdate(table7);
 			s7.close();
 			
+			Statement s8=c.createStatement();
+			String table8="CREATE TABLE user(\r\n" +
+					"id INT PRIMARY KEY, \r\n" + 
+					"password TEXT NOT NULL, \r\n" +
+					"type TEXT NOT NULL \r\n" +
+					")";
+			s8.executeUpdate(table8);
+			s8.close();
+			
 			c.close();
 		    System.out.println("Database connection closed.");
 		}catch(Exception e) {

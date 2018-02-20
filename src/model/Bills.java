@@ -75,10 +75,7 @@ public class Bills implements Serializable {
 	}
 	
 	//HashCode
-	
 
-	//Equals
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -87,6 +84,9 @@ public class Bills implements Serializable {
 		return result;
 	}
 
+
+	//Equals
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -104,12 +104,16 @@ public class Bills implements Serializable {
 		return true;
 	}
 	
+
+	
+
 	
 	@Override
 	public String toString() {
 		return "Bills [id=" + id + ", totalCost=" + totalCost + ", bankID=" + bankID + ", paid=" + paid + "]";
 	}
-	
+
+
 	
 	
 }
