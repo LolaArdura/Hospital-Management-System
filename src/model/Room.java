@@ -42,7 +42,7 @@ public class Room implements Serializable {
 
     public Room ()	{
 	  number = null;
-	  type = ;
+	  type = BOX;
 	  floor = 0;
 	  capacity = 2;
 	  costPerDay = 5;
