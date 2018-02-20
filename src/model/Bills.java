@@ -14,18 +14,29 @@ public class Bills implements Serializable {
 	private String bankID;
 	private Boolean paid;
 	
+	//Constructors
+
 	public Bills() {
-		paid = false;
+		paid=false;
 	}
 	
-	
-	public Bills(float totalCost, String bankID, boolean paid) {
-		this.totalCost=totalCost;
-		this.bankID=bankID;
-		this.paid=paid;
+		
+	public Bills(float totalCost, String bankID, Boolean paid) {
+		super();
+		this.totalCost = totalCost;
+		this.bankID = bankID;
+		this.paid = paid;
 	}
-	
-	//Constructor
+
+    
+	public Bills(float totalCost, String bankID) {
+		super();
+		this.totalCost = totalCost;
+		this.bankID = bankID;
+		paid=false;
+	}
+
+
 	public Bills (Integer id , float totalCost , String bankID, boolean paid) {
 		
 		 this.id = id;
@@ -35,6 +46,7 @@ public class Bills implements Serializable {
 		
 	}
 	 
+	
 	//Getters and Setters
 	
 	public Integer getId() {
@@ -64,19 +76,17 @@ public class Bills implements Serializable {
 	
 	//HashCode
 	
+
+	//Equals
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((bankID == null) ? 0 : bankID.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((paid == null) ? 0 : paid.hashCode());
-		result = prime * result + Float.floatToIntBits(totalCost);
 		return result;
 	}
-	
-	//Equals
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -86,24 +96,11 @@ public class Bills implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Bills other = (Bills) obj;
-		
-		/*if (bankID == null) { 
-			if (other.bankID != null)
-				return false;
-		} else if (!bankID.equals(other.bankID))
-			return false;*/
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.getId()))
+		} else if (!id.equals(other.id))
 			return false;
-		/*if (paid == null) {
-			if (other.paid != null)
-				return false;
-		} else if (!paid.equals(other.paid))
-			return false;
-		if (Float.floatToIntBits(totalCost) != Float.floatToIntBits(other.totalCost))
-			return false;*/
 		return true;
 	}
 	
