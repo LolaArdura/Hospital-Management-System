@@ -90,19 +90,19 @@ public class Patient implements Serializable {
 	public void setDateAdmission(LocalDate dateAdmission) {
 		this.dateAdmission = dateAdmission;
 	}
-	public LinkedList<Treatment> getTreatments() {
+	public List<Treatment> getTreatments() {
 		return treatments;
 	}
 	public void setTreatments(LinkedList<Treatment> treatments) {
 		this.treatments = treatments;
 	}
-	public LinkedList<Nurse> getNurses() {
+	public List<Nurse> getNurses() {
 		return nurses;
 	}
 	public void setNurses(LinkedList<Nurse> nurses) {
 		this.nurses = nurses;
 	}
-	public LinkedList<Bills> getBills() {
+	public List<Bills> getBills() {
 		return bills;
 	}
 	public void setBills(LinkedList<Bills> bills) {
