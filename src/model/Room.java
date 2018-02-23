@@ -11,16 +11,16 @@ public class Room implements Serializable {
 	
     private Integer id;
     private Integer number;
-    private enum typeRoom {
+    private enum roomType {
     	SUITE, DOUBLE, INDIVIDUAL, BOX, UCI
     };
-    private typeRoom type; 
+    private roomType type; 
     private Integer floor;
     private Integer capacity;
 	private float costPerDay;
 	
 	//Constructor
-	public Room (Integer id, Integer number, typeRoom type, Integer floor, Integer capacity, float costPerDay) {
+	public Room (Integer id, Integer number, roomType type, Integer floor, Integer capacity, float costPerDay) {
 		
 		this.id = id;
 		this.number = number;
@@ -30,7 +30,7 @@ public class Room implements Serializable {
 		this.costPerDay= costPerDay;
 		
 	}
-    public Room ( Integer number, typeRoom type, Integer floor, Integer capacity, float costPerDay) {
+    public Room ( Integer number, roomType type, Integer floor, Integer capacity, float costPerDay) {
 		
 		this.number = number;
 		this.type = type;
@@ -42,7 +42,7 @@ public class Room implements Serializable {
 
     public Room ()	{
 	  number = null;
-	  type = BOX;
+	  type= roomType.BOX;
 	  floor = 0;
 	  capacity = 2;
 	  costPerDay = 5;
@@ -63,11 +63,11 @@ public class Room implements Serializable {
 		this.number = number;
 	}
 	
-	public typeRoom getType() {
+	public roomType getType() {
 		return type;
 	}
 
-	public void setType(typeRoom type) {
+	public void setType(roomType type) {
 		this.type = type;
 	}
 
