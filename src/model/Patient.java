@@ -18,9 +18,9 @@ public class Patient implements Serializable {
 	private String medicalCondition;
 	private Date dob;
 	private LocalDate dateAdmission;
-	private LinkedList <Treatment> treatments;
-	private LinkedList <Nurse> nurses;
-	private LinkedList <Bills> bills;
+	private List <Treatment> treatments;
+	private List <Nurse> nurses;
+	private List <Bills> bills;
 	
 	//Constructors
 	
