@@ -2,20 +2,20 @@ package model;
 
 import java.util.*;
 
-public class Nurse extends Employee{
+public class Doctor extends Employee{
  
 	private Integer id;
-	private String role;
-	private List <Patient> nurse;
+	private String speciality;
+	private List <Treatment> doctor;
 	
-	public Nurse ( String role ) {
+	public Doctor () {
+		this.doctor = new LinkedList <Treatment>() ;
 		
-		this.role= role;
-		this.nurse = new LinkedList <Patient>() ;
 	}
-	public Nurse () {
-		
-		this.nurse = new LinkedList <Patient>() ;
+	
+	public Doctor (String speciality) {
+		this.speciality= speciality;
+		this.doctor = new LinkedList <Treatment>() ;
 	}
 	
 	public Integer getId() {
@@ -24,11 +24,11 @@ public class Nurse extends Employee{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getRole() {
-		return role;
+	public String getSpeciality() {
+		return speciality;
 	}
-	public void setRole(String role) {
-		this.role = role;
+	public void setSpeciality(String speciality) {
+		this.speciality = speciality;
 	}
 	@Override
 	public int hashCode() {
@@ -45,7 +45,7 @@ public class Nurse extends Employee{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Nurse other = (Nurse) obj;
+		Doctor other = (Doctor) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -55,10 +55,8 @@ public class Nurse extends Employee{
 	}
 	@Override
 	public String toString() {
-		return "Nurse [id=" + id + ", role=" + role + ", nurses=" + nurse + "]";
+		return "Doctor [id=" + id + ", speciality=" + speciality + "]";
 	}
-
-	
 	
 	
 	
