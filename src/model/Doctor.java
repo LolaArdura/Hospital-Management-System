@@ -1,5 +1,6 @@
 package model;
 
+
 import java.util.*;
 
 public class Doctor extends Employee{
