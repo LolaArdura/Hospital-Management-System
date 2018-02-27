@@ -17,17 +17,19 @@ public class Treatment implements Serializable {
 	private float cost;
 	private String treatmentType;
 	private String dose;
+	private Doctor prescriber;
 	
 	//Constructor
 	
 	public Treatment (String routeOfAdmin, Date startDate, Date endDate, float cost ,
-			String treatmentType, String dose) {
+			String treatmentType, String dose, Doctor prescriber) {
 		this.routeOfAdmin= routeOfAdmin;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.cost = cost;
 		this.treatmentType = treatmentType;
-		this.dose = dose;	
+		this.dose = dose;
+		this.prescriber = prescriber;
 	}
 	
 	public Integer getId() {
@@ -72,9 +74,14 @@ public class Treatment implements Serializable {
 	public void setDose(String dose) {
 		this.dose = dose;
 	}
-	
-	
-	
+	public Doctor getPrescriber() {
+		return prescriber;
+	}
+
+	public void setPrescriber(Doctor prescriber) {
+		this.prescriber = prescriber;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
