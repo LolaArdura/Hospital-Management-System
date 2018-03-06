@@ -8,8 +8,16 @@ public class Nurse extends Employee{
 	private String role;
 	private List <Patient> nurse;
 	
+	public Nurse (Integer id, String name, byte[] photo, String schedule, String role) {
+		this.id=id;
+		this.name=name;
+		this.role=role;
+		this.schedule=schedule;
+		this.photo=photo;
+		this.nurse = new LinkedList <Patient>();
+	}
+	
 	public Nurse ( String role ) {
-		
 		this.role= role;
 		this.nurse = new LinkedList <Patient>() ;
 	}
