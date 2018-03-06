@@ -55,15 +55,19 @@ public class NurseController implements NurseInterface{
 			byte[] photo = rs.getBytes("photo");
 			String schedule = rs.getString("schedule");
 			String role = rs.getString("role");
-			Nurse nurse = new Nurse ();
-			return nurse;
+			Nurse searchNurse = new Nurse (Id, name, photo, schedule, role);
+			return searchNurse;
 		}
 		rs.close();
 		stmt.close();
 		return null;
 	}
 	
-	public Nurse updateNurse (Nurse nurse) {
-		
+	public Nurse updateNurse (Nurse nurse) throws Exception{
+		String sql = "UPDATE * FROM nurse WHERE id=?";
+		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1, nurse.getId());
+		prep.executeUpdate();
+		return nurse;
 	}
 }

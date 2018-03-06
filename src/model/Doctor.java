@@ -1,22 +1,20 @@
 package model;
 
-
-import java.util.*;
-
 public class Doctor extends Employee{
  
 	private Integer id;
 	private String speciality;
-	private List <Treatment> doctor;
 	
-	public Doctor () {
-		this.doctor = new LinkedList <Treatment>() ;
-		
+	public Doctor (Integer id, String name, byte[] photo, String schedule, String speciality) {
+		this.id=id;
+		this.name=name;
+		this.photo=photo;
+		this.schedule=schedule;
+		this.speciality=speciality;
 	}
 	
 	public Doctor (String speciality) {
 		this.speciality= speciality;
-		this.doctor = new LinkedList <Treatment>() ;
 	}
 	
 	public Integer getId() {
