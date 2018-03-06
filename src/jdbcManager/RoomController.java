@@ -62,7 +62,7 @@ public class RoomController implements RoomInterface {
 		return null;
 	}
 	
-	public Room update (Room room) {
+	public Room updateBills (Room room) {
 		
 		
 	}
