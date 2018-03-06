@@ -38,5 +38,11 @@ public class DoctorController implements DoctorInterface {
 		prep.close();
 		return true;
 	}
-	
+	public boolean deleteDoctor (Doctor doctor) throws Exception {
+		String sql = "DELETE FROM doctor WHERE id=?";
+		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1, doctor.getId());
+		prep.executeUpdate();
+		return true;
+	}
 }

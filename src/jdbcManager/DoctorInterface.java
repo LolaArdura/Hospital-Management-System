@@ -4,7 +4,7 @@ import model.Nurse;
 
 public interface DoctorInterface {
 	public boolean insertDoctor (Doctor doctor) throws Exception;
-	public boolean deleteDoctor (Doctor doctor);
+	public boolean deleteDoctor (Doctor doctor) throws Exception;
 	public Nurse searchDoctor (Integer id);
 	public Nurse updateDoctor (Doctor doctor);
 }
