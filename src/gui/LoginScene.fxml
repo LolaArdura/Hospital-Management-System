@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="loginScene" prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginSceneController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="173.0" layoutY="170.0" prefHeight="31.0" prefWidth="76.0" text="User:" textAlignment="CENTER">
          <font>
@@ -22,9 +21,9 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField alignment="CENTER_RIGHT" layoutX="280.0" layoutY="173.0" promptText="username" />
-      <PasswordField alignment="CENTER_RIGHT" layoutX="280.0" layoutY="229.0" promptText="password" />
-      <Button alignment="CENTER" layoutX="381.0" layoutY="280.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="43.0" style="-fx-border-style: none; -fx-border-color: transparent; -fx-background-color: transparent;" textAlignment="CENTER">
+      <TextField fx:id="usernameTextField" alignment="CENTER_RIGHT" layoutX="280.0" layoutY="173.0" promptText="username" />
+      <PasswordField fx:id="passwordTextField" alignment="CENTER_RIGHT" layoutX="280.0" layoutY="229.0" promptText="password" />
+      <Button fx:id="arrowButton" alignment="CENTER" layoutX="381.0" layoutY="297.0" mnemonicParsing="false" onAction="#arrowButtonClicked" prefHeight="31.0" prefWidth="43.0" style="-fx-border-style: none; -fx-border-color: transparent; -fx-background-color: transparent;" textAlignment="CENTER">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -33,5 +32,6 @@
             </ImageView>
          </graphic>
       </Button>
+      <Label fx:id="invalidUserLabel" layoutX="292.0" layoutY="272.0" prefHeight="17.0" prefWidth="137.0" text="Non valid user/ password" textAlignment="CENTER" textFill="#ee0303" underline="true" visible="false" />
    </children>
 </AnchorPane>
