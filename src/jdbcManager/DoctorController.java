@@ -44,7 +44,7 @@ public class DoctorController implements DoctorInterface {
 		prep.executeUpdate();
 		return true;
 	}
-	public Doctor searchDoctor (Integer id) throws Exception {
+	public Doctor searchDoctorById (Integer id) throws Exception {
 		Statement stmt = DBConnection.getConnection().createStatement();
 		String sql = "SELECT * FROM doctor";
 		ResultSet rs = stmt.executeQuery(sql);
@@ -57,7 +57,6 @@ public class DoctorController implements DoctorInterface {
 			Doctor doctor = new Doctor (Id, name, photo, schedule, speciality);
 			return doctor;
 		}
-		rs.close();
 		stmt.close();
 		return null;
 	}

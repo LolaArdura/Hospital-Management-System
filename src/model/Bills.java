@@ -20,7 +20,6 @@ public class Bills implements Serializable {
 		paid=false;
 	}
 	
-		
 	public Bills(float totalCost, String bankID, Boolean paid) {
 		super();
 		this.totalCost = totalCost;
