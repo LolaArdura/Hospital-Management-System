@@ -2,7 +2,6 @@ package jdbcManager;
  
 import java.sql.*;
 
-import model.Nurse;
 import model.Room;
 
 public class RoomController implements RoomInterface {
@@ -17,7 +16,6 @@ public class RoomController implements RoomInterface {
 		
 	}
 	
-	
 	public boolean insertRoom (Room room) throws Exception {
 		String sql = "INSERT INTO room (id, number, type, capacity, floor, costPerDay)" 
 	   + " VALUES (?,?,?,?,?,?,?);";
@@ -25,7 +23,11 @@ public class RoomController implements RoomInterface {
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getId());
 		prep.setInt(2, room.getNumber());
+<<<<<<< HEAD
 		prep.setString(3, room.getType().name());
+=======
+		prep.setString(3, room.getType().name().toLowerCase());
+>>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System.git
 		prep.setInt(4, room.getCapacity());
 		prep.setInt(5, room.getFloor());
 		prep.setFloat(6, room.getCostPerDay());	
@@ -43,29 +45,31 @@ public class RoomController implements RoomInterface {
 		return true;
 	}
 	
-	public Room searchRoom (Integer id) throws Exception {
+	public Room searchRoomById (Integer id) throws Exception {
 		Statement stmt = DBConnection.getConnection().createStatement();
-		String sql = "SELECT * FROM room";
+		String sql = "SELECT FROM room WHERE id=?";
+		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1, id);
 		ResultSet rs = stmt.executeQuery(sql);
 		while (rs.next()) {
 			int Id = rs.getInt("id");
 			int number = rs.getInt("number");
-			//METER LA ENUMERACION
+			Room.roomType type = Room.roomType.valueOf(rs.getString("type").toUpperCase());
 			int capacity = rs.getInt("capacity");
 			int floor = rs.getInt("floor");
 			float costPerDay = rs.getFloat("costPerDay");
-			Room room = new Room ();
+			Room room = new Room (Id, number, type, floor, capacity, costPerDay) ;
 			return room;
 		}
-		rs.close();
 		stmt.close();
 		return null;
 	}
 	
-	public Room updateBills (Room room) {
-		
-		
+	public Room updateRoom (Room room) throws Exception{
+		String sql = "UPDATE * FROM room WHERE id=?";
+		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1, room.getId());
+		prep.executeUpdate();
+		return room;
 	}
-	
-	
 }

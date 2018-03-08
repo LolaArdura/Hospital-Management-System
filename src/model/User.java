@@ -3,7 +3,7 @@ package model;
 public class User {
 	private String username;
 	private String password;
-	private enum userType{
+	public enum userType{
 		ADMIN,RECEPTIONIST,DOCTOR,NURSE
 	};
     private userType typeOfUser;

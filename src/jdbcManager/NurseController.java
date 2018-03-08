@@ -1,5 +1,6 @@
 package jdbcManager;
 import java.sql.*;
+import java.util.*;
 import java.io.*;
 
 import model.Nurse;
@@ -45,9 +46,28 @@ public class NurseController implements NurseInterface{
 		prep.executeUpdate();
 		return true;
 	}
-	public Nurse searchNurse (Integer id) throws Exception {
+	
+	public List<Nurse> searchNurse () throws Exception {
 		Statement stmt = DBConnection.getConnection().createStatement();
 		String sql = "SELECT * FROM nurse";
+		ResultSet rs = stmt.executeQuery(sql);
+		List<Nurse> nurseList= new LinkedList <Nurse>();
+		while (rs.next()) {
+			int Id = rs.getInt("id");
+			String name = rs.getString("name");
+			byte[] photo = rs.getBytes("photo");
+			String schedule = rs.getString("schedule");
+			String role = rs.getString("role");
+			Nurse searchNurse = new Nurse (Id, name, photo, schedule, role);
+			nurseList.add(searchNurse);
+		}
+		stmt.close();
+		return nurseList;
+	}
+	
+	public Nurse searchNurseById (Integer id) throws Exception {
+		Statement stmt = DBConnection.getConnection().createStatement();
+		String sql = "SELECT FROM nurse WHERE id=?";
 		ResultSet rs = stmt.executeQuery(sql);
 		while (rs.next()) {
 			int Id = rs.getInt("id");
@@ -58,7 +78,6 @@ public class NurseController implements NurseInterface{
 			Nurse searchNurse = new Nurse (Id, name, photo, schedule, role);
 			return searchNurse;
 		}
-		rs.close();
 		stmt.close();
 		return null;
 	}
