@@ -11,7 +11,7 @@ public class Room implements Serializable {
 	
     private Integer id;
     private Integer number;
-    private enum roomType {
+    public enum roomType {
     	SUITE, DOUBLE, INDIVIDUAL, BOX, UCI
     };
     private roomType type; 

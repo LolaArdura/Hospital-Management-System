@@ -2,7 +2,6 @@ package jdbcManager;
  
 import java.sql.*;
 
-import model.Nurse;
 import model.Room;
 
 public class RoomController implements RoomInterface {
@@ -24,7 +23,7 @@ public class RoomController implements RoomInterface {
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getId());
 		prep.setInt(2, room.getNumber());
-		// QUE TIPO DE SET PONES PARA UNA ENUMERACION?
+		prep.setString(3, room.getType().name().toLowerCase());
 		prep.setInt(4, room.getCapacity());
 		prep.setInt(5, room.getFloor());
 		prep.setFloat(6, room.getCostPerDay());	
@@ -51,14 +50,13 @@ public class RoomController implements RoomInterface {
 		while (rs.next()) {
 			int Id = rs.getInt("id");
 			int number = rs.getInt("number");
-			//METER LA ENUMERACION
+			Room.roomType type = Room.roomType.valueOf(rs.getString("type").toUpperCase());
 			int capacity = rs.getInt("capacity");
 			int floor = rs.getInt("floor");
 			float costPerDay = rs.getFloat("costPerDay");
 			Room room = new Room (Id, number, type, floor, capacity, costPerDay) ;
 			return room;
 		}
-		rs.close();
 		stmt.close();
 		return null;
 	}
