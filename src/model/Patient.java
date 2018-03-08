@@ -14,7 +14,7 @@ public class Patient implements Serializable {
  
 	private Integer id;
 	private String name;
-	private enum sex{
+	public enum sex{
 		MEN, WOMEN
 	};
 	private sex gender;

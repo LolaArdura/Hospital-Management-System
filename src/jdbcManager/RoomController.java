@@ -25,7 +25,7 @@ public class RoomController implements RoomInterface {
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getId());
 		prep.setInt(2, room.getNumber());
-		// QUE TIPO DE SET PONES PARA UNA ENUMERACION?
+		prep.setString(3, room.getType().name());
 		prep.setInt(4, room.getCapacity());
 		prep.setInt(5, room.getFloor());
 		prep.setFloat(6, room.getCostPerDay());	
