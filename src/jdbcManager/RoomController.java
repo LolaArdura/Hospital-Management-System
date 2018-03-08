@@ -70,6 +70,4 @@ public class RoomController implements RoomInterface {
 		prep.executeUpdate();
 		return room;
 	}
-	
-	
 }
