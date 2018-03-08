@@ -1,13 +1,13 @@
 package jdbcManager;
 import java.sql.*;
+import java.util.*;
 import java.io.*;
 import model.Doctor;
 
 public class DoctorController implements DoctorInterface {
-	private DoctorController() {
-		super();
-	}
+	
 	private static DoctorController singleton;
+	
 	public DoctorController getNurseController() {
 		if (singleton == null) {
 			singleton = new DoctorController();
@@ -44,10 +44,11 @@ public class DoctorController implements DoctorInterface {
 		prep.executeUpdate();
 		return true;
 	}
-	public Doctor searchDoctor (Integer id) throws Exception {
+	public List searchDoctor () throws Exception {
 		Statement stmt = DBConnection.getConnection().createStatement();
 		String sql = "SELECT * FROM doctor";
 		ResultSet rs = stmt.executeQuery(sql);
+		List <Doctor> listDoctor =new LinkedList <Doctor>();
 		while (rs.next()) {
 			int Id = rs.getInt("id");
 			String name = rs.getString("name");
@@ -55,9 +56,9 @@ public class DoctorController implements DoctorInterface {
 			String schedule = rs.getString("schedule");
 			String speciality = rs.getString("speciality");
 			Doctor doctor = new Doctor (Id, name, photo, schedule, speciality);
-			return doctor;
+			
 		}
-		rs.close();
+		return listDoctor;
 		stmt.close();
 		return null;
 	}
