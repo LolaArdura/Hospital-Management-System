@@ -27,7 +27,7 @@ public class TreatmentController {
 		prep.setFloat(5, treatment.getCost());
 		prep.setString(6, treatment.getTreatmentType());
 		prep.setString(7, treatment.getDose());
-		prep.setString(8, treatment.getPrescriber());
+		prep.setInt(8, treatment.getPrescriber().getId());
 	}
 	
 	public Treatment updateTreatment (Treatment treatment) throws Exception {
