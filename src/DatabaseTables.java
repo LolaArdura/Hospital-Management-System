@@ -17,7 +17,7 @@ public class DatabaseTables {
 			String table1= "CREATE TABLE doctor(\r\n" + 
 					"id INT PRIMARY KEY, \r\n" + 
 					"name TEXT NOT NULL,\r\n" + 
-					"specialty TEXT NOT NULL, \r\n" + 
+					"speciality TEXT NOT NULL, \r\n" + 
 					"schedule TEXT NOT NULL \r\n" + 
 					")";
 			s1.executeUpdate(table1);
@@ -32,7 +32,6 @@ public class DatabaseTables {
 					"date_of_admission DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, \r\n" + 
 					"diagnose TEXT DEFAULT 'waiting for diagnose',\r\n" + 
 					"room_id INT REFERENCES room(id),\r\n" + 
-					"address TEXT NOT NULL\r\n" + 
 					")";
 			s2.executeUpdate(table2);
 			s2.close();

@@ -23,11 +23,8 @@ public class RoomController implements RoomInterface {
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getId());
 		prep.setInt(2, room.getNumber());
-<<<<<<< HEAD
 		prep.setString(3, room.getType().name());
-=======
 		prep.setString(3, room.getType().name().toLowerCase());
->>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System.git
 		prep.setInt(4, room.getCapacity());
 		prep.setInt(5, room.getFloor());
 		prep.setFloat(6, room.getCostPerDay());	
