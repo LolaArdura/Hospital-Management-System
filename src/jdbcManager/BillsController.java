@@ -1,5 +1,7 @@
 package jdbcManager;
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 
 import model.Bills;
 public class BillsController implements BillsInterface{
@@ -13,7 +15,7 @@ private static BillsController singleton;
 }
 	
 	public boolean insertBills (Bills bill) throws Exception{
-		String sql = "INSERT INTO bill (id, totalCost, bankID, paid)+VALUES (?,?,?,?)";
+		String sql = "INSERT INTO bills (id, totalCost, bankID, paid)+VALUES (?,?,?,?)";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, bill.getId());
 		prep.setFloat(2, bill.getTotalCost());
@@ -22,44 +24,62 @@ private static BillsController singleton;
 		prep.executeUpdate();
 		prep.close();
 		return true;
-		
-		
+	
 	}
+	
 public boolean deleteBills (Bills bill)  throws Exception{
-	String sql = "DELETE FROM bill WHERE id=?";
+	String sql = "DELETE FROM bills WHERE id=?";
 	PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 	prep.setInt(1,  bill.getId());
 	prep.executeUpdate();
 	return true;
 }
-public Bills searchBills (Integer id) throws Exception{
+public Bills searchBills(Integer id) throws Exception{
 	
 
 	Statement stmt = DBConnection.getConnection().createStatement();
-	String sql = "SELECT * FROM bill";
+	String sql = "SELECT FROM bills WHERE id=?";
+	PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+	prep.setInt(1, id);
 	ResultSet rs = stmt.executeQuery(sql);
-	while (rs.next()) {
-		int Id = rs.getInt("id");
-		float totalCost = rs.getFloat("totalCost");
-		String bankID = rs.getString("bankID");
-		boolean paid = rs.getBoolean("paid");
-		Bills bill = new Bills (); 
-		return bill;
-	}
-	rs.close();
+	
+	
+	int Id = rs.getInt("id");
+	float totalCost = rs.getFloat("totalCost");
+	String bankID = rs.getString("bankID");
+	boolean paid = rs.getBoolean("paid");
+	Bills bill = new Bills (Id, totalCost, bankID, paid);
+		
+		
+	
 	stmt.close();
-	return null;
+	return bill;
+	
 }
 	
 public Bills updateBills (Bills bill) throws Exception {
-	String sql = "UPDATE * FROM bill WHERE id = ?";
+	String sql = "UPDATE  bill"
+			+ "SET bankID = ? ,"
+			+ "totalCost = ?, "
+			+ "paid = ?"
+			+ " FROM bill WHERE id = ?";
 	PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
-	prep.setInt(1, bill.getId());
+	prep.setString(1, bill.getBankID());
+	prep.setFloat(2, bill.getTotalCost());
+	prep.setBoolean(3, bill.getPaid());
 	prep.executeUpdate();
 	return bill;
-	
-	
 }
-
+ public static void main (String args[]) {
+	 try {
+		 
+		 
+	 }catch (Exception e) {
+		 
+		 
+	 }
+	 
+	 
+ }
 
 }

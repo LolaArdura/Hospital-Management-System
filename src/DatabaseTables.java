@@ -1,14 +1,15 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import jdbcManager.*;
 
 
 public class DatabaseTables {
 
-	public static void main(String[] args) {
+	public static void createTables() {
 		try {
-			Class.forName("org.sqlite.JDBC");
-			Connection c= DriverManager.getConnection("jdbc:sqlite:database/hospitalManagement.db");
+			
+			Connection c= DBConnection.getConnection();
 			c.createStatement().execute("PRAGMA foreign_keys=ON");
 			System.out.println("Database connection opened");
 			

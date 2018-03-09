@@ -3,9 +3,10 @@ import java.sql.*;
 
 public class DBConnection {
 	private static Connection con;
-	public static Connection getConnection() throws SQLException {
+	public static Connection getConnection() throws Exception {
 		if (con==null) {
-			con = DriverManager.getConnection("jdbc:sqlite:./db/Hospital-Management-System.db");
+			Class.forName("org.sqlite.JDBC");
+			con = DriverManager.getConnection("jdbc:sqlite:./database/Hospital-Management-System.db");
 		}
 		return con;
 	}
