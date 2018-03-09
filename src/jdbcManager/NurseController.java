@@ -1,8 +1,6 @@
 package jdbcManager;
 import java.sql.*;
 import java.util.*;
-import java.io.*;
-
 import model.Nurse;
 
 public class NurseController implements NurseInterface{
@@ -10,7 +8,7 @@ public class NurseController implements NurseInterface{
 		super();
 	}
 	private static NurseController singleton;
-	public NurseController getNurseController() {
+	public static NurseController getNurseController() {
 		if (singleton == null) {
 			singleton = new NurseController();
 		}
@@ -22,13 +20,8 @@ public class NurseController implements NurseInterface{
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, nurse.getId());
 		prep.setString(2, nurse.getName());
-		File photo = new File ("./photos/" + nurse.getPhoto());
 		if (nurse.getPhoto()!=null) {
-			InputStream streamBlob = new FileInputStream(photo);
-			byte[] bytesBlob = new byte[streamBlob.available()];
-			streamBlob.read(bytesBlob);
-			streamBlob.close();
-			prep.setBytes(3, bytesBlob);
+			prep.setBytes(3, nurse.getPhoto());
 		}
 		else {
 			prep.setBytes(3,  null);
@@ -47,7 +40,7 @@ public class NurseController implements NurseInterface{
 		return true;
 	}
 	
-	public List<Nurse> searchNurse () throws Exception {
+	public List<Nurse> getAllNurses () throws Exception {
 		Statement stmt = DBConnection.getConnection().createStatement();
 		String sql = "SELECT * FROM nurse";
 		ResultSet rs = stmt.executeQuery(sql);
@@ -68,25 +61,28 @@ public class NurseController implements NurseInterface{
 	public Nurse searchNurseById (Integer id) throws Exception {
 		Statement stmt = DBConnection.getConnection().createStatement();
 		String sql = "SELECT FROM nurse WHERE id=?";
+		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1, id);
 		ResultSet rs = stmt.executeQuery(sql);
-		while (rs.next()) {
 			int Id = rs.getInt("id");
 			String name = rs.getString("name");
 			byte[] photo = rs.getBytes("photo");
 			String schedule = rs.getString("schedule");
 			String role = rs.getString("role");
-			Nurse searchNurse = new Nurse (Id, name, photo, schedule, role);
-			return searchNurse;
-		}
+			Nurse searchNurse = new Nurse (Id, name, photo, schedule, role);		
 		stmt.close();
-		return null;
+		return searchNurse;
 	}
 	
 	public Nurse updateNurse (Nurse nurse) throws Exception{
-		String sql = "UPDATE FROM nurse WHERE id=?";
+		String sql = "UPDATE nurse SET name=?, schedule=?, role=? WHERE id=?";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
-		prep.setInt(1, nurse.getId());
+		prep.setString(1, nurse.getName());
+		prep.setString(2, nurse.getSchedule());
+		prep.setString(3, nurse.getRole());
+		prep.setInt(4, nurse.getId());
 		prep.executeUpdate();
 		return nurse;
 	}
 }
+
