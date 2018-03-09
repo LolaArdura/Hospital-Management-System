@@ -62,7 +62,7 @@ public class RoomController implements RoomInterface {
 	}
 	
 	public Room updateRoom (Room room) throws Exception{
-		String sql = "UPDATE * FROM room WHERE id=?";
+		String sql = "UPDATE FROM room WHERE id=?";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getId());
 		prep.executeUpdate();

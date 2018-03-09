@@ -52,7 +52,7 @@ public Bills searchBills (Integer id) throws Exception{
 }
 	
 public Bills updateBills (Bills bill) throws Exception {
-	String sql = "UPDATE * FROM bill WHERE id = ?";
+	String sql = "UPDATE FROM bill WHERE id = ?";
 	PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 	prep.setInt(1, bill.getId());
 	prep.executeUpdate();

@@ -83,7 +83,7 @@ public class NurseController implements NurseInterface{
 	}
 	
 	public Nurse updateNurse (Nurse nurse) throws Exception{
-		String sql = "UPDATE * FROM nurse WHERE id=?";
+		String sql = "UPDATE FROM nurse WHERE id=?";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, nurse.getId());
 		prep.executeUpdate();
