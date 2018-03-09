@@ -134,8 +134,9 @@ public class DoctorController implements DoctorInterface {
 		stmt.close();
 		return null;
 	}
+	
 	public Doctor updateDoctor (Doctor doctor) throws Exception{
-		String sql = "UPDATE * FROM doctor WHERE id=?";
+		String sql = "UPDATE FROM doctor WHERE id=?";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, doctor.getId());
 		prep.executeUpdate();

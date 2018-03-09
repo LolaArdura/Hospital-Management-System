@@ -58,11 +58,15 @@ public Bills searchBills(Integer id) throws Exception{
 }
 	
 public Bills updateBills (Bills bill) throws Exception {
+<<<<<<< HEAD
 	String sql = "UPDATE  bill"
 			+ "SET bankID = ? ,"
 			+ "totalCost = ?, "
 			+ "paid = ?"
 			+ " FROM bill WHERE id = ?";
+=======
+	String sql = "UPDATE FROM bill WHERE id = ?";
+>>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System.git
 	PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 	prep.setString(1, bill.getBankID());
 	prep.setFloat(2, bill.getTotalCost());
