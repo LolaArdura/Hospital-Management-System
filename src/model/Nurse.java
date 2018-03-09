@@ -4,9 +4,9 @@ import java.util.*;
 
 public class Nurse extends Employee{
  
-	private Integer id;
+	
 	private String role;
-	private List <Patient> nurse;
+	private List <Patient> patients;
 	
 	public Nurse (Integer id, String name, byte[] photo, String schedule, String role) {
 		this.id=id;
@@ -14,16 +14,16 @@ public class Nurse extends Employee{
 		this.role=role;
 		this.schedule=schedule;
 		this.photo=photo;
-		this.nurse = new LinkedList <Patient>();
+		this.patients = new LinkedList <Patient>();
 	}
 	
 	public Nurse ( String role ) {
 		this.role= role;
-		this.nurse = new LinkedList <Patient>() ;
+		this.patients = new LinkedList <Patient>() ;
 	}
 	public Nurse () {
 		
-		this.nurse = new LinkedList <Patient>() ;
+		this.patients = new LinkedList <Patient>() ;
 	}
 	
 	public Integer getId() {
@@ -63,7 +63,7 @@ public class Nurse extends Employee{
 	}
 	@Override
 	public String toString() {
-		return "Nurse [id=" + id + ", role=" + role + ", nurses=" + nurse + "]";
+		return "Nurse [id=" + id + ", role=" + role + ", nurses=" + patients + "]";
 	}
 
 	

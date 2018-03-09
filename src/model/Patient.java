@@ -13,13 +13,13 @@ public class Patient implements Serializable {
  
 	private Integer id;
 	private String name;
-	private enum sex{
+	public enum sex{
 		MEN, WOMEN
 	};
 	private sex gender;
 	private String medicalCondition;
 	private Date dob;
-	private LocalDate dateAdmission;
+	private Date dateAdmission;
 	private List <Treatment> treatments;
 	private List <Nurse> nurses;
 	private List <Bills> bills;
@@ -34,7 +34,7 @@ public class Patient implements Serializable {
    }
    
    public Patient (String name, sex gender, String medicalCondition, Date dob,
-		   LocalDate dateAdmission) {
+		   Date dateAdmission) {
 	   
 	   this.name = name;
 	   this.gender = gender;
@@ -47,7 +47,7 @@ public class Patient implements Serializable {
 }	
    
 // Additional method to use LocalDate objects
-	public void setLocalDateDob(LocalDate ldate) {
+	public void setDateDob(LocalDate ldate) {
 		this.dob = Date.valueOf(ldate);
 	}
 		
@@ -82,11 +82,11 @@ public class Patient implements Serializable {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
-	public LocalDate getDateAdmission() {
+	public Date getDateAdmission() {
 		return dateAdmission;
 	}
 
-	public void setDateAdmission(LocalDate dateAdmission) {
+	public void setDateAdmission(Date dateAdmission) {
 		this.dateAdmission = dateAdmission;
 	}
 	public List<Treatment> getTreatments() {
