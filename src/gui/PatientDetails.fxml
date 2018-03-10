@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-</AnchorPane>
 
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="539.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PatientDetailsController">
+   <children>
+      <Label contentDisplay="CENTER" layoutX="81.0" layoutY="43.0" prefHeight="27.0" prefWidth="102.0" text="Name" textAlignment="CENTER" />
+      <Label layoutX="81.0" layoutY="80.0" prefHeight="27.0" prefWidth="102.0" text="Date of Birth" />
+      <Label layoutX="81.0" layoutY="118.0" prefHeight="27.0" prefWidth="102.0" text="Sex" />
+      <Label layoutX="81.0" layoutY="154.0" prefHeight="27.0" prefWidth="102.0" text="Admission Date" />
+      <Label fx:id="nameLabel" layoutX="239.0" layoutY="43.0" prefHeight="27.0" prefWidth="102.0" text="nameOfPatient" />
+      <Label fx:id="birthLabel" layoutX="239.0" layoutY="80.0" prefHeight="27.0" prefWidth="102.0" text="dateOfBirth" />
+      <Label fx:id="sexLabel" layoutX="239.0" layoutY="118.0" prefHeight="27.0" prefWidth="102.0" text="sexOfPatient" />
+      <Label fx:id="admissionLabel" layoutX="239.0" layoutY="154.0" prefHeight="27.0" prefWidth="102.0" text="admissionDate" />
+      <Label layoutX="81.0" layoutY="194.0" prefHeight="27.0" prefWidth="102.0" text="Medical condition" />
+      <TextArea fx:id="medicalConditionArea" editable="false" layoutX="241.0" layoutY="194.0" prefHeight="132.0" prefWidth="200.0" />
+      <Button fx:id="okButton" layoutX="392.0" layoutY="350.0" mnemonicParsing="false" onAction="#okButtonClicked" prefHeight="25.0" prefWidth="49.0" text="OK" />
+   </children>
+</AnchorPane>

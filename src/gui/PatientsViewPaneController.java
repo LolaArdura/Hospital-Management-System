@@ -1,5 +1,6 @@
 package gui;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -36,12 +37,11 @@ public class PatientsViewPaneController implements Initializable {
 	    public void viewDetailsClicked (ActionEvent event) {
 	    	try {
 	    	Patient patient= patientsTable.getSelectionModel().getSelectedItem();
-	    	System.out.println(patient);
-	    	FXMLLoader loader= new FXMLLoader (getClass().getResource("testPane.fxml"));
-	    	AnchorPane adminPane = (AnchorPane)loader.load();
+	    	FXMLLoader loader= new FXMLLoader (getClass().getResource("PatientDetails.fxml"));
+	     	AnchorPane adminPane = (AnchorPane)loader.load();
 	    	patientViewPane.getChildren().clear();
 	    	patientViewPane.getChildren().add(adminPane);
-	    	TestPaneController controller=loader.<TestPaneController>getController();
+	    	PatientDetailsController controller=loader.<PatientDetailsController>getController();
 	    	controller.initComponents(patient);
 	    
 	    	}catch (Exception ex) {
@@ -59,7 +59,7 @@ public class PatientsViewPaneController implements Initializable {
 	    
 		private ObservableList<Patient> setPatients(){
 			ObservableList<Patient> patients = FXCollections.observableArrayList();
-			patients.add(new Patient(123,"aa",Patient.sex.MEN));
+			patients.add(new Patient(123,"aa",Patient.sex.MEN," ",new Date(2011,12,23), new Date (2018,3,1)));
 			
 			//patients.addAll(PatientController.getPatientController().getAllPatients();
 			return patients;

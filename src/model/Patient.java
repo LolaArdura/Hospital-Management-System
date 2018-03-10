@@ -33,7 +33,7 @@ public class Patient implements Serializable {
 	this.bills = new LinkedList<Bills>();
    }
    
-  public Patient (int id, String name, sex gender, String medicalCondition, Date dob,
+  public Patient (Integer id, String name, sex gender, String medicalCondition, Date dob,
 		   Date dateAdmission) {
 	   this.id = id;
 	   this.name = name;
