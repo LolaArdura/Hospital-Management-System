@@ -8,12 +8,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="537.0" prefWidth="582.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="537.0" prefWidth="582.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AdminMainSceneController">
    <children>
-      <VBox fx:id="menuVBox" prefHeight="500.0" prefWidth="113.0">
+      <VBox fx:id="menuVBox" layoutY="30.0" prefHeight="509.0" prefWidth="113.0">
          <children>
             <Label fx:id="menuLabel" alignment="CENTER" prefHeight="27.0" prefWidth="111.0" text="Menu" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="113.0" text="Patients" />
+            <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonClicked" prefHeight="26.0" prefWidth="113.0" text="Patients" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="113.0" text="Doctors" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="113.0" text="Nurses" />
             <MenuButton fx:id="roomsMenuButton" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="113.0" text="Rooms" textAlignment="CENTER">
@@ -24,9 +24,9 @@
             </MenuButton>
          </children>
       </VBox>
-      <Pane fx:id="buttonPanel" layoutX="112.0" layoutY="1.0" prefHeight="27.0" prefWidth="468.0">
+      <Pane fx:id="buttonPanel" layoutY="1.0" prefHeight="27.0" prefWidth="582.0">
          <children>
-            <MenuButton alignment="CENTER" layoutX="357.0" layoutY="1.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="111.0" text="Profile" textAlignment="CENTER">
+            <MenuButton alignment="CENTER" layoutX="471.0" layoutY="1.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="111.0" text="Profile" textAlignment="CENTER">
               <items>
                 <MenuItem mnemonicParsing="false" text="My profile" />
                 <MenuItem mnemonicParsing="false" text="Sign out" />

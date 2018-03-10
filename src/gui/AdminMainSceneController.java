@@ -1,7 +1,8 @@
 package gui;
 
-import java.io.IOException;
 
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -27,7 +28,7 @@ public class AdminMainSceneController {
 
 	@FXML
 	private MenuItem roomManagementItem;
-
+	
 	@FXML
 	private Pane buttonPanel;
 
@@ -37,10 +38,14 @@ public class AdminMainSceneController {
 	@FXML
 	private Button patientsButton;
 
-	public void patientsButtonClicked() {
-		  
-			
+	public void patientsButtonClicked(ActionEvent event) {
+		try {
+		Pane patientsPane = (Pane) FXMLLoader.load(getClass().getResource("PatientsViewPane.fxml"));
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(patientsPane);
+		}catch(Exception ex) {
+			ex.printStackTrace();
 		}
 	}
-
 }
+
