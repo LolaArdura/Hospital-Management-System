@@ -31,7 +31,7 @@ public class TreatmentController {
 	}
 	
 	public Treatment updateTreatment (Treatment treatment) throws Exception {
-		String sql = "UPDATE * FROM treatment WHERE id = ?";
+		String sql = "UPDATE FROM treatment WHERE id = ?";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, treatment.getId());
 		prep.executeUpdate();

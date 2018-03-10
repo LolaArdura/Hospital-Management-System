@@ -6,7 +6,8 @@ import model.Patient;
 public interface PatientInterface {
 	public boolean insertPatient ( Patient patient) throws Exception;
 	public boolean deletePatient (Patient patient) throws Exception;
-	public List searchpatient () throws Exception;
+	public List<Patient> getAllPatients() throws Exception;
+	public Patient searchPatientById(Integer id) throws Exception;
 	public Patient updatePatient (Patient patient) throws Exception;
 	
 }

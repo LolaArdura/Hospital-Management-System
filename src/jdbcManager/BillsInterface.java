@@ -1,4 +1,6 @@
 package jdbcManager;
+import java.util.List;
+
 import model.Bills;
 
 public interface BillsInterface {
