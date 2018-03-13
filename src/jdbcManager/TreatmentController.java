@@ -7,6 +7,7 @@ import model.Treatment;
 public class TreatmentController {
   
 	private static TreatmentController singleton;
+	
 	public TreatmentController getTreatmentController() {
 		if (singleton == null) {
 			singleton = new TreatmentController (); 
