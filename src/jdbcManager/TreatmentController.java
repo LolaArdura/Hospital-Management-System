@@ -43,11 +43,11 @@ public class TreatmentController {
 	}
 	
 	public Treatment searchTreatmentById (Integer id) throws Exception {
-		Statement stmt = DBConnection.getConnection().createStatement();
-		String sql = "SELECT FROM treatment WHERE id=?";
+		String sql = "SELECT * FROM treatment WHERE id=?";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, id);
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = prep.executeQuery();
+		rs.next();
 		int Id = rs.getInt("id");
 		String route = rs.getString("routeOfAdmin");
 		Date startDate = rs.getDate("startDate");
@@ -55,9 +55,8 @@ public class TreatmentController {
 		float cost = rs.getFloat("cost");
 		String type = rs.getString("type");
 		String dose = rs.getString("dose");
-		Doctor prescriber =;//HOW ??
+		Doctor prescriber = rs.getString("prescriber");//how ???
 		Treatment treatment = new Treatment (Id, route, startDate, endDate, cost, type, dose, prescriber);
-		stmt.close();
 		return treatment;
 	}
 	

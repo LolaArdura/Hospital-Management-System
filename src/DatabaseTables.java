@@ -1,5 +1,4 @@
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
 import jdbcManager.*;
 
@@ -17,6 +16,7 @@ public class DatabaseTables {
 			String table1= "CREATE TABLE doctor(\r\n" + 
 					"id INT PRIMARY KEY, \r\n" + 
 					"name TEXT NOT NULL,\r\n" + 
+					"photo BLOB, \r\n" +
 					"speciality TEXT NOT NULL, \r\n" + 
 					"schedule TEXT NOT NULL \r\n" + 
 					")";
@@ -59,7 +59,7 @@ public class DatabaseTables {
 					"number INTEGER,\r\n" + 
 					"type TEXT NOT NULL DEFAULT 'box',\r\n" + 
 					"capacity INT NOT NULL CHECK (capacity>0),\r\n" + 
-					"cost_per_day REAL\r\n" + 
+					"costPerDay REAL\r\n" + 
 					")";
 			s4.executeUpdate(table4);
 			s4.close();
@@ -80,6 +80,7 @@ public class DatabaseTables {
 			String table6="CREATE TABLE nurse(\r\n" + 
 					"id INT PRIMARY KEY,\r\n" + 
 					"name TEXT NOT NULL,\r\n" + 
+					"photo BLOB, \r\n" +
 					"nurse_role TEXT NOT NULL,\r\n" + 
 					"schedule TEXT NOT NULL\r\n" + 
 					")";

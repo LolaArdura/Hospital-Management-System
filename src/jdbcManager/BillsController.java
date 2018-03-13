@@ -33,24 +33,19 @@ public boolean deleteBills (Bills bill)  throws Exception{
 	return true;
 }
 public Bills searchBillsById (Integer id) throws Exception{
-	
 
-	Statement stmt = DBConnection.getConnection().createStatement();
-	String sql = "SELECT FROM bills WHERE id=?";
+	String sql = "SELECT * FROM bills WHERE id=?";
 	PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 	prep.setInt(1, id);
-	ResultSet rs = stmt.executeQuery(sql);
+	ResultSet rs = prep.executeQuery();
 	
-	
+	rs.next();
 	int Id = rs.getInt("id");
 	float totalCost = rs.getFloat("totalCost");
 	String bankID = rs.getString("bankID");
 	boolean paid = rs.getBoolean("paid");
 	Bills bill = new Bills (Id, totalCost, bankID, paid);
-		
-		
-	
-	stmt.close();
+
 	return bill;
 	
 }
