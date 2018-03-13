@@ -31,7 +31,7 @@ public class PatientController implements PatientInterface{
 		return true;
 	}
 	
-}
+
 	
 	//public boolean assignNurse (Nurse nurse, Patient patient)throws Exception{
 		
@@ -39,12 +39,12 @@ public class PatientController implements PatientInterface{
 	//c.setAutoCommit(false);
 		//String sql = "INSERT INTO nurse_patient"
 			//	+ "(nurse_id, patient_id) VALUES (?, ?)";
-		/*PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
-		prep.setInt(1,  nurse.getId());
-		prep.setInt(2,  patient.getId());
-		c.commit();//DUDA
-		return true;
-	}
+		//PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		//prep.setInt(1,  nurse.getId());
+		//prep.setInt(2,  patient.getId());
+		//c.commit();//DUDA
+		//return true;
+	//}
 	
 	//public boolean assignTreatment (LinkedList<Treatment>treatment, Patient patient) throws Exception{
 		//patient.setTreatments(treatment);
@@ -114,4 +114,3 @@ public class PatientController implements PatientInterface{
 	}
 
 }
-*/
