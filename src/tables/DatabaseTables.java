@@ -19,6 +19,7 @@ public class DatabaseTables {
 			String table1= "CREATE TABLE doctor(\r\n" + 
 					"id INT PRIMARY KEY, \r\n" + 
 					"name TEXT NOT NULL,\r\n" + 
+					"photo BLOB, \r\n"+
 					"speciality TEXT NOT NULL, \r\n" + 
 					"schedule TEXT NOT NULL \r\n" + 
 					")";
