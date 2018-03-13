@@ -12,6 +12,13 @@ public class Doctor extends Employee{
 		this.schedule=schedule;
 		this.speciality=speciality;
 	}
+	public Doctor (Integer id, String name, String schedule, String speciality) {
+		this.id=id;
+		this.name=name;
+	
+		this.schedule=schedule;
+		this.speciality=speciality;
+	}
 	
 	public Doctor (String speciality) {
 		this.speciality= speciality;
@@ -54,7 +61,7 @@ public class Doctor extends Employee{
 	}
 	@Override
 	public String toString() {
-		return "Doctor [id=" + id + ", speciality=" + speciality + "]";
+		return "Doctor [id:" + id + "\n name:" +  name + "\n photo=" + photo + "\n schedule:" + schedule+"\n speciality:" + speciality + "]";
 	}
 	
 	
