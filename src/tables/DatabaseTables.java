@@ -33,7 +33,7 @@ public class DatabaseTables {
 					"dob DATE NOT NULL, \r\n" + 
 					"date_of_admission DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, \r\n" + 
 					"diagnose TEXT DEFAULT 'waiting for diagnose',\r\n" + 
-					"room_id INT REFERENCES room(id),\r\n" + 
+					"room_id INT REFERENCES room(id)\r\n" + 
 					")";
 			s2.executeUpdate(table2);
 			s2.close();

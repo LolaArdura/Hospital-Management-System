@@ -1,10 +1,11 @@
 package jdbcManager;
-import d
+import tables.DatabaseTables;
 
 public class Test {
  public static void main (String[] args) {
 	  //create tables
-	 createTables();
+	 DatabaseTables.createTables();
+	
 	  //create a patient
 	 //insert patient
 	 
