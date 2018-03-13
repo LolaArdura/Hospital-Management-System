@@ -39,11 +39,11 @@ public class DatabaseTables {
 			Statement s3=c.createStatement();
 			String table3= "CREATE TABLE treatment(\r\n" + 
 					"id INT PRIMARY KEY,\r\n" + 
-					"name TEXT NOT NULL, \r\n" + 
 					"type TEXT NOT NULL,\r\n" + 
-					"duration TEXT NOT NULL,\r\n" + 
+					"startDate DATETIME NOT NULL,\r\n" + 
+					"endDate DATETIME NOT NULL, \r\n" +
 					"dose TEXT,\r\n" + 
-					"way_of_administration TEXT,\r\n" + 
+					"routeOfAdmin TEXT,\r\n" + 
 					"cost REAL NOT NULL,\r\n" + 
 					"bill_id INT REFERENCES bills(id),\r\n" + 
 					"patient_id INT REFERENCES patient(id),\r\n" + 

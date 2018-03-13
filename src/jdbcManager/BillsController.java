@@ -1,7 +1,5 @@
 package jdbcManager;
 import java.sql.*;
-import java.util.LinkedList;
-import java.util.List;
 
 import model.Bills;
 public class BillsController implements BillsInterface{
@@ -34,7 +32,7 @@ public boolean deleteBills (Bills bill)  throws Exception{
 	prep.executeUpdate();
 	return true;
 }
-public Bills searchBills(Integer id) throws Exception{
+public Bills searchBillsById (Integer id) throws Exception{
 	
 
 	Statement stmt = DBConnection.getConnection().createStatement();
@@ -58,15 +56,11 @@ public Bills searchBills(Integer id) throws Exception{
 }
 	
 public Bills updateBills (Bills bill) throws Exception {
-<<<<<<< HEAD
-	String sql = "UPDATE  bill"
+	String sql = "UPDATE  bills"
 			+ "SET bankID = ? ,"
 			+ "totalCost = ?, "
 			+ "paid = ?"
-			+ " FROM bill WHERE id = ?";
-=======
-	String sql = "UPDATE FROM bill WHERE id = ?";
->>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System.git
+			+ "WHERE id = ?";
 	PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 	prep.setString(1, bill.getBankID());
 	prep.setFloat(2, bill.getTotalCost());

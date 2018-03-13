@@ -31,8 +31,6 @@ public class PatientController implements PatientInterface{
 		return true;
 	}
 	
-}
-	
 	//public boolean assignNurse (Nurse nurse, Patient patient)throws Exception{
 		
 	
@@ -55,7 +53,7 @@ public class PatientController implements PatientInterface{
 		//patient.setBills(bill);
 		
 		//return true;
-	//}
+	//}*/
 	
 	public boolean deletePatient (Patient patient) throws Exception {
 		String sql = "DELETE FROM patient WHERE id = ?";
@@ -114,4 +112,3 @@ public class PatientController implements PatientInterface{
 	}
 
 }
-*/
