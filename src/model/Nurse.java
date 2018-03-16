@@ -11,9 +11,9 @@ public class Nurse extends Employee{
 	public Nurse (Integer id, String name, byte[] photo, String schedule, String role) {
 		this.id=id;
 		this.name=name;
-		this.role=role;
-		this.schedule=schedule;
 		this.photo=photo;
+		this.schedule=schedule;	
+		this.role=role;	
 		this.patients = new LinkedList <Patient>();
 	}
 	
