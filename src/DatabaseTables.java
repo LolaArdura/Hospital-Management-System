@@ -1,7 +1,4 @@
-package tables;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
 import jdbcManager.*;
 
@@ -19,7 +16,7 @@ public class DatabaseTables {
 			String table1= "CREATE TABLE doctor(\r\n" + 
 					"id INT PRIMARY KEY, \r\n" + 
 					"name TEXT NOT NULL,\r\n" + 
-					"photo BLOB, \r\n"+
+					"photo BLOB, \r\n" +
 					"speciality TEXT NOT NULL, \r\n" + 
 					"schedule TEXT NOT NULL \r\n" + 
 					")";
@@ -34,7 +31,7 @@ public class DatabaseTables {
 					"dob DATE NOT NULL, \r\n" + 
 					"date_of_admission DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, \r\n" + 
 					"diagnose TEXT DEFAULT 'waiting for diagnose',\r\n" + 
-					"room_id INT REFERENCES room(id)\r\n" + 
+					"room_id INT REFERENCES room(id),\r\n" + 
 					")";
 			s2.executeUpdate(table2);
 			s2.close();
@@ -42,11 +39,11 @@ public class DatabaseTables {
 			Statement s3=c.createStatement();
 			String table3= "CREATE TABLE treatment(\r\n" + 
 					"id INT PRIMARY KEY,\r\n" + 
-					"name TEXT NOT NULL, \r\n" + 
 					"type TEXT NOT NULL,\r\n" + 
-					"duration TEXT NOT NULL,\r\n" + 
+					"startDate DATETIME NOT NULL,\r\n" + 
+					"endDate DATETIME NOT NULL, \r\n" +
 					"dose TEXT,\r\n" + 
-					"way_of_administration TEXT,\r\n" + 
+					"routeOfAdmin TEXT,\r\n" + 
 					"cost REAL NOT NULL,\r\n" + 
 					"bill_id INT REFERENCES bills(id),\r\n" + 
 					"patient_id INT REFERENCES patient(id),\r\n" + 
@@ -62,7 +59,7 @@ public class DatabaseTables {
 					"number INTEGER,\r\n" + 
 					"type TEXT NOT NULL DEFAULT 'box',\r\n" + 
 					"capacity INT NOT NULL CHECK (capacity>0),\r\n" + 
-					"cost_per_day REAL\r\n" + 
+					"costPerDay REAL\r\n" + 
 					")";
 			s4.executeUpdate(table4);
 			s4.close();
@@ -83,6 +80,7 @@ public class DatabaseTables {
 			String table6="CREATE TABLE nurse(\r\n" + 
 					"id INT PRIMARY KEY,\r\n" + 
 					"name TEXT NOT NULL,\r\n" + 
+					"photo BLOB, \r\n" +
 					"nurse_role TEXT NOT NULL,\r\n" + 
 					"schedule TEXT NOT NULL\r\n" + 
 					")";

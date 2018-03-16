@@ -31,7 +31,7 @@ public class PatientController implements PatientInterface{
 		return true;
 	}
 	
-
+	
 	
 	//public boolean assignNurse (Nurse nurse, Patient patient)throws Exception{
 		
@@ -39,12 +39,12 @@ public class PatientController implements PatientInterface{
 	//c.setAutoCommit(false);
 		//String sql = "INSERT INTO nurse_patient"
 			//	+ "(nurse_id, patient_id) VALUES (?, ?)";
-		//PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
-		//prep.setInt(1,  nurse.getId());
-		//prep.setInt(2,  patient.getId());
-		//c.commit();//DUDA
-		//return true;
-	//}
+		/*PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1,  nurse.getId());
+		prep.setInt(2,  patient.getId());
+		c.commit();//DUDA
+		return true;
+	}
 	
 	//public boolean assignTreatment (LinkedList<Treatment>treatment, Patient patient) throws Exception{
 		//patient.setTreatments(treatment);
@@ -55,7 +55,7 @@ public class PatientController implements PatientInterface{
 		//patient.setBills(bill);
 		
 		//return true;
-	//}
+	//}*/
 	
 	public boolean deletePatient (Patient patient) throws Exception {
 		String sql = "DELETE FROM patient WHERE id = ?";
@@ -84,19 +84,18 @@ public class PatientController implements PatientInterface{
 	}
 	
 	public Patient searchPatientById (Integer id) throws Exception {
-		Statement stmt = DBConnection.getConnection().createStatement();
-		String sql = "SELECT FROM patient WHERE id=?";
+		String sql = "SELECT * FROM patient WHERE id=?";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, id);
-		ResultSet rs = stmt.executeQuery(sql);
-			int Id = rs.getInt("id");
-			String name = rs.getString("name");
-			Patient.sex gender = Patient.sex.valueOf(rs.getString("gender").toUpperCase());
-			String medicalCondition = rs.getString("diagnose");
-			Date dob = rs.getDate("dob");
-			Date dateAdmission = rs.getDate("date_of_admission");
-			Patient patient = new Patient (Id, name, gender, medicalCondition, dob, dateAdmission);
-		stmt.close();
+		ResultSet rs = prep.executeQuery();
+		rs.next();
+		int Id = rs.getInt("id");
+		String name = rs.getString("name");
+		Patient.sex gender = Patient.sex.valueOf(rs.getString("gender").toUpperCase());
+		String medicalCondition = rs.getString("diagnose");
+		Date dob = rs.getDate("dob");
+		Date dateAdmission = rs.getDate("date_of_admission");
+		Patient patient = new Patient (Id, name, gender, medicalCondition, dob, dateAdmission);
 		return patient;
 	}
 	
