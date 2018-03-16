@@ -47,16 +47,7 @@ public class Patient implements Serializable {
 }	
    
    
-   public Patient(Integer id, String name, sex gender) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.gender = gender;
-		this.treatments = new LinkedList <Treatment> ();
-		this.nurses = new LinkedList<Nurse>();
-		this.bills = new LinkedList<Bills>();
-		
-	}
+   
 
 
 public Patient (String name, sex gender, String diagnose, Date dob,
@@ -71,7 +62,8 @@ public Patient (String name, sex gender, String diagnose, Date dob,
 	   this.nurses = new LinkedList<Nurse>();
 	   this.bills = new LinkedList<Bills>();
 }	
-   
+
+
 // Additional method to use LocalDate objects
 	public void setDateDob(LocalDate ldate) {
 		this.dob = Date.valueOf(ldate);

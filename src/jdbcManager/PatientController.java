@@ -17,7 +17,7 @@ public class PatientController implements PatientInterface{
 	}
 	
 	public boolean insertPatient (Patient patient) throws Exception {
-		String sql = "INSERT INTO patient (id, name, gender, diagnose, dob, dateAdmission)" 
+		String sql = "INSERT INTO patient (id, name, gender,diagnose, dob, dateAdmission)" 
 					+"VALUES(?,?,?,?,?,?)";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1,  patient.getId());
