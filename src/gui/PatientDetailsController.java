@@ -45,7 +45,7 @@ public class PatientDetailsController {
 		sexLabel.setText(patient.getGender().name().toLowerCase());
 		admissionLabel.setText(""+patient.getDateAdmission().getDate()+
 				"-"+patient.getDateAdmission().getMonth()+1+"-"+patient.getDateAdmission().getYear());
-		medicalConditionArea.setText(patient.getMedicalCondition());
+		medicalConditionArea.setText(patient.getDiagnose());
     }
     
     

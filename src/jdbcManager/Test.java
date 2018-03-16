@@ -3,6 +3,8 @@ package jdbcManager;
 import java.util.List;
 
 import model.Doctor;
+import model.Patient;
+import model.Patient.sex;
 import tables.DatabaseTables;
 
 public class Test {
@@ -30,5 +32,13 @@ public class Test {
 	 Doctor d =DoctorController.getDoctorController().searchDoctorById(6);
 	 System.out.println(d);
 
+	 
+	 
+	 //insert patient
+	 Patient patient_ = new Patient(01, "Manola", sex.WOMEN );
+	 PatientController.getPatientController().insertPatient(patient_);
+	 List<Patient> patients = PatientController.getPatientController().getAllPatients();
+	 System.out.println(patients);
+	 
  }
 }
