@@ -18,7 +18,7 @@ public class TreatmentController {
 	}
 	
 	public boolean insertTreatment (Treatment treatment) throws Exception {
-		String sql = "INSERT INTO treatment (id, routeOfAdmin, startDate, endDate, cost, type, dose, prescriber)"
+		String sql = "INSERT INTO treatment (id, routeOfAdmin, startDate, endDate, cost, type, dose, doctor_id)"
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, treatment.getId());
@@ -28,7 +28,7 @@ public class TreatmentController {
 		prep.setFloat(5, treatment.getCost());
 		prep.setString(6, treatment.getTreatmentType());
 		prep.setString(7, treatment.getDose());
-		prep.setString(8, treatment.getPrescriber().getName());
+		prep.setInt(8, treatment.getDoctorId());
 		prep.executeUpdate();
 		prep.close();
 		return true;
@@ -55,13 +55,13 @@ public class TreatmentController {
 		float cost = rs.getFloat("cost");
 		String type = rs.getString("type");
 		String dose = rs.getString("dose");
-		Doctor prescriber = rs.getString("prescriber");//how ???
+		Doctor prescriber = DoctorController.getDoctorController().searchDoctorById(rs.getInt("doctor_id"));
 		Treatment treatment = new Treatment (Id, route, startDate, endDate, cost, type, dose, prescriber);
 		return treatment;
 	}
 	
 	public Treatment updateTreatment (Treatment treatment) throws Exception {
-		String sql = "UPDATE treatment SET routeOfAdmin=?, startDate=?, endDate=?, cost=?, type=?, dose=?, prescriber=? WHERE id = ?";
+		String sql = "UPDATE treatment SET routeOfAdmin=?, startDate=?, endDate=?, cost=?, type=?, dose=?, doctor_id=? WHERE id = ?";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, treatment.getRouteOfAdmin());
 		prep.setDate(2, treatment.getStartDate());
@@ -69,7 +69,7 @@ public class TreatmentController {
 		prep.setFloat(4, treatment.getCost());
 		prep.setString(5, treatment.getTreatmentType());
 		prep.setString(6, treatment.getDose());
-		prep.setString(7, treatment.getPrescriber().getName());
+		prep.setInt(7, treatment.getDoctorId());
 		prep.setInt(8, treatment.getId());
 		prep.executeUpdate();
 		return treatment;	

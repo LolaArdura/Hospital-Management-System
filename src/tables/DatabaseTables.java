@@ -83,8 +83,9 @@ public class DatabaseTables {
 			String table6="CREATE TABLE nurse(\r\n" + 
 					"id INT PRIMARY KEY,\r\n" + 
 					"name TEXT NOT NULL,\r\n" + 
-					"nurse_role TEXT NOT NULL,\r\n" + 
-					"schedule TEXT NOT NULL\r\n" + 
+					"photo BLOB, \r\n" +
+					"schedule TEXT NOT NULL,\r\n" + 
+					"role TEXT NOT NULL\r\n" + 
 					")";
 			s6.executeUpdate(table6);
 			s6.close();
