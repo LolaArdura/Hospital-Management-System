@@ -1,10 +1,22 @@
 package jdbcManager;
+<<<<<<< HEAD
+=======
 import java.util.List;
 
 import model.Doctor;
+>>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System
 import tables.DatabaseTables;
 
 public class Test {
+<<<<<<< HEAD
+ public static void main (String[] args) {
+	  
+	// DatabaseTables.createTables();
+	 
+	  //create a patient
+	 //insert patient
+	 
+=======
  public static void main (String[] args) throws Exception {
 	  //create tables
 	 //DatabaseTables.createTables(); 
@@ -25,11 +37,16 @@ public class Test {
 	 c.setName("Pepa");
 	 c.setSpeciality("neurology");
 	 DoctorController.getDoctorController().updateDoctor(c);
+<<<<<<< HEAD
 	 Doctor d =DoctorController.getDoctorController().searchDoctorById(6);
 	 System.out.println(d);
 	 
 
 	
+=======
+	 System.out.println(c);
+>>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System
+>>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System.git
 	 
  }
 }
