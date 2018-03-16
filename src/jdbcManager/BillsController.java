@@ -1,7 +1,5 @@
 package jdbcManager;
 import java.sql.*;
-import java.util.LinkedList;
-import java.util.List;
 
 import model.Bills;
 public class BillsController implements BillsInterface{
@@ -34,39 +32,30 @@ public boolean deleteBills (Bills bill)  throws Exception{
 	prep.executeUpdate();
 	return true;
 }
-public Bills searchBills(Integer id) throws Exception{
-	
+public Bills searchBillsById (Integer id) throws Exception{
 
-	Statement stmt = DBConnection.getConnection().createStatement();
-	String sql = "SELECT FROM bills WHERE id=?";
+	String sql = "SELECT * FROM bills WHERE id=?";
 	PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 	prep.setInt(1, id);
-	ResultSet rs = stmt.executeQuery(sql);
+	ResultSet rs = prep.executeQuery();
 	
-	
+	rs.next();
 	int Id = rs.getInt("id");
 	float totalCost = rs.getFloat("totalCost");
 	String bankID = rs.getString("bankID");
 	boolean paid = rs.getBoolean("paid");
 	Bills bill = new Bills (Id, totalCost, bankID, paid);
-		
-		
-	
-	stmt.close();
+
 	return bill;
 	
 }
 	
 public Bills updateBills (Bills bill) throws Exception {
-<<<<<<< HEAD
-	String sql = "UPDATE  bill"
+	String sql = "UPDATE  bills"
 			+ "SET bankID = ? ,"
 			+ "totalCost = ?, "
 			+ "paid = ?"
-			+ " FROM bill WHERE id = ?";
-=======
-	String sql = "UPDATE FROM bill WHERE id = ?";
->>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System.git
+			+ "WHERE id = ?";
 	PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 	prep.setString(1, bill.getBankID());
 	prep.setFloat(2, bill.getTotalCost());

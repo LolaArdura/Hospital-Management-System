@@ -63,7 +63,7 @@ public class Nurse extends Employee{
 	}
 	@Override
 	public String toString() {
-		return "Nurse [id=" + id + ", role=" + role + ", nurses=" + patients + "]";
+		return "Nurse [id=" + id + ", name=" + name + ", photo="+ photo +", schedule="+ schedule +", role=" + role + ", nurses=" + patients + "]";
 	}
 
 	
