@@ -32,7 +32,7 @@ public class DatabaseTables {
 					"name TEXT NOT NULL,\r\n" + 
 					"gender TEXT NOT NULL, \r\n" + 
 					"dob DATE NOT NULL, \r\n" + 
-					"date_of_admission DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, \r\n" + 
+					"dateAdmission DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, \r\n" + 
 					"diagnose TEXT DEFAULT 'waiting for diagnose',\r\n" + 
 					"room_id INT REFERENCES room(id)\r\n" + 
 					")";
