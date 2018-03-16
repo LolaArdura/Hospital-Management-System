@@ -11,7 +11,7 @@ public class Test {
 	
 	 //insert doctor
 	 Doctor doctor_ = new Doctor(06, "Pepe", null , "morning", "cardiology" );
-	 DoctorController.getDoctorController().insertDoctor (doctor_);
+	 //DoctorController.getDoctorController().insertDoctor (doctor_);
 	 List<Doctor> a = DoctorController.getDoctorController().getAllDoctors();
 	 System.out.println(a);
 	 List<Doctor> b = DoctorController.getDoctorController().getAllDoctors();
@@ -20,10 +20,16 @@ public class Test {
 	 Doctor c=DoctorController.getDoctorController().searchDoctorById(6);
 	 System.out.println(c);
 	 //delete doctor
-	 DoctorController.getDoctorController().deleteDoctor(doctor_);
+	 //DoctorController.getDoctorController().deleteDoctor(doctor_);
 	 //update doctor
+	 c.setName("Pepa");
+	 c.setSpeciality("neurology");
 	 DoctorController.getDoctorController().updateDoctor(c);
-	 System.out.println(c);
+	 Doctor d =DoctorController.getDoctorController().searchDoctorById(6);
+	 System.out.println(d);
+	 
+
+	
 	 
  }
 }
