@@ -5,20 +5,22 @@ import model.Bills;
 public class BillsController implements BillsInterface{
 	
 private static BillsController singleton;
-	public BillsController getBillsController () {
+	public static BillsController getBillsController () {
 	 if (singleton == null) {
 		 singleton = new BillsController ();
 	 }
 	return singleton;
 }
 	
-	public boolean insertBills (Bills bill) throws Exception{
-		String sql = "INSERT INTO bills (id, totalCost, bankID, paid)+VALUES (?,?,?,?)";
+	public boolean insertBills (Bills bill, Integer patientId) throws Exception{
+		String sql = "INSERT INTO bills (id, totalCost, bankID, paid, patient_id) "
+				+ "VALUES (?,?,?,?,?)";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, bill.getId());
 		prep.setFloat(2, bill.getTotalCost());
 		prep.setString(3, bill.getBankID());
 		prep.setBoolean(4, bill.getPaid());
+		prep.setInt(5,patientId);
 		prep.executeUpdate();
 		prep.close();
 		return true;
@@ -49,6 +51,7 @@ public Bills searchBillsById (Integer id) throws Exception{
 	return bill;
 	
 }
+//FALTA HACER METODO SEARCH BY PATIENT
 	
 public Bills updateBills (Bills bill) throws Exception {
 	String sql = "UPDATE  bills"
@@ -63,16 +66,6 @@ public Bills updateBills (Bills bill) throws Exception {
 	prep.executeUpdate();
 	return bill;
 }
- public static void main (String args[]) {
-	 try {
-		 
-		 
-	 }catch (Exception e) {
-		 
-		 
-	 }
-	 
-	 
- }
+
 
 }

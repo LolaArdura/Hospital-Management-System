@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.Doctor;
 import model.Patient;
+import model.Bills;
 import model.Patient.sex;
 import tables.DatabaseTables;
 
@@ -11,10 +12,10 @@ public class Test {
 
  public static void main (String[] args) throws Exception {
 	  //create tables
-	 //DatabaseTables.createTables(); 
+	// DatabaseTables.createTables(); 
 	
 	 //insert doctor
-	 Doctor doctor_ = new Doctor(06, "Pepe", null , "morning", "cardiology" );
+ Doctor doctor_ = new Doctor(06, "Pepe", null , "morning", "cardiology" );
 	 //DoctorController.getDoctorController().insertDoctor (doctor_);
 	 List<Doctor> a = DoctorController.getDoctorController().getAllDoctors();
 	 System.out.println(a);
@@ -39,6 +40,12 @@ public class Test {
 	 PatientController.getPatientController().insertPatient(patient_);
 	 List<Patient> patients = PatientController.getPatientController().getAllPatients();
 	 System.out.println(patients);
+	 
+	 //insert bill
+	 Bills bill_ = new Bills ((float) 200.4," 98512658", true);
+	 BillsController.getBillsController().insertBills(bill_);
+	 
+	 
 	 
  }
 }
