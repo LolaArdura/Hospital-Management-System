@@ -15,10 +15,7 @@ public class Test {
 	 //create tables
 	 //DatabaseTables.createTables(); 
 
-	 Doctor doctor_ = new Doctor(12, "Pepe", null , "morning", "cardiology" );
-	 DoctorController.getDoctorController().insertDoctor (doctor_);
-	 //insert doctor
-<<<<<<< HEAD
+	 //insert doctor 
 	 /*Doctor doctor_ = new Doctor(06, "Pepe", null , "morning", "cardiology" );
 	 //DoctorController.getDoctorController().insertDoctor (doctor_);
 =======
