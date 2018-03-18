@@ -1,7 +1,8 @@
 package jdbcManager;
 
 
-import java.util.Date;
+
+import java.sql.Date;
 import java.util.List;
 
 import model.Bills;
@@ -41,8 +42,8 @@ public class Test {
 	 
 	 
 	 //insert patient
-	 Date dob = new Date();
-	 Date dateAdmission = new Date ();
+	 Date dob = new Date(0, 0, 0);
+	 Date dateAdmission = new Date (0, 0, 0);
 	// Patient patient_ = new Patient(01, "Manola", sex.WOMEN , DEFAULT, dob, dateAdmission );
 	 //PatientController.getPatientController().insertPatient(patient_);
 	 List<Patient> patients = PatientController.getPatientController().getAllPatients();
