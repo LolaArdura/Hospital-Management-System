@@ -17,10 +17,10 @@ public class PatientController implements PatientInterface{
 	}
 	
 	public boolean insertPatient (Patient patient) throws Exception {
-		String sql = "INSERT INTO patient (id, name, gender,diagnose, dob, dateAdmission)" 
+		String sql = "INSERT INTO patient ( name, gender,diagnose, dob, dateAdmission)" 
 					+"VALUES(?,?,?,?,?,?)";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
-		prep.setInt(1,  patient.getId());
+	
 		prep.setString(2, patient.getName());
 		prep.setString(3,  patient.getGender().name().toLowerCase());
 		prep.setString(4, patient.getDiagnose());
