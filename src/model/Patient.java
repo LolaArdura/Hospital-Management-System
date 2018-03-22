@@ -63,6 +63,18 @@ public Patient (String name, sex gender, String diagnose, Date dob,
 	   this.bills = new LinkedList<Bills>();
 }	
 
+public Patient (String name, sex gender,  Date dob,
+		   Date dateAdmission) {
+	   
+	   this.name = name;
+	   this.gender = gender;
+	   this.dob = dob;
+	   this.dateAdmission = dateAdmission;
+	   this.treatments = new LinkedList <Treatment> ();
+	   this.nurses = new LinkedList<Nurse>();
+	   this.bills = new LinkedList<Bills>();
+}	
+
 
 // Additional method to use LocalDate objects
 	public void setDateDob(LocalDate ldate) {

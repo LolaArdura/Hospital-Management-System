@@ -16,16 +16,30 @@ public class PatientController implements PatientInterface{
 		return singleton;
 	}
 	
-	public boolean insertPatient (Patient patient) throws Exception {
-		String sql = "INSERT INTO patient ( name, gender,diagnose, dob, dateAdmission)" 
-					+"VALUES(?,?,?,?,?,?)";
+	public boolean insertCompletePatient (Patient patient) throws Exception {
+		String sql = "INSERT INTO patient (name, gender,diagnose, dob, dateAdmission)" 
+					+"VALUES(?,?,?,?,?)";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 	
-		prep.setString(2, patient.getName());
-		prep.setString(3,  patient.getGender().name().toLowerCase());
-		prep.setString(4, patient.getDiagnose());
-		prep.setDate(5, patient.getDob());
-		prep.setDate(6,  patient.getDateAdmission());
+		prep.setString(1, patient.getName());
+		prep.setString(2,  patient.getGender().name().toLowerCase());
+		prep.setString(3, patient.getDiagnose());
+		prep.setDate(4, patient.getDob());
+		prep.setDate(5,  patient.getDateAdmission());
+		prep.executeUpdate();
+		prep.close();
+		return true;
+	}
+	
+	public boolean insertNoDiagnosePatient (Patient patient) throws Exception {
+		String sql = "INSERT INTO patient (name, gender, dob, dateAdmission)" 
+					+"VALUES(?,?,?,?)";
+		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+	
+		prep.setString(1, patient.getName());
+		prep.setString(2,  patient.getGender().name().toLowerCase());
+		prep.setDate(3, patient.getDob());
+		prep.setDate(4,  patient.getDateAdmission());
 		prep.executeUpdate();
 		prep.close();
 		return true;
@@ -75,7 +89,7 @@ public class PatientController implements PatientInterface{
 			Patient.sex gender = Patient.sex.valueOf(rs.getString("gender").toUpperCase());
 			String diagnose = rs.getString("diagnose");
 			Date dob = rs.getDate("dob");
-			Date dateAdmission = rs.getDate("date_of_admission");
+			Date dateAdmission = rs.getDate("dateAdmission");
 			Patient searchPatient = new Patient (Id, name, gender, diagnose, dob, dateAdmission);
 			patientList.add(searchPatient);
 		}
