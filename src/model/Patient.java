@@ -17,7 +17,7 @@ public class Patient implements Serializable {
 		MEN, WOMEN
 	};
 	private sex gender;
-	private String medicalCondition;
+	private String diagnose;
 	private Date dob;
 	private Date dateAdmission;
 	private List <Treatment> treatments;
@@ -33,12 +33,12 @@ public class Patient implements Serializable {
 	this.bills = new LinkedList<Bills>();
    }
    
-  public Patient (Integer id, String name, sex gender, String medicalCondition, Date dob,
+  public Patient (Integer id, String name, sex gender, String diagnose, Date dob,
 		   Date dateAdmission) {
 	   this.id = id;
 	   this.name = name;
 	   this.gender = gender;
-	   this.medicalCondition = medicalCondition;
+	   this.diagnose = diagnose;
 	   this.dob = dob;
 	   this.dateAdmission = dateAdmission;
 	   this.treatments = new LinkedList <Treatment> ();
@@ -47,31 +47,35 @@ public class Patient implements Serializable {
 }	
    
    
-   public Patient(Integer id, String name, sex gender) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.gender = gender;
-		this.treatments = new LinkedList <Treatment> ();
-		this.nurses = new LinkedList<Nurse>();
-		this.bills = new LinkedList<Bills>();
-		
-	}
+   
 
 
-public Patient (String name, sex gender, String medicalCondition, Date dob,
+public Patient (String name, sex gender, String diagnose, Date dob,
 		   Date dateAdmission) {
 	   
 	   this.name = name;
 	   this.gender = gender;
-	   this.medicalCondition = medicalCondition;
+	   this.diagnose = diagnose;
 	   this.dob = dob;
 	   this.dateAdmission = dateAdmission;
 	   this.treatments = new LinkedList <Treatment> ();
 	   this.nurses = new LinkedList<Nurse>();
 	   this.bills = new LinkedList<Bills>();
 }	
-   
+
+public Patient (String name, sex gender,  Date dob,
+		   Date dateAdmission) {
+	   
+	   this.name = name;
+	   this.gender = gender;
+	   this.dob = dob;
+	   this.dateAdmission = dateAdmission;
+	   this.treatments = new LinkedList <Treatment> ();
+	   this.nurses = new LinkedList<Nurse>();
+	   this.bills = new LinkedList<Bills>();
+}	
+
+
 // Additional method to use LocalDate objects
 	public void setDateDob(LocalDate ldate) {
 		this.dob = Date.valueOf(ldate);
@@ -96,12 +100,13 @@ public Patient (String name, sex gender, String medicalCondition, Date dob,
 	public void setGender(sex gender) {
 		this.gender = gender;
 	}
-	public String getMedicalCondition() {
-		return medicalCondition;
+	public String getDiagnose() {
+		return diagnose;
 	}
-	public void setMedicalCondition(String medicalCondition) {
-		this.medicalCondition = medicalCondition;
+	public void setDiagnose(String diagnose) {
+		this.diagnose = diagnose;
 	}
+	
 	public Date getDob() {
 		return dob;
 	}
@@ -162,9 +167,9 @@ public Patient (String name, sex gender, String medicalCondition, Date dob,
 
 	@Override
 	public String toString() {
-		return "Patient [id=" + id + ", name=" + name + ", gender=" + gender + ", medicalCondition=" + medicalCondition
-				+ ", dob=" + dob + ", dateAdmission=" + dateAdmission + ", treatments="
-				+ treatments + ", bills=" + bills + "]";
+		return "Patient [id:" + id + ", name:" + name + ", gender:" + gender + ", diagnose:" + diagnose
+				+ ", dob:" + dob + ", dateAdmission:" + dateAdmission + ", treatments:"
+				+ treatments + ", bills:" + bills + "]";
 	}
 	
 	

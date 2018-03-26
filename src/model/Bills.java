@@ -13,6 +13,7 @@ public class Bills implements Serializable {
 	private float totalCost;
 	private String bankID;
 	private Boolean paid;
+	private Patient patient;
 	
 	//Constructors
 
@@ -20,19 +21,21 @@ public class Bills implements Serializable {
 		paid=false;
 	}
 	
-	public Bills(float totalCost, String bankID, Boolean paid) {
+	public Bills(float totalCost, String bankID, Boolean paid, Patient patient ) {
 		super();
 		this.totalCost = totalCost;
 		this.bankID = bankID;
 		this.paid = paid;
+		this.patient = patient;
 	}
 
     
-	public Bills(float totalCost, String bankID) {
+	public Bills(float totalCost, String bankID, Patient patient) {
 		super();
 		this.totalCost = totalCost;
 		this.bankID = bankID;
 		paid=false;
+		this.patient=patient;
 	}
 
 
@@ -42,6 +45,8 @@ public class Bills implements Serializable {
 		 this.totalCost = totalCost;
 		 this.bankID = bankID;
 		 this.paid = paid;
+		 
+		 
 		
 	}
 	 
@@ -73,7 +78,16 @@ public class Bills implements Serializable {
 		this.paid = paid;
 	}
 	
+	
 	//HashCode
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 
 	@Override
 	public int hashCode() {
@@ -102,17 +116,20 @@ public class Bills implements Serializable {
 			return false;
 		return true;
 	}
-	
 
-	
-
-	
 	@Override
 	public String toString() {
-		return "Bills [id=" + id + ", totalCost=" + totalCost + ", bankID=" + bankID + ", paid=" + paid + "]";
+		return "Bills [id=" + id + ", totalCost=" + totalCost + ", bankID=" + bankID + ", paid=" + paid + ", patient="
+				+ patient + "]";
 	}
-
+	
 
 	
+
 	
 }
+
+
+	
+	
+

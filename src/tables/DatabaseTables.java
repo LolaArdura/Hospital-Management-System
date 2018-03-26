@@ -1,3 +1,5 @@
+package tables;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -17,6 +19,7 @@ public class DatabaseTables {
 			String table1= "CREATE TABLE doctor(\r\n" + 
 					"id INT PRIMARY KEY, \r\n" + 
 					"name TEXT NOT NULL,\r\n" + 
+					"photo BLOB, \r\n"+
 					"speciality TEXT NOT NULL, \r\n" + 
 					"schedule TEXT NOT NULL \r\n" + 
 					")";
@@ -29,9 +32,9 @@ public class DatabaseTables {
 					"name TEXT NOT NULL,\r\n" + 
 					"gender TEXT NOT NULL, \r\n" + 
 					"dob DATE NOT NULL, \r\n" + 
-					"date_of_admission DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, \r\n" + 
+					"dateAdmission DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, \r\n" + 
 					"diagnose TEXT DEFAULT 'waiting for diagnose',\r\n" + 
-					"room_id INT REFERENCES room(id),\r\n" + 
+					"room_id INT REFERENCES room(id)\r\n" + 
 					")";
 			s2.executeUpdate(table2);
 			s2.close();
@@ -80,8 +83,9 @@ public class DatabaseTables {
 			String table6="CREATE TABLE nurse(\r\n" + 
 					"id INT PRIMARY KEY,\r\n" + 
 					"name TEXT NOT NULL,\r\n" + 
-					"nurse_role TEXT NOT NULL,\r\n" + 
-					"schedule TEXT NOT NULL\r\n" + 
+					"photo BLOB, \r\n" +
+					"schedule TEXT NOT NULL,\r\n" + 
+					"role TEXT NOT NULL\r\n" + 
 					")";
 			s6.executeUpdate(table6);
 			s6.close();
@@ -104,7 +108,7 @@ public class DatabaseTables {
 			s8.executeUpdate(table8);
 			s8.close();
 			
-			c.close();
+		
 		    System.out.println("Database connection closed.");
 		}catch(Exception e) {
 			e.printStackTrace();

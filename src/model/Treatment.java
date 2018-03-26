@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.sql.Date;
 
+
 public class Treatment implements Serializable {
 
 	/**
@@ -17,7 +18,7 @@ public class Treatment implements Serializable {
 	private float cost;
 	private String treatmentType;
 	private String dose;
-	private Doctor prescriber;
+	private Integer doctor_id;
 	
 	//Constructor
 	
@@ -29,7 +30,19 @@ public class Treatment implements Serializable {
 		this.cost = cost;
 		this.treatmentType = treatmentType;
 		this.dose = dose;
-		this.prescriber = prescriber;
+		this.doctor_id= prescriber.getId();
+	}
+	
+	public Treatment (int Id, String routeOfAdmin, Date startDate, Date endDate, float cost ,
+			String treatmentType, String dose, Doctor prescriber) {
+		this.id = Id;
+		this.routeOfAdmin= routeOfAdmin;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.cost = cost;
+		this.treatmentType = treatmentType;
+		this.dose = dose;
+		this.doctor_id = prescriber.getId();
 	}
 	
 	public Integer getId() {
@@ -74,12 +87,12 @@ public class Treatment implements Serializable {
 	public void setDose(String dose) {
 		this.dose = dose;
 	}
-	public Doctor getPrescriber() {
-		return prescriber;
+	public Integer getDoctorId() {
+		return doctor_id;
 	}
 
-	public void setPrescriber(Doctor prescriber) {
-		this.prescriber = prescriber;
+	public void setDoctorId(Doctor prescriber) {
+		this.doctor_id = prescriber.getId();
 	}
 
 	@Override
@@ -110,7 +123,7 @@ public class Treatment implements Serializable {
 	@Override
 	public String toString() {
 		return "Treatment [id=" + id + ", routeOfAdmin=" + routeOfAdmin + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", cost=" + cost + ", treatmentType=" + treatmentType + ", dose=" + dose + "]";
+				+ endDate + ", cost=" + cost + ", treatmentType=" + treatmentType + ", dose=" + dose + ", doctor_id=" + doctor_id + "]";
 	}
 	
 	
