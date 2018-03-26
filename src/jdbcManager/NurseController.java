@@ -19,17 +19,16 @@ public class NurseController implements NurseInterface {
 	}
 
 	public boolean insertNurse(Nurse nurse) throws Exception {
-		String sql = "INSERT INTO nurse (id, name, photo, schedule, role) " + "VALUES (?,?,?,?,?);";
+		String sql = "INSERT INTO nurse (name, photo, schedule, role) " + "VALUES (?,?,?,?);";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
-		prep.setInt(1, nurse.getId());
-		prep.setString(2, nurse.getName());
+		prep.setString(1, nurse.getName());
 		if (nurse.getPhoto() != null) {
-			prep.setBytes(3, nurse.getPhoto());
+			prep.setBytes(2, nurse.getPhoto());
 		} else {
-			prep.setBytes(3, null);
+			prep.setBytes(2, null);
 		}
-		prep.setString(4, nurse.getSchedule());
-		prep.setString(5, nurse.getRole());
+		prep.setString(3, nurse.getSchedule());
+		prep.setString(4, nurse.getRole());
 		prep.executeUpdate();
 		prep.close();
 		return true;

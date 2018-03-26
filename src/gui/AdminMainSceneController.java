@@ -76,7 +76,10 @@ public class AdminMainSceneController{
     void nursesButtonClicked(ActionEvent event) {
        try {
        mainPane.getChildren().clear();
-       mainPane.getChildren().add(FXMLLoader.load(getClass().getResource("NursesPane.fxml")));
+       GridPane nursesView = (GridPane)FXMLLoader.load(getClass().getResource("NursesPane.fxml"));
+       nursesView.prefHeightProperty().bind(mainPane.heightProperty());
+       nursesView.prefWidthProperty().bind(mainPane.widthProperty());
+       mainPane.getChildren().add(nursesView);
        }catch(Exception ex) {
     	   ex.printStackTrace();
        }

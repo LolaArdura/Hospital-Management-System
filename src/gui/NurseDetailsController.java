@@ -47,7 +47,9 @@ public class NurseDetailsController {
     	nameTextField.setText(nurse.getName());
     	roleTextField.setText(nurse.getRole());
     	scheduleTextField.setText(nurse.getSchedule());
+    	if(nurse.getPhoto()!=null) {
     	photo.setImage(new Image(new ByteArrayInputStream(nurse.getPhoto())));
+    	}
     }
 
 }

@@ -78,12 +78,10 @@ public class PatientDetailsController implements Initializable {
 		sexTextField.setText(patient.getGender().name().toLowerCase());
 		admissionTextField.setText(""+patient.getDateAdmission().getDate()+
 				"-"+patient.getDateAdmission().getMonth()+1+"-"+patient.getDateAdmission().getYear());
-<<<<<<< HEAD
-		medicalConditionArea.setText(patient.getMedicalCondition());
-		this.adminPane=adminPane;
-=======
 		medicalConditionArea.setText(patient.getDiagnose());
->>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System.git
+		this.adminPane=adminPane;
+		medicalConditionArea.setText(patient.getDiagnose());
+
     }
 
 	@Override
