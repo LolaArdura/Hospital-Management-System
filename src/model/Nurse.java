@@ -22,12 +22,14 @@ public class Nurse extends Employee{
 		this.photo=photo;
 		this.schedule=schedule;
 		this.role=role;
+		this.patients= new LinkedList <Patient>();
 	}
 	
 	public Nurse(String name, String schedule, String role) {
 		this.name=name;
 		this.schedule=schedule;
 		this.role=role;
+		this.patients=new LinkedList <Patient>();
 	}
 	
 	public Nurse ( String role ) {

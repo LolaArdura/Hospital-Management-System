@@ -34,12 +34,39 @@ public class DoctorController implements DoctorInterface {
 		prep.close();
 		return true;
 	}
+	
+	public boolean insertDoctorWithoutId(Doctor doctor) throws Exception {
+		String sql= "INSERT INTO doctor (name,photo,schedule,speciality) VALUES (?,?,?,?)";
+		PreparedStatement prep=DBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1, doctor.getName());
+		if(doctor.getPhoto() != null) {
+			prep.setBytes(2,doctor.getPhoto());
+		}else {
+			prep.setBytes(2, null);
+		}
+		prep.setString(3, doctor.getSchedule());
+		prep.setString(4,doctor.getSpeciality());
+		prep.executeUpdate();
+		prep.close();
+		return true;
+	}
 
 	public boolean deleteDoctor(Doctor doctor) throws Exception {
 		String sql = "DELETE FROM doctor WHERE id=?";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, doctor.getId());
 		prep.executeUpdate();
+		return true;
+	}
+	
+	public boolean deleteDoctorWithoutId(Doctor doctor) throws Exception{
+		String sql="DELETE FROM doctor WHERE name=? AND schedule = ? AND speciality=?";
+		PreparedStatement prep=DBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1,doctor.getName());
+		prep.setString(2, doctor.getSchedule());
+		prep.setString(3,doctor.getSpeciality());
+		prep.executeUpdate();
+		prep.close();
 		return true;
 	}
 

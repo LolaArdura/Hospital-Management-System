@@ -20,6 +20,19 @@ public class Doctor extends Employee{
 		this.speciality=speciality;
 	}
 	
+	public Doctor(String name, byte[] photo,String schedule, String speciality) {
+		this.name=name;
+		this.schedule=schedule;
+		this.photo=photo;
+		this.speciality=speciality;
+	}
+	
+	public Doctor (String name, String schedule, String speciality) {
+		this.name=name;
+		this.schedule=schedule;
+		this.speciality=speciality;
+	}
+	
 	public Doctor (String speciality) {
 		this.speciality= speciality;
 	}

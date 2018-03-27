@@ -84,6 +84,19 @@ public class AdminMainSceneController{
     	   ex.printStackTrace();
        }
     }
+    
+    @FXML
+    public void doctorsButtonClicked(ActionEvent event) {
+    	try {
+    		mainPane.getChildren().clear();
+    		GridPane doctorsView=(GridPane)FXMLLoader.load(getClass().getResource("DoctorsPane.fxml"));
+    		doctorsView.prefHeightProperty().bind(mainPane.heightProperty());
+    		doctorsView.prefWidthProperty().bind(mainPane.widthProperty());
+    		mainPane.getChildren().add(doctorsView);
+    	}catch (Exception ex) {
+    		ex.printStackTrace();
+    	}
+    }
 	
 	public Pane getMainPane() {
 		return mainPane;
