@@ -209,6 +209,7 @@ public class DoctorsPaneController implements Initializable{
  	    	doctorsFlowPane.getChildren().add(doctorDetails);
  	    	DoctorDetailsController controller= loader.<DoctorDetailsController>getController();
  	    	controller.initComponents(doctor);
+ 	    	
  	    }
     } catch (Exception e) {
  		e.printStackTrace();
