@@ -1,7 +1,9 @@
 package model;
 
+import javax.persistence.*;
+
 public class Doctor extends Employee{
- 
+	
 	private Integer id;
 	private String speciality;
 	
