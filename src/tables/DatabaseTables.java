@@ -17,7 +17,7 @@ public class DatabaseTables {
 			
 			Statement s1=c.createStatement();
 			String table1= "CREATE TABLE doctor(\r\n" + 
-					"id INT PRIMARY KEY, \r\n" + 
+					"id INT PRIMARY KEY AUTOINCREMENT, \r\n" + 
 					"name TEXT NOT NULL,\r\n" + 
 					"photo BLOB, \r\n"+
 					"speciality TEXT NOT NULL, \r\n" + 
@@ -28,7 +28,7 @@ public class DatabaseTables {
 			
 			Statement s2=c.createStatement();
 			String table2= "CREATE TABLE patient(\r\n" + 
-					"id INT PRIMARY KEY,\r\n" + 
+					"id INT PRIMARY KEY AUTOINCREMENT,\r\n" + 
 					"name TEXT NOT NULL,\r\n" + 
 					"gender TEXT NOT NULL, \r\n" + 
 					"dob DATE NOT NULL, \r\n" + 
@@ -41,7 +41,7 @@ public class DatabaseTables {
 			
 			Statement s3=c.createStatement();
 			String table3= "CREATE TABLE treatment(\r\n" + 
-					"id INT PRIMARY KEY,\r\n" + 
+					"id INT PRIMARY KEY AUTOINCREMENT,\r\n" + 
 					"name TEXT NOT NULL, \r\n" + 
 					"type TEXT NOT NULL,\r\n" + 
 					"duration TEXT NOT NULL,\r\n" + 
@@ -57,7 +57,7 @@ public class DatabaseTables {
 			
 			Statement s4=c.createStatement();
 			String table4= "CREATE TABLE room(\r\n" + 
-					"id INTEGER PRIMARY KEY, \r\n" + 
+					"id INTEGER PRIMARY KEY AUTOINCREMENT, \r\n" + 
 					"floor INTEGER NOT NULL DEFAULT 0,\r\n" + 
 					"number INTEGER,\r\n" + 
 					"type TEXT NOT NULL DEFAULT 'box',\r\n" + 
@@ -69,7 +69,7 @@ public class DatabaseTables {
 			
 			Statement s5=c.createStatement();
 			String table5="CREATE TABLE bills(\r\n" + 
-					"id INTEGER,\r\n" + 
+					"id INTEGER AUTOINCREMENT,\r\n" + 
 					"cost REAL,\r\n" + 
 					"billing_adress TEXT NOT NULL,\r\n" + 
 					"patient_id INT,\r\n" + 
@@ -81,7 +81,7 @@ public class DatabaseTables {
 			
 			Statement s6=c.createStatement();
 			String table6="CREATE TABLE nurse(\r\n" + 
-					"id INT PRIMARY KEY,\r\n" + 
+					"id INT PRIMARY KEY AUTOINCREMENT,\r\n" + 
 					"name TEXT NOT NULL,\r\n" + 
 					"photo BLOB, \r\n" +
 					"schedule TEXT NOT NULL,\r\n" + 
@@ -101,7 +101,7 @@ public class DatabaseTables {
 			
 			Statement s8=c.createStatement();
 			String table8="CREATE TABLE user(\r\n" +
-					"id INT PRIMARY KEY, \r\n" + 
+					"id INT PRIMARY KEY AUTOINCREMENT, \r\n" + 
 					"password TEXT NOT NULL, \r\n" +
 					"type TEXT NOT NULL \r\n" +
 					")";

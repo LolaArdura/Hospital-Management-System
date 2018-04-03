@@ -4,36 +4,37 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="537.0" prefWidth="582.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AdminMainSceneController">
-   <children>
-      <VBox fx:id="menuVBox" layoutY="30.0" prefHeight="509.0" prefWidth="113.0">
+<BorderPane fx:id="adminPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AdminMainSceneController">
+   <top>
+      <MenuButton alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="33.0" prefWidth="125.0" text="Profile" BorderPane.alignment="TOP_RIGHT">
+        <items>
+          <MenuItem fx:id="myProfileItem" mnemonicParsing="false" text="My profile" />
+          <MenuItem fx:id="signOutItem" mnemonicParsing="false" text="Sign out" />
+        </items>
+      </MenuButton>
+   </top>
+   <left>
+      <VBox fx:id="buttonsVBox" prefHeight="429.0" prefWidth="139.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="menuLabel" alignment="CENTER" prefHeight="27.0" prefWidth="111.0" text="Menu" textAlignment="CENTER" />
-            <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonClicked" prefHeight="26.0" prefWidth="113.0" text="Patients" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="113.0" text="Doctors" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="113.0" text="Nurses" />
-            <MenuButton fx:id="roomsMenuButton" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="113.0" text="Rooms" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="139.0" text="MENU" />
+            <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonClicked" prefHeight="42.0" prefWidth="139.0" text="Patients" />
+            <Button fx:id="doctorsButton" mnemonicParsing="false" onAction="#doctorsButtonClicked" prefHeight="42.0" prefWidth="139.0" text="Doctors" />
+            <Button fx:id="nurseButton" mnemonicParsing="false" onAction="#nursesButtonClicked" prefHeight="42.0" prefWidth="139.0" text="Nurses" />
+            <Button fx:id="userButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="139.0" text="Users" />
+            <MenuButton fx:id="roomsMenuButton" alignment="CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="139.0" text="Rooms">
               <items>
+                <MenuItem fx:id="roomManagementItem" mnemonicParsing="false" text="Rooms Management" />
                 <MenuItem fx:id="roomCostsItem" mnemonicParsing="false" text="Room Costs" />
-                <MenuItem fx:id="roomManagementItem" mnemonicParsing="false" text="Room management" />
               </items>
             </MenuButton>
          </children>
       </VBox>
-      <Pane fx:id="buttonPanel" layoutY="1.0" prefHeight="27.0" prefWidth="582.0">
-         <children>
-            <MenuButton alignment="CENTER" layoutX="471.0" layoutY="1.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="111.0" text="Profile" textAlignment="CENTER">
-              <items>
-                <MenuItem mnemonicParsing="false" text="My profile" />
-                <MenuItem mnemonicParsing="false" text="Sign out" />
-              </items>
-            </MenuButton>
-         </children>
-      </Pane>
-      <Pane fx:id="mainPane" layoutX="112.0" layoutY="27.0" prefHeight="509.0" prefWidth="468.0" />
-   </children>
-</AnchorPane>
+   </left>
+   <center>
+      <Pane fx:id="mainPane" prefHeight="428.0" prefWidth="465.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

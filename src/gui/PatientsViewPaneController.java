@@ -1,4 +1,5 @@
 package gui;
+
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -13,36 +14,42 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import model.Patient;
 
-public class PatientsViewPaneController implements Initializable {
+
+public class PatientsViewPaneController implements Initializable{
 	
-	   @FXML
-	   private AnchorPane patientViewPane;
-	
-	    @FXML
-	    private TableView<Patient> patientsTable;
+	private Pane adminMainPane;
 
-	    @FXML
-	    private TableColumn<Patient, Integer> idColumn;
+    @FXML
+    private GridPane patientViewPane;
 
-	    @FXML
-	    private TableColumn<Patient, String> nameColumn;
+    @FXML
+    private TableView<Patient> patientsTable;
 
-	    @FXML
-	    private Button viewDetailsButton;
-	    
+    @FXML
+    private TableColumn<Patient, Integer> idColumn;
+
+    @FXML
+    private TableColumn<Patient, String> nameColumn;
+
+    @FXML
+    private Button viewDetailsButton;
 	    public void viewDetailsClicked (ActionEvent event) {
 	    	try {
-	    	Patient patient= patientsTable.getSelectionModel().getSelectedItem();
+	    	Patient patient= (Patient) patientsTable.getSelectionModel().getSelectedItem();
 	    	FXMLLoader loader= new FXMLLoader (getClass().getResource("PatientDetails.fxml"));
-	     	AnchorPane adminPane = (AnchorPane)loader.load();
-	    	patientViewPane.getChildren().clear();
-	    	patientViewPane.getChildren().add(adminPane);
+	     	GridPane detailsPane = (GridPane)loader.load();
+	     	adminMainPane.getChildren().clear();
+	     	adminMainPane.getChildren().add(detailsPane);
+	    	detailsPane.prefHeightProperty().bind(adminMainPane.heightProperty());
+	    	detailsPane.prefWidthProperty().bind(adminMainPane.widthProperty());
+	     	
 	    	PatientDetailsController controller=loader.<PatientDetailsController>getController();
-	    	controller.initComponents(patient);
+	    	controller.initComponents(patient,adminMainPane);
 	    
 	    	}catch (Exception ex) {
 	    		ex.printStackTrace();
@@ -55,6 +62,7 @@ public class PatientsViewPaneController implements Initializable {
 			idColumn.setCellValueFactory(new PropertyValueFactory <Patient,Integer>("Id"));
 			nameColumn.setCellValueFactory(new PropertyValueFactory <Patient,String>("Name"));
 			patientsTable.setItems(setPatients());
+			
 		}
 	    
 		private ObservableList<Patient> setPatients(){
@@ -64,8 +72,11 @@ public class PatientsViewPaneController implements Initializable {
 			//patients.addAll(PatientController.getPatientController().getAllPatients();
 			return patients;
 		}
+	
 	    
-	    
+	    public void initComponents(Pane adminPane) {
+	    	adminMainPane=adminPane;
+	    }
 
 	}
 

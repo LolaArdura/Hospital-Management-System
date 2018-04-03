@@ -17,7 +17,8 @@ public class TestGUI extends Application {
      public void start (Stage primaryStage) {
     		 try {
 				Parent root= FXMLLoader.load(getClass().getResource("AdminMainScene.fxml"));
-				primaryStage.setScene(new Scene(root,500,500));
+                Scene scene=new Scene(root, 600, 600);
+				primaryStage.setScene(scene);
 				primaryStage.show();
 				
 			} catch (IOException e) {
