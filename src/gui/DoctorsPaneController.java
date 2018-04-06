@@ -59,6 +59,7 @@ public class DoctorsPaneController implements Initializable{
     private FlowPane doctorsFlowPane;
     
     public void initialize(URL arg0, ResourceBundle arg1) {
+    	doctorsScrollPane.setPannable(true);
 		doctorsFlowPane.prefWidthProperty().bind(doctorsScrollPane.widthProperty());
 		doctorsFlowPane.prefHeightProperty().bind(doctorsScrollPane.heightProperty());
 	    setDoctors();		

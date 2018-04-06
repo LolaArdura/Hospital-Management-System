@@ -1,3 +1,5 @@
+
+
 package jdbcManager;
 import java.sql.*;
 
@@ -12,7 +14,7 @@ private static BillsController singleton;
 	return singleton;
 }
 	
-	public boolean insertBills (Bills bill, Integer patientId) throws Exception{
+	public boolean insertBills (Bills bill) throws Exception{
 		String sql = "INSERT INTO bills (id, totalCost, bankID, paid, patient_id) "
 				+ "VALUES (?,?,?,?,?)";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
@@ -20,7 +22,7 @@ private static BillsController singleton;
 		prep.setFloat(2, bill.getTotalCost());
 		prep.setString(3, bill.getBankID());
 		prep.setBoolean(4, bill.getPaid());
-		prep.setInt(5,patientId);
+		prep.setInt(5,bill.getPatient().getId());
 		prep.executeUpdate();
 		prep.close();
 		return true;

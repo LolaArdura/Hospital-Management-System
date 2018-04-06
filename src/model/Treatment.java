@@ -18,7 +18,7 @@ public class Treatment implements Serializable {
 	private float cost;
 	private String treatmentType;
 	private String dose;
-	private Integer doctor_id;
+	private Doctor prescriber;
 	
 	//Constructor
 	
@@ -30,7 +30,7 @@ public class Treatment implements Serializable {
 		this.cost = cost;
 		this.treatmentType = treatmentType;
 		this.dose = dose;
-		this.doctor_id= prescriber.getId();
+		this.prescriber=prescriber;
 	}
 	
 	public Treatment (int Id, String routeOfAdmin, Date startDate, Date endDate, float cost ,
@@ -42,7 +42,7 @@ public class Treatment implements Serializable {
 		this.cost = cost;
 		this.treatmentType = treatmentType;
 		this.dose = dose;
-		this.doctor_id = prescriber.getId();
+		this.prescriber = prescriber;
 	}
 	
 	public Integer getId() {
@@ -87,12 +87,12 @@ public class Treatment implements Serializable {
 	public void setDose(String dose) {
 		this.dose = dose;
 	}
-	public Integer getDoctorId() {
-		return doctor_id;
+	public Doctor getPrescriber() {
+		return prescriber;
 	}
 
 	public void setDoctorId(Doctor prescriber) {
-		this.doctor_id = prescriber.getId();
+		this.prescriber = prescriber;
 	}
 
 	@Override

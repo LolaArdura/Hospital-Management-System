@@ -23,7 +23,6 @@ public class RoomController implements RoomInterface {
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getId());
 		prep.setInt(2, room.getNumber());
-		prep.setString(3, room.getType().name());
 		prep.setString(3, room.getType().name().toLowerCase());
 		prep.setInt(4, room.getCapacity());
 		prep.setInt(5, room.getFloor());
@@ -58,7 +57,7 @@ public class RoomController implements RoomInterface {
 		return room;
 	}
 
-	public Room updateRoom(Room room) throws Exception {
+	public boolean updateRoom(Room room) throws Exception {
 		String sql = "UPDATE room SET number=?, type=?, capacity=?, floor=?, costPerDay=? WHERE id=?";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getNumber());
@@ -68,6 +67,6 @@ public class RoomController implements RoomInterface {
 		prep.setFloat(5, room.getCostPerDay());
 		prep.setInt(6, room.getId());
 		prep.executeUpdate();
-		return room;
+		return true;
 	}
 }

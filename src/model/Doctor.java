@@ -2,7 +2,6 @@ package model;
 
 public class Doctor extends Employee{
  
-	private Integer id;
 	private String speciality;
 	
 	public Doctor (Integer id, String name, byte[] photo, String schedule, String speciality) {

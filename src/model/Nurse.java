@@ -4,7 +4,6 @@ import java.util.*;
 
 public class Nurse extends Employee{
  
-	
 	private String role;
 	private List <Patient> patients;
 	
