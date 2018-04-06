@@ -1,6 +1,7 @@
 package model;
  
 import java.io.Serializable;
+import java.util.*;
 
 public class Room implements Serializable {
 
@@ -19,6 +20,9 @@ public class Room implements Serializable {
     private Integer capacity;
 	private float costPerDay;
 	
+	private List<Patient> listOfPatients;
+	
+	
 	//Constructor
 	public Room (Integer id, Integer number, roomType type, Integer floor, Integer capacity, float costPerDay) {
 		
@@ -28,8 +32,10 @@ public class Room implements Serializable {
 		this.floor= floor;
 		this.capacity= capacity;
 		this.costPerDay= costPerDay;
+		listOfPatients = new LinkedList <Patient>();
 		
 	}
+	
     public Room ( Integer number, roomType type, Integer floor, Integer capacity, float costPerDay) {
 		
 		this.number = number;
@@ -37,7 +43,7 @@ public class Room implements Serializable {
 		this.floor= floor;
 		this.capacity= capacity;
 		this.costPerDay= costPerDay;
-		
+		listOfPatients = new LinkedList <Patient>();
 	}
 
     public Room ()	{
@@ -46,6 +52,7 @@ public class Room implements Serializable {
 	  floor = 0;
 	  capacity = 2;
 	  costPerDay = 5;
+	  listOfPatients= new LinkedList <Patient>();
     }
 	 
 	//functions gets and sets
@@ -90,8 +97,27 @@ public class Room implements Serializable {
 		this.costPerDay = costPerDay;
 	}
 	
+	public List<Patient> getListOfPatients() {
+		return listOfPatients;
+	}
+
+	public void setListOfPatients(List<Patient> listOfPatients) {
+		this.listOfPatients.addAll(listOfPatients);
+		
+	}
+	
+	public void removePatient(Patient patient) {
+		if(listOfPatients.contains(patient)){
+			listOfPatients.remove(patient);
+		}
+	}
+	public void addPatient(Patient patient) {
+		listOfPatients.add(patient);
+	}
+	
 	//Function hashCode and equals
 	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
