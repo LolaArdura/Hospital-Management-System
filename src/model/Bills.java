@@ -21,6 +21,14 @@ public class Bills implements Serializable {
 		paid=false;
 	}
 	
+	public Bills(int id,float totalCost, String bankID, Boolean paid ) {
+		super ();
+		this.id= id;
+		this.totalCost = totalCost;
+		this.bankID = bankID;
+		this.paid = paid;
+		
+	}
 	public Bills(float totalCost, String bankID, Boolean paid, Patient patient ) {
 		super();
 		this.totalCost = totalCost;

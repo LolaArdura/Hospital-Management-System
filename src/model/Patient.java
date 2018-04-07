@@ -23,6 +23,7 @@ public class Patient implements Serializable {
 	private List <Treatment> listOfTreatments;
 	private List <Nurse> listOfNurses;
 	private List <Bills> listOfBills;
+	private Room room;
 	
 	//Constructors
 	
@@ -121,6 +122,15 @@ public Patient (String name, sex gender,  Date dob,
 		this.dateAdmission = dateAdmission;
 	}
 	
+	
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
 
 	public List<Treatment> getListOfTreatments() {
 		return listOfTreatments;
@@ -206,8 +216,7 @@ public Patient (String name, sex gender,  Date dob,
 	@Override
 	public String toString() {
 		return "Patient [id:" + id + ", name:" + name + ", gender:" + gender + ", diagnose:" + diagnose
-				+ ", dob:" + dob + ", dateAdmission:" + dateAdmission + ", treatments:"
-				+ listOfTreatments + ", bills:" + listOfBills + "]";
+				+ ", dob:" + dob + ", dateAdmission:" + dateAdmission + ",Room: "+ room +" ]";
 	}
 	
 	

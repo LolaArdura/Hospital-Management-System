@@ -59,7 +59,7 @@ public class DatabaseTables {
 			String table4= "CREATE TABLE room(\r\n" + 
 					"id INTEGER PRIMARY KEY AUTOINCREMENT, \r\n" + 
 					"floor INTEGER NOT NULL DEFAULT 0,\r\n" + 
-					"number INTEGER,\r\n" + 
+					"number INTEGER UNIQUE,\r\n" + 
 					"type TEXT NOT NULL DEFAULT 'box',\r\n" + 
 					"capacity INT NOT NULL CHECK (capacity>0),\r\n" + 
 					"cost_per_day REAL\r\n" + 

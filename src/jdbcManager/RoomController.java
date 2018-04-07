@@ -1,5 +1,5 @@
 package jdbcManager;
-
+import model.*;
 import java.sql.*;
 
 import model.Room;
@@ -32,7 +32,7 @@ public class RoomController implements RoomInterface {
 		return true;
 
 	}
-
+	
 	public boolean deleteRoom(Room room) throws Exception {
 		String sql = "DELETE FROM room WHERE id = ?";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
@@ -69,4 +69,7 @@ public class RoomController implements RoomInterface {
 		prep.executeUpdate();
 		return true;
 	}
+	
+	
+	
 }

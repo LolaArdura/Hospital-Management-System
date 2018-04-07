@@ -19,7 +19,6 @@ public class Room implements Serializable {
     private Integer floor;
     private Integer capacity;
 	private float costPerDay;
-	
 	private List<Patient> listOfPatients;
 	
 	
