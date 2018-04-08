@@ -4,52 +4,33 @@ import javax.persistence.*;
 
 public class Doctor extends Employee{
 	
-	private Integer id;
-	private String speciality;
+	private String specialty;
 	
-	public Doctor (Integer id, String name, byte[] photo, String schedule, String speciality) {
-		this.id=id;
-		this.name=name;
-		this.photo=photo;
-		this.schedule=schedule;
-		this.speciality=speciality;
-	}
-	public Doctor (Integer id, String name, String schedule, String speciality) {
-		this.id=id;
-		this.name=name;
-	
-		this.schedule=schedule;
-		this.speciality=speciality;
+	public Doctor (Integer id, String name, byte[] photo, String schedule, String specialty) {
+		super(id,name,photo,schedule);
+		this.specialty=specialty;
 	}
 	
-	public Doctor(String name, byte[] photo,String schedule, String speciality) {
-		this.name=name;
-		this.schedule=schedule;
-		this.photo=photo;
-		this.speciality=speciality;
+	public Doctor (Integer id, String name, String schedule, String specialty) {
+		super(id,name,schedule);
+		this.specialty=specialty;
 	}
 	
-	public Doctor (String name, String schedule, String speciality) {
-		this.name=name;
-		this.schedule=schedule;
-		this.speciality=speciality;
+	public Doctor(String name, byte[] photo,String schedule, String specialty) {
+		super(name,photo,schedule);
+		this.specialty=specialty;
 	}
 	
-	public Doctor (String speciality) {
-		this.speciality= speciality;
+	public Doctor (String name, String schedule, String specialty) {
+		super(name,schedule);
+		this.specialty=specialty;
 	}
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	public String getSpeciality() {
-		return speciality;
+		return specialty;
 	}
 	public void setSpeciality(String speciality) {
-		this.speciality = speciality;
+		this.specialty = speciality;
 	}
 	@Override
 	public int hashCode() {
@@ -76,7 +57,7 @@ public class Doctor extends Employee{
 	}
 	@Override
 	public String toString() {
-		return "Doctor [id:" + id + "\n name:" +  name + "\n photo=" + photo + "\n schedule:" + schedule+"\n speciality:" + speciality + "]";
+		return "Doctor [id:" + id + "\n name:" +  name + "\n photo=" + photo + "\n schedule:" + schedule+"\n speciality:" + specialty + "]";
 	}
 	
 	

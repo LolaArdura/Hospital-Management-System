@@ -9,35 +9,25 @@ public class Nurse extends Employee{
 	private List <Patient> patients;
 	
 	public Nurse (Integer id, String name, byte[] photo, String schedule, String role) {
-		this.id=id;
-		this.name=name;
-		this.photo=photo;
-		this.schedule=schedule;	
+	    super(id,name,photo,schedule);
 		this.role=role;	
 		this.patients = new LinkedList <Patient>();
 	}
 	
 	public Nurse(String name, byte[] photo, String schedule, String role) {
-		this.name=name;
-		this.photo=photo;
+		super(name, photo,schedule);
 		this.schedule=schedule;
 		this.role=role;
 		this.patients= new LinkedList <Patient>();
 	}
 	
 	public Nurse(String name, String schedule, String role) {
-		this.name=name;
-		this.schedule=schedule;
+		super(name, schedule);
 		this.role=role;
 		this.patients=new LinkedList <Patient>();
 	}
-	
-	public Nurse ( String role ) {
-		this.role= role;
-		this.patients = new LinkedList <Patient>() ;
-	}
+
 	public Nurse () {
-		
 		this.patients = new LinkedList <Patient>() ;
 	}
 	
