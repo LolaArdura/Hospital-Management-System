@@ -28,7 +28,7 @@ public class TreatmentController {
 		prep.setFloat(5, treatment.getCost());
 		prep.setString(6, treatment.getTreatmentType());
 		prep.setString(7, treatment.getDose());
-		prep.setInt(8, treatment.getDoctorId());
+		prep.setInt(8, treatment.getPrescriber().getId());
 		prep.executeUpdate();
 		prep.close();
 		return true;
@@ -69,7 +69,7 @@ public class TreatmentController {
 		prep.setFloat(4, treatment.getCost());
 		prep.setString(5, treatment.getTreatmentType());
 		prep.setString(6, treatment.getDose());
-		prep.setInt(7, treatment.getDoctorId());
+		prep.setInt(7, treatment.getPrescriber().getId());
 		prep.setInt(8, treatment.getId());
 		prep.executeUpdate();
 		return treatment;	

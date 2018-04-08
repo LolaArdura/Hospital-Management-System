@@ -42,17 +42,6 @@ public class NurseController implements NurseInterface {
 		prep.close();
 		return true;
 	}
-	
-	public boolean deleteNurseWithoutId (Nurse nurse) throws Exception {
-		String sql="DELETE FROM nurse WHERE name LIKE ? AND schedule LIKE ? AND role LIKE ?";
-		PreparedStatement prep= DBConnection.getConnection().prepareStatement(sql);
-		prep.setString(1,nurse.getName());
-		prep.setString(2,nurse.getSchedule());
-		prep.setString(3,nurse.getRole());
-		prep.executeUpdate();
-		prep.close();
-		return true;
-	}
 
 	public List<Nurse> getAllNurses() throws Exception {
 		Statement stmt = DBConnection.getConnection().createStatement();
@@ -86,7 +75,37 @@ public class NurseController implements NurseInterface {
 		Nurse searchNurse = new Nurse(Id, name, photo, schedule, role);
 		return searchNurse;
 	}
-
+	
+	public Nurse searchNurseBySchedule (String schedule) throws Exception{
+		String sql  ="SELECT * FROM nurse WHERE schedule=?";
+		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1, schedule);
+		ResultSet rs = prep.executeQuery();
+		rs.next();
+		int id = rs.getInt("id");
+		String name = rs.getString("name");
+		byte[] photo = rs.getBytes("photo");
+		String Schedule = rs.getString("schedule");
+		String role = rs.getString("role");
+		Nurse nurseBySchedule = new Nurse(id, name, photo, Schedule, role);
+		return nurseBySchedule;
+	}
+	
+	public Nurse searchNurseByName (String name) throws Exception{
+		String sql  ="SELECT * FROM nurse WHERE name=?";
+		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1, name);
+		ResultSet rs = prep.executeQuery();
+		rs.next();
+		int id = rs.getInt("id");
+		String Name = rs.getString("name");
+		byte[] photo = rs.getBytes("photo");
+		String schedule = rs.getString("schedule");
+		String role = rs.getString("role");
+		Nurse nurseByName = new Nurse(id, Name, photo, schedule, role);
+		return nurseByName;
+	}
+	
 	public Nurse updateNurse(Nurse nurse) throws Exception {
 		String sql = "UPDATE nurse SET name=?, schedule=?, role=? WHERE id=?";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);

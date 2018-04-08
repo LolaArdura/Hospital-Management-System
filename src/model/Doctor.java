@@ -3,9 +3,10 @@ package model;
 import javax.persistence.*;
 
 public class Doctor extends Employee{
+
 	
 	private String specialty;
-	
+
 	public Doctor (Integer id, String name, byte[] photo, String schedule, String specialty) {
 		super(id,name,photo,schedule);
 		this.specialty=specialty;

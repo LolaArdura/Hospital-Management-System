@@ -10,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -41,6 +43,7 @@ public class PatientsViewPaneController implements Initializable{
 	    public void viewDetailsClicked (ActionEvent event) {
 	    	try {
 	    	Patient patient= (Patient) patientsTable.getSelectionModel().getSelectedItem();
+	    	if(patient!=null) {
 	    	FXMLLoader loader= new FXMLLoader (getClass().getResource("PatientDetails.fxml"));
 	     	GridPane detailsPane = (GridPane)loader.load();
 	     	adminMainPane.getChildren().clear();
@@ -50,7 +53,14 @@ public class PatientsViewPaneController implements Initializable{
 	     	
 	    	PatientDetailsController controller=loader.<PatientDetailsController>getController();
 	    	controller.initComponents(patient,adminMainPane);
-	    
+	    	}
+	    	else {
+	    		Alert alert=new Alert(AlertType.WARNING);
+	    		alert.setTitle("No selected");
+	    		alert.setContentText("A patient needs to be selected in order to view details");
+	    		alert.setHeaderText("No patient selected");
+	    		alert.showAndWait();
+	    	}
 	    	}catch (Exception ex) {
 	    		ex.printStackTrace();
 	    	}

@@ -49,7 +49,7 @@ public class Test {
 	 List<Patient> patients = PatientController.getPatientController().getAllPatients();
 	 System.out.println(patients);
 	 
-	 DBConnection.getConnection().close();
+	 DBConnection.getConnection().close();//
  
 
 //insert bill

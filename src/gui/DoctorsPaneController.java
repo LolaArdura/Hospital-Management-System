@@ -59,6 +59,7 @@ public class DoctorsPaneController implements Initializable{
     private FlowPane doctorsFlowPane;
     
     public void initialize(URL arg0, ResourceBundle arg1) {
+    	doctorsScrollPane.setPannable(true);
 		doctorsFlowPane.prefWidthProperty().bind(doctorsScrollPane.widthProperty());
 		doctorsFlowPane.prefHeightProperty().bind(doctorsScrollPane.heightProperty());
 	    setDoctors();		
@@ -209,6 +210,7 @@ public class DoctorsPaneController implements Initializable{
  	    	doctorsFlowPane.getChildren().add(doctorDetails);
  	    	DoctorDetailsController controller= loader.<DoctorDetailsController>getController();
  	    	controller.initComponents(doctor);
+ 	    	
  	    }
     } catch (Exception e) {
  		e.printStackTrace();

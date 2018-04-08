@@ -1,3 +1,5 @@
+
+
 package jdbcManager;
 import java.sql.*;
 
@@ -20,7 +22,7 @@ private static BillsController singleton;
 		prep.setFloat(2, bill.getTotalCost());
 		prep.setString(3, bill.getBankID());
 		prep.setBoolean(4, bill.getPaid());
-		prep.setInt(5,patientId);
+		prep.setInt(5,bill.getPatient().getId());
 		prep.executeUpdate();
 		prep.close();
 		return true;
