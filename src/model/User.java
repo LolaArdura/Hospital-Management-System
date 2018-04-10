@@ -1,6 +1,16 @@
 package model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="user")
 public class User {
+	
+	@Id
+	@GeneratedValue(generator="user")
+	@TableGenerator(name="user",table="sqlite_sequence",pkColumnName="name",valueColumnName="seq",
+			pkColumnValue="user")
+	private Integer id;
 	private String username;
 	private String password;
 	public enum userType{
