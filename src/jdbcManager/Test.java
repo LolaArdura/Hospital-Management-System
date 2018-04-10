@@ -28,8 +28,10 @@ public class Test {
 	 System.out.println(b);
 	 Doctor c=DoctorController.getDoctorController().searchDoctorById(11);
 	 System.out.println(c);
+	 
 	 //search doctor
 	 System.out.println(c);
+	 
 	 //delete doctor
 	 DoctorController.getDoctorController().deleteDoctor(doctor_);
 	 //update doctor
@@ -42,12 +44,16 @@ public class Test {
 	 
 	 
 	 //insert patient
-	 //Date dob = new Date(0, 0, 0);
-	 //Date dateAdmission = new Date (0, 0, 0);
-	 //Patient patient_ = new Patient( "Manola", sex.WOMEN , dob, dateAdmission );
-	 //PatientController.getPatientController().insertNoDiagnosePatient(patient_);
-	 //List<Patient> patients = PatientController.getPatientController().getAllPatients();
-	// System.out.println(patients);
+	 Date dob = new Date(0, 0, 0);
+	 Date dateAdmission = new Date (0, 0, 0);
+	 Patient patient_ = new Patient( "Manola", sex.WOMEN , dob, dateAdmission );
+	 PatientController.getPatientController().insertNoDiagnosePatient(patient_);
+	 List<Patient> patients = PatientController.getPatientController().getAllPatients();
+	 System.out.println(patients);
+	 //search patient
+	 //PatientController.getPatientController().
+	 //System.out.println(patient_); //PROBLEMA: al search patient el diagnose sale null
+	 //update doctor 
 	 
 	 //DBConnection.getConnection().close();//
  
