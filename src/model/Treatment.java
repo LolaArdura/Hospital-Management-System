@@ -1,16 +1,20 @@
 package model;
+import javax.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Date;
 
-
+@Entity
+@Table(name="treatment")
 public class Treatment implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1419910528213957445L;
-
+	@Id
+	@GeneratedValue(generator = "treatment")
+	@TableGenerator (name ="treatment", table="sqlite_sequence", pkColumnName = "name", valueColumnName ="seq", pkColumnValue="treatment")
 	private Integer id;
 	private String routeOfAdmin;
 	private Date startDate;
@@ -18,7 +22,9 @@ public class Treatment implements Serializable {
 	private float cost;
 	private String treatmentType;
 	private String dose;
+	@ManyToOne 
 	private Doctor prescriber;
+	@ManyToOne
 	private Patient patient ;
 	
 	//Constructor without id
