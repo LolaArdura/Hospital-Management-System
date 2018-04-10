@@ -1,8 +1,12 @@
 package model;
  
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.*;
 
+
+@Entity
+@Table (name="room")
 public class Room implements Serializable {
 
 	/**
@@ -10,6 +14,10 @@ public class Room implements Serializable {
 	 */
 	private static final long serialVersionUID = 3947234501234725063L;
 	
+	@Id
+	@GeneratedValue(generator="room")
+	@TableGenerator(name="room",table="sqlite_sequence",pkColumnName="name",valueColumnName="seq",
+			pkColumnValue="room")
     private Integer id;
     private Integer number;
     public enum roomType {
@@ -19,6 +27,8 @@ public class Room implements Serializable {
     private Integer floor;
     private Integer capacity;
 	private float costPerDay;
+	
+	@OneToMany(mappedBy="room")
 	private List<Patient> listOfPatients;
 	
 	

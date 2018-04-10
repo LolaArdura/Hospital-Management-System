@@ -19,7 +19,7 @@ public class DoctorController implements DoctorInterface {
 	}
 
 	public boolean insertDoctor(Doctor doctor) throws Exception {
-		String sql = "INSERT INTO doctor (id, name, photo, schedule, speciality) " + "VALUES (?,?,?,?,?);";
+		String sql = "INSERT INTO doctor (id, name, photo, schedule, specialty) " + "VALUES (?,?,?,?,?);";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, doctor.getId());
 		prep.setString(2, doctor.getName());
@@ -36,7 +36,7 @@ public class DoctorController implements DoctorInterface {
 	}
 	
 	public boolean insertDoctorWithoutId(Doctor doctor) throws Exception {
-		String sql= "INSERT INTO doctor (name,photo,schedule,speciality) VALUES (?,?,?,?)";
+		String sql= "INSERT INTO doctor (name,photo,schedule,specialty) VALUES (?,?,?,?)";
 		PreparedStatement prep=DBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, doctor.getName());
 		if(doctor.getPhoto() != null) {
@@ -59,8 +59,9 @@ public class DoctorController implements DoctorInterface {
 		return true;
 	}
 	
+	//wE WONT use this
 	public boolean deleteDoctorWithoutId(Doctor doctor) throws Exception{
-		String sql="DELETE FROM doctor WHERE name=? AND schedule = ? AND speciality=?";
+		String sql="DELETE FROM doctor WHERE name=? AND schedule = ? AND specialty=?";
 		PreparedStatement prep=DBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1,doctor.getName());
 		prep.setString(2, doctor.getSchedule());
@@ -80,7 +81,7 @@ public class DoctorController implements DoctorInterface {
 			String name = rs.getString("name");
 			byte[] photo = rs.getBytes("photo");
 			String schedule = rs.getString("schedule");
-			String speciality = rs.getString("speciality");
+			String speciality = rs.getString("specialty");
 			Doctor searchDoctor = new Doctor(Id, name, photo, schedule, speciality);
 			doctorList.add(searchDoctor);
 		}
@@ -99,14 +100,14 @@ public class DoctorController implements DoctorInterface {
 		String name = rs.getString("name");
 		byte[] photo = rs.getBytes("photo");
 		String schedule = rs.getString("schedule");
-		String speciality = rs.getString("speciality");
+		String speciality = rs.getString("specialty");
 		Doctor doctor = new Doctor(Id, name, photo, schedule, speciality);
 		return doctor;
 
 	}
 
 	public Doctor updateDoctor(Doctor doctor) throws Exception {
-		String sql = "UPDATE doctor SET name=?, schedule=?, speciality=? WHERE id=?";
+		String sql = "UPDATE doctor SET name=?, schedule=?, specialty=? WHERE id=?";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, doctor.getName());
 		prep.setString(2, doctor.getSchedule());
