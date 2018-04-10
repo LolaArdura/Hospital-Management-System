@@ -5,39 +5,34 @@ import java.util.*;
 public class Nurse extends Employee{
  
 	private String role;
-	private List <Patient> patients;
+	private List <Patient> listOfPatients;
 	
 	public Nurse (Integer id, String name, byte[] photo, String schedule, String role) {
-		this.id=id;
-		this.name=name;
-		this.photo=photo;
-		this.schedule=schedule;	
+	    super(id,name,photo,schedule);
 		this.role=role;	
-		this.patients = new LinkedList <Patient>();
+		this.listOfPatients = new LinkedList <Patient>();
 	}
 	
 	public Nurse(String name, byte[] photo, String schedule, String role) {
-		this.name=name;
-		this.photo=photo;
+		super(name, photo,schedule);
 		this.schedule=schedule;
 		this.role=role;
-		this.patients= new LinkedList <Patient>();
+		this.listOfPatients= new LinkedList <Patient>();
 	}
 	
 	public Nurse(String name, String schedule, String role) {
-		this.name=name;
-		this.schedule=schedule;
+		super(name, schedule);
 		this.role=role;
-		this.patients=new LinkedList <Patient>();
+		this.listOfPatients=new LinkedList <Patient>();
 	}
+
 	
 	public Nurse ( String role ) {
 		this.role= role;
-		this.patients = new LinkedList <Patient>() ;
+		this.listOfPatients = new LinkedList <Patient>() ;
 	}
 	public Nurse () {
-		
-		this.patients = new LinkedList <Patient>() ;
+		this.listOfPatients = new LinkedList <Patient>() ;
 	}
 	
 	public Integer getId() {
@@ -46,12 +41,32 @@ public class Nurse extends Employee{
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getRole() {
 		return role;
 	}
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
+	public List<Patient> getListOfPatients() {
+		return listOfPatients;
+	}
+
+	public void setListOfPatients(List<Patient> listOfPatients) {
+		this.listOfPatients.addAll(listOfPatients);
+	}
+	
+	public void addPatientToNurse(Patient patient) {
+				this.listOfPatients.add(patient);
+		}
+		
+		public void deletePatientFromNurse(Patient patient) {
+			if (listOfPatients.contains(patient)) {
+				this.listOfPatients.remove(patient);
+			}
+		}
+		
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -77,7 +92,7 @@ public class Nurse extends Employee{
 	}
 	@Override
 	public String toString() {
-		return "Nurse [id=" + id + ", name=" + name + ", photo="+ photo +", schedule="+ schedule +", role=" + role + ", nurses=" + patients + "]";
+		return "Nurse [id:" + id + ", name:" + name + ", photo:"+ photo +", schedule:"+ schedule +", role:" + role + ", patients:" + listOfPatients + "]";
 	}
 
 	

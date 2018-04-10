@@ -19,11 +19,12 @@ public class Treatment implements Serializable {
 	private String treatmentType;
 	private String dose;
 	private Doctor prescriber;
+	private Patient patient ;
 	
-	//Constructor
+	//Constructor without id
 	
 	public Treatment (String routeOfAdmin, Date startDate, Date endDate, float cost ,
-			String treatmentType, String dose, Doctor prescriber) {
+			String treatmentType, String dose, Doctor prescriber, Patient patient) {
 		this.routeOfAdmin= routeOfAdmin;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -31,10 +32,13 @@ public class Treatment implements Serializable {
 		this.treatmentType = treatmentType;
 		this.dose = dose;
 		this.prescriber=prescriber;
+		this.patient = patient;
+		
 	}
+	//Constructor with id
 	
 	public Treatment (int Id, String routeOfAdmin, Date startDate, Date endDate, float cost ,
-			String treatmentType, String dose, Doctor prescriber) {
+			String treatmentType, String dose, Doctor prescriber, Patient patient) {
 		this.id = Id;
 		this.routeOfAdmin= routeOfAdmin;
 		this.startDate = startDate;
@@ -43,6 +47,7 @@ public class Treatment implements Serializable {
 		this.treatmentType = treatmentType;
 		this.dose = dose;
 		this.prescriber = prescriber;
+		this.patient = patient;
 	}
 	
 	public Integer getId() {
@@ -94,6 +99,15 @@ public class Treatment implements Serializable {
 	public void setDoctorId(Doctor prescriber) {
 		this.prescriber = prescriber;
 	}
+	
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 
 	@Override
 	public int hashCode() {
@@ -123,8 +137,11 @@ public class Treatment implements Serializable {
 	@Override
 	public String toString() {
 		return "Treatment [id=" + id + ", routeOfAdmin=" + routeOfAdmin + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", cost=" + cost + ", treatmentType=" + treatmentType + ", dose=" + dose + ", doctor_id=" + doctor_id + "]";
+				+ endDate + ", cost=" + cost + ", treatmentType=" + treatmentType + ", dose=" + dose + ", prescriber="
+				+ prescriber + ", patient=" + patient + "]";
 	}
+
+	
 	
 	
 	

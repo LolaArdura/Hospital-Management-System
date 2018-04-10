@@ -20,17 +20,18 @@ public class Patient implements Serializable {
 	private String diagnose;
 	private Date dob;
 	private Date dateAdmission;
-	private List <Treatment> treatments;
-	private List <Nurse> nurses;
-	private List <Bills> bills;
+	private List <Treatment> listOfTreatments;
+	private List <Nurse> listOfNurses;
+	private List <Bills> listOfBills;
+	private Room room;
 	
 	//Constructors
 	
    public Patient () {
 	
-	this.treatments = new LinkedList <Treatment> ();
-	this.nurses = new LinkedList<Nurse>();
-	this.bills = new LinkedList<Bills>();
+	this.listOfTreatments = new LinkedList <Treatment> ();
+	this.listOfNurses = new LinkedList<Nurse>();
+	this.listOfBills = new LinkedList<Bills>();
    }
    
   public Patient (Integer id, String name, sex gender, String diagnose, Date dob,
@@ -41,9 +42,9 @@ public class Patient implements Serializable {
 	   this.diagnose = diagnose;
 	   this.dob = dob;
 	   this.dateAdmission = dateAdmission;
-	   this.treatments = new LinkedList <Treatment> ();
-	   this.nurses = new LinkedList<Nurse>();
-	   this.bills = new LinkedList<Bills>();
+	   this.listOfTreatments = new LinkedList <Treatment> ();
+	   this.listOfNurses = new LinkedList<Nurse>();
+	   this.listOfBills = new LinkedList<Bills>();
 }	
    
    
@@ -58,9 +59,9 @@ public Patient (String name, sex gender, String diagnose, Date dob,
 	   this.diagnose = diagnose;
 	   this.dob = dob;
 	   this.dateAdmission = dateAdmission;
-	   this.treatments = new LinkedList <Treatment> ();
-	   this.nurses = new LinkedList<Nurse>();
-	   this.bills = new LinkedList<Bills>();
+	   this.listOfTreatments = new LinkedList <Treatment> ();
+	   this.listOfNurses = new LinkedList<Nurse>();
+	   this.listOfBills = new LinkedList<Bills>();
 }	
 
 public Patient (String name, sex gender,  Date dob,
@@ -70,9 +71,9 @@ public Patient (String name, sex gender,  Date dob,
 	   this.gender = gender;
 	   this.dob = dob;
 	   this.dateAdmission = dateAdmission;
-	   this.treatments = new LinkedList <Treatment> ();
-	   this.nurses = new LinkedList<Nurse>();
-	   this.bills = new LinkedList<Bills>();
+	   this.listOfTreatments = new LinkedList <Treatment> ();
+	   this.listOfNurses = new LinkedList<Nurse>();
+	   this.listOfBills = new LinkedList<Bills>();
 }	
 
 
@@ -120,26 +121,73 @@ public Patient (String name, sex gender,  Date dob,
 	public void setDateAdmission(Date dateAdmission) {
 		this.dateAdmission = dateAdmission;
 	}
-	public List<Treatment> getTreatments() {
-		return treatments;
-	}
-	public void setTreatments(LinkedList<Treatment> treatments) {
-		this.treatments = treatments;
-	}
-	public List<Nurse> getNurses() {
-		return nurses;
-	}
-	public void setNurses(LinkedList<Nurse> nurses) {
-		this.nurses = nurses;
-	}
-	public List<Bills> getBills() {
-		return bills;
-	}
-	public void setBills(LinkedList<Bills> bills) {
-		this.bills = bills;
-	}
+	
 	
 
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
+	public List<Treatment> getListOfTreatments() {
+		return listOfTreatments;
+	}
+
+	public void setListOfTreatments(List<Treatment> listOfTreatments) {
+		this.listOfTreatments.addAll(listOfTreatments);
+	}
+
+	public List<Nurse> getListOfNurses() {
+		return listOfNurses;
+	}
+
+	public void setListOfNurses(List<Nurse> listOfNurses) {
+		this.listOfNurses.addAll(listOfNurses);
+	}
+
+	public List<Bills> getListOfBills() {
+		return listOfBills;
+	}
+
+	public void setListOfBills(List<Bills> listOfBills) {
+		this.listOfBills.addAll(listOfBills);
+	
+	}
+
+	public void removeTreatment (Treatment treatment) {
+		if (listOfTreatments.contains(treatment)) {
+			listOfTreatments.remove(treatment);
+		}
+	}
+	
+	public void removeBill (Bills bill) {
+		if (listOfBills.contains(bill)) {
+			listOfBills.remove(bill);
+		}
+	}
+	
+	public void removeNurse (Nurse nurse) {
+		if (listOfNurses.contains(nurse)) {
+			listOfNurses.remove(nurse);
+		}
+	}
+	
+	public void addNurse(Nurse nurse) {
+		listOfNurses.add(nurse);
+	}
+	
+	public void addTreatment(Treatment treatment) {
+		listOfTreatments.add(treatment);
+	}
+	
+	public void addBills(Bills bill) {
+		listOfBills.add(bill);
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -168,8 +216,7 @@ public Patient (String name, sex gender,  Date dob,
 	@Override
 	public String toString() {
 		return "Patient [id:" + id + ", name:" + name + ", gender:" + gender + ", diagnose:" + diagnose
-				+ ", dob:" + dob + ", dateAdmission:" + dateAdmission + ", treatments:"
-				+ treatments + ", bills:" + bills + "]";
+				+ ", dob:" + dob + ", dateAdmission:" + dateAdmission + ",Room: "+ room +" ]";
 	}
 	
 	
