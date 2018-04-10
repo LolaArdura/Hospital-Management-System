@@ -64,6 +64,18 @@ public class Test {
 //(float) 200.4," 98512658", true);
 	 //BillsController.getBillsController().insertBills(bill_);
 	 
+	 //insert room
+	/* Room room_ = new Room (03, 19, roomType.BOX, 5, 20 , 20) ; 
+	 RoomController.getRoomController().insertRoom(room_); 
+	 List <Room> b = RoomController.getRoomController().getAllRooms();
+	 System.out.println(b);
+	 Room a=RoomController.getRoomController().searchRoomById(03);
+	 a.setCapacity(8);
+	 RoomController.getRoomController().updateRoom(a);
+	 System.out.println(a);
+	 RoomController.getRoomController().deleteRoom(a);
+	 List <Room> c = RoomController.getRoomController().getAllRooms();
+	 System.out.println(c);*/
 	 
 	 
  }

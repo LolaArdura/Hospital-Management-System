@@ -3,14 +3,17 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
+import javax.persistence.*;
 
+@Entity
+@Table(name="patient")
 public class Patient implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3758399780780821912L;
- 
+	
+	@Id
+	@GeneratedValue(generator="patient")
+	@TableGenerator(name="patient", table="sqlite_sequence", pkColumnName="name", valueColumnName="seq", pkColumnValue="patient")
 	private Integer id;
 	private String name;
 	public enum sex{
@@ -20,8 +23,11 @@ public class Patient implements Serializable {
 	private String diagnose;
 	private Date dob;
 	private Date dateAdmission;
+	@OneToMany(mappedBy="patient")
 	private List <Treatment> listOfTreatments;
+	@ManyToMany(mappedBy="patient")
 	private List <Nurse> listOfNurses;
+	@OneToMany(mappedBy="patient")
 	private List <Bills> listOfBills;
 	private Room room;
 	

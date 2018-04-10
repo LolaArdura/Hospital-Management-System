@@ -58,7 +58,7 @@ public class Doctor extends Employee{
 	}
 	@Override
 	public String toString() {
-		return "Doctor [id:" + id + "\n name:" +  name + "\n photo=" + photo + "\n schedule:" + schedule+"\n speciality:" + specialty + "]";
+		return "Doctor [id:" + id + "\n name:" +  name + "\n photo:" + photo + "\n schedule:" + schedule+"\n speciality:" + specialty + "]";
 	}
 	
 	
