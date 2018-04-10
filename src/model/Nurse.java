@@ -2,8 +2,8 @@ package model;
 
 import java.util.*;
 
-public class Nurse extends Employee{
- 
+public class Nurse extends Employee{	
+	
 	private String role;
 	private List <Patient> listOfPatients;
 	
