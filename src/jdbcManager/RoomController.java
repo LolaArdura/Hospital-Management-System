@@ -1,14 +1,14 @@
 package jdbcManager;
 import model.*;
 import java.sql.*;
-
-import model.Room;
+import java.util.LinkedList;
+import java.util.List;
 
 public class RoomController implements RoomInterface {
 
 	private static RoomController singleton;
 
-	public RoomController getRoomController() {
+	public static  RoomController getRoomController() {
 		if (singleton == null) {
 			singleton = new RoomController();
 
@@ -18,7 +18,7 @@ public class RoomController implements RoomInterface {
 	}
 
 	public boolean insertRoom(Room room) throws Exception {
-		String sql = "INSERT INTO room (id, number, type, capacity, floor, costPerDay)" + " VALUES (?,?,?,?,?,?,?);";
+		String sql = "INSERT INTO room (id, number, type, capacity, floor, costPerDay)" + " VALUES (?,?,?,?,?,?);";
 
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getId());
@@ -70,6 +70,24 @@ public class RoomController implements RoomInterface {
 		return true;
 	}
 	
+	public List<Room> getAllRooms() throws Exception {
+		Statement stmt = DBConnection.getConnection().createStatement();
+		String sql = "SELECT * FROM room";
+		ResultSet rs = stmt.executeQuery(sql);
+		List<Room> roomList = new LinkedList<Room>();
+		while (rs.next()) {
+			int Id = rs.getInt("id");
+			int number = rs.getInt("number");
+			Room.roomType type = Room.roomType.valueOf(rs.getString("type").toUpperCase());
+			int floor = rs.getInt("floor");
+			int capacity = rs.getInt("capacity");
+			float costPerDay = rs.getFloat("costPerDay");
+			Room searchRoom = new Room(Id, number, type, floor, capacity, costPerDay);
+			roomList.add(searchRoom);
+		}
+		stmt.close();
+		return roomList;
+	}
 	
 	
 }

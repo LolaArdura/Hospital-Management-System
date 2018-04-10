@@ -1,6 +1,7 @@
 package jdbcManager;
 
-
+import model.Room;
+import model.Room.roomType;
 
 import java.sql.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import model.Doctor;
 import model.Nurse;
 import model.Patient;
 import model.Patient.sex;
+import model.Room;
 import tables.DatabaseTables;
 
 public class Test {
@@ -18,8 +20,9 @@ public class Test {
 	 //create tables
 	//DatabaseTables.createTables(); 
 
+	 //DOCTOR, NURSE AND ROOMS WORKS CORRECTLY
+	 
 	 //insert doctor
-
 	 /*Doctor doctor_ = new Doctor(06, "Pepe", null , "morning", "cardiology" );
 	 //DoctorController.getDoctorController().insertDoctor (doctor_);
 	List<Doctor> a = DoctorController.getDoctorController().getAllDoctors();
@@ -48,7 +51,7 @@ public class Test {
 	 //PatientController.getPatientController().insertNoDiagnosePatient(patient_);
 	 //List<Patient> patients = PatientController.getPatientController().getAllPatients();
 	// System.out.println(patients);
-	 
+	
 	 //DBConnection.getConnection().close();//
  
 
@@ -58,7 +61,18 @@ public class Test {
 //(float) 200.4," 98512658", true);
 	 //BillsController.getBillsController().insertBills(bill_);
 	 
-	 
+	 //insert room
+	/* Room room_ = new Room (03, 19, roomType.BOX, 5, 20 , 20) ; 
+	 RoomController.getRoomController().insertRoom(room_); 
+	 List <Room> b = RoomController.getRoomController().getAllRooms();
+	 System.out.println(b);
+	 Room a=RoomController.getRoomController().searchRoomById(03);
+	 a.setCapacity(8);
+	 RoomController.getRoomController().updateRoom(a);
+	 System.out.println(a);
+	 RoomController.getRoomController().deleteRoom(a);
+	 List <Room> c = RoomController.getRoomController().getAllRooms();
+	 System.out.println(c);*/
 	 
  }
 }
