@@ -25,6 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import jdbcManager.NurseController;
+import jdbcManager.NurseInterface;
 import model.Nurse;
 import sun.misc.IOUtils;
 
@@ -114,6 +115,9 @@ public class NursesViewPaneController implements Initializable {
 								
 					//We insert into the database the new nurse
 			    	NurseController.getNurseController().insertNurse(nurse);
+			    	
+			    //	NurseInterface nurseController=NurseController.getNurseController();
+			   // 	nurseController.insertNurse(nurse);
 			    	
 			    	//We show the new nurse
 			    	setNurses();
