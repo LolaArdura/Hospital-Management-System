@@ -62,7 +62,7 @@ public class DatabaseTables {
 					"number INTEGER UNIQUE,\r\n" + 
 					"type TEXT NOT NULL DEFAULT 'box',\r\n" + 
 					"capacity INT NOT NULL CHECK (capacity>0),\r\n" + 
-					"cost_per_day REAL\r\n" + 
+					"costPerDay REAL\r\n" + 
 					")";
 			s4.executeUpdate(table4);
 			s4.close();
