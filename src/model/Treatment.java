@@ -56,6 +56,19 @@ public class Treatment implements Serializable {
 		this.patient = patient;
 	}
 	
+	public Treatment (int Id, String routeOfAdmin, Date startDate, Date endDate, float cost ,
+			String treatmentType, String dose, Doctor prescriber) {
+		this.id = Id;
+		this.routeOfAdmin= routeOfAdmin;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.cost = cost;
+		this.treatmentType = treatmentType;
+		this.dose = dose;
+		this.prescriber = prescriber;
+	
+	}
+	
 	public Integer getId() {
 		return id;
 	}
