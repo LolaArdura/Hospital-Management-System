@@ -5,12 +5,12 @@ import java.sql.*;
 import interfaces.*;
 
 import model.Bills;
-public class BillsController implements BillsInterface{
+public class JDBCBillsController implements BillsInterface{
 	
-private static BillsController singleton;
-	public static BillsController getBillsController () {
+private static JDBCBillsController singleton;
+	public static JDBCBillsController getBillsController () {
 	 if (singleton == null) {
-		 singleton = new BillsController ();
+		 singleton = new JDBCBillsController ();
 	 }
 	return singleton;
 }
