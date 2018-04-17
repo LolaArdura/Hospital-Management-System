@@ -6,12 +6,12 @@ import java.util.*;
 
 import model.*;
 
-public class PatientController implements PatientInterface{
-	private static PatientController singleton;
+public class JDBCPatientController implements PatientInterface{
+	private static JDBCPatientController singleton;
 	
-	public static PatientController getPatientController () {
+	public static JDBCPatientController getPatientController () {
 		if (singleton == null) {
-			singleton = new PatientController ();
+			singleton = new JDBCPatientController ();
 		}
 		return singleton;
 	}

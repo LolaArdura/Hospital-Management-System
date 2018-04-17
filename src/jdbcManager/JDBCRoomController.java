@@ -4,13 +4,13 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 import interfaces.*;
-public class RoomController implements RoomInterface {
+public class JDBCRoomController implements RoomInterface {
 
-	private static RoomController singleton;
+	private static JDBCRoomController singleton;
 
-	public static  RoomController getRoomController() {
+	public static  JDBCRoomController getRoomController() {
 		if (singleton == null) {
-			singleton = new RoomController();
+			singleton = new JDBCRoomController();
 
 		}
 		return singleton;
