@@ -20,7 +20,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 	public boolean insertTreatment (Treatment treatment) throws Exception {
 		String sql = "INSERT INTO treatment (id, routeOfAdmin, startDate, endDate, cost, type, dose, doctor_id)"
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, treatment.getId());
 		prep.setString(2,treatment.getRouteOfAdmin());
 		prep.setDate(3, treatment.getStartDate());
@@ -36,7 +36,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 	
 	public boolean deleteTreatment (Treatment treatment) throws Exception {
 		String sql = "DELETE FROM treatment WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1,  treatment.getId());
 		prep.executeUpdate();
 		return true;
@@ -44,7 +44,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 	
 	public Treatment searchTreatmentById (Integer id) throws Exception {
 		String sql = "SELECT * FROM treatment WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 		rs.next();
@@ -62,7 +62,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 	
 	public Treatment updateTreatment (Treatment treatment) throws Exception {
 		String sql = "UPDATE treatment SET routeOfAdmin=?, startDate=?, endDate=?, cost=?, type=?, dose=?, doctor_id=? WHERE id = ?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, treatment.getRouteOfAdmin());
 		prep.setDate(2, treatment.getStartDate());
 		prep.setDate(3, treatment.getEndDate());

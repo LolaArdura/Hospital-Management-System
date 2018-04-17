@@ -20,7 +20,7 @@ public class JDBCRoomController implements RoomInterface {
 	public boolean insertRoom(Room room) throws Exception {
 		String sql = "INSERT INTO room (id, number, type, capacity, floor, costPerDay)" + " VALUES (?,?,?,?,?,?);";
 
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getId());
 		prep.setInt(2, room.getNumber());
 		prep.setString(3, room.getType().name().toLowerCase());
@@ -35,7 +35,7 @@ public class JDBCRoomController implements RoomInterface {
 	
 	public boolean deleteRoom(Room room) throws Exception {
 		String sql = "DELETE FROM room WHERE id = ?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getId());
 		prep.executeUpdate();
 		return true;
@@ -43,7 +43,7 @@ public class JDBCRoomController implements RoomInterface {
 
 	public Room searchRoomById(Integer id) throws Exception {
 		String sql = "SELECT * FROM room WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 		rs.next();
@@ -59,7 +59,7 @@ public class JDBCRoomController implements RoomInterface {
 
 	public boolean updateRoom(Room room) throws Exception {
 		String sql = "UPDATE room SET number=?, type=?, capacity=?, floor=?, costPerDay=? WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getNumber());
 		prep.setString(2, room.getType().name().toUpperCase());
 		prep.setInt(3, room.getCapacity());
@@ -71,7 +71,7 @@ public class JDBCRoomController implements RoomInterface {
 	}
 	
 	public List<Room> getAllRooms() throws Exception {
-		Statement stmt = DBConnection.getConnection().createStatement();
+		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT * FROM room";
 		ResultSet rs = stmt.executeQuery(sql);
 		List<Room> roomList = new LinkedList<Room>();

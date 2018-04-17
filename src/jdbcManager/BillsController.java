@@ -18,7 +18,7 @@ private static BillsController singleton;
 	public boolean insertBills (Bills bill, Integer patientId) throws Exception{
 		String sql = "INSERT INTO bills (id, totalCost, bankID, paid, patient_id) "
 				+ "VALUES (?,?,?,?,?)";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, bill.getId());
 		prep.setFloat(2, bill.getTotalCost());
 		prep.setString(3, bill.getBankID());
@@ -32,7 +32,7 @@ private static BillsController singleton;
 	
 public boolean deleteBills (Bills bill)  throws Exception{
 	String sql = "DELETE FROM bills WHERE id=?";
-	PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+	PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 	prep.setInt(1,  bill.getId());
 	prep.executeUpdate();
 	return true;
@@ -40,7 +40,7 @@ public boolean deleteBills (Bills bill)  throws Exception{
 public Bills searchBillsById (Integer id) throws Exception{
 
 	String sql = "SELECT * FROM bills WHERE id=?";
-	PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+	PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 	prep.setInt(1, id);
 	ResultSet rs = prep.executeQuery();
 	
@@ -62,7 +62,7 @@ public Bills updateBills (Bills bill) throws Exception {
 			+ "totalCost = ?, "
 			+ "paid = ?"
 			+ "WHERE id = ?";
-	PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+	PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 	prep.setString(1, bill.getBankID());
 	prep.setFloat(2, bill.getTotalCost());
 	prep.setBoolean(3, bill.getPaid());

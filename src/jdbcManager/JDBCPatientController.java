@@ -19,7 +19,7 @@ public class JDBCPatientController implements PatientInterface{
 	public boolean insertCompletePatient (Patient patient) throws Exception {
 		String sql = "INSERT INTO patient (name, gender,diagnose, dob, dateAdmission)" 
 					+"VALUES(?,?,?,?,?)";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 	
 		prep.setString(1, patient.getName());
 		prep.setString(2,  patient.getGender().name().toLowerCase());
@@ -34,7 +34,7 @@ public class JDBCPatientController implements PatientInterface{
 	public boolean insertNoDiagnosePatient (Patient patient) throws Exception {
 		String sql = "INSERT INTO patient (name, gender, dob, dateAdmission)" 
 					+"VALUES(?,?,?,?)";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 	
 		prep.setString(1, patient.getName());
 		prep.setString(2,  patient.getGender().name().toLowerCase());
@@ -73,13 +73,13 @@ public class JDBCPatientController implements PatientInterface{
 	
 	public boolean deletePatient (Patient patient) throws Exception {
 		String sql = "DELETE FROM patient WHERE id = ?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1,patient.getId());
 		prep.executeUpdate();
 		return true;
 	}
 	public List<Patient> getAllPatients () throws Exception {
-		Statement stmt = DBConnection.getConnection().createStatement();
+		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT * FROM patient";
 		ResultSet rs = stmt.executeQuery(sql);
 		List<Patient> patientList= new LinkedList <Patient>();
@@ -99,7 +99,7 @@ public class JDBCPatientController implements PatientInterface{
 	
 	public Patient searchPatientById (Integer id) throws Exception {
 		String sql = "SELECT * FROM patient WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 		rs.next();
@@ -115,7 +115,7 @@ public class JDBCPatientController implements PatientInterface{
 	
 	public Patient updatePatient (Patient patient) throws Exception{
 		String sql = "UPDATE patient SET name=?, gender=?, diagnose=?, dob=?, date_of_admission=? WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, patient.getName());
 		prep.setString(2, patient.getGender().name().toLowerCase());
 		prep.setString(3, patient.getDiagnose());

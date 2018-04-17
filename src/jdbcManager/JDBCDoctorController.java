@@ -20,7 +20,7 @@ public class JDBCDoctorController implements DoctorInterface {
 
 	public boolean insertDoctor(Doctor doctor) throws Exception {
 		String sql = "INSERT INTO doctor (id, name, photo, schedule, specialty) " + "VALUES (?,?,?,?,?);";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, doctor.getId());
 		prep.setString(2, doctor.getName());
 		if (doctor.getPhoto() != null) {
@@ -37,7 +37,7 @@ public class JDBCDoctorController implements DoctorInterface {
 	
 	public boolean insertDoctorWithoutId(Doctor doctor) throws Exception {
 		String sql= "INSERT INTO doctor (name,photo,schedule,specialty) VALUES (?,?,?,?)";
-		PreparedStatement prep=DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep=JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, doctor.getName());
 		if(doctor.getPhoto() != null) {
 			prep.setBytes(2,doctor.getPhoto());
@@ -53,7 +53,7 @@ public class JDBCDoctorController implements DoctorInterface {
 
 	public boolean deleteDoctor(Doctor doctor) throws Exception {
 		String sql = "DELETE FROM doctor WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, doctor.getId());
 		prep.executeUpdate();
 		return true;
@@ -62,7 +62,7 @@ public class JDBCDoctorController implements DoctorInterface {
 	//wE WONT use this
 	public boolean deleteDoctorWithoutId(Doctor doctor) throws Exception{
 		String sql="DELETE FROM doctor WHERE name=? AND schedule = ? AND specialty=?";
-		PreparedStatement prep=DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep=JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1,doctor.getName());
 		prep.setString(2, doctor.getSchedule());
 		prep.setString(3,doctor.getSpeciality());
@@ -72,7 +72,7 @@ public class JDBCDoctorController implements DoctorInterface {
 	}
 
 	public List<Doctor> getAllDoctors() throws Exception {
-		Statement stmt = DBConnection.getConnection().createStatement();
+		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT * FROM doctor";
 		ResultSet rs = stmt.executeQuery(sql);
 		List<Doctor> doctorList = new LinkedList<Doctor>();
@@ -91,7 +91,7 @@ public class JDBCDoctorController implements DoctorInterface {
 
 	public Doctor searchDoctorById(Integer id) throws Exception {
 		String sql = "SELECT * FROM doctor WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 
@@ -108,7 +108,7 @@ public class JDBCDoctorController implements DoctorInterface {
 
 	public Doctor updateDoctor(Doctor doctor) throws Exception {
 		String sql = "UPDATE doctor SET name=?, schedule=?, specialty=? WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, doctor.getName());
 		prep.setString(2, doctor.getSchedule());
 		prep.setString(3, doctor.getSpeciality());
