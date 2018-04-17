@@ -18,24 +18,8 @@ public class JDBCDoctorController implements DoctorInterface {
 		return singleton;
 	}
 
-	public boolean insertDoctor(Doctor doctor) throws Exception {
-		String sql = "INSERT INTO doctor (id, name, photo, schedule, specialty) " + "VALUES (?,?,?,?,?);";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
-		prep.setInt(1, doctor.getId());
-		prep.setString(2, doctor.getName());
-		if (doctor.getPhoto() != null) {
-			prep.setBytes(3, doctor.getPhoto());
-		} else {
-			prep.setBytes(3, null);
-		}
-		prep.setString(4, doctor.getSchedule());
-		prep.setString(5, doctor.getSpeciality());
-		prep.executeUpdate();
-		prep.close();
-		return true;
-	}
 	
-	public boolean insertDoctorWithoutId(Doctor doctor) throws Exception {
+	public boolean insertDoctor(Doctor doctor) throws Exception {
 		String sql= "INSERT INTO doctor (name,photo,schedule,specialty) VALUES (?,?,?,?)";
 		PreparedStatement prep=DBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, doctor.getName());

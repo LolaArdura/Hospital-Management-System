@@ -18,17 +18,17 @@ public class JDBCTreatmentController implements TreatmentInterface {
 	}
 	
 	public boolean insertTreatment (Treatment treatment) throws Exception {
-		String sql = "INSERT INTO treatment (id, routeOfAdmin, startDate, endDate, cost, type, dose, doctor_id)"
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO treatment ( routeOfAdmin, startDate, endDate, cost, type, dose, doctor_id)"
+				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
-		prep.setInt(1, treatment.getId());
-		prep.setString(2,treatment.getRouteOfAdmin());
-		prep.setDate(3, treatment.getStartDate());
-		prep.setDate(4, treatment.getEndDate());
-		prep.setFloat(5, treatment.getCost());
-		prep.setString(6, treatment.getTreatmentType());
-		prep.setString(7, treatment.getDose());
-		prep.setInt(8, treatment.getPrescriber().getId());
+		
+		prep.setString(1,treatment.getRouteOfAdmin());
+		prep.setDate(2, treatment.getStartDate());
+		prep.setDate(3, treatment.getEndDate());
+		prep.setFloat(4, treatment.getCost());
+		prep.setString(5, treatment.getTreatmentType());
+		prep.setString(6, treatment.getDose());
+		prep.setInt(7, treatment.getPrescriber().getId());
 		prep.executeUpdate();
 		prep.close();
 		return true;

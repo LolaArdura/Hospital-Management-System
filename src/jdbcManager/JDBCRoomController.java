@@ -18,15 +18,14 @@ public class JDBCRoomController implements RoomInterface {
 	}
 
 	public boolean insertRoom(Room room) throws Exception {
-		String sql = "INSERT INTO room (id, number, type, capacity, floor, costPerDay)" + " VALUES (?,?,?,?,?,?);";
+		String sql = "INSERT INTO room ( number, type, capacity, floor, costPerDay)" + " VALUES (?,?,?,?,?);";
 
 		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
-		prep.setInt(1, room.getId());
-		prep.setInt(2, room.getNumber());
-		prep.setString(3, room.getType().name().toLowerCase());
-		prep.setInt(4, room.getCapacity());
-		prep.setInt(5, room.getFloor());
-		prep.setFloat(6, room.getCostPerDay());
+		prep.setInt(1, room.getNumber());
+		prep.setString(2, room.getType().name().toLowerCase());
+		prep.setInt(3, room.getCapacity());
+		prep.setInt(4, room.getFloor());
+		prep.setFloat(5, room.getCostPerDay());
 		prep.executeUpdate();
 		prep.close();
 		return true;
