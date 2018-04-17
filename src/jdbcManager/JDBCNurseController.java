@@ -20,7 +20,7 @@ public class JDBCNurseController implements NurseInterface {
 
 	public boolean insertNurse(Nurse nurse) throws Exception {
 		String sql = "INSERT INTO nurse (name, photo, schedule, role) " + "VALUES (?,?,?,?);";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, nurse.getName());
 		if (nurse.getPhoto() != null) {
 			prep.setBytes(2, nurse.getPhoto());
@@ -36,7 +36,7 @@ public class JDBCNurseController implements NurseInterface {
 
 	public boolean deleteNurse(Nurse nurse) throws Exception {
 		String sql = "DELETE FROM nurse WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, nurse.getId());
 		prep.executeUpdate();
 		prep.close();
@@ -44,7 +44,7 @@ public class JDBCNurseController implements NurseInterface {
 	}
 
 	public List<Nurse> getAllNurses() throws Exception {
-		Statement stmt = DBConnection.getConnection().createStatement();
+		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT * FROM nurse";
 		ResultSet rs = stmt.executeQuery(sql);
 		List<Nurse> nurseList = new LinkedList<Nurse>();
@@ -63,7 +63,7 @@ public class JDBCNurseController implements NurseInterface {
 
 	public Nurse searchNurseById(Integer id) throws Exception {
 		String sql = "SELECT * FROM nurse WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 		rs.next();
@@ -78,7 +78,7 @@ public class JDBCNurseController implements NurseInterface {
 	
 	public Nurse searchNurseBySchedule (String schedule) throws Exception{
 		String sql  ="SELECT * FROM nurse WHERE schedule=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, schedule);
 		ResultSet rs = prep.executeQuery();
 		rs.next();
@@ -93,7 +93,7 @@ public class JDBCNurseController implements NurseInterface {
 	
 	public Nurse searchNurseByName (String name) throws Exception{
 		String sql  ="SELECT * FROM nurse WHERE name=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, name);
 		ResultSet rs = prep.executeQuery();
 		rs.next();
@@ -108,7 +108,7 @@ public class JDBCNurseController implements NurseInterface {
 	
 	public Nurse updateNurse(Nurse nurse) throws Exception {
 		String sql = "UPDATE nurse SET name=?, schedule=?, role=? WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, nurse.getName());
 		prep.setString(2, nurse.getSchedule());
 		prep.setString(3, nurse.getRole());

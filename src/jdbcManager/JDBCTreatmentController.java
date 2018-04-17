@@ -20,7 +20,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 	public boolean insertTreatment (Treatment treatment) throws Exception {
 		String sql = "INSERT INTO treatment ( routeOfAdmin, startDate, endDate, cost, type, dose, doctor_id)"
 				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?)";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		
 		prep.setString(1,treatment.getRouteOfAdmin());
 		prep.setDate(2, treatment.getStartDate());
@@ -36,7 +36,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 	
 	public boolean deleteTreatment (Treatment treatment) throws Exception {
 		String sql = "DELETE FROM treatment WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1,  treatment.getId());
 		prep.executeUpdate();
 		return true;
