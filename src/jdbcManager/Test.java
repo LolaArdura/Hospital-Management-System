@@ -47,8 +47,8 @@ public class Test {
 	 Date dob = new Date(0, 0, 0);
 	 Date dateAdmission = new Date (0, 0, 0);
 	 Patient patient_ = new Patient( "Manola", sex.WOMEN , dob, dateAdmission );
-	 PatientController.getPatientController().insertNoDiagnosePatient(patient_);
-	 List<Patient> patients = PatientController.getPatientController().getAllPatients();
+	 JDBCPatientController.getPatientController().insertNoDiagnosePatient(patient_);
+	 List<Patient> patients = JDBCPatientController.getPatientController().getAllPatients();
 	 System.out.println(patients);
 	 //search patient
 	 //PatientController.getPatientController().

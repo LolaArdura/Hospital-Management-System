@@ -5,12 +5,12 @@ import java.sql.*;
 import model.Doctor;
 import model.Treatment;
 
-public class TreatmentController implements TreatmentInterface {
+public class JDBCTreatmentController implements TreatmentInterface {
   
-	private static TreatmentController singleton;
-	public TreatmentController getTreatmentController() {
+	private static JDBCTreatmentController singleton;
+	public JDBCTreatmentController getTreatmentController() {
 		if (singleton == null) {
-			singleton = new TreatmentController (); 
+			singleton = new JDBCTreatmentController (); 
 			
 		}
 		return singleton;
