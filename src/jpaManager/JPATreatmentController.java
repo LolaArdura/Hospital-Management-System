@@ -16,7 +16,7 @@ public class JPATreatmentController implements RoomInterface {
 		 }
 		 return singleton;
 	 }
-	 public boolean insertRoom (Treatment treatment) throws Exception{
+	 public boolean insertTreatment (Treatment treatment) throws Exception{
 		 EntityManager em =DBEntityManager.getEntityManager();
 		 em.getTransaction().begin();
 		 em.persist(treatment);
@@ -25,4 +25,17 @@ public class JPATreatmentController implements RoomInterface {
 		 
 	 }
 	 
+	 public boolean deleteTreatment (Treatment treatment) throws Exception{
+		 EntityManager em =DBEntityManager.getEntityManager();
+		 em.getTransaction().begin();
+		 em.remove(treatment);
+		 em.getTransaction().commit();
+		 return true;
+		 
+	 }
+	 
+	 
+	public Treatment searchTreatmentById (Integer id) throws Exception{
+		
+	}
 }
