@@ -1,11 +1,11 @@
 package jdbcManager;
-
+import interfaces.*;
 import java.sql.*;
 
 import model.Doctor;
 import model.Treatment;
 
-public class TreatmentController {
+public class TreatmentController implements TreatmentInterface {
   
 	private static TreatmentController singleton;
 	public TreatmentController getTreatmentController() {

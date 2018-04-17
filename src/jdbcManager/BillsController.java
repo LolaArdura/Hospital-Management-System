@@ -2,6 +2,7 @@
 
 package jdbcManager;
 import java.sql.*;
+import interfaces.*;
 
 import model.Bills;
 public class BillsController implements BillsInterface{

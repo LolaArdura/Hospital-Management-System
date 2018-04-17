@@ -1,4 +1,4 @@
-package jdbcManager;
+package interfaces;
 import model.Room;
 
 import java.util.*;
