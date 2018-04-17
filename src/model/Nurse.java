@@ -7,16 +7,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="nurse")
-public class Nurse extends Employee{
+public class Nurse extends Employee {
     @Id
     @GeneratedValue(generator="nurse")
 	@TableGenerator(name="nurse",table="sqlite_sequence",pkColumnName="name",valueColumnName="seq",
 			pkColumnValue="nurse")
 	private Integer id;
-=======
-public class Nurse extends Employee{	
-	
->>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System.git
 	private String role;
 	private List <Patient> listOfPatients;
 	
@@ -109,7 +105,7 @@ public class Nurse extends Employee{
 	}
 
 	
-	
-	
-	
 }
+	
+	
+
