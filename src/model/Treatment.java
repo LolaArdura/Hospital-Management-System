@@ -22,9 +22,11 @@ public class Treatment implements Serializable {
 	private float cost;
 	private String treatmentType;
 	private String dose;
-	@ManyToOne 
+	@ManyToOne(fetch = FetchType.LAZY) 
+	@JoinColumn(name="doctor_id")
 	private Doctor prescriber;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="doctor_id")
 	private Patient patient ;
 	
 	//Constructor without id
