@@ -28,8 +28,10 @@ public class Test {
 	 System.out.println(b);
 	 Doctor c=DoctorController.getDoctorController().searchDoctorById(11);
 	 System.out.println(c);
+	 
 	 //search doctor
 	 System.out.println(c);
+	 
 	 //delete doctor
 	 DoctorController.getDoctorController().deleteDoctor(doctor_);
 	 //update doctor
@@ -42,12 +44,16 @@ public class Test {
 	 
 	 
 	 //insert patient
-	 //Date dob = new Date(0, 0, 0);
-	 //Date dateAdmission = new Date (0, 0, 0);
-	 //Patient patient_ = new Patient( "Manola", sex.WOMEN , dob, dateAdmission );
-	 //PatientController.getPatientController().insertNoDiagnosePatient(patient_);
-	 //List<Patient> patients = PatientController.getPatientController().getAllPatients();
-	// System.out.println(patients);
+	 Date dob = new Date(0, 0, 0);
+	 Date dateAdmission = new Date (0, 0, 0);
+	 Patient patient_ = new Patient( "Manola", sex.WOMEN , dob, dateAdmission );
+	 PatientController.getPatientController().insertNoDiagnosePatient(patient_);
+	 List<Patient> patients = PatientController.getPatientController().getAllPatients();
+	 System.out.println(patients);
+	 //search patient
+	 //PatientController.getPatientController().
+	 //System.out.println(patient_); //PROBLEMA: al search patient el diagnose sale null
+	 //update doctor 
 	 
 	 //DBConnection.getConnection().close();//
  
@@ -58,6 +64,18 @@ public class Test {
 //(float) 200.4," 98512658", true);
 	 //BillsController.getBillsController().insertBills(bill_);
 	 
+	 //insert room
+	/* Room room_ = new Room (03, 19, roomType.BOX, 5, 20 , 20) ; 
+	 RoomController.getRoomController().insertRoom(room_); 
+	 List <Room> b = RoomController.getRoomController().getAllRooms();
+	 System.out.println(b);
+	 Room a=RoomController.getRoomController().searchRoomById(03);
+	 a.setCapacity(8);
+	 RoomController.getRoomController().updateRoom(a);
+	 System.out.println(a);
+	 RoomController.getRoomController().deleteRoom(a);
+	 List <Room> c = RoomController.getRoomController().getAllRooms();
+	 System.out.println(c);*/
 	 
 	 
  }

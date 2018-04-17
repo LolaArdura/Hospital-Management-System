@@ -1,18 +1,22 @@
 package model;
 import java.io.Serializable;
+import javax.persistence.*;
 
-
+@Entity
+@Table (name="bills")
 public class Bills implements Serializable {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -6423194198676609863L;
-
+	
+	@Id
+	@GeneratedValue(generator="bills")
+	@TableGenerator(name="bills", table="sqlite_sequence", pkColumnName="name", valueColumnName="seq", pkColumnValue="bills")
 	private Integer id;
 	private float totalCost;
 	private String bankID;
 	private Boolean paid;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="patient_id")
 	private Patient patient;
 	
 	//Constructors

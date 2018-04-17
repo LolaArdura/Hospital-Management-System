@@ -2,6 +2,7 @@ package model;
 
 import java.util.*;
 
+<<<<<<< HEAD
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +13,10 @@ public class Nurse extends Employee{
 	@TableGenerator(name="nurse",table="sqlite_sequence",pkColumnName="name",valueColumnName="seq",
 			pkColumnValue="nurse")
 	private Integer id;
+=======
+public class Nurse extends Employee{	
+	
+>>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System.git
 	private String role;
 	private List <Patient> listOfPatients;
 	
