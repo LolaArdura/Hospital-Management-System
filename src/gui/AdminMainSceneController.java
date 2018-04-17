@@ -89,10 +89,14 @@ public class AdminMainSceneController{
     public void doctorsButtonClicked(ActionEvent event) {
     	try {
     		mainPane.getChildren().clear();
-    		GridPane doctorsView=(GridPane)FXMLLoader.load(getClass().getResource("DoctorsPane.fxml"));
+    		FXMLLoader loader= new FXMLLoader(getClass().getResource("DoctorsViewPane.fxml"));
+    		GridPane doctorsView=(GridPane)loader.load();
     		doctorsView.prefHeightProperty().bind(mainPane.heightProperty());
     		doctorsView.prefWidthProperty().bind(mainPane.widthProperty());
     		mainPane.getChildren().add(doctorsView);
+    		DoctorsPaneController2 controller= loader.<DoctorsPaneController2>load();
+    		controller.initComponents(mainPane);
+    		
     	}catch (Exception ex) {
     		ex.printStackTrace();
     	}

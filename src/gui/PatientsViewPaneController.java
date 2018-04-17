@@ -60,6 +60,7 @@ public class PatientsViewPaneController implements Initializable{
 	    		alert.setContentText("A patient needs to be selected in order to view details");
 	    		alert.setHeaderText("No patient selected");
 	    		alert.showAndWait();
+	    		
 	    	}
 	    	}catch (Exception ex) {
 	    		ex.printStackTrace();

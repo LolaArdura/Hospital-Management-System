@@ -1,6 +1,11 @@
 package model;
+import javax.persistence.*;
 
+@Entity
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class Employee {
+	
+	@Id
 	protected Integer id;
 	protected String name;
 	protected byte[] photo;

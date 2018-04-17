@@ -2,9 +2,15 @@ package model;
 
 import javax.persistence.*;
 
+@Entity 
+@Table(name="doctor")
 public class Doctor extends Employee{
-
 	
+    @Id
+    @GeneratedValue(generator="doctor")
+	@TableGenerator(name="doctor",table="sqlite_sequence",pkColumnName="name",valueColumnName="seq",
+			pkColumnValue="doctor")
+	private Integer id;
 	private String specialty;
 
 	public Doctor (Integer id, String name, byte[] photo, String schedule, String specialty) {
