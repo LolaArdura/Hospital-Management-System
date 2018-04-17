@@ -1,4 +1,4 @@
-package jdbcManager;
+package interfaces;
 import java.util.List;
 
 import model.Doctor;

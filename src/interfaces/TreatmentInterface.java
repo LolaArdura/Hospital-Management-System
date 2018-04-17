@@ -1,4 +1,4 @@
-package jdbcManager;
+package interfaces;
 import model.Treatment;
 
 public interface TreatmentInterface {

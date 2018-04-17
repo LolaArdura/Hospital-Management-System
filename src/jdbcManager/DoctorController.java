@@ -1,5 +1,5 @@
 package jdbcManager;
-
+import interfaces.*;
 import java.sql.*;
 import java.util.*;
 import model.Doctor;
