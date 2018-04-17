@@ -55,7 +55,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		float cost = rs.getFloat("cost");
 		String type = rs.getString("type");
 		String dose = rs.getString("dose");
-		Doctor prescriber = DoctorController.getDoctorController().searchDoctorById(rs.getInt("doctor_id"));
+		Doctor prescriber = JDBCDoctorController.getDoctorController().searchDoctorById(rs.getInt("doctor_id"));
 		Treatment treatment = new Treatment (Id, route, startDate, endDate, cost, type, dose, prescriber);
 		return treatment;
 	}

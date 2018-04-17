@@ -4,16 +4,16 @@ import java.sql.*;
 import java.util.*;
 import model.Doctor;
 
-public class DoctorController implements DoctorInterface {
-	private DoctorController() {
+public class JDBCDoctorController implements DoctorInterface {
+	private JDBCDoctorController() {
 		super();
 	}
 
-	private static DoctorController singleton;
+	private static JDBCDoctorController singleton;
 
-	public static DoctorController getDoctorController() {
+	public static JDBCDoctorController getDoctorController() {
 		if (singleton == null) {
-			singleton = new DoctorController();
+			singleton = new JDBCDoctorController();
 		}
 		return singleton;
 	}

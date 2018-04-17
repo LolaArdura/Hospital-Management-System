@@ -4,16 +4,16 @@ import java.sql.*;
 import java.util.*;
 import model.Nurse;
 
-public class NurseController implements NurseInterface {
-	private NurseController() {
+public class JDBCNurseController implements NurseInterface {
+	private JDBCNurseController() {
 		super();
 	}
 
-	private static NurseController singleton;
+	private static JDBCNurseController singleton;
 
-	public static NurseController getNurseController() {
+	public static JDBCNurseController getNurseController() {
 		if (singleton == null) {
-			singleton = new NurseController();
+			singleton = new JDBCNurseController();
 		}
 		return singleton;
 	}
