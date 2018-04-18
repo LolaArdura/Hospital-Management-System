@@ -53,4 +53,35 @@ public class JPATreatmentController implements RoomInterface {
 		return treatment;
 		
 		}
+	
+	
+	public Treatment updateTreatment (Treatment treatment) throws Exception{
+		//get the entity manager 
+		EntityManager em= DBEntityManager.getEntityManager();
+		//begin transaction
+		em.getTransaction().begin();
+		//make changes
+		treatment.setCost(treatment.getCost());
+		treatment.setDoctorId(treatment.getPrescriber());
+		treatment.setDose(treatment.getDose());
+		treatment.setEndDate(treatment.getEndDate());
+		treatment.setPatient(treatment.getPatient());
+		treatment.setRouteOfAdmin(treatment.getRouteOfAdmin());
+		treatment.setStartDate(treatment.getStartDate());
+		treatment.setTreatmentType(treatment.getTreatmentType());
+		//end transaction
+		em.getTransaction().commit();
+		
+		return treatment;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
