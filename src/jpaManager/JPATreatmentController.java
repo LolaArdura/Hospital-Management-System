@@ -1,9 +1,12 @@
 package jpaManager;
 
+
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import interfaces.*;
-import model.Room;
 import model.Treatment;
 import jdbcManager.JDBCTreatmentController;
 
@@ -26,6 +29,7 @@ public class JPATreatmentController implements RoomInterface {
 	 }
 	 
 	 public boolean deleteTreatment (Treatment treatment) throws Exception{
+		 
 		 EntityManager em =DBEntityManager.getEntityManager();
 		 em.getTransaction().begin();
 		 em.remove(treatment);
@@ -36,6 +40,17 @@ public class JPATreatmentController implements RoomInterface {
 	 
 	 
 	public Treatment searchTreatmentById (Integer id) throws Exception{
+		// Get the entity manager
+		EntityManager em= DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMAM foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
 		
-	}
+		//Search the treatments by id
+		Query q1 = em.createNativeQuery("SELECT * FROM treatments WHERE id LIKE ?", Treatment.class);
+		q1.setParameter(1, id );
+		Treatment treatment = (Treatment)q1.getSingleResult();
+		return treatment;
+		
+		}
 }
