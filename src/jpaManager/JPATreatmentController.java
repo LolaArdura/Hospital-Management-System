@@ -10,7 +10,7 @@ import interfaces.*;
 import model.Treatment;
 import jdbcManager.JDBCTreatmentController;
 
-public class JPATreatmentController implements RoomInterface {
+public class JPATreatmentController implements TreatmentInterface {
 	 private static JPATreatmentController singleton;
 	 
 	 public static JPATreatmentController getTreatmentController() {

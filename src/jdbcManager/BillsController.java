@@ -16,14 +16,13 @@ private static BillsController singleton;
 }
 	
 	public boolean insertBills (Bills bill, Integer patientId) throws Exception{
-		String sql = "INSERT INTO bills (id, totalCost, bankID, paid, patient_id) "
-				+ "VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO bills ( totalCost, bankID, paid, patient_id) "
+				+ "VALUES (?,?,?,?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-		prep.setInt(1, bill.getId());
-		prep.setFloat(2, bill.getTotalCost());
-		prep.setString(3, bill.getBankID());
-		prep.setBoolean(4, bill.getPaid());
-		prep.setInt(5,bill.getPatient().getId());
+		prep.setFloat(1, bill.getTotalCost());
+		prep.setString(2, bill.getBankID());
+		prep.setBoolean(3, bill.getPaid());
+		prep.setInt(4,bill.getPatient().getId());
 		prep.executeUpdate();
 		prep.close();
 		return true;
