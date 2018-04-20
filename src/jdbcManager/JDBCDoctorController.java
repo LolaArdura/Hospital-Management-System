@@ -44,17 +44,6 @@ public class JDBCDoctorController implements DoctorInterface {
 		return true;
 	}
 	
-	//wE WONT use this
-	public boolean deleteDoctorWithoutId(Doctor doctor) throws Exception{
-		String sql="DELETE FROM doctor WHERE name=? AND schedule = ? AND specialty=?";
-		PreparedStatement prep=JDBConnection.getConnection().prepareStatement(sql);
-		prep.setString(1,doctor.getName());
-		prep.setString(2, doctor.getSchedule());
-		prep.setString(3,doctor.getSpeciality());
-		prep.executeUpdate();
-		prep.close();
-		return true;
-	}
 
 	public List<Doctor> getAllDoctors() throws Exception {
 		Statement stmt = JDBConnection.getConnection().createStatement();
