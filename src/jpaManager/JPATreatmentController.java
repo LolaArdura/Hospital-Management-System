@@ -43,7 +43,7 @@ public class JPATreatmentController implements RoomInterface {
 		// Get the entity manager
 		EntityManager em= DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
-		em.createNativeQuery("PRAGMAM foreign_keys=ON").executeUpdate();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		
 		//Search the treatments by id
