@@ -15,7 +15,7 @@ private static JDBCBillsController singleton;
 	return singleton;
 }
 	
-	public boolean insertBills (Bills bill, Integer patientId) throws Exception{
+	public boolean insertBills (Bills bill) throws Exception{
 		String sql = "INSERT INTO bills ( totalCost, bankID, paid, patient_id) "
 				+ "VALUES (?,?,?,?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
