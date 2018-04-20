@@ -17,7 +17,7 @@ public class Test {
 
  public static void main (String[] args) throws Exception {
 	 //create tables
-     //DatabaseTables.createTables(); 
+    // DatabaseTables.createTables(); 
 
 	 //insert doctor
 
@@ -25,7 +25,7 @@ public class Test {
 	// Doctor doctor2= new Doctor (07, "Paco", null, "afternoon", "nephrology");
 	 //JDBCDoctorController.getDoctorController().insertDoctor (doctor1);
 	 //JDBCDoctorController.getDoctorController().insertDoctor(doctor2);
-     List<Doctor> a = JDBCDoctorController.getDoctorController().getAllDoctors();
+    /*List<Doctor> a = JDBCDoctorController.getDoctorController().getAllDoctors();
 	 System.out.println(a);
 	// List<Doctor> b = JDBCDoctorController.getDoctorController().getAllDoctors();
 	 //System.out.println(b);
@@ -40,7 +40,8 @@ public class Test {
 		 e.printStackTrace();
 	 }catch(Exception e) {
 		 System.out.println("No doctor found");
-	 }
+	 }*/
+	 
 	 /*delete doctor
 	 JDBCDoctorController.getDoctorController().deleteDoctor(doctor_);
 	 //update doctor
@@ -50,6 +51,11 @@ public class Test {
 	 Doctor e =JDBCDoctorController.getDoctorController().searchDoctorById(6);
 	 System.out.println(e);*/
 
+	 //insert Nurse
+	  Nurse nurse1 = new Nurse ("Elena",null,"afternoon", "inyections");
+	  JDBCNurseController.getNurseController().insertNurse(nurse1);
+	  List<Nurse> listaNurses= JDBCNurseController.getNurseController().getAllNurses();
+	  System.out.println(listaNurses);
 	 
 	 
 	//insert patient
@@ -85,6 +91,10 @@ public class Test {
 	 RoomController.getRoomController().deleteRoom(a);
 	 List <Room> c = RoomController.getRoomController().getAllRooms();
 	 System.out.println(c);*/
+	 
+	 //insert Nurse
+	 
+	 
 	 
 	 
  }
