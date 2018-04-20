@@ -13,7 +13,7 @@ public class JPANurseController {
 	
 private static JPANurseController singleton;
 	
-	public static JPANurseConotroller getNurseController() {
+	public static JPANurseController getNurseController() {
 		if (singleton==null) {
 			singleton =new JPANurseController();
 		}
