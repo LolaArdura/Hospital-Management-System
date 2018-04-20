@@ -38,6 +38,9 @@ public class JPARoomController implements  RoomInterface{
 	
 	public Room searchRoomById(Integer id) throws Exception {
 		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM room WHERE id LIKE ?", Room.class);
 		q1.setParameter(1, id);
 		Room room = (Room) q1.getSingleResult();
@@ -46,16 +49,23 @@ public class JPARoomController implements  RoomInterface{
 	
 	public List<Room> getAllRooms() throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM room", Room.class);
 		List<Room> rooms = (List<Room>) q1.getResultList();
 		return rooms;
 	}
 	
-	public boolean updateRoom (Room room) throws Exception{
+	public Room updateRoom (Room room) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
-		Query q1 = em.createNativeQuery("SELECT * FROM room WHERE id = ?", Room.class);
-		q1.setParameter(1, room.getId());
-		room = (Room) q1.getSingleResult();
 		em.getTransaction().begin();
+		room.setNumber(room.getNumber());
+		room.setCapacity(room.getCapacity());
+		room.setCostPerDay(room.getCostPerDay());
+		room.setFloor(room.getFloor());
+		room.setType(room.getType());
+		em.getTransaction().commit();
+		return room;
 	}
 }

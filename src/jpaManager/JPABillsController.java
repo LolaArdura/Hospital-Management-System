@@ -15,14 +15,14 @@ public class JPABillsController  implements BillsInterface {
 	 }
 	 return singleton;
  }
- public boolean insertBill (Bills bill)throws Exception {
+ public boolean insertBills (Bills bill)throws Exception {
 	 EntityManager em = DBEntityManager.getEntityManager();
 	em.getTransaction().begin();
     em.persist(bill);
 	em.getTransaction().commit();
 	 return true;
  }
-  public boolean deleteBill (Bills bill)throws Exception {
+  public boolean deleteBills (Bills bill)throws Exception {
 	  EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
 	    em.remove(bill);
@@ -33,22 +33,25 @@ public class JPABillsController  implements BillsInterface {
   
   public Bills searchBillsById (Integer id)throws Exception{
 	  EntityManager em = DBEntityManager.getEntityManager();
+	  em.getTransaction().begin();
+	  em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+	  em.getTransaction().commit();
 	  Query q1= em.createNativeQuery("SELECT * FROM bills WHERE id LIKE ?", Bills.class);
 	  q1.setParameter(1, id );
 	  Bills bill = (Bills)q1.getSingleResult();
 	  return bill;
   }
   
-  public Bills updateBill (Bills bill)throws Exception {
+  public Bills updateBills (Bills bill)throws Exception {
 	  EntityManager em = DBEntityManager.getEntityManager();
 	  //Begin transaction
 	  em.getTransaction().begin();
 	  
 	  //Make changes
-	  // vamos a permitir cambiar el id desde aqui????
 	  bill.setBankID(bill.getBankID());
 	  bill.setTotalCost(bill.getTotalCost());
 	  bill.setPaid(bill.getPaid());
+	  bill.setPatient(bill.getPatient());
 	  
 	  
 	  //End transaction
@@ -57,6 +60,4 @@ public class JPABillsController  implements BillsInterface {
 	  
 	  
   }
- 
- 
 }

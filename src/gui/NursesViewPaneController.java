@@ -26,7 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import jdbcManager.JDBCNurseController;
-import jdbcManager.NurseInterface;
+import interfaces.NurseInterface;
 import model.Nurse;
 import sun.misc.IOUtils;
 
@@ -121,10 +121,9 @@ public class NursesViewPaneController implements Initializable {
 					}
 								
 					//We insert into the database the new nurse
-			    	JDBCNurseController.getNurseController().insertNurse(nurse);
 			    	
-			    //	NurseInterface nurseController=NurseController.getNurseController();
-			   // 	nurseController.insertNurse(nurse);
+			        NurseInterface nurseController=JDBCNurseController.getNurseController();
+			        nurseController.insertNurse(nurse);
 			    	
 			    	//We show the new nurse
 			    	setNurses();
@@ -179,11 +178,8 @@ public class NursesViewPaneController implements Initializable {
 			   else {
 				   Nurse nurse=new Nurse(name,schedule,role);
 				   try {
-<<<<<<< HEAD
-					NurseController.getNurseController().deleteNurse(nurse);
-=======
-					JDBCNurseController.getNurseController().deleteNurseWithoutId(nurse);
->>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System.git
+					JDBCNurseController.getNurseController().deleteNurse(nurse);
+
 					setNurses();
 					nameTextField.clear();
 			    	scheduleTextField.clear();
