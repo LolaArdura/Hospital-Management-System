@@ -25,7 +25,7 @@ public class Patient implements Serializable {
 	private Date dateAdmission;
 	@OneToMany(mappedBy="patient")
 	private List <Treatment> listOfTreatments;
-	@ManyToMany(mappedBy="patient")
+	@ManyToMany(mappedBy="ListOfPatients")
 	private List <Nurse> listOfNurses;
 	@OneToMany(mappedBy="patient")
 	private List <Bills> listOfBills;

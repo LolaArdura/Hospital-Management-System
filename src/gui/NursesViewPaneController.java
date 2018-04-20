@@ -22,6 +22,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import jdbcManager.NurseController;
@@ -62,6 +63,12 @@ public class NursesViewPaneController implements Initializable {
     @FXML
     private FlowPane nursesFlowPane;
     
+    private Pane mainPane;
+    
+    
+    public void initComponents(Pane mainPane) {
+    	this.mainPane=mainPane;
+    }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -172,7 +179,7 @@ public class NursesViewPaneController implements Initializable {
 			   else {
 				   Nurse nurse=new Nurse(name,schedule,role);
 				   try {
-					NurseController.getNurseController().deleteNurseWithoutId(nurse);
+					NurseController.getNurseController().deleteNurse(nurse);
 					setNurses();
 					nameTextField.clear();
 			    	scheduleTextField.clear();
@@ -212,7 +219,7 @@ public class NursesViewPaneController implements Initializable {
 	    	nurseDetails.prefWidthProperty().bind(nursesScrollPane.widthProperty());
 	    	nursesFlowPane.getChildren().add(nurseDetails);
 	    	NurseDetailsController controller= loader.<NurseDetailsController>getController();
-	    	controller.initComponents(nurse);
+	    	controller.initComponents(nurse,mainPane);
 	    }
    } catch (Exception e) {
 		e.printStackTrace();

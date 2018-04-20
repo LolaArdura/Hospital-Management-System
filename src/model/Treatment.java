@@ -27,6 +27,10 @@ public class Treatment implements Serializable {
 	@ManyToOne
 	private Patient patient ;
 	
+	public Treatment() {
+		super();
+	}
+	
 	//Constructor without id
 	
 	public Treatment (String routeOfAdmin, Date startDate, Date endDate, float cost ,

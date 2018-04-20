@@ -18,6 +18,10 @@ public class User {
 	};
     private userType typeOfUser;
     
+    public User() {
+    	super();
+    }
+    
     public User(String username, String password, userType typeOfUser) {
 		super();
 		this.username = username;
@@ -25,6 +29,12 @@ public class User {
 		this.typeOfUser = typeOfUser;
 	}
     
+    public User(Integer id, String username,String password, userType typeOfUser) {
+    	this.id=id;
+    	this.username=username;
+    	this.password=password;
+    	this.typeOfUser=typeOfUser;
+    }
 	
     public String getUsername() {
 		return username;
