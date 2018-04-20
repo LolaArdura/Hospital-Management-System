@@ -101,7 +101,6 @@ public class JPADoctorController implements DoctorInterface{
 		q1.setParameter(1, schedule);
 		Doctor doctor = (Doctor) q1.getSingleResult();
 		return doctor;
-		return null;
 	}
 
 	@Override
