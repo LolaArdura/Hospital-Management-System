@@ -34,6 +34,17 @@ public class JPADoctorController implements DoctorInterface{
 		return true;
 	}
 	
+	public Doctor searchDoctorById (Integer id) throws Exception{
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE id LIKE ?", Doctor.class);
+		q1.setParameter(1, id);
+		Doctor doctor = (Doctor) q1.getSingleResult();
+		return doctor;
+	}
+	
 	public List<Doctor> getAllDoctors() throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
@@ -46,25 +57,50 @@ public class JPADoctorController implements DoctorInterface{
 
 	@Override
 	public Doctor searchDoctorById(Integer id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	    EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE id LIKE ?", Doctor.class);
+		q1.setParameter(1, id);
+		Doctor doctor = (Doctor) q1.getSingleResult();
+		return doctor;
 	}
 
 	@Override
 	public Doctor searchDoctorByName(String name) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE name LIKE ?", Doctor.class);
+		q1.setParameter(1, name);
+		Doctor doctor = (Doctor) q1.getSingleResult();
+		return doctor;
 	}
 
 	@Override
 	public Doctor searchDoctorBySpecialty(String specialty) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE specialty LIKE ?", Doctor.class);
+		q1.setParameter(1, specialty);
+		Doctor doctor = (Doctor) q1.getSingleResult();
+		return doctor;
 	}
 
 	@Override
 	public Doctor searchDoctorBySchedule(String schedule) throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE schedule LIKE ?", Doctor.class);
+		q1.setParameter(1, schedule);
+		Doctor doctor = (Doctor) q1.getSingleResult();
+		return doctor;
 		return null;
 	}
 
@@ -73,4 +109,7 @@ public class JPADoctorController implements DoctorInterface{
 		EntityManager em=DBEntityManager.getEntityManager();
 		em.flush();
 	}
+	
+	
+	
 }
