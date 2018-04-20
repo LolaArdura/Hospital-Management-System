@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import interfaces.*;
-import jdbcManager.RoomController;
 import model.Room;
 
 public class JPARoomController implements  RoomInterface{
@@ -57,7 +56,7 @@ public class JPARoomController implements  RoomInterface{
 		return rooms;
 	}
 	
-	public Room updateRoom (Room room) throws Exception{
+	public void updateRoom (Room room) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
 		room.setNumber(room.getNumber());
@@ -66,6 +65,5 @@ public class JPARoomController implements  RoomInterface{
 		room.setFloor(room.getFloor());
 		room.setType(room.getType());
 		em.getTransaction().commit();
-		return room;
 	}
 }

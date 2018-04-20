@@ -44,7 +44,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 	
 	public Treatment searchTreatmentById (Integer id) throws Exception {
 		String sql = "SELECT * FROM treatment WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 		rs.next();
@@ -60,9 +60,9 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		return treatment;
 	}
 	
-	public Treatment updateTreatment (Treatment treatment) throws Exception {
+	public void updateTreatment (Treatment treatment) throws Exception {
 		String sql = "UPDATE treatment SET routeOfAdmin=?, startDate=?, endDate=?, cost=?, type=?, dose=?, doctor_id=? WHERE id = ?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, treatment.getRouteOfAdmin());
 		prep.setDate(2, treatment.getStartDate());
 		prep.setDate(3, treatment.getEndDate());
@@ -72,7 +72,6 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		prep.setInt(7, treatment.getPrescriber().getId());
 		prep.setInt(8, treatment.getId());
 		prep.executeUpdate();
-		return treatment;	
 	}
 	
 }
