@@ -11,7 +11,7 @@ public class DatabaseTables {
 	public static void createTables() {
 		try {
 			
-			Connection c= DBConnection.getConnection();
+			Connection c= JDBConnection.getConnection();
 			c.createStatement().execute("PRAGMA foreign_keys=ON");
 			System.out.println("Database connection opened");
 			

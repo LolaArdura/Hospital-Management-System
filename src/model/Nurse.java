@@ -1,8 +1,6 @@
 package model;
 
 import java.util.*;
-
-<<<<<<< HEAD
 import javax.persistence.*;
 
 @Entity

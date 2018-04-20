@@ -1,7 +1,7 @@
 package jdbcManager;
 import java.sql.*;
 import interfaces.*;
-public class DBConnection implements ConnectionInterface {
+public class JDBConnection implements ConnectionInterface {
 	private static Connection con;
 	public static Connection getConnection() throws Exception {
 		if (con==null) {
