@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity 
@@ -12,6 +14,8 @@ public class Doctor extends Employee{
 			pkColumnValue="doctor")
 	private Integer id;
 	private String specialty;
+	@OneToMany(mappedBy="prescriber")
+	private List<Treatment> treatments;
     
 	public Doctor() {
 		super();

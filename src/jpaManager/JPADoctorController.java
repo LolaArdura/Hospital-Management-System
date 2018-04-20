@@ -48,6 +48,7 @@ public class JPADoctorController implements DoctorInterface{
 	public List<Doctor> getAllDoctors() throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
+		em.flush();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM doctor", Doctor.class);
@@ -95,7 +96,9 @@ public class JPADoctorController implements DoctorInterface{
 	@Override
 	public void updateDoctor(Doctor doctor) throws Exception {
 		EntityManager em=DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
 		em.flush();
+		em.getTransaction().commit();
 	}
 	
 	

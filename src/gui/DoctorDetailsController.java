@@ -6,9 +6,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -33,6 +30,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import jdbcManager.JDBCDoctorController;
+import jpaManager.JPADoctorController;
 import interfaces.DoctorInterface;
 import model.Doctor;
 
@@ -117,7 +115,7 @@ public class DoctorDetailsController implements Initializable{
     @FXML
     public void okButtonClicked(ActionEvent ev) {
     	try {
-    	DoctorInterface doctorController= JDBCDoctorController.getDoctorController();
+    	DoctorInterface doctorController= JPADoctorController.getJPADoctorController();
     	
     	doctor.setName(nameTextField.getText());
     	doctor.setSpeciality(specialtyTextField.getText());
@@ -169,7 +167,7 @@ public class DoctorDetailsController implements Initializable{
 			@Override
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
 				if(!newValue) {
-					if(nameTextField.getText().trim().equals("")|| nameTextField.getText().equals(" *")) {
+					if(nameTextField.getText().trim().equals("")) {
 						Alert a=new Alert(AlertType.ERROR);
 						a.setTitle("ERROR");
 						a.setContentText("No doctor without name admitted");
@@ -183,6 +181,41 @@ public class DoctorDetailsController implements Initializable{
 			
 			
 		});
+		
+		scheduleTextField.focusedProperty().addListener(new ChangeListener<Boolean>(){
+			
+			@Override
+			public void changed(ObservableValue<?extends Boolean>arg0, Boolean oldValue,Boolean newValue) {
+				if(!newValue) {
+					if(scheduleTextField.getText().trim().equals("")) {
+						Alert a= new Alert(AlertType.ERROR);
+						a.setTitle("ERROR");
+						a.setContentText("No doctor without schedule admitted");
+						a.showAndWait();
+						scheduleTextField.setText(doctor.getSchedule());
+						scheduleTextField.requestFocus();
+					}
+				}
+			}
+		});
+		
+		specialtyTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			
+			@Override
+			public void changed(ObservableValue<?extends Boolean>arg0, Boolean oldValue, Boolean newValue) {
+				if(!newValue) {
+					if(specialtyTextField.getText().trim().equals("")) {
+						Alert a= new Alert(AlertType.ERROR);
+						a.setTitle("ERROR");
+						a.setContentText("No doctor witout specialty admitted");
+						a.showAndWait();
+						specialtyTextField.setText(doctor.getSpeciality());
+						specialtyTextField.requestFocus();
+					}
+				}
+			}
+		});
+		
 	}
     
 

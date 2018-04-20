@@ -26,7 +26,7 @@ public class Treatment implements Serializable {
 	@JoinColumn(name="doctor_id")
 	private Doctor prescriber;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="doctor_id")
+	@JoinColumn(name="patient_id")
 	private Patient patient ;
 	
 	public Treatment() {

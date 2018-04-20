@@ -28,6 +28,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import jdbcManager.JDBCDoctorController;
+import jpaManager.JPADoctorController;
 import model.Doctor;
 
 public class DoctorsPaneController implements Initializable{
@@ -192,7 +193,7 @@ public class DoctorsPaneController implements Initializable{
     	try {
     	ObservableList<Doctor> doctors= FXCollections.observableArrayList();
 	    //doctors.addAll(JDBCDoctorController.getDoctorController().getAllDoctors());
-    	
+    	doctors.addAll(JPADoctorController.getJPADoctorController().getAllDoctors());
 	    doctorsList.setItems(doctors);
 		} catch (Exception e) {
 			e.printStackTrace();
