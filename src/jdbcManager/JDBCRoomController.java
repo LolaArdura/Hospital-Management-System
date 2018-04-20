@@ -56,7 +56,7 @@ public class JDBCRoomController implements RoomInterface {
 		return room;
 	}
 
-	public boolean updateRoom(Room room) throws Exception {
+	public void updateRoom(Room room) throws Exception {
 		String sql = "UPDATE room SET number=?, type=?, capacity=?, floor=?, costPerDay=? WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getNumber());
@@ -66,7 +66,6 @@ public class JDBCRoomController implements RoomInterface {
 		prep.setFloat(5, room.getCostPerDay());
 		prep.setInt(6, room.getId());
 		prep.executeUpdate();
-		return true;
 	}
 	
 	public List<Room> getAllRooms() throws Exception {
