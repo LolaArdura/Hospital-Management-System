@@ -19,11 +19,13 @@ public class Doctor extends Employee{
 	
 	public Doctor (Integer id, String name, byte[] photo, String schedule, String specialty) {
 		super(id,name,photo,schedule);
+		this.id=id;
 		this.specialty=specialty;
 	}
 	
 	public Doctor (Integer id, String name, String schedule, String specialty) {
 		super(id,name,schedule);
+		this.id=id;
 		this.specialty=specialty;
 	}
 	
