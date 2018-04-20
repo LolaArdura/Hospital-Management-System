@@ -106,7 +106,7 @@ public class JDBCNurseController implements NurseInterface {
 		return nurseByName;
 	}
 	
-	public Nurse updateNurse(Nurse nurse) throws Exception {
+	public void updateNurse(Nurse nurse) throws Exception {
 		String sql = "UPDATE nurse SET name=?, schedule=?, role=? WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, nurse.getName());
@@ -114,6 +114,5 @@ public class JDBCNurseController implements NurseInterface {
 		prep.setString(3, nurse.getRole());
 		prep.setInt(4, nurse.getId());
 		prep.executeUpdate();
-		return nurse;
 	}
 }

@@ -42,7 +42,7 @@ public class JPABillsController  implements BillsInterface {
 	  return bill;
   }
   
-  public Bills updateBills (Bills bill)throws Exception {
+  public void updateBills (Bills bill)throws Exception {
 	  EntityManager em = DBEntityManager.getEntityManager();
 	  //Begin transaction
 	  em.getTransaction().begin();
@@ -56,7 +56,6 @@ public class JPABillsController  implements BillsInterface {
 	  
 	  //End transaction
 	  em.getTransaction().commit();
-	  return bill;
 	  
 	  
   }

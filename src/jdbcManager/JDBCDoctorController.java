@@ -63,13 +63,13 @@ public class JDBCDoctorController implements DoctorInterface {
 		return doctorList;
 	}
 
-	public Doctor searchDoctorById(Integer id) throws Exception {
+	public Doctor searchDoctorById(Integer id) throws Exception, SQLException {
 		String sql = "SELECT * FROM doctor WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 
-		rs.next();
+		if(rs.next()) {
 		int Id = rs.getInt("id");
 		String name = rs.getString("name");
 		byte[] photo = rs.getBytes("photo");
@@ -77,7 +77,8 @@ public class JDBCDoctorController implements DoctorInterface {
 		String speciality = rs.getString("specialty");
 		Doctor doctor = new Doctor(Id, name, photo, schedule, speciality);
 		return doctor;
-
+		}
+	  throw new Exception();
 	}
 	
 	public Doctor searchDoctorByName (String name) throws Exception{
@@ -127,7 +128,7 @@ public class JDBCDoctorController implements DoctorInterface {
 	}
 	
 
-	public Doctor updateDoctor(Doctor doctor) throws Exception {
+	public void updateDoctor(Doctor doctor) throws Exception {
 		String sql = "UPDATE doctor SET name=?, schedule=?, specialty=? WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, doctor.getName());
@@ -135,6 +136,5 @@ public class JDBCDoctorController implements DoctorInterface {
 		prep.setString(3, doctor.getSpeciality());
 		prep.setInt(4, doctor.getId());
 		prep.executeUpdate();
-		return doctor;
 	}
 }

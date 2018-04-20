@@ -3,6 +3,7 @@ package jdbcManager;
 
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 import model.Bills;
@@ -16,23 +17,30 @@ public class Test {
 
  public static void main (String[] args) throws Exception {
 	 //create tables
-	//DatabaseTables.createTables(); 
+    // DatabaseTables.createTables(); 
 
 	 //insert doctor
 
-	 Doctor doctor1 = new Doctor(06, "Pepe", null , "morning", "cardiology" );
-	 Doctor doctor2= new Doctor (07, "Paco", null, "afternoon", "nephrology");
-	 //DoctorController.getDoctorController().insertDoctor (doctor_);
-	List<Doctor> a = JDBCDoctorController.getDoctorController().getAllDoctors();
+	 //Doctor doctor1 = new Doctor(06, "Pepe", null , "morning", "cardiology" );
+	// Doctor doctor2= new Doctor (07, "Paco", null, "afternoon", "nephrology");
+	 //JDBCDoctorController.getDoctorController().insertDoctor (doctor1);
+	 //JDBCDoctorController.getDoctorController().insertDoctor(doctor2);
+    /*List<Doctor> a = JDBCDoctorController.getDoctorController().getAllDoctors();
 	 System.out.println(a);
-	 List<Doctor> b = JDBCDoctorController.getDoctorController().getAllDoctors();
-	 System.out.println(b);
+	// List<Doctor> b = JDBCDoctorController.getDoctorController().getAllDoctors();
+	 //System.out.println(b);
+	 try {
 	 Doctor c=JDBCDoctorController.getDoctorController().searchDoctorById(11);
 	 System.out.println(c);
 	 Doctor d = JDBCDoctorController.getDoctorController().searchDoctorByName("Pepe");
 	 System.out.println(d);
 	 //search doctor
 	 System.out.println(c);
+	 }catch(SQLException e) {
+		 e.printStackTrace();
+	 }catch(Exception e) {
+		 System.out.println("No doctor found");
+	 }*/
 	 
 	 /*delete doctor
 	 JDBCDoctorController.getDoctorController().deleteDoctor(doctor_);
@@ -43,6 +51,11 @@ public class Test {
 	 Doctor e =JDBCDoctorController.getDoctorController().searchDoctorById(6);
 	 System.out.println(e);*/
 
+	 //insert Nurse
+	  Nurse nurse1 = new Nurse ("Elena",null,"afternoon", "inyections");
+	  JDBCNurseController.getNurseController().insertNurse(nurse1);
+	  List<Nurse> listaNurses= JDBCNurseController.getNurseController().getAllNurses();
+	  System.out.println(listaNurses);
 	 
 	 
 	//insert patient
@@ -78,6 +91,10 @@ public class Test {
 	 RoomController.getRoomController().deleteRoom(a);
 	 List <Room> c = RoomController.getRoomController().getAllRooms();
 	 System.out.println(c);*/
+	 
+	 //insert Nurse
+	 
+	 
 	 
 	 
  }

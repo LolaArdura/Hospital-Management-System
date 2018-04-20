@@ -10,5 +10,5 @@ public interface NurseInterface {
 	public Nurse searchNurseById (Integer id) throws Exception;
 	public Nurse searchNurseBySchedule (String schedule) throws Exception;
 	public Nurse searchNurseByName (String name) throws Exception;
-	public Nurse updateNurse (Nurse nurse) throws Exception;
+	public void updateNurse (Nurse nurse) throws Exception;
 }

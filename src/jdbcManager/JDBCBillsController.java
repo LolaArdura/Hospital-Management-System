@@ -55,7 +55,7 @@ public Bills searchBillsById (Integer id) throws Exception{
 }
 //FALTA HACER METODO SEARCH BY PATIENT
 	
-public Bills updateBills (Bills bill) throws Exception {
+public void updateBills (Bills bill) throws Exception {
 	String sql = "UPDATE  bills"
 			+ "SET bankID = ? ,"
 			+ "totalCost = ?, "
@@ -66,7 +66,6 @@ public Bills updateBills (Bills bill) throws Exception {
 	prep.setFloat(2, bill.getTotalCost());
 	prep.setBoolean(3, bill.getPaid());
 	prep.executeUpdate();
-	return bill;
 }
 
 

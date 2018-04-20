@@ -113,7 +113,7 @@ public class JDBCPatientController implements PatientInterface{
 		return patient;
 	}
 	
-	public Patient updatePatient (Patient patient) throws Exception{
+	public void updatePatient (Patient patient) throws Exception{
 		String sql = "UPDATE patient SET name=?, gender=?, diagnose=?, dob=?, date_of_admission=? WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, patient.getName());
@@ -123,7 +123,6 @@ public class JDBCPatientController implements PatientInterface{
 		prep.setDate(5, patient.getDateAdmission());
 		prep.setInt(6, patient.getId());
 		prep.executeUpdate();
-		return patient;
 	}
 
 }
