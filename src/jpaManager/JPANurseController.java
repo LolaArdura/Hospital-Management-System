@@ -1,5 +1,7 @@
 package jpaManager;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -74,6 +76,19 @@ private static JPANurseController singleton;
 		q1.setParameter(1, name);
 		Nurse nurse = (Nurse)q1.getSingleResult();
 		return nurse;
+	}
+	
+	public List<Nurse> getAllNurses() throws Exception{
+		//get the entity manager
+		EntityManager em= DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		
+		//Select all nurses 
+		Query q1 = em.createNativeQuery("SELECT * FROM nurse", Nurse.class);
+		List<Nurse> nurses = (List<Nurse>)q1.getResultList();
+		return nurses;
 	}
 	
 	
