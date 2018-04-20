@@ -6,27 +6,33 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedList;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXTextField;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.Callback;
 import jdbcManager.DoctorController;
 import model.Doctor;
 
-
 public class DoctorsPaneController implements Initializable{
+	
+	private Pane mainPane;
 
     @FXML
     private GridPane doctorsPane;
@@ -47,28 +53,45 @@ public class DoctorsPaneController implements Initializable{
     private Button browseButton;
 
     @FXML
+    private ListView<Doctor> doctorsList;
+
+    @FXML
+    private Button viewDetailsButton;
+
+    @FXML
     private Button addButton;
-
-    @FXML
-    private Button deleteButton;
-
-    @FXML
-    private ScrollPane doctorsScrollPane;
-
-    @FXML
-    private FlowPane doctorsFlowPane;
     
-    private Pane mainPane
+    @FXML 
+    private JFXTextField floatTextField;
     
     public void initialize(URL arg0, ResourceBundle arg1) {
-    	doctorsScrollPane.setPannable(true);
-		doctorsFlowPane.prefWidthProperty().bind(doctorsScrollPane.widthProperty());
-		doctorsFlowPane.prefHeightProperty().bind(doctorsScrollPane.heightProperty());
-	    setDoctors();		
-}
-
+    	setDoctors();
+    	doctorsList.setCellFactory(new Callback<ListView<Doctor>, ListCell<Doctor>>(){
+			@Override
+			public ListCell<Doctor> call(ListView<Doctor> doc) {
+				ListCell<Doctor> cell= new ListCell<Doctor>() {
+			
+					@Override
+					protected void updateItem (Doctor item,boolean bln) {
+						super.updateItem(item, bln);
+						if(item!=null) {
+							setText(item.getName());
+						}
+					}
+				};
+				return cell;
+			}
+    		
+    });
+   }
+    
+    public void initComponents(Pane mainPane) {
+    	this.mainPane=mainPane;
+    }
+    
     @FXML
-    void addNewButtonClicked(ActionEvent event) {
+    public void addNewButtonClicked(ActionEvent event) {
+
        String name= nameTextField.getText();
   	   Alert alert= new Alert(AlertType.ERROR);
   	   if(name.equals("")) {
@@ -134,9 +157,8 @@ public class DoctorsPaneController implements Initializable{
   	   }
 
     }
-
     @FXML
-    void browseButtonClicked(ActionEvent event) {
+    public void browseButtonClicked(ActionEvent event) {
        FileChooser fileChooser= new FileChooser();
   	   fileChooser.setTitle("Choose an image");
   	   fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files","*.png","*.jpg"));
@@ -145,80 +167,36 @@ public class DoctorsPaneController implements Initializable{
   		 pictureTextField.setText(file.getAbsolutePath());
   	   }
     }
-
+    
     @FXML
-    void deleteButtonClicked(ActionEvent event) {
-       String name= nameTextField.getText();
-   	   Alert alert= new Alert(AlertType.ERROR);
-   	   if(name.equals("")) {
-   		   alert.setTitle("ERROR");
-   		   alert.setHeaderText("No name");
-   		   alert.setContentText("A name needs to be specified");
-   		   alert.showAndWait();
-   		   nameTextField.requestFocus();
-   	   }
-   	   else {
-   		   String speciality=specialityTextField.getText();
-   		   if(speciality.equals("")) {
-   			   alert.setTitle("ERROR");
-   			   alert.setHeaderText("No speciality");
-   			   alert.setContentText("A speciality needs to be specified");
-   			   alert.showAndWait();
-   			   specialityTextField.requestFocus();
-   		   }
-   		   else {
-   			   String schedule=scheduleTextField.getText();
-   			   if(schedule.equals("")) {
-   				   alert.setTitle("ERROR");
-   				   alert.setHeaderText("No schedule");
-   				   alert.setContentText("Schedule needs to be specified");
-   				   alert.showAndWait();
-   				   scheduleTextField.requestFocus();
-   			   }
-   			   else {
-          
-   					Doctor doctor= new Doctor(name,schedule,speciality);
-   					
-   								
-   					//We insert into the database the new doctor
-   			    	try {
-						DoctorController.getDoctorController().deleteDoctorWithoutId(doctor);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-   			    	
-   			    	//We show the new doctor
-   			    	setDoctors();
-   							    	
-   			    	//We clear the text fields
-   			    	nameTextField.clear();
-   			    	scheduleTextField.clear();
-   			    	specialityTextField.clear();
-   			    	pictureTextField.clear();
-   			   }
-   		  	 }
-   	      }			
-   	   }	
-  
-    public void setDoctors() {
- 	   doctorsFlowPane.getChildren().clear();
- 	   LinkedList<Doctor> doctors;
- 	try {
- 		doctors=(LinkedList<Doctor>) DoctorController.getDoctorController().getAllDoctors();
- 	    for(Doctor doctor:doctors){
- 	    	FXMLLoader loader=new FXMLLoader (getClass().getResource("DoctorDetailsPane.fxml"));
- 	    	GridPane doctorDetails=(GridPane)loader.load();
- 	    	doctorDetails.prefWidthProperty().bind(doctorsScrollPane.widthProperty());
- 	    	doctorsFlowPane.getChildren().add(doctorDetails);
- 	    	DoctorDetailsController controller= loader.<DoctorDetailsController>getController();
- 	    	controller.initComponents(doctor);
- 	    	
- 	    }
-    } catch (Exception e) {
- 		e.printStackTrace();
- 	}
- 	
+    public void viewDetailsClicked(ActionEvent event) {
+          Doctor doctor= doctorsList.getSelectionModel().getSelectedItem();
+          if(doctor!=null) {
+        	  try {
+        	  FXMLLoader loader= new FXMLLoader (getClass().getResource("DoctorDetails.fxml"));
+        	  GridPane doctorDetails=(GridPane) loader.load();
+        	  mainPane.getChildren().clear();
+        	  mainPane.getChildren().add(doctorDetails);
+        	  doctorDetails.prefHeightProperty().bind(mainPane.heightProperty());
+        	  doctorDetails.prefWidthProperty().bind(mainPane.widthProperty());
+        	  DoctorDetailsController controller= loader.<DoctorDetailsController>getController();
+        	  controller.initComponents(doctor, mainPane);
+        	  }catch(Exception ex) {
+        		  ex.printStackTrace();
+        	  }
+          }
+        
     }
-
+    
+    private void setDoctors() {
+    	try {
+    	ObservableList<Doctor> doctors= FXCollections.observableArrayList();
+	    doctors.addAll(DoctorController.getDoctorController().getAllDoctors());
+	    doctorsList.setItems(doctors);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    
 }
-

@@ -9,7 +9,7 @@ import javax.persistence.Query;
 
 public class testMain {
 
-	public static void main( String[] args) {
+	public static void main(String[] args) {
 		EntityManager em= Persistence.createEntityManagerFactory("hospital-management").createEntityManager();
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();

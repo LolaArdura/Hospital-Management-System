@@ -77,9 +77,9 @@ public class AdminMainSceneController{
        try {
        mainPane.getChildren().clear();
        GridPane nursesView = (GridPane)FXMLLoader.load(getClass().getResource("NursesPane.fxml"));
+       mainPane.getChildren().add(nursesView);
        nursesView.prefHeightProperty().bind(mainPane.heightProperty());
        nursesView.prefWidthProperty().bind(mainPane.widthProperty());
-       mainPane.getChildren().add(nursesView);
        }catch(Exception ex) {
     	   ex.printStackTrace();
        }
@@ -91,10 +91,10 @@ public class AdminMainSceneController{
     		mainPane.getChildren().clear();
     		FXMLLoader loader= new FXMLLoader(getClass().getResource("DoctorsViewPane.fxml"));
     		GridPane doctorsView=(GridPane)loader.load();
+    		mainPane.getChildren().add(doctorsView);
     		doctorsView.prefHeightProperty().bind(mainPane.heightProperty());
     		doctorsView.prefWidthProperty().bind(mainPane.widthProperty());
-    		mainPane.getChildren().add(doctorsView);
-    		DoctorsPaneController2 controller= loader.<DoctorsPaneController2>load();
+    		DoctorsPaneController controller= loader.<DoctorsPaneController>getController();
     		controller.initComponents(mainPane);
     		
     	}catch (Exception ex) {
@@ -102,9 +102,6 @@ public class AdminMainSceneController{
     	}
     }
 	
-	public Pane getMainPane() {
-		return mainPane;
-	}
 
 }
 

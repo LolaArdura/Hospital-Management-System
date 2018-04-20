@@ -12,7 +12,11 @@ public class Doctor extends Employee{
 			pkColumnValue="doctor")
 	private Integer id;
 	private String specialty;
-
+    
+	public Doctor() {
+		super();
+	}
+	
 	public Doctor (Integer id, String name, byte[] photo, String schedule, String specialty) {
 		super(id,name,photo,schedule);
 		this.specialty=specialty;
