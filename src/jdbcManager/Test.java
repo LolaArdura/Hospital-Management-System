@@ -20,42 +20,44 @@ public class Test {
 
 	 //insert doctor
 
-	 /*Doctor doctor_ = new Doctor(06, "Pepe", null , "morning", "cardiology" );
+	 Doctor doctor1 = new Doctor(06, "Pepe", null , "morning", "cardiology" );
+	 Doctor doctor2= new Doctor (07, "Paco", null, "afternoon", "nephrology");
 	 //DoctorController.getDoctorController().insertDoctor (doctor_);
-	List<Doctor> a = DoctorController.getDoctorController().getAllDoctors();
+	List<Doctor> a = JDBCDoctorController.getDoctorController().getAllDoctors();
 	 System.out.println(a);
-	 List<Doctor> b = DoctorController.getDoctorController().getAllDoctors();
+	 List<Doctor> b = JDBCDoctorController.getDoctorController().getAllDoctors();
 	 System.out.println(b);
-	 Doctor c=DoctorController.getDoctorController().searchDoctorById(11);
+	 Doctor c=JDBCDoctorController.getDoctorController().searchDoctorById(11);
 	 System.out.println(c);
-	 
+	 Doctor d = JDBCDoctorController.getDoctorController().searchDoctorByName("Pepe");
+	 System.out.println(d);
 	 //search doctor
 	 System.out.println(c);
 	 
-	 //delete doctor
-	 DoctorController.getDoctorController().deleteDoctor(doctor_);
+	 /*delete doctor
+	 JDBCDoctorController.getDoctorController().deleteDoctor(doctor_);
 	 //update doctor
 	 c.setName("Pepa");
 	 c.setSpeciality("neurology");
-	 DoctorController.getDoctorController().updateDoctor(c);
-	 Doctor d =DoctorController.getDoctorController().searchDoctorById(6);
-	 System.out.println(d);*/
+	 JDBCDoctorController.getDoctorController().updateDoctor(c);
+	 Doctor e =JDBCDoctorController.getDoctorController().searchDoctorById(6);
+	 System.out.println(e);*/
 
 	 
 	 
-	 //insert patient
-	 Date dob = new Date(0, 0, 0);
-	 Date dateAdmission = new Date (0, 0, 0);
-	 Patient patient_ = new Patient( "Manola", sex.WOMEN , dob, dateAdmission );
-	 JDBCPatientController.getPatientController().insertNoDiagnosePatient(patient_);
-	 List<Patient> patients = JDBCPatientController.getPatientController().getAllPatients();
-	 System.out.println(patients);
+	//insert patient
+	 //Date dob = new Date(0, 0, 0);
+	// Date dateAdmission = new Date (0, 0, 0);
+	 //Patient patient_ = new Patient( "Manola", sex.WOMEN , dob, dateAdmission );
+	 //JDBCPatientController.getPatientController().insertNoDiagnosePatient(patient_);
+	 //List<Patient> patients = JDBCPatientController.getPatientController().getAllPatients();
+	 //System.out.println(patients);
 	 //search patient
 	 //PatientController.getPatientController().
 	 //System.out.println(patient_); //PROBLEMA: al search patient el diagnose sale null
 	 //update doctor 
 	 
-	 //DBConnection.getConnection().close();//
+	// JDBConnection.getConnection().close();
  
 
 //insert bill

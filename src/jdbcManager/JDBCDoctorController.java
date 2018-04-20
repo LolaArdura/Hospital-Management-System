@@ -3,6 +3,7 @@ import interfaces.*;
 import java.sql.*;
 import java.util.*;
 import model.Doctor;
+import model.Nurse;
 
 public class JDBCDoctorController implements DoctorInterface {
 	private JDBCDoctorController() {
@@ -89,6 +90,53 @@ public class JDBCDoctorController implements DoctorInterface {
 		return doctor;
 
 	}
+	
+	public Doctor searchDoctorByName (String name) throws Exception{
+		String sql  ="SELECT * FROM doctor WHERE name=?";
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1, name);
+		ResultSet rs = prep.executeQuery();
+		rs.next();
+		int id = rs.getInt("id");
+		String Name = rs.getString("name");
+		byte[] photo = rs.getBytes("photo");
+		String schedule = rs.getString("schedule");
+		String specialty = rs.getString("specialty");
+		Doctor doctorByName = new Doctor(id, Name, photo, schedule,specialty);
+		return doctorByName;
+	}
+	
+	public Doctor searchDoctorBySchedule (String schedule) throws Exception{
+		String sql  ="SELECT * FROM doctor WHERE schedule=?";
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1, schedule);
+		ResultSet rs = prep.executeQuery();
+		rs.next();
+		int id = rs.getInt("id");
+		String name = rs.getString("name");
+		byte[] photo = rs.getBytes("photo");
+		String Schedule = rs.getString("schedule");
+		String specialty = rs.getString("specialty");
+		Doctor doctorBySchedule = new Doctor(id, name, photo, Schedule, specialty);
+		return doctorBySchedule;
+	}
+	
+	public Doctor searchDoctorBySpecialty (String specialty) throws Exception {
+		String sql = "SELECT * FROM doctor WHERE specialty= ?";
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1, specialty);
+		ResultSet rs = prep.executeQuery();
+		rs.next();
+		int id = rs.getInt("id");
+		String name = rs.getString("name");
+		byte[] photo = rs.getBytes("photo");
+		String schedule = rs.getString("schedule");
+		String Specialty = rs.getString("specialty");
+		Doctor doctorBySchedule = new Doctor(id, name, photo, schedule, Specialty);
+		return doctorBySchedule;
+		
+	}
+	
 
 	public Doctor updateDoctor(Doctor doctor) throws Exception {
 		String sql = "UPDATE doctor SET name=?, schedule=?, specialty=? WHERE id=?";
