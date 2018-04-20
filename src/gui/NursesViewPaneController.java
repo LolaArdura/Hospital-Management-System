@@ -25,7 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import jdbcManager.NurseController;
+import jdbcManager.JDBCNurseController;
 import jdbcManager.NurseInterface;
 import model.Nurse;
 import sun.misc.IOUtils;
@@ -121,7 +121,7 @@ public class NursesViewPaneController implements Initializable {
 					}
 								
 					//We insert into the database the new nurse
-			    	NurseController.getNurseController().insertNurse(nurse);
+			    	JDBCNurseController.getNurseController().insertNurse(nurse);
 			    	
 			    //	NurseInterface nurseController=NurseController.getNurseController();
 			   // 	nurseController.insertNurse(nurse);
@@ -179,7 +179,11 @@ public class NursesViewPaneController implements Initializable {
 			   else {
 				   Nurse nurse=new Nurse(name,schedule,role);
 				   try {
+<<<<<<< HEAD
 					NurseController.getNurseController().deleteNurse(nurse);
+=======
+					JDBCNurseController.getNurseController().deleteNurseWithoutId(nurse);
+>>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System.git
 					setNurses();
 					nameTextField.clear();
 			    	scheduleTextField.clear();
@@ -212,7 +216,7 @@ public class NursesViewPaneController implements Initializable {
 	   LinkedList<Nurse> nurses= new LinkedList<Nurse>();
 	try {
 		nurses.clear();
-		nurses.addAll((LinkedList<Nurse>) NurseController.getNurseController().getAllNurses());
+		nurses.addAll((LinkedList<Nurse>) JDBCNurseController.getNurseController().getAllNurses());
 	    for(Nurse nurse:nurses){
 	    	FXMLLoader loader=new FXMLLoader (getClass().getResource("NurseDetailsPane.fxml"));
 	    	GridPane nurseDetails=(GridPane)loader.load();

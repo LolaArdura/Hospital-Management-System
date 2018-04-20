@@ -3,14 +3,14 @@ import model.*;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import interfaces.*;
+public class JDBCRoomController implements RoomInterface {
 
-public class RoomController implements RoomInterface {
+	private static JDBCRoomController singleton;
 
-	private static RoomController singleton;
-
-	public static  RoomController getRoomController() {
+	public static  JDBCRoomController getRoomController() {
 		if (singleton == null) {
-			singleton = new RoomController();
+			singleton = new JDBCRoomController();
 
 		}
 		return singleton;
@@ -18,15 +18,14 @@ public class RoomController implements RoomInterface {
 	}
 
 	public boolean insertRoom(Room room) throws Exception {
-		String sql = "INSERT INTO room (id, number, type, capacity, floor, costPerDay)" + " VALUES (?,?,?,?,?,?);";
+		String sql = "INSERT INTO room ( number, type, capacity, floor, costPerDay)" + " VALUES (?,?,?,?,?);";
 
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
-		prep.setInt(1, room.getId());
-		prep.setInt(2, room.getNumber());
-		prep.setString(3, room.getType().name().toLowerCase());
-		prep.setInt(4, room.getCapacity());
-		prep.setInt(5, room.getFloor());
-		prep.setFloat(6, room.getCostPerDay());
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1, room.getNumber());
+		prep.setString(2, room.getType().name().toLowerCase());
+		prep.setInt(3, room.getCapacity());
+		prep.setInt(4, room.getFloor());
+		prep.setFloat(5, room.getCostPerDay());
 		prep.executeUpdate();
 		prep.close();
 		return true;
@@ -35,7 +34,7 @@ public class RoomController implements RoomInterface {
 	
 	public boolean deleteRoom(Room room) throws Exception {
 		String sql = "DELETE FROM room WHERE id = ?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getId());
 		prep.executeUpdate();
 		return true;
@@ -43,7 +42,7 @@ public class RoomController implements RoomInterface {
 
 	public Room searchRoomById(Integer id) throws Exception {
 		String sql = "SELECT * FROM room WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 		rs.next();
@@ -59,7 +58,7 @@ public class RoomController implements RoomInterface {
 
 	public boolean updateRoom(Room room) throws Exception {
 		String sql = "UPDATE room SET number=?, type=?, capacity=?, floor=?, costPerDay=? WHERE id=?";
-		PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getNumber());
 		prep.setString(2, room.getType().name().toUpperCase());
 		prep.setInt(3, room.getCapacity());
@@ -71,7 +70,7 @@ public class RoomController implements RoomInterface {
 	}
 	
 	public List<Room> getAllRooms() throws Exception {
-		Statement stmt = DBConnection.getConnection().createStatement();
+		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT * FROM room";
 		ResultSet rs = stmt.executeQuery(sql);
 		List<Room> roomList = new LinkedList<Room>();
