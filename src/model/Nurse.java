@@ -12,6 +12,11 @@ public class Nurse extends Employee {
 			pkColumnValue="nurse")
 	private Integer id;
 	private String role;
+	
+	@ManyToMany
+	@JoinTable(name="proj_emp",
+	joinColumns={@JoinColumn(name="nurse_id", referencedColumnName="id")},
+	inverseJoinColumns={@JoinColumn(name="patient_id", referencedColumnName="id")})
 	private List <Patient> listOfPatients;
 	
 	public Nurse (Integer id, String name, byte[] photo, String schedule, String role) {

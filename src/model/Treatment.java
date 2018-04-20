@@ -29,6 +29,10 @@ public class Treatment implements Serializable {
 	@JoinColumn(name="doctor_id")
 	private Patient patient ;
 	
+	public Treatment() {
+		super();
+	}
+	
 	//Constructor without id
 	
 	public Treatment (String routeOfAdmin, Date startDate, Date endDate, float cost ,

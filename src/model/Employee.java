@@ -8,6 +8,8 @@ public abstract class Employee {
 	@Id
 	protected Integer id;
 	protected String name;
+	@Basic(fetch=FetchType.LAZY)
+	@Lob
 	protected byte[] photo;
 	protected String schedule;
 	
