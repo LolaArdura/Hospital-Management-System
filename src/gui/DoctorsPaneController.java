@@ -27,7 +27,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
-import jdbcManager.DoctorController;
+import jdbcManager.JDBCDoctorController;
 import model.Doctor;
 
 public class DoctorsPaneController implements Initializable{
@@ -134,7 +134,7 @@ public class DoctorsPaneController implements Initializable{
   					}
   								
   					//We insert into the database the new doctor
-  			    	DoctorController.getDoctorController().insertDoctorWithoutId(doctor);
+  			    	JDBCDoctorController.getDoctorController().insertDoctor(doctor);
   			    	
   			    	//We show the new doctor
   			    	setDoctors();
@@ -191,7 +191,7 @@ public class DoctorsPaneController implements Initializable{
     private void setDoctors() {
     	try {
     	ObservableList<Doctor> doctors= FXCollections.observableArrayList();
-	    doctors.addAll(DoctorController.getDoctorController().getAllDoctors());
+	    doctors.addAll(JDBCDoctorController.getDoctorController().getAllDoctors());
 	    doctorsList.setItems(doctors);
 		} catch (Exception e) {
 			e.printStackTrace();

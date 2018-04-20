@@ -32,8 +32,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import jdbcManager.DoctorController;
-import jdbcManager.DoctorInterface;
+import jdbcManager.JDBCDoctorController;
+import interfaces.DoctorInterface;
 import model.Doctor;
 
 public class DoctorDetailsController implements Initializable{
@@ -117,7 +117,7 @@ public class DoctorDetailsController implements Initializable{
     @FXML
     public void okButtonClicked(ActionEvent ev) {
     	try {
-    	DoctorInterface doctorController= DoctorController.getDoctorController();
+    	DoctorInterface doctorController= JDBCDoctorController.getDoctorController();
     	
     	doctor.setName(nameTextField.getText());
     	doctor.setSpeciality(specialtyTextField.getText());
