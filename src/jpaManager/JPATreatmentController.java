@@ -55,7 +55,7 @@ public class JPATreatmentController implements TreatmentInterface {
 		}
 	
 	
-	public Treatment updateTreatment (Treatment treatment) throws Exception{
+	/*public Treatment updateTreatment (Treatment treatment) throws Exception{
 		//get the entity manager 
 		EntityManager em= DBEntityManager.getEntityManager();
 		//begin transaction
@@ -72,7 +72,7 @@ public class JPATreatmentController implements TreatmentInterface {
 		//end transaction
 		em.getTransaction().commit();
 		
-		return treatment;
+		return treatment;*/
 		
 	}
 	
