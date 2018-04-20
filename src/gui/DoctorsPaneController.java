@@ -191,7 +191,8 @@ public class DoctorsPaneController implements Initializable{
     private void setDoctors() {
     	try {
     	ObservableList<Doctor> doctors= FXCollections.observableArrayList();
-	    doctors.addAll(JDBCDoctorController.getDoctorController().getAllDoctors());
+	    //doctors.addAll(JDBCDoctorController.getDoctorController().getAllDoctors());
+    	
 	    doctorsList.setItems(doctors);
 		} catch (Exception e) {
 			e.printStackTrace();

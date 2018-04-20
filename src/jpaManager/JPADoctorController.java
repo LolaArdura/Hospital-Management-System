@@ -43,4 +43,34 @@ public class JPADoctorController implements DoctorInterface{
 		List <Doctor> doctors = (List<Doctor>) q1.getResultList();
 		return doctors;
 	}
+
+	@Override
+	public Doctor searchDoctorById(Integer id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Doctor searchDoctorByName(String name) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Doctor searchDoctorBySpecialty(String specialty) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Doctor searchDoctorBySchedule(String schedule) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateDoctor(Doctor doctor) throws Exception {
+		EntityManager em=DBEntityManager.getEntityManager();
+		em.flush();
+	}
 }

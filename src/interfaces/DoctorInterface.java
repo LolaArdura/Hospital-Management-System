@@ -11,5 +11,5 @@ public interface DoctorInterface {
 	public Doctor searchDoctorByName (String name) throws Exception;
 	public Doctor searchDoctorBySpecialty (String specialty) throws Exception;
 	public Doctor searchDoctorBySchedule (String schedule) throws Exception;
-	public Doctor updateDoctor (Doctor doctor) throws Exception;
+	public void updateDoctor (Doctor doctor) throws Exception;
 }
