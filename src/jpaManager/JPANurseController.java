@@ -93,7 +93,13 @@ private static JPANurseController singleton;
 	}
 	
 	
-	//FALTA UPDATE NURSE!!!!!!!!!
+	@Override
+	public void updateNurse (Nurse nurse) throws Exception{
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction();
+		em.flush();
+		em.getTransaction().commit();
+	}
 	
 	
 	
