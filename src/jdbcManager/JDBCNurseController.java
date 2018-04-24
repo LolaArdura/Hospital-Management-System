@@ -3,6 +3,7 @@ import interfaces.*;
 import java.sql.*;
 import java.util.*;
 import model.Nurse;
+import model.Patient;
 
 public class JDBCNurseController implements NurseInterface {
 	private JDBCNurseController() {
@@ -76,34 +77,62 @@ public class JDBCNurseController implements NurseInterface {
 		return searchNurse;
 	}
 	
-	public Nurse searchNurseBySchedule (String schedule) throws Exception{
+	public List<Nurse> searchNurseBySchedule (String schedule) throws Exception{
 		String sql  ="SELECT * FROM nurse WHERE schedule=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, schedule);
 		ResultSet rs = prep.executeQuery();
-		rs.next();
-		int id = rs.getInt("id");
-		String name = rs.getString("name");
-		byte[] photo = rs.getBytes("photo");
-		String Schedule = rs.getString("schedule");
-		String role = rs.getString("role");
-		Nurse nurseBySchedule = new Nurse(id, name, photo, Schedule, role);
-		return nurseBySchedule;
+		List<Nurse> nurseList = new LinkedList<Nurse>();
+		while (rs.next()) {
+			int Id = rs.getInt("id");
+			String name = rs.getString("name");
+			byte[] photo = rs.getBytes("photo");
+			String scheduleRs = rs.getString("schedule");
+			String role = rs.getString("role");
+			Nurse searchNurse = new Nurse(Id, name, photo, scheduleRs, role);
+			nurseList.add(searchNurse);
+		}
+		prep.close();
+		return nurseList;
 	}
 	
-	public Nurse searchNurseByName (String name) throws Exception{
+	public List<Nurse> searchNurseByName (String name) throws Exception{
 		String sql  ="SELECT * FROM nurse WHERE name=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, name);
 		ResultSet rs = prep.executeQuery();
-		rs.next();
-		int id = rs.getInt("id");
-		String Name = rs.getString("name");
-		byte[] photo = rs.getBytes("photo");
-		String schedule = rs.getString("schedule");
-		String role = rs.getString("role");
-		Nurse nurseByName = new Nurse(id, Name, photo, schedule, role);
-		return nurseByName;
+		List<Nurse> nurseList = new LinkedList<Nurse>();
+		while (rs.next()) {
+			int Id = rs.getInt("id");
+			String nameRs = rs.getString("name");
+			byte[] photo = rs.getBytes("photo");
+			String schedule = rs.getString("schedule");
+			String role = rs.getString("role");
+			Nurse searchNurse = new Nurse(Id, nameRs, photo, schedule, role);
+			nurseList.add(searchNurse);
+		}
+		prep.close();
+		return nurseList;
+	}
+	
+	public List<Nurse> searchNurseByRole( String role) throws Exception{
+		String sql  ="SELECT * FROM nurse WHERE role=?";
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1, role);
+		ResultSet rs = prep.executeQuery();
+		List<Nurse> nurseList = new LinkedList<Nurse>();
+		while (rs.next()) {
+			int Id = rs.getInt("id");
+			String name = rs.getString("name");
+			byte[] photo = rs.getBytes("photo");
+			String schedule = rs.getString("schedule");
+			String roleRs = rs.getString("role");
+			Nurse searchNurse = new Nurse(Id, name, photo, schedule, roleRs);
+			nurseList.add(searchNurse);
+		}
+		prep.close();
+		return nurseList;
+		
 	}
 	
 	public void updateNurse(Nurse nurse) throws Exception {
@@ -114,5 +143,41 @@ public class JDBCNurseController implements NurseInterface {
 		prep.setString(3, nurse.getRole());
 		prep.setInt(4, nurse.getId());
 		prep.executeUpdate();
+	}
+
+	public List<Patient> getPatientsFromNurse(Nurse nurse) throws Exception {
+		String sql="SELECT p.id,p.name FROM patient AS p JOIN nurse_patient WHERE nurse_patient.nurse_id=?";
+		PreparedStatement prep=JDBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1, nurse.getId());
+		ResultSet rs=prep.executeQuery();
+		List<Patient> patients=new LinkedList<Patient>();
+		while(rs.next()) {
+			int id=rs.getInt("id");
+			String name=rs.getString("name");
+			Patient p= new Patient(id,name);
+			patients.add(p);
+		}
+		prep.close();
+		return patients;
+	}
+
+	@Override
+	public void addPatientToNurse(Nurse nurse, Patient patient) throws Exception {
+		String sql="INSERT INTO nurse_patient (nurse_id,patient_id) VALUES (?,?)";
+		PreparedStatement prep=JDBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1, nurse.getId());
+		prep.setInt(2, patient.getId());
+	    prep.executeUpdate();
+	    prep.close();
+		
+	}
+	
+	public void deletePatientFromNurse(Nurse nurse,Patient patient) throws Exception{
+		String sql=" DELETE FROM nurse_patient WHERE nurse_id=? AND patient_id=?";
+		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1,nurse.getId());
+		prep.setInt(2,patient.getId());
+		prep.executeUpdate();
+		prep.close();
 	}
 }
