@@ -19,20 +19,22 @@ public class Test {
 
 	 //insert doctor
 
-	 Doctor doctor1 = new Doctor( "Pepe", null , "morning", "cardiology" );
-	 Doctor doctor2 = new Doctor ( "Paco", null, "afternoon", "nephrology");
-	 JDBCDoctorController.getDoctorController().insertDoctor (doctor1);
-	 JDBCDoctorController.getDoctorController().insertDoctor(doctor2);
+	Doctor doctor1 = new Doctor(1, "Pepe", null , "morning", "cardiology" );
+	 Doctor doctor2 = new Doctor (2, "Paco", null, "afternoon", "nephrology");
+	// JDBCDoctorController.getDoctorController().insertDoctor (doctor1);
+	// JDBCDoctorController.getDoctorController().insertDoctor(doctor2);
 	 //imprimo doctores
      List<Doctor> listDoctors = JDBCDoctorController.getDoctorController().getAllDoctors();
 	 System.out.println(listDoctors);
 	 //delete and print again the list to confirm !!!! no delete
 	 JDBCDoctorController.getDoctorController().deleteDoctor(doctor1);
+	 listDoctors.clear();
+	 listDoctors.addAll(JDBCDoctorController.getDoctorController().getAllDoctors());
 	 System.out.println(listDoctors);
 	 
 	 //search
-	 try {
-	 Doctor c=JDBCDoctorController.getDoctorController().searchDoctorById(11);
+	/* try {
+	 Doctor c=JDBCDoctorController.getDoctorController().searchDoctorById(1);
 	 System.out.println(c);
 	 Doctor d = JDBCDoctorController.getDoctorController().searchDoctorByName("Pepe");
 	 System.out.println(d);
@@ -42,7 +44,7 @@ public class Test {
 		 e.printStackTrace();
 	 }catch(Exception e) {
 		 System.out.println("No doctor found");
-	 }
+	 }*/
 	 
 	
 
@@ -73,24 +75,25 @@ public class Test {
 	 //BillsController.getBillsController().insertBills(bill_);
 	 
 	 //insert room
-	Room room1 = new Room ( 19, roomType.BOX, 5, 2 , 20) ; 
-	 Room room3 = new Room (20, roomType.DOUBLE, 4, 2,20);
-	 Room room4 = new Room (22, roomType.DOUBLE, 4, 2,50);
+	/* Room room1 = new Room ( 01, 19, roomType.BOX, 5, 2 , 20) ; 
+	 Room room3 = new Room (02,20, roomType.DOUBLE, 4, 2,20);
+	 Room room4 = new Room (03,22, roomType.DOUBLE, 4, 2,50);
 	// JDBCRoomController.getRoomController().insertRoom(room1); 
 	// JDBCRoomController.getRoomController().insertRoom(room3);
 	// JDBCRoomController.getRoomController().insertRoom(room4);
 	 
 	 //Print list of Rooms
-	List <Room> listRooms = JDBCRoomController.getRoomController().getAllRooms();
-	 System.out.println(listRooms);
+	// List <Room> listRooms = JDBCRoomController.getRoomController().getAllRooms();
+	// System.out.println(listRooms);
 	 
 	 //Borro una habitacion y comprubeo si se ha borrado de la lista !!!! no DELETE
 	 JDBCRoomController.getRoomController().deleteRoom(room3);
-	 JDBCRoomController.getRoomController().getAllRooms();
-	 System.out.println(listRooms);
+	 System.out.println(room3);
+	// JDBCRoomController.getRoomController().getAllRooms();
+	// System.out.println(listRooms);
 	 
 	 //Update
-	 JDBCRoomController.getRoomController().updateRoom(room4);
+	 JDBCRoomController.getRoomController().updateRoom(room4);*/
 	 
 	 
 	 
