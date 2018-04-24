@@ -50,12 +50,12 @@ public class JDBCNurseController implements NurseInterface {
 		ResultSet rs = stmt.executeQuery(sql);
 		List<Nurse> nurseList = new LinkedList<Nurse>();
 		while (rs.next()) {
-			int Id = rs.getInt("id");
+			int id = rs.getInt("id");
 			String name = rs.getString("name");
 			byte[] photo = rs.getBytes("photo");
 			String schedule = rs.getString("schedule");
 			String role = rs.getString("role");
-			Nurse searchNurse = new Nurse(Id, name, photo, schedule, role);
+			Nurse searchNurse = new Nurse(id, name, photo, schedule, role);
 			nurseList.add(searchNurse);
 		}
 		stmt.close();
