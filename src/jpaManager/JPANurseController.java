@@ -137,12 +137,13 @@ private static JPANurseController singleton;
 
 
 
-	@Override
-	public void deletePatientFromNurse(Nurse nurse, Patient patient) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
 	
+	public void deletePatientFromNurse(Nurse nurse, Patient patient) throws Exception {
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		nurse.deletePatientFromNurse(patient);
+		em.getTransaction().commit();
+	}
 	
 	
 	
