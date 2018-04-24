@@ -1,36 +1,39 @@
 package jdbcManager;
 
 
-
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
-import model.Bills;
-import model.Doctor;
-import model.Nurse;
-import model.Patient;
-import model.Patient.sex;
+import model.*;
+import model.Room.roomType;
 import tables.DatabaseTables;
 
 public class Test {
 
  public static void main (String[] args) throws Exception {
 	 //create tables
-    // DatabaseTables.createTables(); 
+     //DatabaseTables.createTables(); 
 
 	 //insert doctor
 
-	 //Doctor doctor1 = new Doctor(06, "Pepe", null , "morning", "cardiology" );
-	// Doctor doctor2= new Doctor (07, "Paco", null, "afternoon", "nephrology");
-	 //JDBCDoctorController.getDoctorController().insertDoctor (doctor1);
-	 //JDBCDoctorController.getDoctorController().insertDoctor(doctor2);
-    /*List<Doctor> a = JDBCDoctorController.getDoctorController().getAllDoctors();
-	 System.out.println(a);
-	// List<Doctor> b = JDBCDoctorController.getDoctorController().getAllDoctors();
-	 //System.out.println(b);
-	 try {
-	 Doctor c=JDBCDoctorController.getDoctorController().searchDoctorById(11);
+	Doctor doctor1 = new Doctor(1, "Pepe", null , "morning", "cardiology" );
+	 Doctor doctor2 = new Doctor (2, "Paco", null, "afternoon", "nephrology");
+	// JDBCDoctorController.getDoctorController().insertDoctor (doctor1);
+	// JDBCDoctorController.getDoctorController().insertDoctor(doctor2);
+	 //imprimo doctores
+     List<Doctor> listDoctors = JDBCDoctorController.getDoctorController().getAllDoctors();
+	 System.out.println(listDoctors);
+	 //delete and print again the list to confirm !!!! no delete
+	 JDBCDoctorController.getDoctorController().deleteDoctor(doctor1);
+	 listDoctors.clear();
+	 listDoctors.addAll(JDBCDoctorController.getDoctorController().getAllDoctors());
+	 System.out.println(listDoctors);
+	 
+	 //search
+	/* try {
+	 Doctor c=JDBCDoctorController.getDoctorController().searchDoctorById(1);
 	 System.out.println(c);
 	 Doctor d = JDBCDoctorController.getDoctorController().searchDoctorByName("Pepe");
 	 System.out.println(d);
@@ -42,36 +45,27 @@ public class Test {
 		 System.out.println("No doctor found");
 	 }*/
 	 
-	 /*delete doctor
-	 JDBCDoctorController.getDoctorController().deleteDoctor(doctor_);
-	 //update doctor
-	 c.setName("Pepa");
-	 c.setSpeciality("neurology");
-	 JDBCDoctorController.getDoctorController().updateDoctor(c);
-	 Doctor e =JDBCDoctorController.getDoctorController().searchDoctorById(6);
-	 System.out.println(e);*/
+	
 
 	 //insert Nurse
-	  Nurse nurse1 = new Nurse ("Elena",null,"afternoon", "inyections");
-	  JDBCNurseController.getNurseController().insertNurse(nurse1);
+	 /* Nurse nurse1 = new Nurse ("Elena",null,"afternoon", "inyections");
+	  Nurse nurse2 = new Nurse ("Paula",null, "morning", "pills administration");
+	  JDBCNurseController.getNurseController().deleteNurse();
 	  List<Nurse> listaNurses= JDBCNurseController.getNurseController().getAllNurses();
-	  System.out.println(listaNurses);
-	 
+	  System.out.println(listaNurses);*/
+	  
 	 
 	//insert patient
-	 //Date dob = new Date(0, 0, 0);
-	// Date dateAdmission = new Date (0, 0, 0);
-	 //Patient patient_ = new Patient( "Manola", sex.WOMEN , dob, dateAdmission );
-	 //JDBCPatientController.getPatientController().insertNoDiagnosePatient(patient_);
-	 //List<Patient> patients = JDBCPatientController.getPatientController().getAllPatients();
-	 //System.out.println(patients);
+	/*Date dob = new Date (2002/3/03);
+	 Date dateAdmission = new Date (2018/01/02);
+	 Patient patient1 = new Patient( "Ana", sex.WOMEN , dob, dateAdmission );
+	// JDBCPatientController.getPatientController().insertNoDiagnosePatient(patient1);
+	List<Patient> listpatients = JDBCPatientController.getPatientController().getAllPatients();
+	 System.out.println(listpatients);//La fecha es 1970 por razones descconocidas
 	 //search patient
-	 //PatientController.getPatientController().
-	 //System.out.println(patient_); //PROBLEMA: al search patient el diagnose sale null
-	 //update doctor 
 	 
-	// JDBConnection.getConnection().close();
- 
+	 System.out.println(patient1); //PROBLEMA: al search patient el diagnose sale null
+	*/
 
 //insert bill
 	 //Bills bill_ = new Bills (package jdbcManager);
@@ -80,22 +74,27 @@ public class Test {
 	 //BillsController.getBillsController().insertBills(bill_);
 	 
 	 //insert room
-	/* Room room_ = new Room (03, 19, roomType.BOX, 5, 20 , 20) ; 
-	 RoomController.getRoomController().insertRoom(room_); 
-	 List <Room> b = RoomController.getRoomController().getAllRooms();
-	 System.out.println(b);
-	 Room a=RoomController.getRoomController().searchRoomById(03);
-	 a.setCapacity(8);
-	 RoomController.getRoomController().updateRoom(a);
-	 System.out.println(a);
-	 RoomController.getRoomController().deleteRoom(a);
-	 List <Room> c = RoomController.getRoomController().getAllRooms();
-	 System.out.println(c);*/
+	/* Room room1 = new Room ( 01, 19, roomType.BOX, 5, 2 , 20) ; 
+	 Room room3 = new Room (02,20, roomType.DOUBLE, 4, 2,20);
+	 Room room4 = new Room (03,22, roomType.DOUBLE, 4, 2,50);
+	// JDBCRoomController.getRoomController().insertRoom(room1); 
+	// JDBCRoomController.getRoomController().insertRoom(room3);
+	// JDBCRoomController.getRoomController().insertRoom(room4);
 	 
-	 //insert Nurse
+	 //Print list of Rooms
+	// List <Room> listRooms = JDBCRoomController.getRoomController().getAllRooms();
+	// System.out.println(listRooms);
 	 
+	 //Borro una habitacion y comprubeo si se ha borrado de la lista !!!! no DELETE
+	 JDBCRoomController.getRoomController().deleteRoom(room3);
+	 System.out.println(room3);
+	// JDBCRoomController.getRoomController().getAllRooms();
+	// System.out.println(listRooms);
 	 
+	 //Update
+	 JDBCRoomController.getRoomController().updateRoom(room4);*/
 	 
+
 	 
  }
 }

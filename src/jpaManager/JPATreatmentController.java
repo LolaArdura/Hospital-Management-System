@@ -75,13 +75,3 @@ public class JPATreatmentController implements TreatmentInterface {
 		return treatment;*/
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}
