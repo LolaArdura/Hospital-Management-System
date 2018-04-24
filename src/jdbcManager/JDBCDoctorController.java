@@ -146,6 +146,7 @@ public class JDBCDoctorController implements DoctorInterface {
 		prep.setString(2, doctor.getSchedule());
 		prep.setString(3, doctor.getSpeciality());
 		prep.setInt(4, doctor.getId());
+		
 		prep.executeUpdate();
 	}
 }
