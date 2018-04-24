@@ -1,7 +1,6 @@
 package jdbcManager;
 
 
-
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -95,9 +94,7 @@ public class Test {
 	 //Update
 	 JDBCRoomController.getRoomController().updateRoom(room4);*/
 	 
-	 
-	 
-	 
+
 	 
  }
 }
