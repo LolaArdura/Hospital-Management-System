@@ -49,6 +49,11 @@ public class Doctor extends Employee{
 	public void setSpeciality(String speciality) {
 		this.specialty = speciality;
 	}
+	
+	public Integer getId() {
+		return this.id;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -74,7 +79,7 @@ public class Doctor extends Employee{
 	}
 	@Override
 	public String toString() {
-		return "Doctor [id:" + id + "\n name:" +  name + "\n photo:" + photo + "\n schedule:" + schedule+"\n speciality:" + specialty + "]";
+		return "Doctor [id:" + id + "\n name:" +  name + "\n photo:" + photo + "\n schedule:" + schedule+"\n speciality:" + specialty + "]\n";
 	}
 	
 	

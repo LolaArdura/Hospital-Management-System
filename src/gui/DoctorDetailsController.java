@@ -19,17 +19,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import jdbcManager.JDBCDoctorController;
 import jpaManager.JPADoctorController;
 import interfaces.DoctorInterface;
 import model.Doctor;
@@ -72,6 +73,12 @@ public class DoctorDetailsController implements Initializable{
     @FXML
     private ImageView photo;
     
+    @FXML
+    private Label idLab;
+    
+    @FXML
+    private Label idLabel;
+    
     private Doctor doctor;
     
     private Pane mainPane;
@@ -81,6 +88,7 @@ public class DoctorDetailsController implements Initializable{
     public void initComponents (Doctor doctor, Pane mainPane) {
     	this.doctor=doctor;
     	this.mainPane=mainPane;
+    	idLabel.setText(""+doctor.getId());
     	nameTextField.setText(doctor.getName());
     	specialtyTextField.setText(doctor.getSpeciality());
     	scheduleTextField.setText(doctor.getSchedule());
@@ -97,6 +105,8 @@ public class DoctorDetailsController implements Initializable{
 		}
     	}
     }
+    
+ 
     
     public void browseButtonClicked(ActionEvent ev) {
     	 FileChooser fileChooser= new FileChooser();
@@ -127,6 +137,16 @@ public class DoctorDetailsController implements Initializable{
 	    
 	    doctorController.updateDoctor(doctor);
 	    
+	    FXMLLoader loader= new FXMLLoader(getClass().getResource("DoctorsViewPane.fxml"));
+	    GridPane doctorsPane= (GridPane) loader.load();
+	    mainPane.getChildren().clear();
+	    mainPane.getChildren().add(doctorsPane);
+	    doctorsPane.prefHeightProperty().bind(mainPane.heightProperty());
+	    doctorsPane.prefWidthProperty().bind(mainPane.widthProperty());
+	    
+	    DoctorsPaneController controller=loader.<DoctorsPaneController>getController();
+	    controller.initComponents(mainPane);
+	    
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -138,8 +158,28 @@ public class DoctorDetailsController implements Initializable{
     
     @FXML
     public void deleteButtonClicked(ActionEvent ev) {
-    	Alert a=new Alert(AlertType.CONFIRMATION);
+    	Alert a=new Alert(AlertType.CONFIRMATION,"Do you want to delete this doctor?",
+    			new ButtonType("Yes",ButtonBar.ButtonData.YES),ButtonType.NO);
     	a.setTitle("Delete");
+    	a.setHeaderText("Delete doctor");
+    	String confirmation=a.showAndWait().get().getText();
+    	if(confirmation.equals("Yes")) {
+    		try {
+    		JPADoctorController.getJPADoctorController().deleteDoctor(doctor);
+    		FXMLLoader loader= new FXMLLoader(getClass().getResource("DoctorsViewPane.fxml"));
+    	    GridPane doctorsPane= (GridPane) loader.load();
+    	    mainPane.getChildren().clear();
+    	    mainPane.getChildren().add(doctorsPane);
+    	    doctorsPane.prefHeightProperty().bind(mainPane.heightProperty());
+    	    doctorsPane.prefWidthProperty().bind(mainPane.widthProperty());
+    	    
+    	    DoctorsPaneController controller=loader.<DoctorsPaneController>getController();
+    	    controller.initComponents(mainPane);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	
     }
     
     @FXML
