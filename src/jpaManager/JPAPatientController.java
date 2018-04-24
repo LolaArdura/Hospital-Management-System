@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.*;
 
 import interfaces.PatientInterface;
-import model.Doctor;
 import model.Patient;
 
 public class JPAPatientController implements PatientInterface{
@@ -54,6 +53,13 @@ public class JPAPatientController implements PatientInterface{
 		q1.setParameter(1, id);
 		Patient patient = (Patient) q1.getSingleResult();
 		return patient;
+	}
+	
+	public void updatePatient(Patient patient) throws Exception {
+		EntityManager em=DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.flush();
+		em.getTransaction().commit();
 	}
 	
 	
