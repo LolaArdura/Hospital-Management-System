@@ -6,10 +6,13 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,10 +21,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -65,6 +71,9 @@ public class DoctorsPaneController implements Initializable{
     @FXML 
     private JFXTextField floatTextField;
     
+    @FXML
+    private ComboBox<String> searchBox;
+    
     public void initialize(URL arg0, ResourceBundle arg1) {
     	setDoctors();
     	doctorsList.setCellFactory(new Callback<ListView<Doctor>, ListCell<Doctor>>(){
@@ -84,6 +93,24 @@ public class DoctorsPaneController implements Initializable{
 			}
     		
     });
+   
+      searchBox.getItems().addAll("Name","Specialty","Schedule");
+      searchBox.getSelectionModel().select("Name");;
+      
+      floatTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
+				if(!newValue) {
+					if(floatTextField.getText().trim().equals("")) {
+						setDoctors();
+					}
+				}
+				
+			}
+			
+			
+		});
    }
     
     public void initComponents(Pane mainPane) {
@@ -95,7 +122,7 @@ public class DoctorsPaneController implements Initializable{
 
        String name= nameTextField.getText();
   	   Alert alert= new Alert(AlertType.ERROR);
-  	   if(name.equals("")) {
+  	   if(name.trim().equals("")) {
   		   alert.setTitle("ERROR");
   		   alert.setHeaderText("No name");
   		   alert.setContentText("A name needs to be specified for the new doctor");
@@ -104,7 +131,7 @@ public class DoctorsPaneController implements Initializable{
   	   }
   	   else {
   		   String speciality=specialityTextField.getText();
-  		   if(speciality.equals("")) {
+  		   if(speciality.trim().equals("")) {
   			   alert.setTitle("ERROR");
   			   alert.setHeaderText("No speciality");
   			   alert.setContentText("A speciality needs to be specified for the new doctor");
@@ -113,7 +140,7 @@ public class DoctorsPaneController implements Initializable{
   		   }
   		   else {
   			   String schedule=scheduleTextField.getText();
-  			   if(schedule.equals("")) {
+  			   if(schedule.trim().equals("")) {
   				   alert.setTitle("ERROR");
   				   alert.setHeaderText("No schedule");
   				   alert.setContentText("Schedule needs to be specified for the new doctor");
@@ -124,7 +151,7 @@ public class DoctorsPaneController implements Initializable{
   				   try {
   					Doctor doctor;
   					String path=pictureTextField.getText();
-  					if(!path.equals("")) {
+  					if(!path.trim().equals("")) {
   					   Path filePath=Paths.get(path);
   					   byte[] photo=Files.readAllBytes(filePath);
   			           doctor=new Doctor(name,photo,schedule,speciality);
@@ -189,15 +216,84 @@ public class DoctorsPaneController implements Initializable{
         
     }
     
+    @FXML
+    public void textFieldKeyTyped(KeyEvent event) {
+     if(event.getCode().equals(KeyCode.ENTER)){
+        	 String  selectedOption =searchBox.getSelectionModel().getSelectedItem();
+        	 String text= floatTextField.getText();
+       if(!text.trim().equals("")) {
+        	 if(selectedOption.equals("Name")) {
+        		 try {
+					List<Doctor> doctors= JDBCDoctorController.getDoctorController().searchDoctorByName(text);
+					setDoctors(doctors);	
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+        	 }
+        	 else {
+        		 if( selectedOption.equals("Specialty")) {
+        			 try {
+						List<Doctor> doctors= JDBCDoctorController.getDoctorController().searchDoctorBySpecialty(text);
+						setDoctors(doctors);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+        			 
+        		 }
+        		 else {
+        			 if(selectedOption.equals("Schedule")) {
+        				 try {
+        				 List<Doctor> doctors=JDBCDoctorController.getDoctorController().searchDoctorBySchedule(text);
+        				 setDoctors(doctors);
+        				 }catch(Exception ex) {
+        					 ex.printStackTrace();
+        				 }
+        			 }
+        		 }
+        	 }
+         }
+       else {
+    	   setDoctors();
+       }
+      }
+         
+    }
+    
+    
+    @FXML
+    public void searchBoxAcionPerformed(ActionEvent event) {
+    	String selection=searchBox.getSelectionModel().getSelectedItem();
+    	if(selection.equals("Name")) {
+    		floatTextField.setPromptText("Enter name");
+    	}
+    	else {
+    		if(selection.equals("Specialty")) {
+    			floatTextField.setPromptText("Enter specialty");
+    		}
+    		else {
+    		    floatTextField.setPromptText("Enter schedule");
+    		}
+    	}
+          
+    }
+    
     private void setDoctors() {
     	try {
     	ObservableList<Doctor> doctors= FXCollections.observableArrayList();
 	    //doctors.addAll(JDBCDoctorController.getDoctorController().getAllDoctors());
     	doctors.addAll(JPADoctorController.getJPADoctorController().getAllDoctors());
+    	doctorsList.getItems().clear();
 	    doctorsList.setItems(doctors);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+    }
+    
+    private void setDoctors (List<Doctor> doctors) {
+    	ObservableList<Doctor> docs=FXCollections.observableArrayList();
+    	docs.addAll(doctors);
+    	doctorsList.getItems().clear();
+    	doctorsList.setItems(docs);
     }
     
     

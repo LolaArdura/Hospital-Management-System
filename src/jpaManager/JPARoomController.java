@@ -59,11 +59,7 @@ public class JPARoomController implements  RoomInterface{
 	public void updateRoom (Room room) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
-		room.setNumber(room.getNumber());
-		room.setCapacity(room.getCapacity());
-		room.setCostPerDay(room.getCostPerDay());
-		room.setFloor(room.getFloor());
-		room.setType(room.getType());
+		em.flush();
 		em.getTransaction().commit();
 	}
 }

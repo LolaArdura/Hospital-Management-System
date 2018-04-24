@@ -108,7 +108,6 @@ public class DatabaseTables {
 			s8.close();
 			
 		
-		    System.out.println("Database connection closed.");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
