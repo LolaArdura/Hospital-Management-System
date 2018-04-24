@@ -42,21 +42,11 @@ public class JPABillsController  implements BillsInterface {
 	  return bill;
   }
   
-  public Bills updateBills (Bills bill)throws Exception {
+  public void updateBills (Bills bill)throws Exception {
 	  EntityManager em = DBEntityManager.getEntityManager();
-	  //Begin transaction
 	  em.getTransaction().begin();
-	  
-	  //Make changes
-	  bill.setBankID(bill.getBankID());
-	  bill.setTotalCost(bill.getTotalCost());
-	  bill.setPaid(bill.getPaid());
-	  bill.setPatient(bill.getPatient());
-	  
-	  
-	  //End transaction
+	  em.flush();
 	  em.getTransaction().commit();
-	  return bill;
 	  
 	  
   }

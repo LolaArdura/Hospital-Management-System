@@ -48,45 +48,59 @@ public class JPADoctorController implements DoctorInterface{
 	public List<Doctor> getAllDoctors() throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
+		em.flush();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM doctor", Doctor.class);
 		List <Doctor> doctors = (List<Doctor>) q1.getResultList();
 		return doctors;
 	}
-	
-	public Doctor searchDoctorByName (String name) throws Exception{
+
+
+	@Override
+	public List<Doctor> searchDoctorByName(String name) throws Exception {
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE name LIKE ?", Doctor.class);
 		q1.setParameter(1, name);
-		Doctor doctor = (Doctor) q1.getSingleResult();
+		LinkedList<Doctor> doctor = (LinkedList<Doctor>) q1.getResultList();
 		return doctor;
 	}
-	
-	public Doctor searchDoctorBySpecialty (String specialty) throws Exception{
+
+	@Override
+	public List<Doctor> searchDoctorBySpecialty(String specialty) throws Exception {
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE specialty LIKE ?", Doctor.class);
 		q1.setParameter(1, specialty);
-		Doctor doctor = (Doctor) q1.getSingleResult();
+		LinkedList<Doctor> doctor = (LinkedList<Doctor>) q1.getResultList();
 		return doctor;
 	}
-	
-	public Doctor searchDoctorBySchedule (String schedule) throws Exception{
+
+	@Override
+	public List<Doctor> searchDoctorBySchedule(String schedule) throws Exception {
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE schedule LIKE ?", Doctor.class);
 		q1.setParameter(1, schedule);
-		Doctor doctor = (Doctor) q1.getSingleResult();
+		LinkedList<Doctor> doctor = (LinkedList<Doctor>) q1.getResultList();
 		return doctor;
 	}
+
+	@Override
+	public void updateDoctor(Doctor doctor) throws Exception {
+		EntityManager em=DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.flush();
+		em.getTransaction().commit();
+	}
+	
 	
 	
 }

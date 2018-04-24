@@ -5,15 +5,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import interfaces.NurseInterface;
 import model.Nurse;
 import model.Treatment;
 
-public class JPANurseController {
+public class JPANurseController implements NurseInterface{
 	
 	
 private static JPANurseController singleton;
 	
-	public static JPANurseConotroller getNurseController() {
+	public static JPANurseController getNurseController() {
 		if (singleton==null) {
 			singleton =new JPANurseController();
 		}
@@ -92,7 +93,13 @@ private static JPANurseController singleton;
 	}
 	
 	
-	//FALTA UPDATE NURSE!!!!!!!!!
+	@Override
+	public void updateNurse (Nurse nurse) throws Exception{
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction();
+		em.flush();
+		em.getTransaction().commit();
+	}
 	
 	
 	

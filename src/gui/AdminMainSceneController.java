@@ -1,16 +1,13 @@
 package gui;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -18,41 +15,65 @@ import javafx.scene.layout.VBox;
 
 public class AdminMainSceneController{
 	
-	@FXML
-	private VBox buttonsVBox;
-	
-	@FXML
-	private BorderPane adminPane;
+	  @FXML
+	    private BorderPane adminPane;
 
-    @FXML
-    private MenuItem myProfileItem;
+	    @FXML
+	    private MenuItem myProfileItem;
 
-    @FXML
-    private MenuItem signOutItem;
+	    @FXML
+	    private MenuItem signOutItem;
 
-    @FXML
-    private Button patientsButton;
+	    @FXML
+	    private VBox buttonsVBox;
 
-    @FXML
-    private Button doctorsButton;
+	    @FXML
+	    private Accordion accordionContainer;
 
-    @FXML
-    private Button nurseButton;
+	    @FXML
+	    private TitledPane patientsTitledPane;
 
-    @FXML
-    private Button userButton;
+	    @FXML
+	    private Button patientsButton;
 
-    @FXML
-    private MenuButton roomsMenuButton;
+	    @FXML
+	    private TitledPane doctorsTitledPane;
 
-    @FXML
-    private MenuItem roomManagementItem;
+	    @FXML
+	    private Button doctorsButton;
 
-    @FXML
-    private MenuItem roomCostsItem;
+	    @FXML
+	    private TitledPane nursesTitledPane;
 
-    @FXML
-    private Pane mainPane;
+	    @FXML
+	    private VBox nursesVBox;
+
+	    @FXML
+	    private Button nurseManagementButton;
+
+	    @FXML
+	    private Button patientAssignmentButton;
+
+	    @FXML
+	    private TitledPane usersTitledPane;
+
+	    @FXML
+	    private Button usersButton;
+
+	    @FXML
+	    private TitledPane roomsTitledPane;
+
+	    @FXML
+	    private VBox roomsVBox;
+
+	    @FXML
+	    private Button roomManagementButton;
+
+	    @FXML
+	    private Button roomCostsButton;
+
+	    @FXML
+	    private Pane mainPane;
 
 
 	public void patientsButtonClicked(ActionEvent event) {
@@ -73,13 +94,16 @@ public class AdminMainSceneController{
 	}
 	
     @FXML
-    void nursesButtonClicked(ActionEvent event) {
+    public void nurseManagementClicked(ActionEvent event) {
        try {
        mainPane.getChildren().clear();
-       GridPane nursesView = (GridPane)FXMLLoader.load(getClass().getResource("NursesPane.fxml"));
+       FXMLLoader loader=new FXMLLoader(getClass().getResource("NursesPane.fxml"));
+       GridPane nursesView = (GridPane)loader.load();
        mainPane.getChildren().add(nursesView);
        nursesView.prefHeightProperty().bind(mainPane.heightProperty());
        nursesView.prefWidthProperty().bind(mainPane.widthProperty());
+       NursesViewPaneController controller =loader.<NursesViewPaneController>getController();
+       controller.initComponents(mainPane,true);
        }catch(Exception ex) {
     	   ex.printStackTrace();
        }
@@ -102,6 +126,37 @@ public class AdminMainSceneController{
     	}
     }
 	
+    @FXML
+    public void patientAssignmentClicked(ActionEvent event) {
+       try {
+       mainPane.getChildren().clear();
+       FXMLLoader loader= new FXMLLoader(getClass().getResource("NursesPane.fxml"));
+       GridPane nursesView=(GridPane) loader.load();
+       mainPane.getChildren().add(nursesView);
+       nursesView.prefHeightProperty().bind(mainPane.heightProperty());
+       nursesView.prefWidthProperty().bind(mainPane.widthProperty());
+       NursesViewPaneController controller= loader.<NursesViewPaneController>getController();
+       controller.initComponents(mainPane, false);
+       }catch(Exception ex) {
+    	   ex.printStackTrace();
+       }
+    }
+    
+    @FXML
+    public void roomCostsClicked(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void roomManagementClicked(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void usersButtonClicked(ActionEvent event) {
+
+    }
+
 
 }
 

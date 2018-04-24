@@ -43,8 +43,8 @@
       <ListView fx:id="doctorsList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="4" />
       <Button fx:id="viewDetailsButton" mnemonicParsing="false" onAction="#viewDetailsClicked" prefHeight="25.0" prefWidth="121.0" text="View details" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
       <Button fx:id="addButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#addNewButtonClicked" prefHeight="25.0" prefWidth="86.0" text="Add new" GridPane.columnIndex="5" GridPane.rowIndex="8" />
-      <ComboBox prefWidth="150.0" promptText="Search by" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-      <JFXTextField fx:id="floatTextField" alignment="CENTER_RIGHT" focusColor="BLACK" labelFloat="true" pickOnBounds="false" prefHeight="25.0" prefWidth="89.0" promptText="Enter name" GridPane.columnIndex="5" GridPane.rowIndex="2">
+      <ComboBox fx:id="searchBox" onAction="#searchBoxAcionPerformed" prefWidth="150.0" promptText="Search by" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+      <JFXTextField fx:id="floatTextField" alignment="CENTER_RIGHT" focusColor="BLACK" labelFloat="true" onKeyPressed="#textFieldKeyTyped" pickOnBounds="false" prefHeight="25.0" prefWidth="89.0" promptText="Enter name" GridPane.columnIndex="5" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="5.0" />
          </GridPane.margin>

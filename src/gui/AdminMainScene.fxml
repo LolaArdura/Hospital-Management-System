@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -21,16 +23,45 @@
       <VBox fx:id="buttonsVBox" prefHeight="429.0" prefWidth="139.0" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="139.0" text="MENU" />
-            <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonClicked" prefHeight="42.0" prefWidth="139.0" text="Patients" />
-            <Button fx:id="doctorsButton" mnemonicParsing="false" onAction="#doctorsButtonClicked" prefHeight="42.0" prefWidth="139.0" text="Doctors" />
-            <Button fx:id="nurseButton" mnemonicParsing="false" onAction="#nursesButtonClicked" prefHeight="42.0" prefWidth="139.0" text="Nurses" />
-            <Button fx:id="userButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="139.0" text="Users" />
-            <MenuButton fx:id="roomsMenuButton" alignment="CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="139.0" text="Rooms">
-              <items>
-                <MenuItem fx:id="roomManagementItem" mnemonicParsing="false" text="Rooms Management" />
-                <MenuItem fx:id="roomCostsItem" mnemonicParsing="false" text="Room Costs" />
-              </items>
-            </MenuButton>
+            <Accordion fx:id="accordionContainer">
+              <panes>
+                <TitledPane fx:id="patientsTitledPane" animated="false" text="Patients">
+                     <content>
+                        <Button fx:id="patientsButton" mnemonicParsing="false" onAction="#patientsButtonClicked" prefHeight="25.0" prefWidth="141.0" text="View all patients" />
+                     </content>
+                </TitledPane>
+                <TitledPane fx:id="doctorsTitledPane" animated="false" text="Doctors">
+                     <content>
+                        <Button fx:id="doctorsButton" mnemonicParsing="false" onAction="#doctorsButtonClicked" prefHeight="25.0" prefWidth="144.0" text="Doctor Management" />
+                     </content>
+                </TitledPane>
+                <TitledPane fx:id="nursesTitledPane" animated="false" text="Nurses">
+                     <content>
+                        <VBox fx:id="nursesVBox" prefHeight="48.0" prefWidth="137.0">
+                           <children>
+                              <Button fx:id="nurseManagementButton" mnemonicParsing="false" onAction="#nurseManagementClicked" prefHeight="25.0" prefWidth="162.0" text="Manage nurses" />
+                              <Button fx:id="patientAssignmentButton" mnemonicParsing="false" onAction="#patientAssignmentClicked" prefHeight="25.0" prefWidth="118.0" text="Assign patients" />
+                           </children>
+                        </VBox>
+                     </content>
+                </TitledPane>
+                  <TitledPane fx:id="usersTitledPane" prefHeight="5.0" prefWidth="139.0" text="Users">
+                     <content>
+                        <Button fx:id="usersButton" mnemonicParsing="false" onAction="#usersButtonClicked" prefHeight="25.0" prefWidth="143.0" text="Manage users" />
+                     </content>
+                  </TitledPane>
+                  <TitledPane fx:id="roomsTitledPane" animated="false" text="Rooms">
+                     <content>
+                        <VBox fx:id="roomsVBox" prefHeight="0.0" prefWidth="137.0">
+                           <children>
+                              <Button fx:id="roomManagementButton" mnemonicParsing="false" onAction="#roomManagementClicked" prefHeight="25.0" prefWidth="156.0" text="Manage rooms" />
+                              <Button fx:id="roomCostsButton" mnemonicParsing="false" onAction="#roomCostsClicked" prefHeight="25.0" prefWidth="133.0" text="Room's costs" />
+                           </children>
+                        </VBox>
+                     </content>
+                  </TitledPane>
+              </panes>
+            </Accordion>
          </children>
       </VBox>
    </left>
