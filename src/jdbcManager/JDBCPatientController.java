@@ -1,5 +1,6 @@
 package jdbcManager;
 import interfaces.*;
+
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
@@ -46,17 +47,14 @@ public class JDBCPatientController implements PatientInterface{
 	}
 	
 	
-	
-	//public boolean assignNurse (Nurse nurse, Patient patient)throws Exception{
-		
-	
-	//c.setAutoCommit(false);
-		//String sql = "INSERT INTO nurse_patient"
-			//	+ "(nurse_id, patient_id) VALUES (?, ?)";
-		/*PreparedStatement prep = DBConnection.getConnection().prepareStatement(sql);
+	//Es prototipo, todavia no funciona ver sis eria asi
+	public boolean addNurseToPatient (Nurse nurse, Patient patient)throws Exception{
+		String sql = "INSERT INTO nurse_patient"
+				+ "(nurse_id, patient_id) VALUES (?, ?)";
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1,  nurse.getId());
 		prep.setInt(2,  patient.getId());
-		c.commit();//DUDA
+		patient.addNurse(nurse);
 		return true;
 	}
 	
@@ -69,7 +67,7 @@ public class JDBCPatientController implements PatientInterface{
 		//patient.setBills(bill);
 		
 		//return true;
-	//}*/
+	//}
 	
 	public boolean deletePatient (Patient patient) throws Exception {
 		String sql = "DELETE FROM patient WHERE id = ?";

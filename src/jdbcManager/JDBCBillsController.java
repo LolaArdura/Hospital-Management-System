@@ -2,9 +2,11 @@
 
 package jdbcManager;
 import java.sql.*;
-import interfaces.*;
+import java.util.List;
 
-import model.Bills;
+import interfaces.*;
+import model.*;
+
 public class JDBCBillsController implements BillsInterface{
 	
 private static JDBCBillsController singleton;
@@ -53,7 +55,6 @@ public Bills searchBillsById (Integer id) throws Exception{
 	return bill;
 	
 }
-//FALTA HACER METODO SEARCH BY PATIENT
 	
 public void updateBills (Bills bill) throws Exception {
 	String sql = "UPDATE  bills"
@@ -67,6 +68,16 @@ public void updateBills (Bills bill) throws Exception {
 	prep.setBoolean(3, bill.getPaid());
 	prep.executeUpdate();
 }
+//Prototipo comprobar
+public List<Bills> getBillsFromPatient (Patient patient) throws Exception{
+	String sql= "SELECT * FROM bills WHERE patient_id = ? ";
+	PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+	prep.setInt(1, patient.getId());
+	ResultSet rs = prep.executeQuery();
+	
+}
+
+
 
 
 }
