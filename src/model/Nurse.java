@@ -14,7 +14,7 @@ public class Nurse extends Employee {
 	private String role;
 	
 	@ManyToMany
-	@JoinTable(name="proj_emp",
+	@JoinTable(name="nurse_patient",
 	joinColumns={@JoinColumn(name="nurse_id", referencedColumnName="id")},
 	inverseJoinColumns={@JoinColumn(name="patient_id", referencedColumnName="id")})
 	private List <Patient> listOfPatients;
