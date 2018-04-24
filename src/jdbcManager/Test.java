@@ -1,7 +1,6 @@
 package jdbcManager;
 
 
-
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
@@ -93,9 +92,7 @@ public class Test {
 	 System.out.println(c);*/
 	 
 	 //insert Nurse
-	 
-	 
-	 
+
 	 
  }
 }
