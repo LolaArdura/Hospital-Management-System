@@ -5,10 +5,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import interfaces.NurseInterface;
 import model.Nurse;
 import model.Treatment;
 
-public class JPANurseController {
+public class JPANurseController implements NurseInterface{
 	
 	
 private static JPANurseController singleton;
