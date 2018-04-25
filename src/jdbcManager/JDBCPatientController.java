@@ -97,6 +97,26 @@ public class JDBCPatientController implements PatientInterface{
 		stmt.close();
 		return patientList;
 	}
+	//NO TERMINADO
+	public Patient  getpatientWithouttreatmntsAndBills (Integer id) throws Exception{
+		Statement stmt = JDBConnection.getConnection().createStatement();
+		String sql = "SELECT id, name, gender, dob, dateAdmission, room_id FROM patient";
+		ResultSet rs = stmt.executeQuery(sql);
+		List<Patient> patientList= new LinkedList <Patient>();
+		rs.next();
+			int Id = rs.getInt("id");
+			String name = rs.getString("name");
+			Patient.sex gender = Patient.sex.valueOf(rs.getString("gender").toUpperCase());
+			Date dob = rs.getDate("dob");
+			Date dateAdmission = rs.getDate("dateAdmission");
+			Integer room_id = rs.getInt("room_id");
+			Patient searchPatient = new Patient (Id, name, gender, dob, dateAdmission, room_id);
+			
+		
+		stmt.close();
+		return searchPatient;
+		
+	}
 	
 	public List<Bills> getBillsFromPatient (Patient patient) throws Exception{
 		String sql= "SELECT * FROM bills WHERE patient_id = ? ";
