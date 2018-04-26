@@ -82,6 +82,17 @@ public Patient (String name, sex gender,  Date dob,
 	   this.listOfBills = new LinkedList<Bills>();
 }	
 
+public Patient (Integer id,String name, sex gender,  Date dob,
+		   Date dateAdmission, Room room) {
+	   this.id=id;
+	   this.name = name;
+	   this.gender = gender;
+	   this.dob = dob;
+	   this.dateAdmission = dateAdmission;
+	   this.room=room;
+	 
+}	
+
 public Patient(Integer id, String name) {
 	this.id=id;
 	this.name=name;

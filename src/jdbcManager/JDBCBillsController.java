@@ -70,22 +70,7 @@ public void updateBills (Bills bill) throws Exception {
 	prep.executeUpdate();
 }
 
-public List<Bills> getBillsFromPatient (Patient patient) throws Exception{
-	String sql= "SELECT * FROM bills WHERE patient_id = ? ";
-	PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-	prep.setInt(1, patient.getId());
-	ResultSet rs = prep.executeQuery();
-	List<Bills> billsList = new LinkedList<Bills>();
-	while(rs.next()) {
-		int id =rs.getInt("id");
-		float totalCost = rs.getFloat("totalcost");
-		String bankId =rs.getString("bankId");
-		boolean paid = rs.getBoolean("paid");
-		Bills searchBill = new Bills (id, totalCost,bankId, paid);
-		billsList.add(searchBill);
-				
-	}
-	return billsList;
+
 	
 	
 	

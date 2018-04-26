@@ -7,6 +7,7 @@ import java.util.*;
 
 import model.*;
 
+
 public class JDBCPatientController implements PatientInterface{
 	private static JDBCPatientController singleton;
 	
@@ -76,6 +77,8 @@ public class JDBCPatientController implements PatientInterface{
 		prep.executeUpdate();
 		return true;
 	}
+	
+	
 	public List<Patient> getAllPatients () throws Exception {
 		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT * FROM patient";
@@ -93,6 +96,68 @@ public class JDBCPatientController implements PatientInterface{
 		}
 		stmt.close();
 		return patientList;
+	}
+	//NO TERMINADO
+	public Patient  getpatientWithouttreatmntsAndBills (Integer id) throws Exception{
+		Statement stmt = JDBConnection.getConnection().createStatement();
+		String sql = "SELECT id, name, gender, dob, dateAdmission, room_id FROM patient";
+		ResultSet rs = stmt.executeQuery(sql);
+		List<Patient> patientList= new LinkedList <Patient>();
+		rs.next();
+			int Id = rs.getInt("id");
+			String name = rs.getString("name");
+			Patient.sex gender = Patient.sex.valueOf(rs.getString("gender").toUpperCase());
+			Date dob = rs.getDate("dob");
+			Date dateAdmission = rs.getDate("dateAdmission");
+			Integer room_id = rs.getInt("room_id");
+			Patient searchPatient = new Patient (Id, name, gender, dob, dateAdmission, room_id);
+			
+		
+		stmt.close();
+		return searchPatient;
+		
+	}
+	
+	public List<Bills> getBillsFromPatient (Patient patient) throws Exception{
+		String sql= "SELECT * FROM bills WHERE patient_id = ? ";
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1, patient.getId());
+		ResultSet rs = prep.executeQuery();
+		List<Bills> billsList = new LinkedList<Bills>();
+		while(rs.next()) {
+			int id =rs.getInt("id");
+			float totalCost = rs.getFloat("totalcost");
+			String bankId =rs.getString("bankId");
+			boolean paid = rs.getBoolean("paid");
+			Bills searchBill = new Bills (id, totalCost,bankId, paid);
+			billsList.add(searchBill);
+					
+		}
+		return billsList;
+		
+	}
+	
+	public List<Treatment> getTreatmentsFromPatient (Patient patient) throws Exception{
+		String sql = "SELECT * FROM treatment WHERE patient_id =?";
+		PreparedStatement prep=JDBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1, patient.getId());
+		ResultSet rs= prep.executeQuery();
+		List<Treatment> treatmentsList= new LinkedList<Treatment>();
+		while(rs.next()) {
+			int id = rs.getInt("id");
+			String routeOfAdmin = rs.getString("routeOfAdmin");
+			Date startDate =rs.getDate("startDate");
+			Date endDate =rs.getDate("endDate");
+			Float cost =rs.getFloat("cost");
+			String treatmentType =rs.getString("treatmentType");
+			String dose =rs.getString("dose");
+			Integer prescriber_id= ((Treatment) rs).getPrescriber().getId();
+			Doctor prescriber = JDBCDoctorController.getDoctorController().searchDoctorById(prescriber_id);
+			Treatment searchTreatment = new Treatment (id,routeOfAdmin, startDate, endDate,
+					cost, treatmentType, dose, prescriber);
+			treatmentsList.add(searchTreatment);
+		}
+		return treatmentsList;
 	}
 	
 	public Patient searchPatientById (Integer id) throws Exception {
