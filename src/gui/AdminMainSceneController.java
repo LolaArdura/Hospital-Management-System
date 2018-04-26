@@ -154,6 +154,16 @@ public class AdminMainSceneController{
     
     @FXML
     void usersButtonClicked(ActionEvent event) {
+    	try {
+    	FXMLLoader loader= new FXMLLoader(getClass().getResource("UsersPane.fxml"));
+		GridPane usersPane = (GridPane) loader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(usersPane);
+		usersPane.prefHeightProperty().bind(mainPane.heightProperty());
+		usersPane.prefWidthProperty().bind(mainPane.widthProperty());
+    }catch(Exception  ex) {
+    	ex.printStackTrace();
+    }
 
     }
 

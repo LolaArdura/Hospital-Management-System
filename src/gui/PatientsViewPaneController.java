@@ -19,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import jdbcManager.JDBCPatientController;
 import model.Patient;
 
 
@@ -78,9 +79,7 @@ public class PatientsViewPaneController implements Initializable{
 	    
 		private ObservableList<Patient> setPatients(){
 			ObservableList<Patient> patients = FXCollections.observableArrayList();
-			patients.add(new Patient(123,"aa",Patient.sex.MEN," ",new Date(2011,12,23), new Date (2018,3,1)));
-			
-			//patients.addAll(PatientController.getPatientController().getAllPatients();
+			//patients.addAll(JDBCPatientController.;
 			return patients;
 		}
 	

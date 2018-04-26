@@ -8,7 +8,7 @@ import model.Treatment;
 public class JDBCTreatmentController implements TreatmentInterface {
   
 	private static JDBCTreatmentController singleton;
-	public JDBCTreatmentController getTreatmentController() {
+	public static JDBCTreatmentController getTreatmentController() {
 		if (singleton == null) {
 			singleton = new JDBCTreatmentController (); 
 			
