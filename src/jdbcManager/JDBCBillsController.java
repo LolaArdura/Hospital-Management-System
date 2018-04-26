@@ -75,8 +75,3 @@ public void updateBills (Bills bill) throws Exception {
 	
 	
 }
-
-
-
-
-}
