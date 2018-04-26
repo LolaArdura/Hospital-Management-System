@@ -2,6 +2,7 @@
 
 package jdbcManager;
 import java.sql.*;
+import java.util.LinkedList;
 import java.util.List;
 
 import interfaces.*;
@@ -68,12 +69,10 @@ public void updateBills (Bills bill) throws Exception {
 	prep.setBoolean(3, bill.getPaid());
 	prep.executeUpdate();
 }
-//Prototipo comprobar
-public List<Bills> getBillsFromPatient (Patient patient) throws Exception{
-	String sql= "SELECT * FROM bills WHERE patient_id = ? ";
-	PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-	prep.setInt(1, patient.getId());
-	ResultSet rs = prep.executeQuery();
+
+
+	
+	
 	
 }
 

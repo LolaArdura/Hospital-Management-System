@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import interfaces.NurseInterface;
 import model.Nurse;
+import model.Patient;
 import model.Treatment;
 
 public class JPANurseController implements NurseInterface{
@@ -51,7 +52,7 @@ private static JPANurseController singleton;
 		return nurse;
 	}
 	
-	public Nurse searchNurseBySchedule  (String schedule) throws Exception{
+	public List <Nurse> searchNurseBySchedule  (String schedule) throws Exception{
 		//get the entity manager
 		EntityManager em= DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
@@ -61,11 +62,11 @@ private static JPANurseController singleton;
 		//search the nurse by schedule
 		Query q1= em.createNativeQuery("SELECT * FROM nurse WHERE schedule LIKE ?", Nurse.class);
 		q1.setParameter(1, schedule);
-		Nurse nurse = (Nurse)q1.getSingleResult();
-		return nurse;
+		List<Nurse> nurses = (List<Nurse>)q1.getResultList();
+		return nurses;
 	}
 	
-	public Nurse searchNurseByName (String name) throws Exception{
+	public List<Nurse> searchNurseByName (String name) throws Exception{
 		//get the entity manager
 		EntityManager em= DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
@@ -75,8 +76,20 @@ private static JPANurseController singleton;
 		//search the nurse by schedule
 		Query q1= em.createNativeQuery("SELECT * FROM nurse WHERE name LIKE ?", Nurse.class);
 		q1.setParameter(1, name);
-		Nurse nurse = (Nurse)q1.getSingleResult();
+		List <Nurse> nurse = (List<Nurse>)q1.getResultList();
 		return nurse;
+	}
+	
+	public List<Nurse> searchNurseByRole (String role) throws Exception {
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1= em.createNativeQuery("SELECT * FROM nurse WHERE role LIKE ?", Nurse.class);
+		q1.setParameter(1, role);
+		List <Nurse> nurse = (List<Nurse>)q1.getResultList();
+		return nurse;
+		
 	}
 	
 	public List<Nurse> getAllNurses() throws Exception{
@@ -93,13 +106,44 @@ private static JPANurseController singleton;
 	}
 	
 	
-	//FALTA UPDATE NURSE!!!!!!!!!
+	@Override
+	public void updateNurse (Nurse nurse) throws Exception{
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction();
+		em.flush();
+		em.getTransaction().commit();
+	}
 	
 	
+	public void addPatientToNurse (Nurse nurse, Patient patient)throws Exception{
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		nurse.addPatientToNurse(patient);
+		em.getTransaction().commit();
+				
+	}
 	
+	public List <Patient> getPatientsFromNurse (Nurse nurse )throws Exception{
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_key=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1  = em.createNativeQuery("SELECT id,name FROM patient AS p JOIN nurse_patient WHERE nurse_patient.nurse_id ="+nurse.getId(),
+				Patient.class);
+		List <Patient> patients = (List <Patient>)q1.getResultList();
+		return patients;
+		
+	}
+
+
+
 	
-	
-	
+	public void deletePatientFromNurse(Nurse nurse, Patient patient) throws Exception {
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		nurse.deletePatientFromNurse(patient);
+		em.getTransaction().commit();
+	}
 	
 	
 	

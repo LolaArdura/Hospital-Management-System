@@ -1,14 +1,11 @@
 package jpaManager;
 
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import interfaces.*;
 import model.Treatment;
-import jdbcManager.JDBCTreatmentController;
 
 public class JPATreatmentController implements TreatmentInterface {
 	 private static JPATreatmentController singleton;
@@ -55,23 +52,11 @@ public class JPATreatmentController implements TreatmentInterface {
 		}
 	
 	
-	/*public Treatment updateTreatment (Treatment treatment) throws Exception{
-		//get the entity manager 
-		EntityManager em= DBEntityManager.getEntityManager();
-		//begin transaction
+	public void updateTreatment(Treatment treatment) throws Exception {
+		EntityManager em=DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
-		//make changes
-		treatment.setCost(treatment.getCost());
-		treatment.setDoctorId(treatment.getPrescriber());
-		treatment.setDose(treatment.getDose());
-		treatment.setEndDate(treatment.getEndDate());
-		treatment.setPatient(treatment.getPatient());
-		treatment.setRouteOfAdmin(treatment.getRouteOfAdmin());
-		treatment.setStartDate(treatment.getStartDate());
-		treatment.setTreatmentType(treatment.getTreatmentType());
-		//end transaction
+		em.flush();
 		em.getTransaction().commit();
-		
-		return treatment;*/
+	}
 		
 	}
