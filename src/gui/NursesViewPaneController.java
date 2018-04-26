@@ -37,321 +37,305 @@ import jdbcManager.JDBCNurseController;
 import model.Nurse;
 
 public class NursesViewPaneController implements Initializable {
-	
+
 	private boolean nurseManagement;
-	
+
 	private Pane mainPane;
 
-    @FXML
-    private GridPane nursesPane;
+	@FXML
+	private GridPane nursesPane;
 
-    @FXML
-    private TextField nameTextField;
+	@FXML
+	private TextField nameTextField;
 
-    @FXML
-    private TextField scheduleTextField;
+	@FXML
+	private TextField scheduleTextField;
 
-    @FXML
-    private TextField roleTextField;
+	@FXML
+	private TextField roleTextField;
 
-    @FXML
-    private TextField pictureTextField;
+	@FXML
+	private TextField pictureTextField;
 
-    @FXML
-    private Button browseButton;
+	@FXML
+	private Button browseButton;
 
-    @FXML
-    private ListView<Nurse> nurseList;
+	@FXML
+	private ListView<Nurse> nurseList;
 
-    @FXML
-    private Button viewDetailsButton;
+	@FXML
+	private Button viewDetailsButton;
 
-    @FXML
-    private Button addButton;
+	@FXML
+	private Button addButton;
 
-    @FXML
-    private ComboBox<String> searchBox;
+	@FXML
+	private ComboBox<String> searchBox;
 
-    @FXML
-    private JFXTextField floatTextField;
-    
-    @FXML
-    private Button viewPatientsButton;
-    
-    public void initComponents(Pane mainPane, Boolean nurseManagement) {
-    	this.mainPane=mainPane;
-    	this.nurseManagement=nurseManagement;
-    	
-    	if(nurseManagement) {
-    		nameTextField.setVisible(true);
-    		roleTextField.setVisible(true);
-    		scheduleTextField.setVisible(true);
-    		pictureTextField.setVisible(true);
-    		browseButton.setVisible(true);
-    		addButton.setVisible(true);
-    		viewDetailsButton.setVisible(true);
-    		viewPatientsButton.setVisible(false);
-    	}
-    	else {
-    		nameTextField.setVisible(false);
-    		roleTextField.setVisible(false);
-    		scheduleTextField.setVisible(false);
-    		pictureTextField.setVisible(false);
-    		browseButton.setVisible(false);
-    		addButton.setVisible(false);
-    		viewDetailsButton.setVisible(false);
-    		viewPatientsButton.setVisible(true);
-    	}
-    }
-    
+	@FXML
+	private JFXTextField floatTextField;
 
-    @FXML
-    void addNewButtonClicked(ActionEvent event) {
+	@FXML
+	private Button viewPatientsButton;
 
-        String name= nameTextField.getText();
-   	   Alert alert= new Alert(AlertType.ERROR);
-   	   if(name.trim().equals("")) {
-   		   alert.setTitle("ERROR");
-   		   alert.setHeaderText("No name");
-   		   alert.setContentText("A name needs to be specified for the new nurse");
-   		   alert.showAndWait();
-   		   nameTextField.requestFocus();
-   	   }
-   	   else {
-   		   String role=roleTextField.getText();
-   		   if(role.trim().equals("")) {
-   			   alert.setTitle("ERROR");
-   			   alert.setHeaderText("No role");
-   			   alert.setContentText("A role needs to be specified for the new nurse");
-   			   alert.showAndWait();
-   			   roleTextField.requestFocus();
-   		   }
-   		   else {
-   			   String schedule=scheduleTextField.getText();
-   			   if(schedule.trim().equals("")) {
-   				   alert.setTitle("ERROR");
-   				   alert.setHeaderText("No schedule");
-   				   alert.setContentText("Schedule needs to be specified for the new nurse");
-   				   alert.showAndWait();
-   				   scheduleTextField.requestFocus();
-   			   }
-   			   else {
-   				   try {
-   					Nurse nurse;
-   					String path=pictureTextField.getText();
-   					if(!path.trim().equals("")) {
-   					   Path filePath=Paths.get(path);
-   					   byte[] photo=Files.readAllBytes(filePath);
-   			           nurse=new Nurse(name,photo,schedule,role);
-   					}
-   					
-   					else {
-   					   nurse= new Nurse(name,schedule,role);
-   					}
-   								
-   					//We insert into the database the new doctor
-   			    	JDBCNurseController.getNurseController().insertNurse(nurse);
-   			    	
-   			    	//We show the new doctor
-   			    	setNurses();
-   							    	
-   			    	//We clear the text fields
-   			    	nameTextField.clear();
-   			    	scheduleTextField.clear();
-   			    	roleTextField.clear();
-   			    	pictureTextField.clear();
-   					
-   				} catch (IOException e) {
-   					e.printStackTrace();
-   				} catch (Exception e) {
-   					// TODO Auto-generated catch block
-   					e.printStackTrace();
-   				}
-   				 
-   			   }
-   		   }
-   	   }
+	public void initComponents(Pane mainPane, Boolean nurseManagement) {
+		this.mainPane = mainPane;
+		this.nurseManagement = nurseManagement;
 
-     
+		if (nurseManagement) {
+			nameTextField.setVisible(true);
+			roleTextField.setVisible(true);
+			scheduleTextField.setVisible(true);
+			pictureTextField.setVisible(true);
+			browseButton.setVisible(true);
+			addButton.setVisible(true);
+			viewDetailsButton.setVisible(true);
+			viewPatientsButton.setVisible(false);
+		} else {
+			nameTextField.setVisible(false);
+			roleTextField.setVisible(false);
+			scheduleTextField.setVisible(false);
+			pictureTextField.setVisible(false);
+			browseButton.setVisible(false);
+			addButton.setVisible(false);
+			viewDetailsButton.setVisible(false);
+			viewPatientsButton.setVisible(true);
+		}
+	}
 
-    }
+	@FXML
+	void addNewButtonClicked(ActionEvent event) {
 
-    @FXML
-    void browseButtonClicked(ActionEvent event) {
-    	 FileChooser fileChooser= new FileChooser();
-    	   fileChooser.setTitle("Choose an image");
-    	   fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files","*.png","*.jpg"));
-    	   File file=fileChooser.showOpenDialog(nursesPane.getScene().getWindow());
-    	   if(file!=null) {
-    		 pictureTextField.setText(file.getAbsolutePath());
-    	   }
-      }
+		String name = nameTextField.getText();
+		Alert alert = new Alert(AlertType.ERROR);
+		if (name.trim().equals("")) {
+			alert.setTitle("ERROR");
+			alert.setHeaderText("No name");
+			alert.setContentText("A name needs to be specified for the new nurse");
+			alert.showAndWait();
+			nameTextField.requestFocus();
+		} else {
+			String role = roleTextField.getText();
+			if (role.trim().equals("")) {
+				alert.setTitle("ERROR");
+				alert.setHeaderText("No role");
+				alert.setContentText("A role needs to be specified for the new nurse");
+				alert.showAndWait();
+				roleTextField.requestFocus();
+			} else {
+				String schedule = scheduleTextField.getText();
+				if (schedule.trim().equals("")) {
+					alert.setTitle("ERROR");
+					alert.setHeaderText("No schedule");
+					alert.setContentText("Schedule needs to be specified for the new nurse");
+					alert.showAndWait();
+					scheduleTextField.requestFocus();
+				} else {
+					try {
+						Nurse nurse;
+						String path = pictureTextField.getText();
+						if (!path.trim().equals("")) {
+							Path filePath = Paths.get(path);
+							byte[] photo = Files.readAllBytes(filePath);
+							nurse = new Nurse(name, photo, schedule, role);
+						}
 
+						else {
+							nurse = new Nurse(name, schedule, role);
+						}
 
-    @FXML
-    void searchBoxAcionPerformed(ActionEvent event) {
-    	String selection=searchBox.getSelectionModel().getSelectedItem();
-    	if(selection.equals("Name")) {
-    		floatTextField.setPromptText("Enter name");
-    	}
-    	else {
-    		if(selection.equals("Role")) {
-    			floatTextField.setPromptText("Enter role");
-    		}
-    		else {
-    		    floatTextField.setPromptText("Enter schedule");
-    		}
-    	}
-              }
+						// We insert into the database the new doctor
+						JDBCNurseController.getNurseController().insertNurse(nurse);
 
-    @FXML
-    void textFieldKeyTyped(KeyEvent event) {
-    	if(event.getCode().equals(KeyCode.ENTER)){
-       	 String  selectedOption =searchBox.getSelectionModel().getSelectedItem();
-       	 String text= floatTextField.getText();
-      if(!text.trim().equals("")) {
-       	 if(selectedOption.equals("Name")) {
-       		 try {
-					List<Nurse> nurses= JDBCNurseController.getNurseController().searchNurseByName(text);
-					setNurses(nurses);	
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-       	 }
-       	 else {
-       		 if( selectedOption.equals("Role")) {
-       			 try {
-						List<Nurse> nurses= JDBCNurseController.getNurseController().searchNurseByRole(text);
-						setNurses(nurses);
+						// We show the new doctor
+						setNurses();
+
+						// We clear the text fields
+						nameTextField.clear();
+						scheduleTextField.clear();
+						roleTextField.clear();
+						pictureTextField.clear();
+
+					} catch (IOException e) {
+						e.printStackTrace();
 					} catch (Exception e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-       			 
-       		 }
-       		 else {
-       			 if(selectedOption.equals("Schedule")) {
-       				 try {
-       				 List<Nurse> doctors=JDBCNurseController.getNurseController().searchNurseBySchedule(text);
-       				 setNurses(doctors);
-       				 }catch(Exception ex) {
-       					 ex.printStackTrace();
-       				 }
-       			 }
-       		 }
-       	 }
-        }
-      else {
-   	   setNurses();
-      }
 
-    }
-   }
+				}
+			}
+		}
 
-    @FXML
-    void viewDetailsClicked(ActionEvent event) {
-    	 Nurse nurse= nurseList.getSelectionModel().getSelectedItem();
-         if(nurse!=null) {
-       	  try {
-       	  FXMLLoader loader= new FXMLLoader (getClass().getResource("NurseDetailsPane.fxml"));
-       	  GridPane nurseDetails=(GridPane) loader.load();
-       	  mainPane.getChildren().clear();
-       	  mainPane.getChildren().add(nurseDetails);
-       	  nurseDetails.prefHeightProperty().bind(mainPane.heightProperty());
-       	  nurseDetails.prefWidthProperty().bind(mainPane.widthProperty());
-       	  NurseDetailsController controller= loader.<NurseDetailsController>getController();
-       	  controller.initComponents(nurse, mainPane);
-       	  }catch(Exception ex) {
-       		  ex.printStackTrace();
-       	  }
-         }
+	}
 
-         
-    }
+	@FXML
+	void browseButtonClicked(ActionEvent event) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Choose an image");
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg"));
+		File file = fileChooser.showOpenDialog(nursesPane.getScene().getWindow());
+		if (file != null) {
+			pictureTextField.setText(file.getAbsolutePath());
+		}
+	}
 
-    @FXML
-    public void viewPatientsClicked(ActionEvent event) {
-    	Nurse nurse= nurseList.getSelectionModel().getSelectedItem();
-    	if(nurse!=null) {
-    	try {
-    	FXMLLoader loader= new FXMLLoader(getClass().getResource("NursePatientPane.fxml"));
-    	GridPane nursePatient=(GridPane) loader.load();
-    	mainPane.getChildren().clear();
-    	mainPane.getChildren().add(nursePatient);
-    	nursePatient.prefHeightProperty().bind(mainPane.heightProperty());
-    	nursePatient.prefWidthProperty().bind(mainPane.widthProperty());
-    	
-    	NursePatientController controller=loader.<NursePatientController>getController();
-    	controller.initComponents(mainPane, nurse);
-    	}catch(Exception ex) {
-    		ex.printStackTrace();
-    	}
-    	}
-    	
-    }
-    
+	@FXML
+	void searchBoxAcionPerformed(ActionEvent event) {
+		String selection = searchBox.getSelectionModel().getSelectedItem();
+		if (selection.equals("Name")) {
+			floatTextField.setPromptText("Enter name");
+		} else {
+			if (selection.equals("Role")) {
+				floatTextField.setPromptText("Enter role");
+			} else {
+				floatTextField.setPromptText("Enter schedule");
+			}
+		}
+	}
+
+	@FXML
+	void textFieldKeyTyped(KeyEvent event) {
+		if (event.getCode().equals(KeyCode.ENTER)) {
+			String selectedOption = searchBox.getSelectionModel().getSelectedItem();
+			if (selectedOption != null) {
+				String text = floatTextField.getText();
+				if (!text.trim().equals("")) {
+					if (selectedOption.equals("Name")) {
+						try {
+							List<Nurse> nurses = JDBCNurseController.getNurseController().searchNurseByName(text);
+							setNurses(nurses);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					} else {
+						if (selectedOption.equals("Role")) {
+							try {
+								List<Nurse> nurses = JDBCNurseController.getNurseController().searchNurseByRole(text);
+								setNurses(nurses);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+
+						} else {
+							if (selectedOption.equals("Schedule")) {
+								try {
+									List<Nurse> doctors = JDBCNurseController.getNurseController()
+											.searchNurseBySchedule(text);
+									setNurses(doctors);
+								} catch (Exception ex) {
+									ex.printStackTrace();
+								}
+							} else {
+								setNurses();
+							}
+						}
+					}
+				}
+			} else {
+				setNurses();
+			}
+
+		}
+	}
+
+	@FXML
+	void viewDetailsClicked(ActionEvent event) {
+		Nurse nurse = nurseList.getSelectionModel().getSelectedItem();
+		if (nurse != null) {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("NurseDetailsPane.fxml"));
+				GridPane nurseDetails = (GridPane) loader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(nurseDetails);
+				nurseDetails.prefHeightProperty().bind(mainPane.heightProperty());
+				nurseDetails.prefWidthProperty().bind(mainPane.widthProperty());
+				NurseDetailsController controller = loader.<NurseDetailsController>getController();
+				controller.initComponents(nurse, mainPane);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
+	}
+
+	@FXML
+	public void viewPatientsClicked(ActionEvent event) {
+		Nurse nurse = nurseList.getSelectionModel().getSelectedItem();
+		if (nurse != null) {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("NursePatientPane.fxml"));
+				GridPane nursePatient = (GridPane) loader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(nursePatient);
+				nursePatient.prefHeightProperty().bind(mainPane.heightProperty());
+				nursePatient.prefWidthProperty().bind(mainPane.widthProperty());
+
+				NursePatientController controller = loader.<NursePatientController>getController();
+				controller.initComponents(mainPane, nurse);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		setNurses();
-    	nurseList.setCellFactory(new Callback<ListView<Nurse>, ListCell<Nurse>>(){
-    		
+		nurseList.setCellFactory(new Callback<ListView<Nurse>, ListCell<Nurse>>() {
+
 			@Override
 			public ListCell<Nurse> call(ListView<Nurse> doc) {
-				ListCell<Nurse> cell= new ListCell<Nurse>() {
-			
+				ListCell<Nurse> cell = new ListCell<Nurse>() {
+
 					@Override
-					protected void updateItem (Nurse item,boolean bln) {
+					protected void updateItem(Nurse item, boolean bln) {
 						super.updateItem(item, bln);
-						if(item!=null) {
+						if (item != null) {
 							setText(item.getName());
 						}
 					}
 				};
 				return cell;
 			}
-    		
-    });
-   
-      searchBox.getItems().addAll("Name","Role","Schedule");
-      searchBox.getSelectionModel().select("Name");;
-      
-      floatTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+
+		});
+
+		searchBox.getItems().addAll("Name", "Role", "Schedule");
+
+		floatTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
-				if(!newValue) {
-					if(floatTextField.getText().trim().equals("")) {
+				if (!newValue) {
+					if (floatTextField.getText().trim().equals("")) {
 						setNurses();
 					}
 				}
-				
+
 			}
-			
-			
+
 		});
-   } 
-	
+	}
+
 	private void setNurses() {
-   	try {
-   	ObservableList<Nurse> nurses= FXCollections.observableArrayList();
-	    //doctors.addAll(JDBCDoctorController.getDoctorController().getAllDoctors());
-   	nurses.addAll(JDBCNurseController.getNurseController().getAllNurses());
-   	nurseList.getItems().clear();
-	    nurseList.setItems(nurses);
+		try {
+			ObservableList<Nurse> nurses = FXCollections.observableArrayList();
+			// doctors.addAll(JDBCDoctorController.getDoctorController().getAllDoctors());
+			nurses.addAll(JDBCNurseController.getNurseController().getAllNurses());
+			nurseList.getItems().clear();
+			nurseList.setItems(nurses);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-   }
-	
+	}
+
 	private void setNurses(List<Nurse> nurses) {
-		ObservableList<Nurse> nur=FXCollections.observableArrayList();
+		ObservableList<Nurse> nur = FXCollections.observableArrayList();
 		nur.addAll(nurses);
 		nurseList.getItems().clear();
 		nurseList.setItems(nur);
 	}
-		
-	
 
 }
-
-
-
