@@ -3,6 +3,7 @@ import interfaces.*;
 import java.sql.*;
 
 import model.Doctor;
+import model.Patient;
 import model.Treatment;
 
 public class JDBCTreatmentController implements TreatmentInterface {
@@ -18,8 +19,8 @@ public class JDBCTreatmentController implements TreatmentInterface {
 	}
 	
 	public boolean insertTreatment (Treatment treatment) throws Exception {
-		String sql = "INSERT INTO treatment ( routeOfAdmin, startDate, endDate, cost, type, dose, doctor_id)"
-				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO treatment ( routeOfAdmin, startDate, endDate, cost, type, dose, doctor_id, patient_id)"
+				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		
 		prep.setString(1,treatment.getRouteOfAdmin());
@@ -29,6 +30,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		prep.setString(5, treatment.getTreatmentType());
 		prep.setString(6, treatment.getDose());
 		prep.setInt(7, treatment.getPrescriber().getId());
+		prep.setInt(8, treatment.getPatient().getId());
 		prep.executeUpdate();
 		prep.close();
 		return true;
@@ -56,7 +58,8 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		String type = rs.getString("type");
 		String dose = rs.getString("dose");
 		Doctor prescriber = JDBCDoctorController.getDoctorController().searchDoctorById(rs.getInt("doctor_id"));
-		Treatment treatment = new Treatment (Id, route, startDate, endDate, cost, type, dose, prescriber);
+		Patient patient = JDBCPatientController.getPatientController().searchPatientById(rs.getInt("patient_id"));
+		Treatment treatment = new Treatment (Id, route, startDate, endDate, cost, type, dose, prescriber, patient);
 		return treatment;
 	}
 	
