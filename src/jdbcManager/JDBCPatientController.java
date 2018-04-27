@@ -76,6 +76,14 @@ public class JDBCPatientController implements PatientInterface{
 		return true;
 	}
 	
+	public void deleteNurseFromPatient (Nurse nurse, Patient patient) throws Exception{
+		String sql = "DELETE FROM nurse_patient WHERE patient_id =? and nurse_id=?";
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1, patient.getId());
+		prep.setInt(2, nurse.getId());
+		prep.executeUpdate();
+		prep.close();
+	}
 	
 	public List<Patient> getAllPatients () throws Exception {
 		Statement stmt = JDBConnection.getConnection().createStatement();
@@ -95,7 +103,7 @@ public class JDBCPatientController implements PatientInterface{
 		stmt.close();
 		return patientList;
 	}
-	//NO TERMINADO
+	
 	public Patient  getpatientWithoutTreatmentsAndBills (Integer id) throws Exception{
 		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT id, name, gender, dob, dateAdmission, room_id FROM patient";
@@ -108,7 +116,8 @@ public class JDBCPatientController implements PatientInterface{
 			Date dob = rs.getDate("dob");
 			Date dateAdmission = rs.getDate("dateAdmission");
 			Integer room_id = rs.getInt("room_id");
-			Patient searchPatient = new Patient (Id, name, gender, dob, dateAdmission, room_id);
+			Room room= JDBCRoomController.getRoomController().searchRoomById(room_id);
+			Patient searchPatient = new Patient (Id, name, gender, dob, dateAdmission, room);
 			
 		
 		stmt.close();
