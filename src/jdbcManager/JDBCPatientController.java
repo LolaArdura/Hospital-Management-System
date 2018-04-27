@@ -95,7 +95,7 @@ public class JDBCPatientController implements PatientInterface{
 		stmt.close();
 		return patientList;
 	}
-	//NO TERMINADO
+	
 	public Patient  getpatientWithoutTreatmentsAndBills (Integer id) throws Exception{
 		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT id, name, gender, dob, dateAdmission, room_id FROM patient";
@@ -108,7 +108,8 @@ public class JDBCPatientController implements PatientInterface{
 			Date dob = rs.getDate("dob");
 			Date dateAdmission = rs.getDate("dateAdmission");
 			Integer room_id = rs.getInt("room_id");
-			Patient searchPatient = new Patient (Id, name, gender, dob, dateAdmission, room_id);
+			Room room= JDBCRoomController.getRoomController().searchRoomById(room_id);
+			Patient searchPatient = new Patient (Id, name, gender, dob, dateAdmission, room);
 			
 		
 		stmt.close();
