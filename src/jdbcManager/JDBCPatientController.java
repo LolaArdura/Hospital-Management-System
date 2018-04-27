@@ -59,13 +59,6 @@ public class JDBCPatientController implements PatientInterface{
 		prep.close();
 		
 	}
-	//Finish tomorrow
-	public void addTreatmentToPatient (Treatment treatment) throws Exception{
-		String sql = "INSERT INTO treatment ( )"
-		
-	}
-	
-		
 	
 	
 	public boolean deletePatient (Patient patient) throws Exception {
@@ -104,7 +97,7 @@ public class JDBCPatientController implements PatientInterface{
 		return patientList;
 	}
 	
-	public Patient  getpatientWithoutTreatmentsAndBills (Integer id) throws Exception{
+	public Patient  getPatientWithoutTreatmentsAndBills (Integer id) throws Exception{
 		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT id, name, gender, dob, dateAdmission, room_id FROM patient";
 		ResultSet rs = stmt.executeQuery(sql);

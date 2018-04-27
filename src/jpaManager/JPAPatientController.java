@@ -70,6 +70,7 @@ public class JPAPatientController implements PatientInterface{
 		em.getTransaction().begin();
 		patient.addNurse(nurse);
 		em.getTransaction().commit();
+<<<<<<< HEAD
 	
 	}
 	
@@ -79,6 +80,8 @@ public class JPAPatientController implements PatientInterface{
 		patient.removeNurse(nurse);
 		em.getTransaction().commit();
 		
+=======
+>>>>>>> branch 'master' of https://github.com/LolaArdura/Hospital-Management-System.git
 	}
 	
 	
