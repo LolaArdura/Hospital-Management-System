@@ -28,6 +28,9 @@ public class Treatment implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="patient_id")
 	private Patient patient ;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="bill_id")
+	private Bills bill;
 	
 	public Treatment() {
 		super();
@@ -132,6 +135,15 @@ public class Treatment implements Serializable {
 
 	public void setPatient(Patient patient) {
 		this.patient = patient;
+	}
+	
+
+	public Bills getBill() {
+		return bill;
+	}
+
+	public void setBill(Bills bill) {
+		this.bill = bill;
 	}
 
 	@Override
