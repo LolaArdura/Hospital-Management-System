@@ -2,6 +2,7 @@ package jdbcManager;
 import interfaces.*;
 import java.sql.*;
 
+import model.Bills;
 import model.Doctor;
 import model.Patient;
 import model.Treatment;
@@ -19,10 +20,15 @@ public class JDBCTreatmentController implements TreatmentInterface {
 	}
 	
 	public boolean insertTreatment (Treatment treatment) throws Exception {
-		String sql = "INSERT INTO treatment ( routeOfAdmin, startDate, endDate, cost, type, dose, doctor_id, patient_id)"
-				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+		Bills b = treatment.getBill();
+		JDBCBillsController.getBillsController().insertBills(b);
+		String query = "SELECT last_inserted_rowid () AS lastId";
+		PreparedStatement p = JDBConnection.getConnection().prepareStatement(query);
+		ResultSet rs = p.executeQuery();
+		Integer bill_id = rs.getInt("lastId");
+		String sql = "INSERT INTO treatment ( routeOfAdmin, startDate, endDate, cost, type, dose, doctor_id, patient_id, bill_id)"
+				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-		
 		prep.setString(1,treatment.getRouteOfAdmin());
 		prep.setDate(2, treatment.getStartDate());
 		prep.setDate(3, treatment.getEndDate());
@@ -31,6 +37,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		prep.setString(6, treatment.getDose());
 		prep.setInt(7, treatment.getPrescriber().getId());
 		prep.setInt(8, treatment.getPatient().getId());
+		prep.setInt(9, bill_id);
 		prep.executeUpdate();
 		prep.close();
 		return true;
