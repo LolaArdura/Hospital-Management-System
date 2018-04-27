@@ -59,13 +59,6 @@ public class JDBCPatientController implements PatientInterface{
 		prep.close();
 		
 	}
-	//Finish tomorrow
-	public void addTreatmentToPatient (Treatment treatment) throws Exception{
-		String sql = "INSERT INTO treatment ( )"
-		
-	}
-	
-		
 	
 	
 	public boolean deletePatient (Patient patient) throws Exception {
