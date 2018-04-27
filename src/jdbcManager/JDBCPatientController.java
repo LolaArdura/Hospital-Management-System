@@ -48,27 +48,25 @@ public class JDBCPatientController implements PatientInterface{
 	}
 	
 	
-	//Es prototipo, todavia no funciona ver sis eria asi
-	public boolean addNurseToPatient (Nurse nurse, Patient patient)throws Exception{
+
+	public void addNurseToPatient (Nurse nurse, Patient patient)throws Exception{
 		String sql = "INSERT INTO nurse_patient"
 				+ "(nurse_id, patient_id) VALUES (?, ?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1,  nurse.getId());
 		prep.setInt(2,  patient.getId());
-		patient.addNurse(nurse);
-		return true;
+		prep.executeUpdate();
+		prep.close();
+		
+	}
+	//Finish tomorrow
+	public void addTreatmentToPatient (Treatment treatment) throws Exception{
+		String sql = "INSERT INTO treatment ( )"
+		
 	}
 	
-	//public boolean assignTreatment (LinkedList<Treatment>treatment, Patient patient) throws Exception{
-		//patient.setTreatments(treatment);
 		
-		//return true;
-	//}
-	//public boolean assignBill (LinkedList<Bills>bill, Patient patient)throws Exception{
-		//patient.setBills(bill);
-		
-		//return true;
-	//}
+	
 	
 	public boolean deletePatient (Patient patient) throws Exception {
 		String sql = "DELETE FROM patient WHERE id = ?";
@@ -98,7 +96,7 @@ public class JDBCPatientController implements PatientInterface{
 		return patientList;
 	}
 	//NO TERMINADO
-	public Patient  getpatientWithouttreatmntsAndBills (Integer id) throws Exception{
+	public Patient  getpatientWithoutTreatmentsAndBills (Integer id) throws Exception{
 		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT id, name, gender, dob, dateAdmission, room_id FROM patient";
 		ResultSet rs = stmt.executeQuery(sql);

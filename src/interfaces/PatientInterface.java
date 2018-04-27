@@ -9,6 +9,6 @@ public interface PatientInterface {
 	public List<Patient> getAllPatients() throws Exception;
 	public Patient searchPatientById(Integer id) throws Exception;
 	public void updatePatient (Patient patient) throws Exception;
-	public boolean addNurseToPatient (Nurse nurse, Patient patient) throws Exception;
+	public void addNurseToPatient (Nurse nurse, Patient patient) throws Exception;
 	
 }
