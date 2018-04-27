@@ -76,6 +76,14 @@ public class JDBCPatientController implements PatientInterface{
 		return true;
 	}
 	
+	public void deleteNurseFromPatient (Nurse nurse, Patient patient) throws Exception{
+		String sql = "DELETE FROM nurse_patient WHERE patient_id =? and nurse_id=?";
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1, patient.getId());
+		prep.setInt(2, nurse.getId());
+		prep.executeUpdate();
+		prep.close();
+	}
 	
 	public List<Patient> getAllPatients () throws Exception {
 		Statement stmt = JDBConnection.getConnection().createStatement();
