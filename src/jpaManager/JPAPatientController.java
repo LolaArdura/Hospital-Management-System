@@ -63,12 +63,11 @@ public class JPAPatientController implements PatientInterface{
 		em.getTransaction().commit();
 	}
 	
-	public boolean addNurseToPatient (Nurse nurse, Patient patient) throws Exception{
+	public void addNurseToPatient (Nurse nurse, Patient patient) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
 		patient.addNurse(nurse);
 		em.getTransaction().commit();
-		return true;
 	}
 	
 	
