@@ -145,25 +145,4 @@ private static JPANurseController singleton;
 		em.getTransaction().commit();
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
