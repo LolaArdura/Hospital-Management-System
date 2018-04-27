@@ -10,5 +10,6 @@ public interface PatientInterface {
 	public Patient searchPatientById(Integer id) throws Exception;
 	public void updatePatient (Patient patient) throws Exception;
 	public void addNurseToPatient (Nurse nurse, Patient patient) throws Exception;
+	public void deleteNurseFromPatient(Nurse nurse, Patient patient) throws Exception;
 	
 }
