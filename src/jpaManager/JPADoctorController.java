@@ -85,7 +85,7 @@ public class JPADoctorController implements DoctorInterface{
 	public List<Doctor> searchDoctorBySchedule(String schedule) throws Exception {
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
-		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.createNativeQuery("PRAGMA foreign_key=ON").executeUpdate();
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE schedule LIKE ?", Doctor.class);
 		q1.setParameter(1, schedule);
