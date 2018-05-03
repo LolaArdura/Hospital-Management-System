@@ -5,6 +5,10 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import sample.db.xml.utils.SQLDateAdapter; 
 
 @Entity
 @Table(name = "patient")
@@ -15,15 +19,20 @@ public class Patient implements Serializable {
 	@Id
 	@GeneratedValue(generator = "patient")
 	@TableGenerator(name = "patient", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "patient")
+	
 	private Integer id;
+	@XmlAttribute
 	private String name;
-
+    @XmlType(name="sex")
+    @XmlEnum
 	public enum sex {
 		MALE, FEMALE
 	};
-
+    @XmlElement
 	private sex gender;
+	@XmlAttribute
 	private String diagnose;
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dob;
 	private Date dateAdmission;
 	@OneToMany(mappedBy = "patient")
