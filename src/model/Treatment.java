@@ -1,11 +1,19 @@
 package model;
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import sample.db.xml.utils.*;
+
+import java.time.*;
 import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Table(name="treatment")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "treatment")
+@XmlType(propOrder = {"routeOfAdmin", "startDate", "endDate", "cost", "type", "dose", "doctor_id", "patient_id", "bill_id"})
 public class Treatment implements Serializable {
 
 	/**
@@ -15,12 +23,21 @@ public class Treatment implements Serializable {
 	@Id
 	@GeneratedValue(generator = "treatment")
 	@TableGenerator (name ="treatment", table="sqlite_sequence", pkColumnName = "name", valueColumnName ="seq", pkColumnValue="treatment")
+	@XmlAttribute
 	private Integer id;
+	@XmlAttribute
 	private String routeOfAdmin;
+	@XmlAttribute
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date startDate;
+	@XmlAttribute
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date endDate;
+	@XmlAttribute
 	private float cost;
+	@XmlAttribute
 	private String treatmentType;
+	@XmlAttribute
 	private String dose;
 	@ManyToOne(fetch = FetchType.LAZY) 
 	@JoinColumn(name="doctor_id")
