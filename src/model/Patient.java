@@ -12,6 +12,9 @@ import sample.db.xml.utils.SQLDateAdapter;
 
 @Entity
 @Table(name = "patient")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Patient")
+@XmlType (propOrder = {"name","gender","dob","dateAdmission","diagnose", "room_id"})
 public class Patient implements Serializable {
 
 	private static final long serialVersionUID = 3758399780780821912L;
@@ -19,6 +22,8 @@ public class Patient implements Serializable {
 	@Id
 	@GeneratedValue(generator = "patient")
 	@TableGenerator(name = "patient", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "patient")
+	
+	@XmlAttribute
 	
 	private Integer id;
 	@XmlAttribute
@@ -34,13 +39,21 @@ public class Patient implements Serializable {
 	private String diagnose;
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dob;
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dateAdmission;
+	
+	@XmlElement(name="Treatment")
+	@XmlElementWrapper(name="patient")
+	@XmlTransient
 	@OneToMany(mappedBy = "patient")
 	private List<Treatment> listOfTreatments;
+	@XmlTransient
 	@ManyToMany(mappedBy = "ListOfPatients")
 	private List<Nurse> listOfNurses;
+	@XmlTransient
 	@OneToMany(mappedBy = "patient")
 	private List<Bills> listOfBills;
+	@XmlTransient
 	private Room room;
 
 	// Constructors
