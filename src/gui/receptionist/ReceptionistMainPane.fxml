@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="receptionistPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.receptionist.ReceptionistPaneController">
+   <top>
+      <MenuButton alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="33.0" prefWidth="125.0" text="Profile" BorderPane.alignment="TOP_RIGHT">
+         <items>
+            <MenuItem fx:id="myProfileItem" mnemonicParsing="false" text="My profile" />
+            <MenuItem fx:id="signOutItem" mnemonicParsing="false" text="Sign out" />
+         </items>
+      </MenuButton>
+   </top>
+   <left>
+      <VBox fx:id="buttonsVBox" prefHeight="429.0" prefWidth="139.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="menuLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="139.0" text="MENU" />
+            <Accordion fx:id="accordionContainer">
+               <panes>
+                  <TitledPane fx:id="patientsTitledPane" animated="false" text="Patients">
+                     <content>
+                        <VBox fx:id="patientsVBox" prefHeight="8.0" prefWidth="137.0">
+                           <children>
+                              <Button fx:id="viewAllButton" mnemonicParsing="false" onAction="#viewAllClicked" prefHeight="25.0" prefWidth="133.0" text="View all" />
+                              <Button fx:id="registrationButton" mnemonicParsing="false" onAction="#registrationButtonClicked" prefHeight="25.0" prefWidth="133.0" text="Registration" />
+                           </children>
+                        </VBox>
+                     </content>
+                  </TitledPane>
+               </panes>
+            </Accordion>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <Pane fx:id="mainPane" prefHeight="428.0" prefWidth="465.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

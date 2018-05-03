@@ -22,7 +22,6 @@ public class TestGUI extends Application {
      
      public void start (Stage primaryStage) {
     		 try {
-    		
 				Parent root= FXMLLoader.load(getClass().getResource("AdminMainScene.fxml"));
                 Scene scene=new Scene(root, 600, 600);
 				primaryStage.setScene(scene);

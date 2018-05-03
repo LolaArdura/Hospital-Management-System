@@ -1,4 +1,4 @@
-package gui;
+package gui.admin.controllers;
 
 import java.net.URL;
 import java.sql.Date;
@@ -57,35 +57,34 @@ public class NursePatientController implements Initializable {
 
 	@FXML
 	private Button okButton;
-	
+
 	public void initComponents(Pane mainPane, Nurse nurse) {
 		try {
-		this.mainPane=mainPane;
-		this.nurse=nurse;
-		setAllPatients();
-		setPatientsFromNurse();
-		}catch(Exception ex) {
+			this.mainPane = mainPane;
+			this.nurse = nurse;
+			setAllPatients();
+			setPatientsFromNurse();
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
+
 	}
 
 	@FXML
 	void assignPatientClciked(ActionEvent event) {
-		Patient patient=patientsList.getSelectionModel().getSelectedItem();
-		if(patient!=null) {
+		Patient patient = patientsList.getSelectionModel().getSelectedItem();
+		if (patient != null) {
 			try {
-			NurseInterface controller=JDBCNurseController.getNurseController();
-			controller.addPatientToNurse(nurse, patient);
-			patientsList.getItems().remove(patient);
-			nurseList.getItems().add(patient);
-			
-			}catch(Exception ex) {
+				NurseInterface controller = JDBCNurseController.getNurseController();
+				controller.addPatientToNurse(nurse, patient);
+				patientsList.getItems().remove(patient);
+				nurseList.getItems().add(patient);
+
+			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-		}
-		else {
-			Alert a=new Alert(AlertType.ERROR);
+		} else {
+			Alert a = new Alert(AlertType.ERROR);
 			a.setTitle("ERROR");
 			a.setHeaderText("No selection");
 			a.setContentText("A patient needs to be selected");
@@ -96,20 +95,19 @@ public class NursePatientController implements Initializable {
 
 	@FXML
 	void removePatientClicked(ActionEvent event) {
-		Patient patient=nurseList.getSelectionModel().getSelectedItem();
-		if(patient!=null) {
+		Patient patient = nurseList.getSelectionModel().getSelectedItem();
+		if (patient != null) {
 			try {
-			NurseInterface controller=JDBCNurseController.getNurseController();
-			controller.deletePatientFromNurse(nurse, patient);
-			patientsList.getItems().add(patient);
-			nurseList.getItems().remove(patient);
-			
-			}catch(Exception ex) {
+				NurseInterface controller = JDBCNurseController.getNurseController();
+				controller.deletePatientFromNurse(nurse, patient);
+				patientsList.getItems().add(patient);
+				nurseList.getItems().remove(patient);
+
+			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-		}
-		else {
-			Alert a=new Alert(AlertType.ERROR);
+		} else {
+			Alert a = new Alert(AlertType.ERROR);
 			a.setTitle("ERROR");
 			a.setHeaderText("No selection");
 			a.setContentText("A patient needs to be selected");
@@ -120,17 +118,17 @@ public class NursePatientController implements Initializable {
 	@FXML
 	void okButtonClicked(ActionEvent event) {
 		try {
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("NursesPane.fxml"));
-        GridPane nursesPane=(GridPane) loader.load();
-        mainPane.getChildren().clear();
-        mainPane.getChildren().add(nursesPane);
-        nursesPane.prefHeightProperty().bind(mainPane.heightProperty());
-        nursesPane.prefWidthProperty().bind(mainPane.widthProperty());
-        
-        NursesViewPaneController nursesController=loader.<NursesViewPaneController>getController();
-        nursesController.initComponents(mainPane, false);
-        
-		}catch(Exception ex) {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("NursesPane.fxml"));
+			GridPane nursesPane = (GridPane) loader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(nursesPane);
+			nursesPane.prefHeightProperty().bind(mainPane.heightProperty());
+			nursesPane.prefWidthProperty().bind(mainPane.widthProperty());
+
+			NursesViewPaneController nursesController = loader.<NursesViewPaneController>getController();
+			nursesController.initComponents(mainPane, false);
+
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}

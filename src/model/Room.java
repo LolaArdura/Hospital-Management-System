@@ -21,7 +21,7 @@ public class Room implements Serializable {
     private Integer id;
     private Integer number;
     public enum roomType {
-    	SUITE, DOUBLE, INDIVIDUAL, BOX, UCI
+    	SUITE, DOUBLE, INDIVIDUAL, BOX, ICU
     };
     private roomType type; 
     private Integer floor;
@@ -31,10 +31,8 @@ public class Room implements Serializable {
 	@OneToMany(mappedBy="room")
 	private List<Patient> listOfPatients;
 	
-	
 	//Constructor
 	public Room (Integer id, Integer number, roomType type, Integer floor, Integer capacity, float costPerDay) {
-		
 		this.id = id;
 		this.number = number;
 		this.type = type;
@@ -54,13 +52,32 @@ public class Room implements Serializable {
 		this.costPerDay= costPerDay;
 		listOfPatients = new LinkedList <Patient>();
 	}
+    
+    public Room(Integer number, roomType type, Integer floor, Integer capacity) {
+		super();
+		this.number = number;
+		this.type = type;
+		this.floor = floor;
+		this.capacity = capacity;
+	}
+
+	public Room(Integer id, Integer number, roomType type, Integer floor, float costPerDay) {
+		super();
+		this.id = id;
+		this.number = number;
+		this.type = type;
+		this.floor = floor;
+		this.costPerDay = costPerDay;
+	}
+
+	public Room(Room.roomType type, float cost) {
+    	this.type=type;
+    	this.costPerDay=cost;
+    	listOfPatients= new LinkedList <Patient>();
+    }
 
     public Room ()	{
-	  number = null;
-	  type= roomType.BOX;
-	  floor = 0;
-	  capacity = 2;
-	  costPerDay = 5;
+	  super();
 	  listOfPatients= new LinkedList <Patient>();
     }
 	 

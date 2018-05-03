@@ -1,4 +1,4 @@
-package gui;
+package gui.admin.controllers;
 
 import java.net.URL;
 import java.util.List;

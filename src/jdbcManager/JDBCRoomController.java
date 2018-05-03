@@ -1,5 +1,7 @@
 package jdbcManager;
 import model.*;
+import model.Room.roomType;
+
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,6 +33,7 @@ public class JDBCRoomController implements RoomInterface {
 		return true;
 
 	}
+
 	
 	public boolean deleteRoom(Room room) throws Exception {
 		String sql = "DELETE FROM room WHERE id = ?";
@@ -85,6 +88,89 @@ public class JDBCRoomController implements RoomInterface {
 		}
 		stmt.close();
 		return roomList;
+	}
+
+	@Override
+	public float searchCost(roomType type) throws Exception {
+
+		String sql= "SELECT costPerDay FROM room GROUP BY type HAVING type= ?";
+		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1, type.name().toLowerCase());
+		ResultSet rs=prep.executeQuery();
+		Float cost=-1F;
+		if(rs.next()) {
+			cost=rs.getFloat("cosPerDay");
+		}
+		prep.close();
+		return cost;
+	}
+
+	@Override
+	public List<Room> getRoomsByType(roomType type) throws Exception {
+		String sql= "SELECT * FROM room WHERE type=?";
+		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1, type.name().toLowerCase());
+		ResultSet rs=prep.executeQuery();
+		LinkedList<Room> roomList=new LinkedList<Room>();;
+		while(rs.next()) {
+			int Id = rs.getInt("id");
+			int number = rs.getInt("number");
+			Room.roomType typeRs = Room.roomType.valueOf(rs.getString("type").toUpperCase());
+			int floor = rs.getInt("floor");
+			int capacity = rs.getInt("capacity");
+			float costPerDay = rs.getFloat("costPerDay");
+			Room room = new Room(Id, number, typeRs, floor, capacity, costPerDay);
+			roomList.add(room);
+		}
+		prep.close();
+		return roomList;
+	}
+
+	@Override
+	public List<Room> getRoomsAndCosts() throws Exception {
+
+		String sql= "SELECT type, costPerDay FROM room GROUP BY type";
+		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		ResultSet rs=prep.executeQuery();
+		List<Room> roomList = new LinkedList<Room>();
+		while (rs.next()) {
+			Room.roomType type = Room.roomType.valueOf(rs.getString("type").toUpperCase());
+			float costPerDay = rs.getFloat("costPerDay");
+			Room room = new Room(type,costPerDay);
+			roomList.add(room);
+		}
+		prep.close();
+		return roomList;
+	}
+
+	@Override
+	public List<Room> getFreeRooms() throws Exception {
+		String sql= "SELECT room.id,number,floor,type,costPerDay FROM room JOIN patient ON room.id=patient.room_id GROUP BY room.id"
+				+ "HAVING COUNT(patient.id)< capacity";
+		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		ResultSet rs=prep.executeQuery();
+		LinkedList<Room> roomList=new LinkedList<Room>();;
+		while(rs.next()) {
+			int Id = rs.getInt("room.id");
+			int number = rs.getInt("number");
+			Room.roomType typeRs = Room.roomType.valueOf(rs.getString("type").toUpperCase());
+			int floor = rs.getInt("floor");
+			float costPerDay = rs.getFloat("costPerDay");
+			Room room = new Room(Id, number, typeRs, floor, costPerDay);
+			roomList.add(room);
+		}
+		prep.close();
+		return roomList;
+	}
+
+	@Override
+	public void updateCost(Float cost, Room.roomType type) throws Exception {
+		String sql="UPDATE room SET costPerDay=? WHERE type=?";
+		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		prep.setFloat(1,cost);
+		prep.setString(2,type.name().toLowerCase());
+		prep.executeUpdate();
+		prep.close();
 	}
 	
 	

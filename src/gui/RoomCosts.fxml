@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="gui.RoomsCostController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="NEVER" maxWidth="141.0" minWidth="0.0" prefWidth="24.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="276.0" />
+      <ColumnConstraints hgrow="NEVER" maxWidth="300.0" minWidth="10.0" prefWidth="46.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="242.0" />
+    <ColumnConstraints hgrow="NEVER" maxWidth="126.0" minWidth="4.0" prefWidth="27.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="62.0" minHeight="0.0" prefHeight="31.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="48.0" minHeight="0.0" prefHeight="35.0" vgrow="NEVER" />
+  </rowConstraints>
+   <children>
+      <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonClicked" prefHeight="25.0" prefWidth="97.0" text="Save changes" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+      <Label fx:id="suiteLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="29.0" prefWidth="205.0" text="SUITE" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <Label fx:id="doubleLabel" alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="205.0" text="DOUBLE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <Label fx:id="individualLabel" alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="205.0" text="INDIVIDUAL" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <Label fx:id="boxLabel" alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="205.0" text="BOX" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+      <Label fx:id="icuLabel" alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="205.0" text="ICU" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+      <TextField fx:id="suiteTextField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <TextField fx:id="doubleTextField" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <TextField fx:id="individualTextField" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <TextField fx:id="boxTextField" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+      <TextField fx:id="icuTextField" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+   </children>
+</GridPane>
