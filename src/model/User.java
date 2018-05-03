@@ -1,21 +1,29 @@
 package model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 
 @Entity
 @Table(name="user")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = {"username", "password", "type"})
 public class User {
 	
 	@Id
 	@GeneratedValue(generator="user")
 	@TableGenerator(name="user",table="sqlite_sequence",pkColumnName="name",valueColumnName="seq",
 			pkColumnValue="user")
+	@XmlAttribute
 	private Integer id;
+	@XmlAttribute
 	private String username;
+	@XmlAttribute
 	private String password;
+	@XmlEnum
 	public enum userType{
 		ADMIN,RECEPTIONIST,DOCTOR,NURSE
 	};
+	@XmlElement
     private userType typeOfUser;
     
     public User() {

@@ -13,7 +13,7 @@ import java.sql.Date;
 @Table(name="treatment")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "treatment")
-@XmlType(propOrder = {"routeOfAdmin", "startDate", "endDate", "cost", "type", "dose", "doctor_id", "patient_id", "bill_id"})
+@XmlType(propOrder = {"type", "startDate", "endDate", "dose", "routeOfAdmin", "cost", "bill_id", "patient_id", "doctor_id"})
 public class Treatment implements Serializable {
 
 	/**
@@ -41,12 +41,15 @@ public class Treatment implements Serializable {
 	private String dose;
 	@ManyToOne(fetch = FetchType.LAZY) 
 	@JoinColumn(name="doctor_id")
+	@XmlTransient
 	private Doctor prescriber;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="patient_id")
+	@XmlTransient
 	private Patient patient ;
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="bill_id")
+	@XmlTransient
 	private Bills bill;
 	
 	public Treatment() {
