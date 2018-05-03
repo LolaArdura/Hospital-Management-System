@@ -99,7 +99,7 @@ public class JDBCRoomController implements RoomInterface {
 		ResultSet rs=prep.executeQuery();
 		Float cost=-1F;
 		if(rs.next()) {
-			cost=rs.getFloat("cosPerDay");
+			cost=rs.getFloat("costPerDay");
 		}
 		prep.close();
 		return cost;
