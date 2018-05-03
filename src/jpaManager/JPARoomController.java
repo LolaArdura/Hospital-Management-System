@@ -1,5 +1,6 @@
 package jpaManager;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,6 +8,7 @@ import javax.persistence.Query;
 
 import interfaces.*;
 import model.Room;
+import model.Room.roomType;
 
 public class JPARoomController implements  RoomInterface{
 	
@@ -61,5 +63,56 @@ public class JPARoomController implements  RoomInterface{
 		em.getTransaction().begin();
 		em.flush();
 		em.getTransaction().commit();
+	}
+	
+	public float searchCost(roomType type) throws Exception{
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1 = em.createNativeQuery("SELECT costPerDay FROM room GROUP BY type HAVING type =?", Room.class);
+		q1.setParameter(1, type.name().toLowerCase());
+		Float cost = (float) q1.getSingleResult();
+		return cost;
+	}
+	
+	public List<Room> getRoomsByType(roomType type) throws Exception {
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1 = em.createNativeQuery("SELECT * FROM room WHERE type=?", Room.class);
+		q1.setParameter(1,  type);
+		List<Room> rooms = (List<Room>) q1.getResultList();
+		return rooms;
+	}
+	
+	public List<Room> getRoomsAndCosts() throws Exception {
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1 = em.createNativeQuery("SELECT type, costPerDay FROM room GROUP BY type", Room.class);
+		List<Room> rooms = (List<Room>) q1.getResultList();
+		return rooms;
+	}
+	
+	public List<Room> getFreeRooms() throws Exception {
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1 = em.createNativeQuery("SELECT room.id, number, floor, type, costPerDay FROM room JOIN patient ON room.id=patient.room_id GROUP BY room.id HAVING COUNT(patient.id)<capacity", Room.class);
+		List<Room> rooms = (List<Room>) q1.getResultList();
+		return rooms;
+	}
+	
+	public void updateCost(Float cost, Room.roomType type) throws Exception{
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		List<Room> rooms = JPARoomController.getJPARoomController().getRoomsByType(type);
+		for(Room r:rooms) {
+			r.setCostPerDay(cost);
+		}
 	}
 }
