@@ -2,21 +2,37 @@ package model;
 
 import java.util.*;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name="nurse")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Nurse")
+@XmlType(propOrder = { "role", "listOfPatients" })
 public class Nurse extends Employee {
     @Id
     @GeneratedValue(generator="nurse")
 	@TableGenerator(name="nurse",table="sqlite_sequence",pkColumnName="name",valueColumnName="seq",
 			pkColumnValue="nurse")
+    @XmlAttribute
 	private Integer id;
+    @XmlAttribute
 	private String role;
 	
 	@ManyToMany
+	@XmlElement(name = "Patient")
+    @XmlElementWrapper(name = "listOfPatients")
 	@JoinTable(name="nurse_patient",
 	joinColumns={@JoinColumn(name="nurse_id", referencedColumnName="id")},
 	inverseJoinColumns={@JoinColumn(name="patient_id", referencedColumnName="id")})
+	@XmlTransient
 	private List <Patient> listOfPatients;
 	
 	public Nurse (Integer id, String name, byte[] photo, String schedule, String role) {
