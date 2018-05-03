@@ -3,18 +3,35 @@ package model;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 @Entity 
 @Table(name="doctor")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Department")
+@XmlType(propOrder = { "specialty", "treatments"})
+
 public class Doctor extends Employee{
 	
     @Id
     @GeneratedValue(generator="doctor")
 	@TableGenerator(name="doctor",table="sqlite_sequence",pkColumnName="name",valueColumnName="seq",
 			pkColumnValue="doctor")
+    @XmlAttribute
 	private Integer id;
+    @XmlAttribute
 	private String specialty;
 	@OneToMany(mappedBy="prescriber")
+	@XmlElement(name = "Treatment")
+    @XmlElementWrapper(name = "treatments")
+	@XmlTransient
 	private List<Treatment> treatments;
     
 	public Doctor() {
