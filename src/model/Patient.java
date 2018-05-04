@@ -42,15 +42,15 @@ public class Patient implements Serializable {
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dateAdmission;
 	
-	@XmlElement(name="Treatment")
-	@XmlElementWrapper(name="patient")
-	@XmlTransient
+	@XmlElement(name="treatment")
+	@XmlElementWrapper(name="listOfTreatments")
 	@OneToMany(mappedBy = "patient")
 	private List<Treatment> listOfTreatments;
 	@XmlTransient
 	@ManyToMany(mappedBy = "ListOfPatients")
 	private List<Nurse> listOfNurses;
-	@XmlTransient
+	@XmlElement (name= "bill")
+	@XmlElementWrapper (name="listOfBills")
 	@OneToMany(mappedBy = "patient")
 	private List<Bills> listOfBills;
 	@XmlTransient
