@@ -25,7 +25,7 @@ public class Bills implements Serializable {
 	private Boolean paid;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="patient_id")
-	@XmlElement
+	@XmlTransient
 	private Patient patient;
 	
 	//Constructors

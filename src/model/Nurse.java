@@ -32,7 +32,6 @@ public class Nurse extends Employee {
 	@JoinTable(name="nurse_patient",
 	joinColumns={@JoinColumn(name="nurse_id", referencedColumnName="id")},
 	inverseJoinColumns={@JoinColumn(name="patient_id", referencedColumnName="id")})
-	@XmlTransient
 	private List <Patient> listOfPatients;
 	
 	public Nurse (Integer id, String name, byte[] photo, String schedule, String role) {
