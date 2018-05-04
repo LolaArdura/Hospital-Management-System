@@ -1,5 +1,4 @@
 package interfaces;
-import model.Patient;
 import model.Room;
 
 import java.util.*;
