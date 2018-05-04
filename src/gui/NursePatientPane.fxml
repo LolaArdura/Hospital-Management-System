@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="patientNursePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.admin.controllers.NursePatientController">
+<GridPane fx:id="patientNursePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NursePatientController">
   <columnConstraints>
       <ColumnConstraints hgrow="NEVER" maxWidth="113.0" minWidth="0.0" prefWidth="15.0" />
     <ColumnConstraints hgrow="ALWAYS" maxWidth="600.0" minWidth="10.0" prefWidth="249.0" />

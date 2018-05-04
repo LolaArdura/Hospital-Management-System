@@ -71,7 +71,8 @@ public class DatabaseTables {
 			String table5="CREATE TABLE bills(\r\n" + 
 					"id INTEGER PRIMARY KEY AUTOINCREMENT,\r\n" + 
 					"cost REAL,\r\n" + 
-					"billing_adress TEXT NOT NULL,\r\n" + 
+					"bankID TEXT NOT NULL,\r\n" + 
+					"paid boolean NOT NULL DEFAULT false,\r\n"+
 					"patient_id INTEGER REFERENCES patient(id) ON UPDATE CASCADE ON DELETE CASCADE\r\n" + 
 					")";
 			s5.executeUpdate(table5);

@@ -48,14 +48,16 @@ public class JDBCRoomController implements RoomInterface {
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
-		rs.next();
+		Room room=null;
+		if(rs.next()) {
 		int Id = rs.getInt("id");
 		int number = rs.getInt("number");
 		Room.roomType type = Room.roomType.valueOf(rs.getString("type").toUpperCase());
 		int capacity = rs.getInt("capacity");
 		int floor = rs.getInt("floor");
 		float costPerDay = rs.getFloat("costPerDay");
-		Room room = new Room(Id, number, type, floor, capacity, costPerDay);
+		room = new Room(Id, number, type, floor, capacity, costPerDay);
+		}
 		return room;
 	}
 
@@ -144,11 +146,12 @@ public class JDBCRoomController implements RoomInterface {
 	}
 
 	@Override
-	public List<Room> getFreeRooms() throws Exception {
-		String sql= "SELECT room.id,number,floor,type,costPerDay FROM room JOIN patient ON room.id=patient.room_id GROUP BY room.id"
-				+ "HAVING COUNT(patient.id)< capacity";
-		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
-		ResultSet rs=prep.executeQuery();
+	public List<Room> getOccupiedRooms() throws Exception {
+		Statement stmt=JDBConnection.getConnection().createStatement();
+		String sql= "SELECT room.id,number,floor,type,costPerDay,COUNT(patient.id) FROM room JOIN patient ON "
+				+ "room.id=patient.room_id GROUP BY room.id"
+				+ "HAVING COUNT(patient.id) = capacity";
+		ResultSet rs=stmt.executeQuery(sql);
 		LinkedList<Room> roomList=new LinkedList<Room>();;
 		while(rs.next()) {
 			int Id = rs.getInt("room.id");
@@ -159,7 +162,7 @@ public class JDBCRoomController implements RoomInterface {
 			Room room = new Room(Id, number, typeRs, floor, costPerDay);
 			roomList.add(room);
 		}
-		prep.close();
+		stmt.close();
 		return roomList;
 	}
 
@@ -172,6 +175,7 @@ public class JDBCRoomController implements RoomInterface {
 		prep.executeUpdate();
 		prep.close();
 	}
+
 	
 	
 }

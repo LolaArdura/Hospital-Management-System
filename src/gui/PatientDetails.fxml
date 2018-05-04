@@ -71,7 +71,7 @@
             <Label fx:id="medicalConditionLabel" prefHeight="27.0" prefWidth="100.0" text="Medical condition" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
             <TextArea fx:id="medicalConditionArea" prefHeight="105.0" prefWidth="172.0" GridPane.columnIndex="3" />
             <Label fx:id="treatmentLabel" prefHeight="17.0" prefWidth="100.0" text="Treatments" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <Button fx:id="treatmentButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="View treatments" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button fx:id="treatmentButton" mnemonicParsing="false" onAction="#treatmentsButtonClicked" prefHeight="25.0" prefWidth="113.0" text="View treatments" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label fx:id="billsLabel" prefHeight="17.0" prefWidth="98.0" text="Bills" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <Button fx:id="billsButton" mnemonicParsing="false" onAction="#billsButtonClicked" prefHeight="25.0" prefWidth="113.0" text="Billing report" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>

@@ -1,4 +1,4 @@
-package gui.admin.controllers;
+package gui;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -31,6 +33,7 @@ import model.User;
 
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -125,6 +128,61 @@ public class PatientDetailsController implements Initializable {
 
 	@FXML
 	private Button dischargeButton;
+	
+	@FXML
+	public void dischargeButtonClicked(ActionEvent e) {
+		Alert a= new Alert(AlertType.CONFIRMATION,"Do you want to generate a billing report?",
+				new ButtonType("Yes", ButtonBar.ButtonData.YES), ButtonType.NO);
+		a.setHeaderText("Billing report");
+		String confirmation = a.showAndWait().get().getText();
+		if (confirmation.equals("Yes")) {
+			try {
+				FXMLLoader loader=new FXMLLoader(getClass().getResource("BillsReportPane.fxml"));
+				GridPane billsPane=(GridPane) loader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(billsPane);
+			    billsPane.prefHeightProperty().bind(mainPane.widthProperty());
+			    billsPane.prefWidthProperty().bind(mainPane.widthProperty());
+				
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		else {
+			Alert alert= new Alert(AlertType.CONFIRMATION,"Do you want to discharge the patient?",
+					new ButtonType("Yes", ButtonBar.ButtonData.YES), ButtonType.NO);
+			a.setHeaderText("Discharge patient");
+			confirmation = alert.showAndWait().get().getText();
+			if (confirmation.equals("Yes")) {
+				try {
+				PatientInterface controller = JDBCPatientController.getPatientController();
+				controller.deletePatient(patient);
+				changePane();
+				}catch(Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	@FXML
+	public void billsButtonClicked(ActionEvent e) {
+		try {
+			FXMLLoader loader=new FXMLLoader(getClass().getResource("BillsReportPane.fxml"));
+			GridPane billsPane=(GridPane) loader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(billsPane);
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+	}
+	
+	@FXML
+	public void treatmentsButtonClicked(ActionEvent e) {
+		
+	}
 
 	@FXML
 	public void okButtonClicked(ActionEvent event) {
@@ -156,6 +214,20 @@ public class PatientDetailsController implements Initializable {
 						ex.printStackTrace();
 					}
 				}
+				else {
+					if(permission.equals(paneType.DOCTOR)) {
+						try {
+						this.patient.setDiagnose(p.getDiagnose()); //Doctors can just change the diagnose of the patient
+						controller.updatePatient(patient);
+						changePane();
+						}catch(Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+					else {
+						changePane();
+					}
+				}
 			}
 
 		}
@@ -163,9 +235,10 @@ public class PatientDetailsController implements Initializable {
 	}
 
 	public void initComponents(Patient patient, Pane mainPane, paneType permission) {
-
+        this.mainPane=mainPane;
 		this.permission = permission;
 		this.patient = patient;
+		
 		if (permission.equals(paneType.NEW_PATIENT)) {
 			treatmentLabel.setVisible(false);
 			treatmentButton.setVisible(false);
@@ -173,11 +246,17 @@ public class PatientDetailsController implements Initializable {
 			billsButton.setVisible(false);
 			setFreeRooms();
 		} else {
+			try {
 			nameTextField.setText(patient.getName());
 			dayTextField.setText("" + patient.getDob().toLocalDate().getDayOfMonth());
-			monthTextField.setText("" + patient.getDob().toLocalDate().getMonthValue());
+			monthTextField.setText("0" + patient.getDob().toLocalDate().getMonthValue());
 			yearTextField.setText("" + patient.getDob().toLocalDate().getYear());
-			sexTextField.setText(patient.getGender().name().toLowerCase());
+			if(patient.getGender().name().toLowerCase().equals("male")) {
+				maleButton.setSelected(true);
+			}
+			else {
+				femaleButton.setSelected(true);
+			}
 			admissionDate.setValue(patient.getDateAdmission().toLocalDate());
 			medicalConditionArea.setText(patient.getDiagnose());
 			roomBox.getItems().add(patient.getRoom());
@@ -201,7 +280,9 @@ public class PatientDetailsController implements Initializable {
 			if (permission.equals(paneType.ADMIN)) {
 				medicalConditionArea.setEditable(false);
 			}
-
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 
@@ -310,19 +391,32 @@ public class PatientDetailsController implements Initializable {
 	}
 
 	private void setFreeRooms() {
+
 		try {
 			RoomInterface controller = JDBCRoomController.getRoomController();
-			List<Room> freeRooms = controller.getFreeRooms();
+			List<Room> freeRooms = controller.getAllRooms();
+			freeRooms.removeAll(controller.getOccupiedRooms());
 			roomBox.getItems().clear();
 			roomBox.getItems().addAll(freeRooms);
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			try {
+			RoomInterface controller = JDBCRoomController.getRoomController();
+			List<Room> freeRooms = controller.getAllRooms();
+			roomBox.getItems().clear();
+			roomBox.getItems().addAll(freeRooms);
+			}catch(Exception e) {
+				ex.printStackTrace();
+			}
 		}
 	}
 
+	
 	private void changePane() {
-
-		if (permission.equals(paneType.ADMIN)) {
+		if (permission.equals(paneType.NEW_PATIENT)) {
+			mainPane.getChildren().clear();	
+		}
+		
+		else {
 			try {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("PatientsViewPane.fxml"));
 				GridPane patientsViewPane = (GridPane) loader.load();
@@ -332,30 +426,20 @@ public class PatientDetailsController implements Initializable {
 				patientsViewPane.prefWidthProperty().bind(mainPane.widthProperty());
 
 				PatientsViewPaneController controller = loader.<PatientsViewPaneController>getController();
-				controller.initComponents(mainPane);
+				controller.initComponents(mainPane,User.userType.valueOf(permission.name()));
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-		}
-
-		else {
-			if (permission.equals(paneType.NEW_PATIENT)) {
-				mainPane.getChildren().clear();
-			}
-
-			else {
 
 			}
-		}
 	}
+	
 
 	private Patient getPatient() {
 		String name = nameTextField.getText();
-		Integer day = Integer.parseInt(dayTextField.getText());
-		Integer month = Integer.parseInt(monthTextField.getText());
-		Integer year = Integer.parseInt(yearTextField.getText());
 		Date dob = Date.valueOf(
-				LocalDate.parse("" + day + "-" + month + "-" + year, DateTimeFormatter.ofPattern("dd-mm-yyyy")));
+				LocalDate.parse(dayTextField.getText()+"-" + monthTextField.getText() + "-" + yearTextField.getText(), 
+						DateTimeFormatter.ofPattern("d-MM-yyyy")));
 		Patient.sex sex;
 		if (!maleButton.isSelected() && !femaleButton.isSelected()) {
 			Alert a = new Alert(AlertType.ERROR);

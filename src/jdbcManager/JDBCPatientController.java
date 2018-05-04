@@ -19,8 +19,8 @@ public class JDBCPatientController implements PatientInterface{
 	}
 	
 	public boolean insertCompletePatient (Patient patient) throws Exception {
-		String sql = "INSERT INTO patient (name, gender,diagnose, dob, dateAdmission)" 
-					+"VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO patient (name, gender,diagnose, dob, dateAdmission,room_id)" 
+					+"VALUES(?,?,?,?,?,?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 	
 		prep.setString(1, patient.getName());
@@ -28,6 +28,7 @@ public class JDBCPatientController implements PatientInterface{
 		prep.setString(3, patient.getDiagnose());
 		prep.setDate(4, patient.getDob());
 		prep.setDate(5,  patient.getDateAdmission());
+		prep.setInt(6, patient.getRoom().getId());
 		prep.executeUpdate();
 		prep.close();
 		return true;
@@ -97,24 +98,24 @@ public class JDBCPatientController implements PatientInterface{
 		return patientList;
 	}
 	
-	public Patient  getPatientWithoutTreatmentsAndBills (Integer id) throws Exception{
+	public List<Patient>  getPatientWithoutTreatmentsAndBills () throws Exception{
 		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT id, name, gender, dob, dateAdmission, room_id FROM patient";
 		ResultSet rs = stmt.executeQuery(sql);
 		List<Patient> patientList= new LinkedList <Patient>();
-		rs.next();
-			int Id = rs.getInt("id");
+		while(rs.next()) {
+			int id = rs.getInt("id");
 			String name = rs.getString("name");
 			Patient.sex gender = Patient.sex.valueOf(rs.getString("gender").toUpperCase());
 			Date dob = rs.getDate("dob");
 			Date dateAdmission = rs.getDate("dateAdmission");
 			Integer room_id = rs.getInt("room_id");
 			Room room= JDBCRoomController.getRoomController().searchRoomById(room_id);
-			Patient searchPatient = new Patient (Id, name, gender, dob, dateAdmission, room);
-			
-		
+			Patient searchPatient = new Patient (id, name, gender, dob, dateAdmission, room);
+			patientList.add(searchPatient);
+	}
 		stmt.close();
-		return searchPatient;
+		return patientList;
 		
 	}
 	
@@ -133,6 +134,21 @@ public class JDBCPatientController implements PatientInterface{
 			billsList.add(searchBill);
 					
 		}
+		prep.close();
+		sql="SELECT bills.id, totalCost,bankID,paid FROM bills JOIN treatment ON bill.id=treatment.bill_id"
+				+ "WHERE treatment.patient_id=?";
+		PreparedStatement p=JDBConnection.getConnection().prepareStatement(sql);
+		p.setInt(1, patient.getId());
+		ResultSet rs2 = prep.executeQuery();
+		while(rs2.next()) {
+			int id =rs2.getInt("bills.id");
+			float totalCost = rs2.getFloat("totalcost");
+			String bankId =rs2.getString("bankId");
+			boolean paid = rs2.getBoolean("paid");
+			Bills searchBill = new Bills (id, totalCost,bankId, paid);
+			billsList.add(searchBill);		
+		}
+		p.close();
 		return billsList;
 		
 	}
@@ -177,7 +193,7 @@ public class JDBCPatientController implements PatientInterface{
 	}
 	
 	public void updatePatient (Patient patient) throws Exception{
-		String sql = "UPDATE patient SET name=?, gender=?, diagnose=?, dob=?, date_of_admission=? WHERE id=?";
+		String sql = "UPDATE patient SET name=?, gender=?, diagnose=?, dob=?, dateAdmission=? WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, patient.getName());
 		prep.setString(2, patient.getGender().name().toLowerCase());
@@ -186,6 +202,25 @@ public class JDBCPatientController implements PatientInterface{
 		prep.setDate(5, patient.getDateAdmission());
 		prep.setInt(6, patient.getId());
 		prep.executeUpdate();
+	}
+
+	public List<Patient> searchPatientByName(String name) throws Exception {
+		String sql = "SELECT * FROM patient WHERE name=?";
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1, name);
+		List<Patient> patients = new LinkedList<Patient>();
+		ResultSet rs = prep.executeQuery();
+		while(rs.next()) {
+		int Id = rs.getInt("id");
+		String nameRs = rs.getString("name");
+		Patient.sex gender = Patient.sex.valueOf(rs.getString("gender").toUpperCase());
+		String diagnose = rs.getString("diagnose");
+		Date dob = rs.getDate("dob");
+		Date dateAdmission = rs.getDate("date_of_admission");
+		Patient patient = new Patient (Id, nameRs, gender, diagnose, dob, dateAdmission);
+		patients.add(patient);
+		}
+		return patients;
 	}
 
 }

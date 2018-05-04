@@ -1,4 +1,4 @@
-package gui.admin.controllers;
+package gui;
 
 import java.io.File;
 import java.io.IOException;

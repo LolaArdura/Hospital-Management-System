@@ -12,7 +12,8 @@ public interface PatientInterface {
 	public void addNurseToPatient (Nurse nurse, Patient patient) throws Exception;
 	public boolean insertNoDiagnosePatient(Patient patient) throws Exception;
 	public void deleteNurseFromPatient(Nurse nurse, Patient patient) throws Exception;
-	public Patient getPatientWithoutTreatmentsAndBills(Integer id) throws Exception;
+	public List<Patient> getPatientWithoutTreatmentsAndBills() throws Exception;
 	public List<Bills> getBillsFromPatient (Patient patient) throws Exception;
 	public List<Treatment> getTreatmentsFromPatient (Patient patient) throws Exception;
+	public List<Patient> searchPatientByName(String name) throws Exception;
 }

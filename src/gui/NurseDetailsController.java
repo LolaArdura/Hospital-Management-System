@@ -1,4 +1,4 @@
-package gui.admin.controllers;
+package gui;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;

@@ -1,4 +1,4 @@
-package gui.admin.controllers;
+package gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import model.User;
 
 public class AdminMainSceneController {
 
@@ -84,7 +85,7 @@ public class AdminMainSceneController {
 			patientsPane.prefWidthProperty().bind(mainPane.widthProperty());
 
 			PatientsViewPaneController controller = loader.<PatientsViewPaneController>getController();
-			controller.initComponents(mainPane);
+			controller.initComponents(mainPane,User.userType.ADMIN);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
