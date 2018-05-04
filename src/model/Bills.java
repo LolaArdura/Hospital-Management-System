@@ -1,9 +1,13 @@
 package model;
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 
 @Entity
 @Table (name="bills")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement (name="Bills")
+@XmlType(propOrder = {"totalCost", "bankID","paid"})
 public class Bills implements Serializable {
 	
 	private static final long serialVersionUID = -6423194198676609863L;
@@ -11,12 +15,17 @@ public class Bills implements Serializable {
 	@Id
 	@GeneratedValue(generator="bills")
 	@TableGenerator(name="bills", table="sqlite_sequence", pkColumnName="name", valueColumnName="seq", pkColumnValue="bills")
+	@XmlAttribute
 	private Integer id;
+	@XmlAttribute
 	private float totalCost;
+	@XmlAttribute
 	private String bankID;
+	@XmlAttribute
 	private Boolean paid;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="patient_id")
+	@XmlElement
 	private Patient patient;
 	
 	//Constructors

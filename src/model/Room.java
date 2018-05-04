@@ -2,33 +2,51 @@ package model;
  
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import java.util.*;
 
 
 @Entity
 @Table (name="room")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Room")
+@XmlType(propOrder = { "number", "type", "floor", "capacity", "costperDay" })
+
 public class Room implements Serializable {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 3947234501234725063L;
 	
 	@Id
 	@GeneratedValue(generator="room")
 	@TableGenerator(name="room",table="sqlite_sequence",pkColumnName="name",valueColumnName="seq",
 			pkColumnValue="room")
+	@XmlAttribute
     private Integer id;
+	@XmlAttribute
     private Integer number;
     public enum roomType {
     	SUITE, DOUBLE, INDIVIDUAL, BOX, ICU
     };
+	@XmlElement
     private roomType type; 
+	@XmlElement
     private Integer floor;
+	@XmlElement
     private Integer capacity;
+	@XmlElement
 	private float costPerDay;
 	
 	@OneToMany(mappedBy="room")
+	@XmlElement(name = "Patient")
+    @XmlElementWrapper(name = "listOfPatients")
 	private List<Patient> listOfPatients;
 	
 	//Constructor

@@ -42,11 +42,11 @@ public class DatabaseTables {
 			Statement s3=c.createStatement();
 			String table3= "CREATE TABLE treatment(\r\n" + 
 					"id INTEGER PRIMARY KEY AUTOINCREMENT,\r\n" + 
-					"name TEXT NOT NULL, \r\n" + 
 					"type TEXT NOT NULL,\r\n" + 
-					"duration TEXT NOT NULL,\r\n" + 
+					"startDate DATE NOT NULL,\r\n" + 
+					"endDate DATE NOT NULL, \r\n" +
 					"dose TEXT,\r\n" + 
-					"way_of_administration TEXT,\r\n" + 
+					"routeOfAdmin TEXT,\r\n" + 
 					"cost REAL NOT NULL,\r\n" + 
 					"bill_id INT REFERENCES bills(id) ON UPDATE CASCADE ON DELETE SET NULL,\r\n" + 
 					"patient_id INT REFERENCES patient(id) ON DELETE CASCADE ON UPDATE CASCADE,\r\n" + 

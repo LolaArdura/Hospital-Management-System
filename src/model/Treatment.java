@@ -1,11 +1,19 @@
 package model;
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import sample.db.xml.utils.*;
+
+import java.time.*;
 import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Table(name="treatment")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "treatment")
+@XmlType(propOrder = {"type", "startDate", "endDate", "dose", "routeOfAdmin", "cost", "bill_id", "patient_id", "doctor_id"})
 public class Treatment implements Serializable {
 
 	/**
@@ -15,21 +23,33 @@ public class Treatment implements Serializable {
 	@Id
 	@GeneratedValue(generator = "treatment")
 	@TableGenerator (name ="treatment", table="sqlite_sequence", pkColumnName = "name", valueColumnName ="seq", pkColumnValue="treatment")
+	@XmlAttribute
 	private Integer id;
+	@XmlAttribute
 	private String routeOfAdmin;
+	@XmlAttribute
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date startDate;
+	@XmlAttribute
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date endDate;
+	@XmlAttribute
 	private float cost;
+	@XmlAttribute
 	private String treatmentType;
+	@XmlAttribute
 	private String dose;
 	@ManyToOne(fetch = FetchType.LAZY) 
 	@JoinColumn(name="doctor_id")
+	@XmlTransient
 	private Doctor prescriber;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="patient_id")
+	@XmlTransient
 	private Patient patient ;
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="bill_id")
+	@XmlTransient
 	private Bills bill;
 	
 	public Treatment() {
