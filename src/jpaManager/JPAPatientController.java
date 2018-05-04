@@ -5,10 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import interfaces.PatientInterface;
-import model.Bills;
-import model.Nurse;
-import model.Patient;
-import model.Treatment;
+import model.*;
 
 public class JPAPatientController implements PatientInterface{
 	

@@ -46,7 +46,8 @@ public class Patient implements Serializable {
 	@XmlElementWrapper(name="listOfTreatments")
 	@OneToMany(mappedBy = "patient")
 	private List<Treatment> listOfTreatments;
-	@XmlTransient
+	@XmlElement(name="Nurse")
+	@XmlElementWrapper(name="listOfNurses")
 	@ManyToMany(mappedBy = "ListOfPatients")
 	private List<Nurse> listOfNurses;
 	@XmlElement (name= "bill")
