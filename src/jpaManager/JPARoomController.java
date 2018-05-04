@@ -1,6 +1,5 @@
 package jpaManager;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;

@@ -12,7 +12,6 @@ import java.sql.Date;
 @Entity
 @Table(name="treatment")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "treatment")
 @XmlType(propOrder = {"type", "startDate", "endDate", "dose", "routeOfAdmin", "cost", "bill_id", "patient_id", "doctor_id"})
 public class Treatment implements Serializable {
 
