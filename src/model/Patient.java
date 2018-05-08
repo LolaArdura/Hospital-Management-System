@@ -8,13 +8,13 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import sample.db.xml.utils.SQLDateAdapter; 
+import sample.db.xml.utils.*; 
 
 @Entity
 @Table(name = "patient")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Patient")
-@XmlType (propOrder = {"name","gender","dob","dateAdmission","diagnose", "room_id"})
+@XmlType (propOrder = {"name","gender","dob","dateAdmission","diagnose", "listOfTreatments", "listOfBills", "listOfNurses"})
 public class Patient implements Serializable {
 
 	private static final long serialVersionUID = 3758399780780821912L;
@@ -28,17 +28,17 @@ public class Patient implements Serializable {
 	private Integer id;
 	@XmlAttribute
 	private String name;
-    @XmlType(name="sex")
-    @XmlEnum
-	public enum sex {
-		MALE, FEMALE
-	};
-    @XmlElement
-	private sex gender;
+
+	@XmlElement
+	@XmlJavaTypeAdapter(SexAdapter.class)
+	@Enumerated(EnumType.STRING)
+	private Sex gender;
 	@XmlAttribute
 	private String diagnose;
+	@XmlElement
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dob;
+	@XmlElement
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dateAdmission;
 	
@@ -66,7 +66,7 @@ public class Patient implements Serializable {
 		this.listOfBills = new LinkedList<Bills>();
 	}
 
-	public Patient(Integer id, String name, sex gender, String diagnose, Date dob, Date dateAdmission) {
+	public Patient(Integer id, String name, Sex gender, String diagnose, Date dob, Date dateAdmission) {
 		this.id = id;
 		this.name = name;
 		this.gender = gender;
@@ -78,7 +78,7 @@ public class Patient implements Serializable {
 		this.listOfBills = new LinkedList<Bills>();
 	}
 
-	public Patient(String name, sex gender, String diagnose, Date dob, Date dateAdmission, Room room) {
+	public Patient(String name, Sex gender, String diagnose, Date dob, Date dateAdmission, Room room) {
 		super();
 		this.name = name;
 		this.gender = gender;
@@ -91,7 +91,7 @@ public class Patient implements Serializable {
 		this.listOfBills = new LinkedList<Bills>();
 	}
 
-	public Patient(String name, sex gender, String diagnose, Date dob, Date dateAdmission) {
+	public Patient(String name, Sex gender, String diagnose, Date dob, Date dateAdmission) {
 
 		this.name = name;
 		this.gender = gender;
@@ -103,7 +103,7 @@ public class Patient implements Serializable {
 		this.listOfBills = new LinkedList<Bills>();
 	}
 
-	public Patient(String name, sex gender, Date dob, Date dateAdmission) {
+	public Patient(String name, Sex gender, Date dob, Date dateAdmission) {
 
 		this.name = name;
 		this.gender = gender;
@@ -114,7 +114,7 @@ public class Patient implements Serializable {
 		this.listOfBills = new LinkedList<Bills>();
 	}
 
-	public Patient(Integer id, String name, sex gender, Date dob, Date dateAdmission, Room room) {
+	public Patient(Integer id, String name, Sex gender, Date dob, Date dateAdmission, Room room) {
 		this.id = id;
 		this.name = name;
 		this.gender = gender;
@@ -154,11 +154,11 @@ public class Patient implements Serializable {
 		this.name = name;
 	}
 
-	public sex getGender() {
+	public Sex getGender() {
 		return gender;
 	}
 
-	public void setGender(sex gender) {
+	public void setGender(Sex gender) {
 		this.gender = gender;
 	}
 

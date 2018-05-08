@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name="nurse")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Nurse")
-@XmlType(propOrder = { "role", "listOfPatients" })
+@XmlType(propOrder = { "role" })
 public class Nurse extends Employee {
     @Id
     @GeneratedValue(generator="nurse")
