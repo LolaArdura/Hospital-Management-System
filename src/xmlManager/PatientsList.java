@@ -21,6 +21,10 @@ public class PatientsList {
 	public List<Patient> getPatients() {
 		return patients;
 	}
+	
+	public PatientsList() {
+		
+	}
 
 	public void setPatients(List<Patient> patients) {
 		this.patients = patients;

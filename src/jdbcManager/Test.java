@@ -14,22 +14,22 @@ public class Test {
 
  public static void main (String[] args) throws Exception {
 	 //create tables
-     //DatabaseTables.createTables(); 
+     DatabaseTables.createTables(); 
 
 	 //insert doctor
 
-	Doctor doctor1 = new Doctor(1, "Pepe", null , "morning", "cardiology" );
-	 Doctor doctor2 = new Doctor (2, "Paco", null, "afternoon", "nephrology");
+	//Doctor doctor1 = new Doctor(1, "Pepe", null , "morning", "cardiology" );
+	// Doctor doctor2 = new Doctor (2, "Paco", null, "afternoon", "nephrology");
 	// JDBCDoctorController.getDoctorController().insertDoctor (doctor1);
 	// JDBCDoctorController.getDoctorController().insertDoctor(doctor2);
 	 //imprimo doctores
-     List<Doctor> listDoctors = JDBCDoctorController.getDoctorController().getAllDoctors();
-	 System.out.println(listDoctors);
+//     List<Doctor> listDoctors = JDBCDoctorController.getDoctorController().getAllDoctors();
+//	 System.out.println(listDoctors);
 	 //delete and print again the list to confirm !!!! no delete
-	 JDBCDoctorController.getDoctorController().deleteDoctor(doctor1);
-	 listDoctors.clear();
-	 listDoctors.addAll(JDBCDoctorController.getDoctorController().getAllDoctors());
-	 System.out.println(listDoctors);
+//	 JDBCDoctorController.getDoctorController().deleteDoctor(doctor1);
+//	 listDoctors.clear();
+//	 listDoctors.addAll(JDBCDoctorController.getDoctorController().getAllDoctors());
+//	 System.out.println(listDoctors);
 	 
 	 //search
 	/* try {
@@ -56,16 +56,21 @@ public class Test {
 	  
 	 
 	//insert patient
-	/*Date dob = new Date (2002/3/03);
-	 Date dateAdmission = new Date (2018/01/02);
-	 Patient patient1 = new Patient( "Ana", sex.WOMEN , dob, dateAdmission );
-	// JDBCPatientController.getPatientController().insertNoDiagnosePatient(patient1);
-	List<Patient> listpatients = JDBCPatientController.getPatientController().getAllPatients();
-	 System.out.println(listpatients);//La fecha es 1970 por razones descconocidas
-	 //search patient
-	 
-	 System.out.println(patient1); //PROBLEMA: al search patient el diagnose sale null
-	*/
+//     Date dob = new Date (2002/03/03);
+//     Date dob2 = new Date (1654/06/03);     
+//     Date dob3 = new Date (1998/78/03);
+//	 Date dateAdmission = new Date (2018/01/02);
+//	 Patient patient1 = new Patient( "Ana", Sex.FEMALE , dob, dateAdmission );
+//	 Patient patient2 = new Patient( "Pepa", Sex.FEMALE , dob2, dateAdmission );
+//	 Patient patient3 = new Patient( "Manola", Sex.FEMALE , dob3, dateAdmission );
+//
+//	 JDBCPatientController.getPatientController().insertNoDiagnosePatient(patient1);
+//	List<Patient> listpatients = JDBCPatientController.getPatientController().getAllPatients();
+//	 System.out.println(listpatients);//La fecha es 1970 por razones descconocidas
+//	 //search patient
+//	 
+//	 System.out.println(patient1); //PROBLEMA: al search patient el diagnose sale null
+	
 
 //insert bill
 	 //Bills bill_ = new Bills (package jdbcManager);
