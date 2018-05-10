@@ -17,7 +17,7 @@ import jpaManager.*;
 
 public class xmlPatient {
 	
-	public static void marshal () throws Exception{
+	public static void marshal (Patient p, String route) throws Exception{
 		
 	
 	EntityManager em=DBEntityManager.getEntityManager();
@@ -27,27 +27,26 @@ public class xmlPatient {
 	em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 	em.getTransaction().commit();
 			
-	JAXBContext jaxbContext = JAXBContext.newInstance(PatientsList.class);
+	JAXBContext jaxbContext = JAXBContext.newInstance(Patient.class);
 	Marshaller marshaller = jaxbContext.createMarshaller();
 	marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,Boolean.TRUE);
 
-	PatientsList pt = new PatientsList(jpaManager.JPAPatientController.getPatientController().getAllPatients());
-	File file = new File ("./xmls/Sample-Patients.xml");
-	marshaller.marshal(pt, file);
-	marshaller.marshal(pt, System.out);
+	File file = new File (route);
+	marshaller.marshal(p, file);
+	marshaller.marshal(p, System.out);
 
 }
 	
 	private static final String PERSISTENCE_PROVIDER = "hospital-management";	
 	private static EntityManagerFactory factory;
 	
-	public static void unmarshal () throws Exception {
+	public static Patient unmarshal (String route) throws Exception {
 		
-		JAXBContext jaxbContext = JAXBContext.newInstance(PatientsList.class);
+		JAXBContext jaxbContext = JAXBContext.newInstance(Patient.class);
 		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 		
-		File file = new File ("./xmls/External-Patient.xml");
-		PatientsList pt = (PatientsList) unmarshaller.unmarshal(file);
+		File file = new File (route);
+		Patient p = (Patient) unmarshaller.unmarshal(file);
 		
 		factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
 		EntityManager em = factory.createEntityManager();
@@ -56,12 +55,12 @@ public class xmlPatient {
 		em.getTransaction().commit();
 		
 		EntityTransaction tx1 = em.getTransaction();
-		
 		tx1.begin();
-		
-		em.persist(pt);
+		p.setId(null);
+		em.persist(p);
 		tx1.commit();
 		
+		return p;
 	}
 	
 	

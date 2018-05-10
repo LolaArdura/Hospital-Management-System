@@ -1,0 +1,6 @@
+<!DOCTYPE Patient [
+<!ELEMENT Patient (gender,dob,dateAdmission, listOfTreatments, listOfNurses, listOfBills)>
+<!ELEMENT >
+
+
+]>

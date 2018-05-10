@@ -8,7 +8,7 @@ public class SexAdapter extends XmlAdapter<String, Sex> {
 	
 	@Override
 	public String marshal(Sex s) throws Exception {
-		return s.toString();
+		return s.toString().toLowerCase();
 	}
 
 	@Override
