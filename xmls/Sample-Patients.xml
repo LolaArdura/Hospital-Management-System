@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<PatientsList>
-    <Patients>
-        <Patient name="Ale" id="2">
-            <gender>MALE</gender>
-            <dob>1970-01-01</dob>
-            <dateAdmission>1970-01-01</dateAdmission>
-            <listOfTreatments/>
-            <listOfBills/>
-            <listOfNurses/>
-        </Patient>
-    </Patients>
-</PatientsList>
+<Patient id="2" name="Ale">
+    <gender>male</gender>
+    <dob>1970-01-01</dob>
+    <dateAdmission>1970-01-01</dateAdmission>
+    <diagnose>dead</diagnose>
+    <Nurses>
+        <Nurse role="injections" id="1">
+            <name>Lola</name>
+            <schedule>morning</schedule>
+        </Nurse>
+    </Nurses>
+    <room number="208" id="8">
+        <type>BOX</type>
+        <floor>2</floor>
+        <capacity>10</capacity>
+        <costPerDay>15.0</costPerDay>
+    </room>
+</Patient>

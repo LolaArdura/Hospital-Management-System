@@ -14,7 +14,7 @@ import sample.db.xml.utils.*;
 @Table(name = "patient")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Patient")
-@XmlType (propOrder = {"name","gender","dob","dateAdmission","diagnose", "listOfTreatments", "listOfBills", "listOfNurses"})
+@XmlType (propOrder = {"id","name","gender","dob","dateAdmission","diagnose", "listOfTreatments", "listOfBills", "listOfNurses","room"})
 public class Patient implements Serializable {
 
 	private static final long serialVersionUID = 3758399780780821912L;
@@ -33,7 +33,7 @@ public class Patient implements Serializable {
 	@XmlJavaTypeAdapter(SexAdapter.class)
 	@Enumerated(EnumType.STRING)
 	private Sex gender;
-	@XmlAttribute
+	@XmlElement
 	private String diagnose;
 	@XmlElement
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
@@ -43,18 +43,18 @@ public class Patient implements Serializable {
 	private Date dateAdmission;
 	
 	@XmlElement(name="treatment")
-	@XmlElementWrapper(name="listOfTreatments")
+	@XmlElementWrapper(name="Treatments")
 	@OneToMany(mappedBy = "patient")
 	private List<Treatment> listOfTreatments;
 	@XmlElement(name="Nurse")
-	@XmlElementWrapper(name="listOfNurses")
+	@XmlElementWrapper(name="Nurses")
 	@ManyToMany(mappedBy = "ListOfPatients")
 	private List<Nurse> listOfNurses;
 	@XmlElement (name= "bill")
-	@XmlElementWrapper (name="listOfBills")
+	@XmlElementWrapper (name="Bills")
 	@OneToMany(mappedBy = "patient")
 	private List<Bills> listOfBills;
-	@XmlTransient
+	@XmlElement
 	private Room room;
 
 	// Constructors
@@ -139,6 +139,20 @@ public class Patient implements Serializable {
 		this.dateAdmission = dateAdmission;
 		this.room = room;
 
+	}
+  
+	
+	public Patient(Integer id, String name, Sex gender, String diagnose, Date dob, Date dateAdmission,
+			List<Nurse> listOfNurses, Room room) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.gender = gender;
+		this.diagnose = diagnose;
+		this.dob = dob;
+		this.dateAdmission = dateAdmission;
+		this.listOfNurses = listOfNurses;
+		this.room = room;
 	}
 
 	public Patient(Integer id, String name) {
