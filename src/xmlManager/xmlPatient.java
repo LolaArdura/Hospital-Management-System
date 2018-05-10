@@ -56,8 +56,8 @@ public class xmlPatient {
 		
 		EntityTransaction tx1 = em.getTransaction();
 		tx1.begin();
-		p.setId(null);
 		em.persist(p);
+		
 		tx1.commit();
 		
 		return p;

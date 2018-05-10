@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name="doctor")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Department")
-@XmlType(propOrder = { "specialty", "treatments"})
+@XmlType(propOrder = { "specialty"})
 
 public class Doctor extends Employee{
 	
@@ -26,11 +26,11 @@ public class Doctor extends Employee{
 			pkColumnValue="doctor")
     @XmlAttribute
 	private Integer id;
-    @XmlAttribute
+    @XmlElement
 	private String specialty;
 	@OneToMany(mappedBy="prescriber")
-	@XmlElement(name = "Treatment")
-    @XmlElementWrapper(name = "treatments")
+	//@XmlElement(name = "Treatment")
+   // @XmlElementWrapper(name = "treatments")
 	@XmlTransient
 	private List<Treatment> treatments;
     
