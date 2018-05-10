@@ -17,7 +17,7 @@ public class Bills implements Serializable {
 	@TableGenerator(name="bills", table="sqlite_sequence", pkColumnName="name", valueColumnName="seq", pkColumnValue="bills")
 	@XmlAttribute
 	private Integer id;
-	@XmlElement
+	@XmlAttribute
 	private float totalCost;
 	@XmlElement
 	private String bankID;
