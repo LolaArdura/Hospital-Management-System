@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.*;
 @Table (name="bills")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement (name="Bills")
-@XmlType(propOrder = {"cost", "bankID","paid"})
+@XmlType(propOrder = {"totalCost", "bankID","paid"})
 public class Bills implements Serializable {
 	
 	private static final long serialVersionUID = -6423194198676609863L;
@@ -17,11 +17,11 @@ public class Bills implements Serializable {
 	@TableGenerator(name="bills", table="sqlite_sequence", pkColumnName="name", valueColumnName="seq", pkColumnValue="bills")
 	@XmlAttribute
 	private Integer id;
-	@XmlAttribute
-	private float cost;
-	@XmlAttribute
+	@XmlElement
+	private float totalCost;
+	@XmlElement
 	private String bankID;
-	@XmlAttribute
+	@XmlElement
 	private Boolean paid;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="patient_id")
@@ -37,14 +37,14 @@ public class Bills implements Serializable {
 	public Bills(int id,float totalCost, String bankID, Boolean paid ) {
 		super ();
 		this.id= id;
-		this.cost = totalCost;
+		this.totalCost = totalCost;
 		this.bankID = bankID;
 		this.paid = paid;
 		
 	}
 	public Bills(float totalCost, String bankID, Boolean paid, Patient patient ) {
 		super();
-		this.cost = totalCost;
+		this.totalCost = totalCost;
 		this.bankID = bankID;
 		this.paid = paid;
 		this.patient = patient;
@@ -53,7 +53,7 @@ public class Bills implements Serializable {
     
 	public Bills(float totalCost, String bankID, Patient patient) {
 		super();
-		this.cost = totalCost;
+		this.totalCost = totalCost;
 		this.bankID = bankID;
 		paid=false;
 		this.patient=patient;
@@ -63,7 +63,7 @@ public class Bills implements Serializable {
 	public Bills (Integer id , float totalCost , String bankID, boolean paid, Patient patient) {
 		
 		 this.id = id;
-		 this.cost = totalCost;
+		 this.totalCost = totalCost;
 		 this.bankID = bankID;
 		 this.paid = paid;
 		 this.patient= patient;	 
@@ -80,10 +80,10 @@ public class Bills implements Serializable {
 		this.id = id;
 	}
 	public float getTotalCost() {
-		return cost;
+		return totalCost;
 	}
 	public void setTotalCost(float totalCost) {
-		this.cost = totalCost;
+		this.totalCost = totalCost;
 	}
 	public String getBankID() {
 		return bankID;
@@ -142,7 +142,7 @@ public class Bills implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Bills [id=" + id + ", totalCost=" + cost + ", bankID=" + bankID + ", paid=" + paid + ", patient="
+		return "Bills [id=" + id + ", totalCost=" + totalCost + ", bankID=" + bankID + ", paid=" + paid + ", patient="
 				+ patient + "]";
 	}
 	
