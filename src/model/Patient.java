@@ -84,6 +84,7 @@ public class Patient implements Serializable {
 		super();
 		this.id = id;
 		this.name = name;
+		
 		this.gender = gender;
 		this.diagnose = diagnose;
 		this.dob = dob;

@@ -17,11 +17,11 @@ public class Bills implements Serializable {
 	@TableGenerator(name="bills", table="sqlite_sequence", pkColumnName="name", valueColumnName="seq", pkColumnValue="bills")
 	@XmlAttribute
 	private Integer id;
-	@XmlAttribute
+	@XmlElement
 	private float totalCost;
-	@XmlAttribute
+	@XmlElement
 	private String bankID;
-	@XmlAttribute
+	@XmlElement
 	private Boolean paid;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="patient_id")
