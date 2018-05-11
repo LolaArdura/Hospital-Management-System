@@ -92,7 +92,7 @@ public class Treatment implements Serializable {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.cost = cost;
-		this.treatmentType = treatmentType;
+		this.type = treatmentType;
 		this.dose = dose;
 		this.prescriber = prescriber;
 		this.patient = patient;
