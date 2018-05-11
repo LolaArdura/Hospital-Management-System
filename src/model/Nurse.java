@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name="nurse")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Nurse")
-@XmlType(propOrder = { "role", "listOfPatients" })
+@XmlType(propOrder = { "role" })
 public class Nurse extends Employee {
     @Id
     @GeneratedValue(generator="nurse")
@@ -23,12 +23,10 @@ public class Nurse extends Employee {
 			pkColumnValue="nurse")
     @XmlAttribute
 	private Integer id;
-    @XmlAttribute
+    @XmlElement
 	private String role;
 	
 	@ManyToMany
-	@XmlElement(name = "Patient")
-    @XmlElementWrapper(name = "listOfPatients")
 	@JoinTable(name="nurse_patient",
 	joinColumns={@JoinColumn(name="nurse_id", referencedColumnName="id")},
 	inverseJoinColumns={@JoinColumn(name="patient_id", referencedColumnName="id")})

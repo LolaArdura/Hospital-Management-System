@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import java.util.*;
@@ -17,7 +18,7 @@ import java.util.*;
 @Table (name="room")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Room")
-@XmlType(propOrder = { "number", "type", "floor", "capacity", "costperDay" })
+@XmlType(propOrder = {"id", "number", "type", "floor", "capacity", "costPerDay" })
 
 public class Room implements Serializable {
 
@@ -45,8 +46,8 @@ public class Room implements Serializable {
 	private float costPerDay;
 	
 	@OneToMany(mappedBy="room")
-	@XmlElement(name = "Patient")
-    @XmlElementWrapper(name = "listOfPatients")
+	@XmlTransient
+   // @XmlElementWrapper(name = "listOfPatients")
 	private List<Patient> listOfPatients;
 	
 	//Constructor

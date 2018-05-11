@@ -12,8 +12,7 @@ import java.sql.Date;
 @Entity
 @Table(name="treatment")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "treatment")
-@XmlType(propOrder = {"type", "startDate", "endDate", "dose", "routeOfAdmin", "cost", "bill_id", "patient_id", "doctor_id"})
+@XmlType(propOrder = {"startDate", "endDate", "dose", "routeOfAdmin", "cost", "type","prescriber"})
 public class Treatment implements Serializable {
 
 	/**
@@ -25,23 +24,23 @@ public class Treatment implements Serializable {
 	@TableGenerator (name ="treatment", table="sqlite_sequence", pkColumnName = "name", valueColumnName ="seq", pkColumnValue="treatment")
 	@XmlAttribute
 	private Integer id;
-	@XmlAttribute
+	@XmlElement
 	private String routeOfAdmin;
-	@XmlAttribute
+	@XmlElement
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date startDate;
-	@XmlAttribute
+	@XmlElement
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date endDate;
-	@XmlAttribute
+	@XmlElement
 	private float cost;
-	@XmlAttribute
-	private String treatmentType;
-	@XmlAttribute
+	@XmlElement
+	private String type;
+	@XmlElement
 	private String dose;
-	@ManyToOne(fetch = FetchType.LAZY) 
+	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.MERGE) 
 	@JoinColumn(name="doctor_id")
-	@XmlTransient
+	@XmlElement
 	private Doctor prescriber;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="patient_id")
@@ -64,7 +63,7 @@ public class Treatment implements Serializable {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.cost = cost;
-		this.treatmentType = treatmentType;
+		this.type = treatmentType;
 		this.dose = dose;
 		this.prescriber=prescriber;
 		this.patient = patient;
@@ -80,7 +79,7 @@ public class Treatment implements Serializable {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.cost = cost;
-		this.treatmentType = treatmentType;
+		this.type = treatmentType;
 		this.dose = dose;
 		this.prescriber = prescriber;
 		this.patient = patient;
@@ -107,7 +106,7 @@ public class Treatment implements Serializable {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.cost = cost;
-		this.treatmentType = treatmentType;
+		this.type = treatmentType;
 		this.dose = dose;
 		this.prescriber = prescriber;
 	
@@ -144,10 +143,10 @@ public class Treatment implements Serializable {
 		this.cost = cost;
 	}
 	public String getTreatmentType() {
-		return treatmentType;
+		return type;
 	}
 	public void setTreatmentType(String treatmentType) {
-		this.treatmentType = treatmentType;
+		this.type = treatmentType;
 	}
 	public String getDose() {
 		return dose;
@@ -209,7 +208,7 @@ public class Treatment implements Serializable {
 	@Override
 	public String toString() {
 		return "Treatment [id=" + id + ", routeOfAdmin=" + routeOfAdmin + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", cost=" + cost + ", treatmentType=" + treatmentType + ", dose=" + dose + ", prescriber="
+				+ endDate + ", cost=" + cost + ", treatmentType=" + type + ", dose=" + dose + ", prescriber="
 				+ prescriber + ", patient=" + patient + "]";
 	}
 

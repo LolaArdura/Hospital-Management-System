@@ -38,6 +38,9 @@ public class DatabaseTables {
 					")";
 			s2.executeUpdate(table2);
 			s2.close();
+			Statement stmtSeq = c.createStatement();
+			String sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('patient', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
 			
 			Statement s3=c.createStatement();
 			String table3= "CREATE TABLE treatment(\r\n" + 

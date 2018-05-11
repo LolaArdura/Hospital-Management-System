@@ -26,7 +26,7 @@ import jdbcManager.JDBCNurseController;
 import jdbcManager.JDBCPatientController;
 import model.Nurse;
 import model.Patient;
-import model.Patient.sex;
+import model.Sex;
 
 public class NursePatientController implements Initializable {
 

@@ -8,13 +8,13 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import sample.db.xml.utils.SQLDateAdapter; 
+import sample.db.xml.utils.*; 
 
 @Entity
 @Table(name = "patient")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Patient")
-@XmlType (propOrder = {"name","gender","dob","dateAdmission","diagnose", "room_id"})
+@XmlType (propOrder = {"name","gender","dob","dateAdmission","diagnose", "listOfTreatments", "listOfBills", "listOfNurses","room"})
 public class Patient implements Serializable {
 
 	private static final long serialVersionUID = 3758399780780821912L;
@@ -23,37 +23,40 @@ public class Patient implements Serializable {
 	@GeneratedValue(generator = "patient")
 	@TableGenerator(name = "patient", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "patient")
 	
-	@XmlAttribute
+	@XmlTransient
 	
 	private Integer id;
 	@XmlAttribute
 	private String name;
-    @XmlType(name="sex")
-    @XmlEnum
-	public enum sex {
-		MALE, FEMALE
-	};
-    @XmlElement
-	private sex gender;
-	@XmlAttribute
+
+	@XmlElement
+	@XmlJavaTypeAdapter(SexAdapter.class)
+	@Enumerated(EnumType.STRING)
+	private Sex gender;
+	@XmlElement
 	private String diagnose;
+	@XmlElement
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dob;
+	@XmlElement
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dateAdmission;
 	
-	@XmlElement(name="Treatment")
-	@XmlElementWrapper(name="patient")
-	@XmlTransient
-	@OneToMany(mappedBy = "patient")
+	@XmlElement(name="treatment")
+	@XmlElementWrapper(name="Treatments")
+	@OneToMany(mappedBy = "patient",cascade=CascadeType.MERGE)
 	private List<Treatment> listOfTreatments;
-	@XmlTransient
-	@ManyToMany(mappedBy = "ListOfPatients")
+	@XmlElement(name="Nurse")
+	@XmlElementWrapper(name="Nurses")
+	@ManyToMany(mappedBy = "ListOfPatients",cascade=CascadeType.MERGE)
 	private List<Nurse> listOfNurses;
-	@XmlTransient
-	@OneToMany(mappedBy = "patient")
+	@XmlElement (name= "bill")
+	@XmlElementWrapper (name="Bills")
+	@OneToMany(mappedBy = "patient",cascade=CascadeType.MERGE)
 	private List<Bills> listOfBills;
-	@XmlTransient
+	@XmlElement
+	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.MERGE)
+	@JoinColumn(name="room_id")
 	private Room room;
 
 	// Constructors
@@ -65,7 +68,7 @@ public class Patient implements Serializable {
 		this.listOfBills = new LinkedList<Bills>();
 	}
 
-	public Patient(Integer id, String name, sex gender, String diagnose, Date dob, Date dateAdmission) {
+	public Patient(Integer id, String name, Sex gender, String diagnose, Date dob, Date dateAdmission) {
 		this.id = id;
 		this.name = name;
 		this.gender = gender;
@@ -76,8 +79,25 @@ public class Patient implements Serializable {
 		this.listOfNurses = new LinkedList<Nurse>();
 		this.listOfBills = new LinkedList<Bills>();
 	}
+	
 
-	public Patient(String name, sex gender, String diagnose, Date dob, Date dateAdmission, Room room) {
+	public Patient(Integer id, String name, Sex gender, String diagnose, Date dob, Date dateAdmission,
+			List<Treatment> listOfTreatments, List<Nurse> listOfNurses, List<Bills> listOfBills, Room room) {
+		super();
+		this.id = id;
+		this.name = name;
+		
+		this.gender = gender;
+		this.diagnose = diagnose;
+		this.dob = dob;
+		this.dateAdmission = dateAdmission;
+		this.listOfTreatments = listOfTreatments;
+		this.listOfNurses = listOfNurses;
+		this.listOfBills = listOfBills;
+		this.room = room;
+	}
+
+	public Patient(String name, Sex gender, String diagnose, Date dob, Date dateAdmission, Room room) {
 		super();
 		this.name = name;
 		this.gender = gender;
@@ -90,7 +110,7 @@ public class Patient implements Serializable {
 		this.listOfBills = new LinkedList<Bills>();
 	}
 
-	public Patient(String name, sex gender, String diagnose, Date dob, Date dateAdmission) {
+	public Patient(String name, Sex gender, String diagnose, Date dob, Date dateAdmission) {
 
 		this.name = name;
 		this.gender = gender;
@@ -102,7 +122,7 @@ public class Patient implements Serializable {
 		this.listOfBills = new LinkedList<Bills>();
 	}
 
-	public Patient(String name, sex gender, Date dob, Date dateAdmission) {
+	public Patient(String name, Sex gender, Date dob, Date dateAdmission) {
 
 		this.name = name;
 		this.gender = gender;
@@ -113,7 +133,7 @@ public class Patient implements Serializable {
 		this.listOfBills = new LinkedList<Bills>();
 	}
 
-	public Patient(Integer id, String name, sex gender, Date dob, Date dateAdmission, Room room) {
+	public Patient(Integer id, String name, Sex gender, Date dob, Date dateAdmission, Room room) {
 		this.id = id;
 		this.name = name;
 		this.gender = gender;
@@ -121,6 +141,20 @@ public class Patient implements Serializable {
 		this.dateAdmission = dateAdmission;
 		this.room = room;
 
+	}
+  
+	
+	public Patient(Integer id, String name, Sex gender, String diagnose, Date dob, Date dateAdmission,
+			List<Nurse> listOfNurses, Room room) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.gender = gender;
+		this.diagnose = diagnose;
+		this.dob = dob;
+		this.dateAdmission = dateAdmission;
+		this.listOfNurses = listOfNurses;
+		this.room = room;
 	}
 
 	public Patient(Integer id, String name) {
@@ -153,11 +187,11 @@ public class Patient implements Serializable {
 		this.name = name;
 	}
 
-	public sex getGender() {
+	public Sex getGender() {
 		return gender;
 	}
 
-	public void setGender(sex gender) {
+	public void setGender(Sex gender) {
 		this.gender = gender;
 	}
 

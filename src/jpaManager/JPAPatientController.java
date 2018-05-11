@@ -5,10 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import interfaces.PatientInterface;
-import model.Bills;
-import model.Nurse;
-import model.Patient;
-import model.Treatment;
+import model.*;
 
 public class JPAPatientController implements PatientInterface{
 	
@@ -89,15 +86,14 @@ public class JPAPatientController implements PatientInterface{
 		em.getTransaction().commit();
 	}
 	
-	public Patient getPatientWithoutTreatmentsAndBills (Integer id) throws Exception{
+	public List<Patient> getPatientWithoutTreatmentsAndBills () throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
-		Query q1 = em.createNativeQuery("SELECT id, name, gender, dob, dateAdmission, room_id FROM patient WHERE id LIKE ?", Patient.class);
-		q1.setParameter(1, id);
-		Patient patient = (Patient) q1.getSingleResult();
-		return patient;
+		Query q1 = em.createNativeQuery("SELECT id, name, gender, dob, dateAdmission, room_id FROM patient", Patient.class);
+		List<Patient> patients = (List<Patient>) q1.getResultList();
+		return patients;
 	}
 	
 	public List<Bills> getBillsFromPatient (Patient patient) throws Exception{
@@ -118,6 +114,17 @@ public class JPAPatientController implements PatientInterface{
 		Query q1 = em.createNativeQuery("Select * FROM treatment JOIN patient WHERE treatment.patient_id="+patient.getId(), Patient.class);
 		List<Treatment> treatments = (List<Treatment>)q1.getResultList();
 		return treatments;
+	}
+	
+	public List<Patient> searchPatientByName (String name) throws Exception{
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1 = em.createNativeQuery("SELECT * FROM patient WHERE name LIKE ?", Patient.class);
+		q1.setParameter(1, name);
+		List<Patient> patients = (List<Patient>) q1.getResultList();
+		return patients;
 	}
 	
 	

@@ -31,6 +31,7 @@ import model.Doctor;
 import model.Nurse;
 import model.Patient;
 import model.Room;
+import model.Sex;
 import model.User;
 
 import java.net.URL;
@@ -466,16 +467,16 @@ public class PatientDetailsController implements Initializable {
 		Date dob = Date.valueOf(
 				LocalDate.parse(dayTextField.getText()+"-" + monthTextField.getText() + "-" + yearTextField.getText(), 
 						DateTimeFormatter.ofPattern("d-MM-yyyy")));
-		Patient.sex sex;
+		Sex sex;
 		if (!maleButton.isSelected() && !femaleButton.isSelected()) {
 			Alert a = new Alert(AlertType.ERROR);
 			a.setContentText("No sex defined for the patient");
 			a.showAndWait();
 		} else {
 			if (femaleButton.isSelected()) {
-				sex = Patient.sex.FEMALE;
+				sex = Sex.FEMALE;
 			} else {
-				sex = Patient.sex.MALE;
+				sex = Sex.MALE;
 			}
 			Date admission = Date.valueOf(admissionDate.getValue());
 			if (admission == null) {

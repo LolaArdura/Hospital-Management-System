@@ -17,15 +17,15 @@ public class Bills implements Serializable {
 	@TableGenerator(name="bills", table="sqlite_sequence", pkColumnName="name", valueColumnName="seq", pkColumnValue="bills")
 	@XmlAttribute
 	private Integer id;
-	@XmlAttribute
-	private float totalCost;
-	@XmlAttribute
+	@XmlElement
+	private float cost;
+	@XmlElement
 	private String bankID;
-	@XmlAttribute
+	@XmlElement
 	private Boolean paid;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="patient_id")
-	@XmlElement
+	@XmlTransient
 	private Patient patient;
 	
 	//Constructors
@@ -37,14 +37,14 @@ public class Bills implements Serializable {
 	public Bills(int id,float totalCost, String bankID, Boolean paid ) {
 		super ();
 		this.id= id;
-		this.totalCost = totalCost;
+		this.cost = totalCost;
 		this.bankID = bankID;
 		this.paid = paid;
 		
 	}
 	public Bills(float totalCost, String bankID, Boolean paid, Patient patient ) {
 		super();
-		this.totalCost = totalCost;
+		this.cost = totalCost;
 		this.bankID = bankID;
 		this.paid = paid;
 		this.patient = patient;
@@ -53,7 +53,7 @@ public class Bills implements Serializable {
     
 	public Bills(float totalCost, String bankID, Patient patient) {
 		super();
-		this.totalCost = totalCost;
+		this.cost = totalCost;
 		this.bankID = bankID;
 		paid=false;
 		this.patient=patient;
@@ -63,7 +63,7 @@ public class Bills implements Serializable {
 	public Bills (Integer id , float totalCost , String bankID, boolean paid, Patient patient) {
 		
 		 this.id = id;
-		 this.totalCost = totalCost;
+		 this.cost = totalCost;
 		 this.bankID = bankID;
 		 this.paid = paid;
 		 this.patient= patient;	 
@@ -80,10 +80,10 @@ public class Bills implements Serializable {
 		this.id = id;
 	}
 	public float getTotalCost() {
-		return totalCost;
+		return cost;
 	}
 	public void setTotalCost(float totalCost) {
-		this.totalCost = totalCost;
+		this.cost = totalCost;
 	}
 	public String getBankID() {
 		return bankID;
@@ -142,7 +142,7 @@ public class Bills implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Bills [id=" + id + ", totalCost=" + totalCost + ", bankID=" + bankID + ", paid=" + paid + ", patient="
+		return "Bills [id=" + id + ", totalCost=" + cost + ", bankID=" + bankID + ", paid=" + paid + ", patient="
 				+ patient + "]";
 	}
 	
