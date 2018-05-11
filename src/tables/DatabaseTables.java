@@ -24,6 +24,8 @@ public class DatabaseTables {
 					"schedule TEXT NOT NULL \r\n" + 
 					")";
 			s1.executeUpdate(table1);
+			String sqlSeq1="INSERT INTO sqlite_sequenc(name, seq) VALUES ('doctor',1)";
+			s1.execute(sqlSeq1);
 			s1.close();
 			
 			Statement s2=c.createStatement();
@@ -39,8 +41,8 @@ public class DatabaseTables {
 			s2.executeUpdate(table2);
 			s2.close();
 			Statement stmtSeq = c.createStatement();
-			String sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('patient', 1)";
-			stmtSeq.executeUpdate(sqlSeq);
+			String sqlSeq2 = "INSERT INTO sqlite_sequence (name, seq) VALUES ('patient', 1)";
+			stmtSeq.executeUpdate(sqlSeq2);
 			
 			Statement s3=c.createStatement();
 			String table3= "CREATE TABLE treatment(\r\n" + 
@@ -56,6 +58,8 @@ public class DatabaseTables {
 					"doctor_id INT REFERENCES doctor(id) ON DELETE SET NULL ON UPDATE CASCADE\r\n" + 
 					")";
 			s3.executeUpdate(table3);
+			String sqlSeq3="INSERT INTO sqlite_sequenc(name, seq) VALUES ('treatment',1)";
+			s1.execute(sqlSeq3);
 			s3.close();
 			
 			Statement s4=c.createStatement();
@@ -68,6 +72,8 @@ public class DatabaseTables {
 					"costPerDay REAL\r\n" + 
 					")";
 			s4.executeUpdate(table4);
+			String sqlSeq4="INSERT INTO sqlite_sequenc(name, seq) VALUES ('room',1)";
+			s1.execute(sqlSeq4);
 			s4.close();
 			
 			Statement s5=c.createStatement();
@@ -79,6 +85,8 @@ public class DatabaseTables {
 					"patient_id INTEGER REFERENCES patient(id) ON UPDATE CASCADE ON DELETE CASCADE\r\n" + 
 					")";
 			s5.executeUpdate(table5);
+			String sqlSeq5="INSERT INTO sqlite_sequenc(name, seq) VALUES ('bills',1)";
+			s1.execute(sqlSeq5);
 			s5.close();
 			
 			Statement s6=c.createStatement();
@@ -90,6 +98,8 @@ public class DatabaseTables {
 					"role TEXT NOT NULL\r\n" + 
 					")";
 			s6.executeUpdate(table6);
+			String sqlSeq6="INSERT INTO sqlite_sequenc(name, seq) VALUES ('nurse',1)";
+			s1.execute(sqlSeq6);
 			s6.close();
 			
 			Statement s7=c.createStatement();
@@ -99,6 +109,8 @@ public class DatabaseTables {
 					"PRIMARY KEY(nurse_id, patient_id)\r\n" + 
 					")";
 			s7.executeUpdate(table7);
+			String sqlSeq7="INSERT INTO sqlite_sequenc(name, seq) VALUES ('nurse_patient',1)";
+			s1.execute(sqlSeq7);
 			s7.close();
 			
 			Statement s8=c.createStatement();
@@ -109,6 +121,8 @@ public class DatabaseTables {
 					"type TEXT NOT NULL \r\n" +
 					")";
 			s8.executeUpdate(table8);
+			String sqlSeq8="INSERT INTO sqlite_sequenc(name, seq) VALUES ('user',1)";
+			s1.execute(sqlSeq8);
 			s8.close();
 			
 		
