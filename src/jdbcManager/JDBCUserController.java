@@ -87,4 +87,19 @@ public class JDBCUserController implements UserInterface{
 		return users;
 	}
 
+	@Override
+	public User validateUser(User user) throws Exception {
+		String sql="SELECT id,type FROM user WHERE username = ? and password = ?";
+		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1, user.getUsername());
+		prep.setString(2,user.getPassword());
+		ResultSet rs= prep.executeQuery();
+		if(rs.next()) {
+			 user.setId(rs.getInt("id"));
+			 user.setTypeOfUser(User.userType.valueOf(rs.getString("type").toUpperCase()));
+		}
+		prep.close();
+		return user;
+	}
+
 }

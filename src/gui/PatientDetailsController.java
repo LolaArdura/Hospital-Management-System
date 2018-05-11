@@ -27,6 +27,8 @@ import javafx.scene.layout.Priority;
 import javafx.util.Callback;
 import jdbcManager.JDBCPatientController;
 import jdbcManager.JDBCRoomController;
+import model.Doctor;
+import model.Nurse;
 import model.Patient;
 import model.Room;
 import model.User;
@@ -48,6 +50,9 @@ public class PatientDetailsController implements Initializable {
 	}
 
 	private paneType permission;
+	
+	private Doctor doctor;
+	private Nurse nurse;
 
 	@FXML
 	private Pane mainPane;
@@ -141,8 +146,11 @@ public class PatientDetailsController implements Initializable {
 				GridPane billsPane=(GridPane) loader.load();
 				mainPane.getChildren().clear();
 				mainPane.getChildren().add(billsPane);
-			    billsPane.prefHeightProperty().bind(mainPane.widthProperty());
+			    billsPane.prefHeightProperty().bind(mainPane.heightProperty());
 			    billsPane.prefWidthProperty().bind(mainPane.widthProperty());
+			    
+			    BillsReportController controller=loader.<BillsReportController>getController();
+			    controller.initComponents(patient, mainPane, User.userType.valueOf(permission.name()), true);
 				
 			}catch(Exception ex) {
 				ex.printStackTrace();
@@ -172,6 +180,11 @@ public class PatientDetailsController implements Initializable {
 			GridPane billsPane=(GridPane) loader.load();
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(billsPane);
+		    billsPane.prefHeightProperty().bind(mainPane.heightProperty());
+		    billsPane.prefWidthProperty().bind(mainPane.widthProperty());
+		    
+		    BillsReportController controller=loader.<BillsReportController>getController();
+		    controller.initComponents(patient, mainPane, User.userType.valueOf(permission.name()), false);
 			
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -181,7 +194,24 @@ public class PatientDetailsController implements Initializable {
 	
 	@FXML
 	public void treatmentsButtonClicked(ActionEvent e) {
-		
+		try {
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("TreatmentsPane.fxml"));
+		GridPane treatmentsPane=(GridPane) loader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(treatmentsPane);
+	    treatmentsPane.prefHeightProperty().bind(mainPane.heightProperty());
+	    treatmentsPane.prefWidthProperty().bind(mainPane.widthProperty());
+	    
+	    TreatmentsController controller=loader.<TreatmentsController>getController();
+	    if(permission.equals(PatientDetailsController.paneType.DOCTOR)) {
+	    	controller.initComponents(patient,mainPane,doctor,permission);
+	    }
+	    else {
+	    controller.initComponents(patient, mainPane,null, permission);
+	    }
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -234,12 +264,15 @@ public class PatientDetailsController implements Initializable {
 
 	}
 
-	public void initComponents(Patient patient, Pane mainPane, paneType permission) {
+	public void initComponents(Patient patient, Pane mainPane, paneType permission, Doctor doctor, Nurse nurse) {
+		this.doctor=doctor;
+		this.nurse=nurse;
         this.mainPane=mainPane;
 		this.permission = permission;
 		this.patient = patient;
 		
 		if (permission.equals(paneType.NEW_PATIENT)) {
+			dischargeButton.setVisible(false);
 			treatmentLabel.setVisible(false);
 			treatmentButton.setVisible(false);
 			billsLabel.setVisible(false);
@@ -394,21 +427,14 @@ public class PatientDetailsController implements Initializable {
 
 		try {
 			RoomInterface controller = JDBCRoomController.getRoomController();
-			List<Room> freeRooms = controller.getAllRooms();
-			freeRooms.removeAll(controller.getOccupiedRooms());
+			List<Room> freeRooms=controller.getFreeRooms();
 			roomBox.getItems().clear();
 			roomBox.getItems().addAll(freeRooms);
 		} catch (Exception ex) {
-			try {
-			RoomInterface controller = JDBCRoomController.getRoomController();
-			List<Room> freeRooms = controller.getAllRooms();
-			roomBox.getItems().clear();
-			roomBox.getItems().addAll(freeRooms);
-			}catch(Exception e) {
 				ex.printStackTrace();
 			}
 		}
-	}
+	
 
 	
 	private void changePane() {
@@ -426,7 +452,7 @@ public class PatientDetailsController implements Initializable {
 				patientsViewPane.prefWidthProperty().bind(mainPane.widthProperty());
 
 				PatientsViewPaneController controller = loader.<PatientsViewPaneController>getController();
-				controller.initComponents(mainPane,User.userType.valueOf(permission.name()));
+				controller.initComponents(mainPane,User.userType.valueOf(permission.name()),doctor,nurse);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

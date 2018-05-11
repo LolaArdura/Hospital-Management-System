@@ -18,6 +18,7 @@ import model.Patient;
 import model.User;
 
 public class ReceptionistPaneController {
+	private User user;
 
     @FXML
     private BorderPane receptionistPane;
@@ -63,7 +64,7 @@ public class ReceptionistPaneController {
              patientsView.prefWidthProperty().bind(mainPane.widthProperty());
              Patient p= new Patient();
              PatientDetailsController controller=loader.<PatientDetailsController>getController();
-             controller.initComponents(p,mainPane, PatientDetailsController.paneType.NEW_PATIENT);
+             controller.initComponents(p,mainPane, PatientDetailsController.paneType.NEW_PATIENT,null,null);
         	
         }catch(IOException e) {
         	e.printStackTrace();
@@ -81,12 +82,16 @@ public class ReceptionistPaneController {
          patientsView.prefWidthProperty().bind(mainPane.widthProperty());
          
          PatientsViewPaneController controller=loader.<PatientsViewPaneController>getController();
-         controller.initComponents(mainPane, User.userType.RECEPTIONIST);
+         controller.initComponents(mainPane, User.userType.RECEPTIONIST,null,null);
          
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
     	
+    }
+    
+    public void initComponents(User user) {
+    	this.user=user;
     }
 
 }

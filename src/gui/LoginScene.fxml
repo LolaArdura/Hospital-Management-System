@@ -11,21 +11,21 @@
 
 <AnchorPane fx:id="loginScene" prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginSceneController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="173.0" layoutY="170.0" prefHeight="31.0" prefWidth="76.0" text="User:" textAlignment="CENTER">
+      <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="144.0" layoutY="170.0" prefHeight="31.0" prefWidth="105.0" text="User:" textAlignment="CENTER" AnchorPane.leftAnchor="144.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="226.0" prefHeight="31.0" prefWidth="105.0" text="Password:">
+      <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="144.0" layoutY="226.0" prefHeight="31.0" prefWidth="105.0" text="Password:" AnchorPane.leftAnchor="144.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="usernameTextField" alignment="CENTER_RIGHT" layoutX="280.0" layoutY="173.0" promptText="username" />
-      <PasswordField fx:id="passwordTextField" alignment="CENTER_RIGHT" layoutX="280.0" layoutY="229.0" promptText="password" />
-      <Button fx:id="arrowButton" alignment="CENTER" layoutX="381.0" layoutY="297.0" mnemonicParsing="false" onAction="#arrowButtonClicked" prefHeight="31.0" prefWidth="43.0" style="-fx-border-style: none; -fx-border-color: transparent; -fx-background-color: transparent;" textAlignment="CENTER">
+      <TextField fx:id="usernameTextField" alignment="CENTER_RIGHT" layoutX="280.0" layoutY="173.0" promptText="username" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="221.0" />
+      <PasswordField fx:id="passwordTextField" alignment="CENTER_RIGHT" layoutX="280.0" layoutY="229.0" promptText="password" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="221.0" />
+      <Button fx:id="arrowButton" alignment="CENTER" layoutX="361.0" layoutY="289.0" mnemonicParsing="false" onAction="#arrowButtonClicked" prefHeight="51.0" prefWidth="49.0" style="-fx-border-style: none; -fx-border-color: transparent; -fx-background-color: transparent;" textAlignment="CENTER" AnchorPane.rightAnchor="221.0">
          <graphic>
-            <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="52.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/arrow-icon.png" />
                </image>
@@ -33,5 +33,10 @@
          </graphic>
       </Button>
       <Label fx:id="invalidUserLabel" layoutX="292.0" layoutY="272.0" prefHeight="17.0" prefWidth="137.0" text="Non valid user/ password" textAlignment="CENTER" textFill="#ee0303" underline="true" visible="false" />
+      <Label fx:id="invalidUserLabel" alignment="CENTER_RIGHT" layoutX="325.0" layoutY="264.0" prefHeight="17.0" prefWidth="105.0" text="Invalid user" textFill="#f50606" underline="true" AnchorPane.rightAnchor="221.0">
+         <font>
+            <Font name="Serif Regular" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

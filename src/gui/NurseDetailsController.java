@@ -147,7 +147,7 @@ public class NurseDetailsController implements Initializable {
 		Alert a = new Alert(AlertType.CONFIRMATION, "Do you want to delete this nurse?",
 				new ButtonType("Yes", ButtonBar.ButtonData.YES), ButtonType.NO);
 		a.setTitle("Delete");
-		a.setHeaderText("Delete doctor");
+		a.setHeaderText("Delete nurse");
 		String confirmation = a.showAndWait().get().getText();
 		if (confirmation.equals("Yes")) {
 			try {

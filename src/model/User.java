@@ -30,7 +30,15 @@ public class User {
     	super();
     }
     
-    public User(String username, String password, userType typeOfUser) {
+    
+    public User(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
+
+	public User(String username, String password, userType typeOfUser) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -73,7 +81,14 @@ public class User {
 		this.typeOfUser = typeOfUser;
 	}
 
+	public void setId(Integer id) {
+		this.id=id;
+	}
 
+	public Integer getId() {
+		return id;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
