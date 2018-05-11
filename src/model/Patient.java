@@ -14,7 +14,7 @@ import sample.db.xml.utils.*;
 @Table(name = "patient")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Patient")
-@XmlType (propOrder = {"id","name","gender","dob","dateAdmission","diagnose", "listOfTreatments", "listOfBills", "listOfNurses","room"})
+@XmlType (propOrder = {"name","gender","dob","dateAdmission","diagnose", "listOfTreatments", "listOfBills", "listOfNurses","room"})
 public class Patient implements Serializable {
 
 	private static final long serialVersionUID = 3758399780780821912L;
@@ -23,7 +23,7 @@ public class Patient implements Serializable {
 	@GeneratedValue(generator = "patient")
 	@TableGenerator(name = "patient", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "patient")
 	
-	@XmlAttribute
+	@XmlTransient
 	
 	private Integer id;
 	@XmlAttribute
@@ -44,17 +44,19 @@ public class Patient implements Serializable {
 	
 	@XmlElement(name="treatment")
 	@XmlElementWrapper(name="Treatments")
-	@OneToMany(mappedBy = "patient")
+	@OneToMany(mappedBy = "patient",cascade=CascadeType.MERGE)
 	private List<Treatment> listOfTreatments;
 	@XmlElement(name="Nurse")
 	@XmlElementWrapper(name="Nurses")
-	@ManyToMany(mappedBy = "ListOfPatients")
+	@ManyToMany(mappedBy = "ListOfPatients",cascade=CascadeType.MERGE)
 	private List<Nurse> listOfNurses;
 	@XmlElement (name= "bill")
 	@XmlElementWrapper (name="Bills")
-	@OneToMany(mappedBy = "patient")
+	@OneToMany(mappedBy = "patient",cascade=CascadeType.MERGE)
 	private List<Bills> listOfBills;
 	@XmlElement
+	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.MERGE)
+	@JoinColumn(name="room_id")
 	private Room room;
 
 	// Constructors

@@ -1,6 +1,7 @@
 package gui;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -67,7 +68,7 @@ public class BillsReportController implements Initializable {
 		patientsPane.prefWidthProperty().bind(mainPane.widthProperty());
 
 		PatientDetailsController paneController = loader.<PatientDetailsController>getController();
-		paneController.initComponents(patient, mainPane, paneType.valueOf(permission.name()));
+		paneController.initComponents(patient, mainPane, paneType.valueOf(permission.name()),null,null);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
@@ -86,7 +87,7 @@ public class BillsReportController implements Initializable {
 				PatientInterface controller = JDBCPatientController.getPatientController();
 				controller.deletePatient(patient);
 			}
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("PatientsViewPane"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("PatientsViewPane.fxml"));
 			GridPane patientsPane = (GridPane) loader.load();
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(patientsPane);
@@ -95,7 +96,7 @@ public class BillsReportController implements Initializable {
 			patientsPane.prefWidthProperty().bind(mainPane.widthProperty());
 
 			PatientsViewPaneController paneController = loader.<PatientsViewPaneController>getController();
-			paneController.initComponents(mainPane, permission);
+			paneController.initComponents(mainPane, permission,null,null);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -118,6 +119,7 @@ public class BillsReportController implements Initializable {
 		try {
 			PatientInterface controller = JDBCPatientController.getPatientController();
 			List<Bills> bills = controller.getBillsFromPatient(patient);
+
 			ObservableList<Bills> billsFromPatient = FXCollections.observableArrayList();
 			billsFromPatient.addAll(bills);
 			billsTable.getItems().addAll(billsFromPatient);

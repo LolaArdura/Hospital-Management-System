@@ -50,8 +50,8 @@ public class DatabaseTables {
 					"type TEXT NOT NULL,\r\n" + 
 					"startDate DATE NOT NULL,\r\n" + 
 					"endDate DATE NOT NULL, \r\n" +
+					"routeOfAdmin TEXT, \r\n" +
 					"dose TEXT,\r\n" + 
-					"routeOfAdmin TEXT,\r\n" + 
 					"cost REAL NOT NULL,\r\n" + 
 					"bill_id INT REFERENCES bills(id) ON UPDATE CASCADE ON DELETE SET NULL,\r\n" + 
 					"patient_id INT REFERENCES patient(id) ON DELETE CASCADE ON UPDATE CASCADE,\r\n" + 

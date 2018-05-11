@@ -32,8 +32,9 @@ public class xmlTest {
 		Patient p1 = new Patient(2,"Ale", Sex.MALE,"dead", dob, dateAdmission,treatments,nurses,bills,r);
 		//JPAPatientController.getPatientController().insertNoDiagnosePatient(p1);
 		//List<Patient> pt = JPAPatientController.getPatientController().getAllPatients();
-		xmlPatient.marshal(p1, "./xmls/Sample-Patients.xml");
-		//Patient p=xmlPatient.unmarshal("./xmls/Sample-Patients.xml");
-        //System.out.println(p);
+		//xmlPatient.marshal(p1, "./xmls/Sample-Patients.xml");
+		Patient p=xmlPatient.unmarshal("./xmls/Sample-Patients.xml");
+        System.out.println(p);
+        System.out.println(p.getListOfTreatments());
 	}
 }
