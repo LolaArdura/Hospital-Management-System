@@ -21,22 +21,19 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="usernameTextField" alignment="CENTER_RIGHT" layoutX="280.0" layoutY="173.0" promptText="username" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="221.0" />
-      <PasswordField fx:id="passwordTextField" alignment="CENTER_RIGHT" layoutX="280.0" layoutY="229.0" promptText="password" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="221.0" />
-      <Button fx:id="arrowButton" alignment="CENTER" layoutX="361.0" layoutY="289.0" mnemonicParsing="false" onAction="#arrowButtonClicked" prefHeight="51.0" prefWidth="49.0" style="-fx-border-style: none; -fx-border-color: transparent; -fx-background-color: transparent;" textAlignment="CENTER" AnchorPane.rightAnchor="221.0">
-         <graphic>
-            <ImageView fitHeight="52.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/arrow-icon.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+      <TextField fx:id="usernameTextField" alignment="CENTER_RIGHT" layoutX="280.0" layoutY="173.0" prefHeight="25.0" prefWidth="230.0" promptText="username" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="140.0" />
+      <PasswordField fx:id="passwordTextField" alignment="CENTER_RIGHT" layoutX="280.0" layoutY="229.0" prefHeight="25.0" prefWidth="230.0" promptText="password" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="140.0" />
+      <Button fx:id="arrowButton" alignment="CENTER" layoutX="361.0" layoutY="289.0" mnemonicParsing="false" onAction="#arrowButtonClicked" prefHeight="51.0" prefWidth="49.0" style="-fx-border-style: none; -fx-border-color: transparent; -fx-background-color: transparent;" textAlignment="CENTER" AnchorPane.rightAnchor="221.0" />
       <Label fx:id="invalidUserLabel" layoutX="292.0" layoutY="272.0" prefHeight="17.0" prefWidth="137.0" text="Non valid user/ password" textAlignment="CENTER" textFill="#ee0303" underline="true" visible="false" />
-      <Label fx:id="invalidUserLabel" alignment="CENTER_RIGHT" layoutX="325.0" layoutY="264.0" prefHeight="17.0" prefWidth="105.0" text="Invalid user" textFill="#f50606" underline="true" AnchorPane.rightAnchor="221.0">
+      <Label fx:id="invalidUserLabel" alignment="CENTER_RIGHT" layoutX="405.0" layoutY="264.0" prefHeight="17.0" prefWidth="105.0" text="Invalid user" textFill="#f50606" underline="true" AnchorPane.rightAnchor="140.0">
          <font>
             <Font name="Serif Regular" size="13.0" />
          </font>
       </Label>
+      <ImageView fitHeight="52.0" fitWidth="53.0" layoutX="458.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="140.0">
+         <image>
+            <Image url="@../../images/arrow-icon.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -1,7 +1,7 @@
 package gui;
 
 import java.io.IOException;
-
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import jdbcManager.JDBCPatientController;
 import jdbcManager.JDBCUserController;
 import jdbcManager.JDBConnection;
+import model.Patient;
 import model.User;
 import tables.DatabaseTables;
 
@@ -23,11 +24,12 @@ public class TestGUI extends Application {
      public void start (Stage primaryStage) {
     	 
     	 try {
-    		 JDBCPatientController.getPatientController().getAllPatients();
+    		List<User> users= JDBCUserController.getUserController().getAllUsers();
     	 
     		 try {
 				Parent root= FXMLLoader.load(getClass().getResource("LoginScene.fxml"));
                 Scene scene=new Scene(root, 600, 600);
+                scene.getStylesheets().add("guiStyleSheet.css");
 				primaryStage.setScene(scene);
 				primaryStage.show();
 				
@@ -37,6 +39,7 @@ public class TestGUI extends Application {
     		 
     	 }catch(Exception ex) {
     		 try {
+    			DatabaseTables.createTables();
     			User user= new User("admin","hospitalAdmin1",User.userType.ADMIN);
     			JDBCUserController.getUserController().insertUser(user);
     			System.out.println("Admin:"+user);
