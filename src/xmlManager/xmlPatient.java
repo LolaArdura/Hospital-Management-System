@@ -9,6 +9,10 @@ import javax.persistence.Persistence;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import jpaManager.DBEntityManager;
 import model.Patient;
@@ -17,7 +21,8 @@ import jpaManager.*;
 
 public class xmlPatient {
 	
-	public static void marshal (Patient p, String route) throws Exception{
+	
+public static void marshal (Patient p, String route) throws Exception{
 		
 	
 	EntityManager em=DBEntityManager.getEntityManager();
@@ -40,7 +45,8 @@ public class xmlPatient {
 	private static final String PERSISTENCE_PROVIDER = "hospital-management";	
 	private static EntityManagerFactory factory;
 	
-	public static Patient unmarshal (String route) throws Exception {
+	
+public static Patient unmarshal (String route) throws Exception {
 		
 		JAXBContext jaxbContext = JAXBContext.newInstance(Patient.class);
 		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
@@ -62,6 +68,18 @@ public class xmlPatient {
 		
 		return p;
 	}
+
+public static void xml2Html(String sourcePath, String xsltPath, String resultDir) {
+	
+	TransformerFactory tFactory = TransformerFactory.newInstance();
+	try {
+		Transformer transformer = tFactory.newTransformer(new StreamSource(new File(xsltPath)));
+		transformer.transform(new StreamSource(new File(sourcePath)),new StreamResult(new File(resultDir)));
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+}
 	
 	
 	
