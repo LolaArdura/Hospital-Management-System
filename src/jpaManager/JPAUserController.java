@@ -64,4 +64,18 @@ public class JPAUserController implements UserInterface{
 		User u = (User) q1.getSingleResult();
 		return u;
 	}
+	
+	public void deleteUser(User user) throws Exception {
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.remove(user);
+		em.getTransaction().commit();
+	}
+	
+	public void updateUser(User user) throws Exception {
+		EntityManager em=DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		em.flush();
+		em.getTransaction().commit();
+	}
 }
