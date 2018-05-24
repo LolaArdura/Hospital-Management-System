@@ -8,9 +8,7 @@ import jdbcManager.*;
 
 public class DatabaseTables {
 
-	public static void createTables() {
-		try {
-			
+	public static void createTables() throws Exception {
 			Connection c= JDBConnection.getConnection();
 			c.createStatement().execute("PRAGMA foreign_keys=ON");
 			System.out.println("Database connection opened");
@@ -24,7 +22,7 @@ public class DatabaseTables {
 					"schedule TEXT NOT NULL \r\n" + 
 					")";
 			s1.executeUpdate(table1);
-			String sqlSeq1="INSERT INTO sqlite_sequenc(name, seq) VALUES ('doctor',1)";
+			String sqlSeq1="INSERT INTO sqlite_sequence(name, seq) VALUES ('doctor',1)";
 			s1.execute(sqlSeq1);
 			s1.close();
 			
@@ -58,7 +56,7 @@ public class DatabaseTables {
 					"doctor_id INT REFERENCES doctor(id) ON DELETE SET NULL ON UPDATE CASCADE\r\n" + 
 					")";
 			s3.executeUpdate(table3);
-			String sqlSeq3="INSERT INTO sqlite_sequenc(name, seq) VALUES ('treatment',1)";
+			String sqlSeq3="INSERT INTO sqlite_sequence(name, seq) VALUES ('treatment',1)";
 			s1.execute(sqlSeq3);
 			s3.close();
 			
@@ -72,7 +70,7 @@ public class DatabaseTables {
 					"costPerDay REAL\r\n" + 
 					")";
 			s4.executeUpdate(table4);
-			String sqlSeq4="INSERT INTO sqlite_sequenc(name, seq) VALUES ('room',1)";
+			String sqlSeq4="INSERT INTO sqlite_sequence(name, seq) VALUES ('room',1)";
 			s1.execute(sqlSeq4);
 			s4.close();
 			
@@ -85,7 +83,7 @@ public class DatabaseTables {
 					"patient_id INTEGER REFERENCES patient(id) ON UPDATE CASCADE ON DELETE CASCADE\r\n" + 
 					")";
 			s5.executeUpdate(table5);
-			String sqlSeq5="INSERT INTO sqlite_sequenc(name, seq) VALUES ('bills',1)";
+			String sqlSeq5="INSERT INTO sqlite_sequence(name, seq) VALUES ('bills',1)";
 			s1.execute(sqlSeq5);
 			s5.close();
 			
@@ -98,7 +96,7 @@ public class DatabaseTables {
 					"role TEXT NOT NULL\r\n" + 
 					")";
 			s6.executeUpdate(table6);
-			String sqlSeq6="INSERT INTO sqlite_sequenc(name, seq) VALUES ('nurse',1)";
+			String sqlSeq6="INSERT INTO sqlite_sequence(name, seq) VALUES ('nurse',1)";
 			s1.execute(sqlSeq6);
 			s6.close();
 			
@@ -109,7 +107,7 @@ public class DatabaseTables {
 					"PRIMARY KEY(nurse_id, patient_id)\r\n" + 
 					")";
 			s7.executeUpdate(table7);
-			String sqlSeq7="INSERT INTO sqlite_sequenc(name, seq) VALUES ('nurse_patient',1)";
+			String sqlSeq7="INSERT INTO sqlite_sequence(name, seq) VALUES ('nurse_patient',1)";
 			s1.execute(sqlSeq7);
 			s7.close();
 			
@@ -121,14 +119,12 @@ public class DatabaseTables {
 					"type TEXT NOT NULL \r\n" +
 					")";
 			s8.executeUpdate(table8);
-			String sqlSeq8="INSERT INTO sqlite_sequenc(name, seq) VALUES ('user',1)";
+			String sqlSeq8="INSERT INTO sqlite_sequence(name, seq) VALUES ('user',1)";
 			s1.execute(sqlSeq8);
 			s8.close();
 			
 		
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 }

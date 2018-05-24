@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.TextField;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -28,6 +27,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -236,6 +236,7 @@ public class TreatmentsController implements Initializable{
 			startDatePicker.setVisible(false);
 			doseTextField.setVisible(false);
 			addNewButton.setVisible(false);
+			deleteButton.setVisible(false);
 		}
 		
 		setTreatments();

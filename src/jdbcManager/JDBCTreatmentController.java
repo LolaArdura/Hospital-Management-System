@@ -48,6 +48,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1,  treatment.getId());
 		prep.executeUpdate();
+		prep.close();
 		return true;
 	}
 	

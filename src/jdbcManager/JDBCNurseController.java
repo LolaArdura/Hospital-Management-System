@@ -143,6 +143,7 @@ public class JDBCNurseController implements NurseInterface {
 		prep.setString(3, nurse.getRole());
 		prep.setInt(4, nurse.getId());
 		prep.executeUpdate();
+		prep.close();
 	}
 
 	public List<Patient> getPatientsFromNurse(Nurse nurse) throws Exception {

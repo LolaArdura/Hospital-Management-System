@@ -9,8 +9,9 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<GridPane fx:id="patientsViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="407.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PatientsViewPaneController">
+<GridPane fx:id="patientsViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="407.0" prefWidth="600.0" styleClass="background" stylesheets="@guiStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PatientsViewPaneController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="10.0" prefWidth="33.0" />
       <ColumnConstraints hgrow="ALWAYS" maxWidth="500.0" minWidth="10.0" prefWidth="94.0" />
@@ -36,10 +37,13 @@
    </rowConstraints>
    <children>
       <Button fx:id="viewDetailsButton" mnemonicParsing="false" onAction="#viewDetailsClicked" prefHeight="25.0" prefWidth="121.0" text="View details" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
-      <JFXTextField fx:id="floatTextField" alignment="CENTER_RIGHT" focusColor="BLACK" labelFloat="true" onKeyPressed="#textFieldKeyTyped" pickOnBounds="false" prefHeight="25.0" prefWidth="89.0" promptText="Enter name" GridPane.columnIndex="5" GridPane.rowIndex="2">
+      <JFXTextField fx:id="floatTextField" alignment="CENTER_RIGHT" focusColor="#00b3b3" labelFloat="true" onKeyPressed="#textFieldKeyTyped" pickOnBounds="false" prefHeight="25.0" prefWidth="89.0" promptText="Enter name" unFocusColor="#00cccc" GridPane.columnIndex="5" GridPane.rowIndex="2">
          <GridPane.margin>
-            <Insets left="5.0" />
+            <Insets bottom="5.0" left="5.0" />
          </GridPane.margin>
+         <font>
+            <Font name="Serif Regular" size="13.0" />
+         </font>
       </JFXTextField>
       <TableView fx:id="patientsTable" prefHeight="313.0" prefWidth="420.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="4" GridPane.rowSpan="3">
          <columns>

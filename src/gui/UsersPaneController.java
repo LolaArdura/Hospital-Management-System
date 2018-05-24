@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -28,7 +30,7 @@ import model.User.userType;
 public class UsersPaneController implements Initializable {
 
 	@FXML
-	private GridPane nursesPane;
+	private GridPane usersPane;
 
 	@FXML
 	private TextField usernameTextField;
@@ -150,6 +152,32 @@ public class UsersPaneController implements Initializable {
 			ex.printStackTrace();
 		}
 
+	}
+	
+	public void deleteButtonClicked(ActionEvent e) {
+
+		User user=usersTable.getSelectionModel().getSelectedItem();
+    	if(user!=null) {
+    	Alert a = new Alert(AlertType.CONFIRMATION, "Do you want to delete this user?",
+				new ButtonType("Yes", ButtonBar.ButtonData.YES), ButtonType.NO);
+		a.setTitle("Delete");
+		a.setHeaderText("Delete user");
+		String confirmation = a.showAndWait().get().getText();
+		if (confirmation.equals("Yes")) {
+			try {
+				UserInterface userController = JDBCUserController.getUserController();
+				userController.deleteUser(user);
+				setUsers();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+    	}
+    	else {
+    		Alert a = new Alert(AlertType.WARNING);
+    		a.setHeaderText("No user selected");
+    		a.showAndWait();
+    	}
 	}
 
 	@Override

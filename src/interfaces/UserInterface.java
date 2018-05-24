@@ -10,5 +10,6 @@ public interface UserInterface {
 	public void insertUser(User user) throws Exception;
 	public List<User> searchUserByType(User.userType usertype) throws Exception;
 	public User validateUser(User user) throws Exception;
-
+	public void deleteUser(User user) throws Exception;
+	public void updateUser(User user) throws Exception;
 }

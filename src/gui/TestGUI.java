@@ -1,12 +1,18 @@
 package gui;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import jdbcManager.JDBCPatientController;
 import jdbcManager.JDBCUserController;
@@ -22,15 +28,31 @@ public class TestGUI extends Application {
 	}
      
      public void start (Stage primaryStage) {
+    	 primaryStage.setOnCloseRequest(e ->{
+    		 e.consume();
+    		 close(primaryStage);
+    	 });
     	 
     	 try {
     		List<User> users= JDBCUserController.getUserController().getAllUsers();
+    		
+    		if(users.isEmpty()) {
+    			User user= new User("admin","hospitalAdmin1",User.userType.ADMIN);
+    			JDBCUserController.getUserController().insertUser(user);
+    			
+    			Alert a= new Alert(AlertType.INFORMATION);
+    			a.setTitle("No users registered");
+    			a.setHeaderText("Default admin user created");
+    			a.setContentText("Username: admin\nPassword:hospitalAdmin1");
+    			a.showAndWait();
+    		}
     	 
     		 try {
 				Parent root= FXMLLoader.load(getClass().getResource("LoginScene.fxml"));
-                Scene scene=new Scene(root, 600, 600);
-                scene.getStylesheets().add("guiStyleSheet.css");
+                Scene scene=new Scene(root, 600, 400);
 				primaryStage.setScene(scene);
+				primaryStage.setResizable(false);
+				primaryStage.centerOnScreen();
 				primaryStage.show();
 				
 			} catch (IOException e) {
@@ -42,10 +64,16 @@ public class TestGUI extends Application {
     			DatabaseTables.createTables();
     			User user= new User("admin","hospitalAdmin1",User.userType.ADMIN);
     			JDBCUserController.getUserController().insertUser(user);
-    			System.out.println("Admin:"+user);
+    			Alert a= new Alert(AlertType.INFORMATION);
+    			a.setTitle("No users registered");
+    			a.setHeaderText("Default admin user created");
+    			a.setContentText("Username: admin\nPassword:hospitalAdmin1");
+    			a.showAndWait();
  				Parent root= FXMLLoader.load(getClass().getResource("LoginScene.fxml"));
-                Scene scene=new Scene(root, 600, 600);
+                Scene scene=new Scene(root, 600, 400);
  				primaryStage.setScene(scene);
+ 				primaryStage.setResizable(false);
+ 				primaryStage.centerOnScreen();
  				primaryStage.show();
  				
  			} catch (IOException e) {
@@ -54,5 +82,22 @@ public class TestGUI extends Application {
 				e.printStackTrace();
 			}
     	 }
+     }
+     
+     public void close(Stage primaryStage) {
+    	 Alert a= new Alert(AlertType.CONFIRMATION,"Do you want to exit?",
+ 				new ButtonType("Yes", ButtonBar.ButtonData.YES), ButtonType.NO);
+    	a.setTitle("Exit");
+    	String confirmation = a.showAndWait().get().getText();
+ 		if (confirmation.equals("Yes")) {
+ 			try {
+				JDBConnection.getConnection().close();
+				primaryStage.close();
+			} catch (Exception e) {
+				 Alert alert= new Alert(AlertType.ERROR);
+				 alert.setHeaderText("Could not exit");
+				 alert.showAndWait();
+			}
+ 		}
      }
 }

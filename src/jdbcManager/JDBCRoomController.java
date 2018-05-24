@@ -148,7 +148,7 @@ public class JDBCRoomController implements RoomInterface {
 
 	public List<Room> getFreeRooms() throws Exception {
 		Statement stmt=JDBConnection.getConnection().createStatement();
-		String sql= "SELECT room.id,number,floor,type,capacity,costPerDay,COUNT(patient.id) FROM room JOIN patient ON "
+		String sql= "SELECT room.id,number,floor,type,capacity,costPerDay,COUNT(patient.id) FROM room LEFT JOIN patient ON "
 				+ "room.id=patient.room_id GROUP BY room.id "
 				+ "HAVING COUNT(patient.id) < capacity";
 		ResultSet rs=stmt.executeQuery(sql);
