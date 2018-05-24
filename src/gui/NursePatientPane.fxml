@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="patientNursePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NursePatientController">
+<GridPane fx:id="patientNursePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="612.0" styleClass="background" stylesheets="@guiStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NursePatientController">
   <columnConstraints>
       <ColumnConstraints hgrow="NEVER" maxWidth="113.0" minWidth="0.0" prefWidth="15.0" />
     <ColumnConstraints hgrow="ALWAYS" maxWidth="600.0" minWidth="10.0" prefWidth="249.0" />
@@ -19,9 +20,9 @@
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="51.0" minHeight="0.0" prefHeight="27.0" vgrow="NEVER" />
-    <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="133.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="177.0" minHeight="0.0" prefHeight="33.0" vgrow="NEVER" />
-      <RowConstraints maxHeight="227.0" minHeight="5.0" prefHeight="35.0" vgrow="NEVER" />
+    <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="133.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="227.0" minHeight="0.0" prefHeight="33.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="227.0" minHeight="5.0" prefHeight="33.0" vgrow="NEVER" />
     <RowConstraints maxHeight="400.0" minHeight="0.0" prefHeight="138.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="175.0" minHeight="10.0" prefHeight="37.0" vgrow="NEVER" />
   </rowConstraints>
@@ -34,7 +35,7 @@
          <graphic>
             <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/assignArrow.png" />
+                  <Image url="@../../images/assignArrow.png" />
                </image>
             </ImageView>
          </graphic>
@@ -43,11 +44,14 @@
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/removeArrow.png" />
+                  <Image url="@../../images/removeArrow.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
       <Button fx:id="okButton" mnemonicParsing="false" onAction="#okButtonClicked" prefHeight="25.0" prefWidth="69.0" text="OK" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
    </children>
+   <padding>
+      <Insets bottom="30.0" left="5.0" right="5.0" top="25.0" />
+   </padding>
 </GridPane>

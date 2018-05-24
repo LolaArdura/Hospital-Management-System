@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="detailsPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PatientDetailsController">
+<GridPane fx:id="detailsPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@guiStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PatientDetailsController">
   <columnConstraints>
     <ColumnConstraints hgrow="NEVER" maxWidth="36.0" minWidth="5.0" prefWidth="36.0" />
     <ColumnConstraints hgrow="NEVER" maxWidth="150.0" minWidth="10.0" prefWidth="93.0" />
@@ -43,23 +43,21 @@
       <Label fx:id="nameLabel" contentDisplay="CENTER" prefHeight="27.0" prefWidth="102.0" text="Name" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
       <Label fx:id="birthLabel" prefHeight="27.0" prefWidth="102.0" text="Date of Birth" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
       <Label fx:id="sexLabel" prefHeight="27.0" prefWidth="102.0" text="Sex" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-      <TextField fx:id="nameTextField" prefHeight="11.0" prefWidth="154.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <TextField fx:id="nameTextField" prefHeight="11.0" prefWidth="154.0" styleClass="textfield" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <Button fx:id="okButton" mnemonicParsing="false" onAction="#okButtonClicked" prefHeight="25.0" prefWidth="49.0" text="OK" GridPane.columnIndex="7" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
       <DatePicker fx:id="admissionDate" GridPane.columnIndex="7" GridPane.rowIndex="1" />
       <Label fx:id="admissionLabel" prefHeight="27.0" prefWidth="102.0" text="Admission Date" GridPane.columnIndex="5" GridPane.rowIndex="1" />
       <Label fx:id="roomLabel" prefHeight="17.0" prefWidth="89.0" text="Room #" GridPane.columnIndex="5" GridPane.rowIndex="2" />
       <ComboBox fx:id="roomBox" prefWidth="150.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
-      <Button fx:id="dischargeButton" mnemonicParsing="false" onAction="#dischargeButtonClicked" prefHeight="25.0" prefWidth="79.0" text="Discharge" GridPane.columnIndex="7" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+      <Button fx:id="dischargeButton" mnemonicParsing="false" onAction="#dischargeButtonClicked" prefHeight="25.0" prefWidth="79.0" styleClass="small-button" text="Discharge" GridPane.columnIndex="7" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
          <GridPane.margin>
             <Insets right="50.0" />
          </GridPane.margin>
       </Button>
-      <GridPane fx:id="medicalInfoPane" GridPane.columnIndex="2" GridPane.columnSpan="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.rowSpan="3">
+      <GridPane fx:id="medicalInfoPane" hgap="5.0" GridPane.columnIndex="2" GridPane.columnSpan="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.rowSpan="3">
         <columnConstraints>
-          <ColumnConstraints hgrow="ALWAYS" maxWidth="500.0" minWidth="10.0" prefWidth="104.0" />
-          <ColumnConstraints hgrow="NEVER" maxWidth="52.0" minWidth="4.0" prefWidth="10.0" />
-            <ColumnConstraints />
-            <ColumnConstraints hgrow="ALWAYS" maxWidth="500.0" minWidth="154.0" prefWidth="202.0" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="500.0" minWidth="10.0" prefWidth="144.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="500.0" minWidth="150.0" prefWidth="150.0" />
             <ColumnConstraints hgrow="NEVER" maxWidth="24.0" minWidth="10.0" prefWidth="24.0" />
         </columnConstraints>
         <rowConstraints>
@@ -68,12 +66,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="medicalConditionLabel" prefHeight="27.0" prefWidth="100.0" text="Medical condition" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
-            <TextArea fx:id="medicalConditionArea" prefHeight="105.0" prefWidth="172.0" GridPane.columnIndex="3" />
-            <Label fx:id="treatmentLabel" prefHeight="17.0" prefWidth="100.0" text="Treatments" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <Button fx:id="treatmentButton" mnemonicParsing="false" onAction="#treatmentsButtonClicked" prefHeight="25.0" prefWidth="113.0" text="View treatments" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Label fx:id="billsLabel" prefHeight="17.0" prefWidth="98.0" text="Bills" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <Button fx:id="billsButton" mnemonicParsing="false" onAction="#billsButtonClicked" prefHeight="25.0" prefWidth="113.0" text="Billing report" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label fx:id="medicalConditionLabel" prefHeight="27.0" prefWidth="106.0" text="Medical condition" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
+            <TextArea fx:id="medicalConditionArea" prefHeight="105.0" prefWidth="172.0" styleClass="textfield" GridPane.columnIndex="1" />
+            <Label fx:id="treatmentLabel" prefHeight="17.0" prefWidth="106.0" text="Treatments" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <Button fx:id="treatmentButton" mnemonicParsing="false" onAction="#treatmentsButtonClicked" prefHeight="25.0" prefWidth="113.0" styleClass="small-button" text="View treatments" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label fx:id="billsLabel" prefHeight="17.0" prefWidth="106.0" text="Bills" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <Button fx:id="billsButton" mnemonicParsing="false" onAction="#billsButtonClicked" prefHeight="25.0" prefWidth="113.0" styleClass="small-button" text="Billing report" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <ToolBar fx:id="buttonsToolBar" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
@@ -88,11 +86,11 @@
       </ToolBar>
       <HBox prefHeight="24.0" prefWidth="149.0" spacing="2.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
          <children>
-            <TextField fx:id="dayTextField" prefHeight="25.0" prefWidth="41.0" promptText="dd" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="dayTextField" prefHeight="25.0" prefWidth="41.0" promptText="dd" styleClass="textfield" HBox.hgrow="ALWAYS" />
             <Label text="/" />
-            <TextField fx:id="monthTextField" prefHeight="25.0" prefWidth="42.0" promptText="mm" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="monthTextField" prefHeight="25.0" prefWidth="42.0" promptText="mm" styleClass="textfield" HBox.hgrow="ALWAYS" />
             <Label text=" /" />
-            <TextField fx:id="yearTextField" prefWidth="60.0" promptText="yyyy" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="yearTextField" prefWidth="60.0" promptText="yyyy" styleClass="textfield" HBox.hgrow="ALWAYS" />
          </children>
          <GridPane.margin>
             <Insets top="2.0" />

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="nursesPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.RoomManagementController">
+<GridPane fx:id="nursesPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="656.0" styleClass="background" stylesheets="@guiStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.RoomManagementController">
    <columnConstraints>
       <ColumnConstraints hgrow="NEVER" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
       <ColumnConstraints hgrow="ALWAYS" maxWidth="500.0" minWidth="10.0" prefWidth="115.0" />
@@ -36,10 +37,10 @@
       <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="13.0" vgrow="NEVER" />
    </rowConstraints>
    <children>
-      <TextField fx:id="numberTextField" prefHeight="25.0" prefWidth="119.0" promptText="Insert  number" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <TextField fx:id="floorTextField" prefHeight="25.0" prefWidth="130.0" promptText="Insert floor" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-      <Button fx:id="addButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#addNewButtonClicked" prefHeight="25.0" prefWidth="114.0" text="Add new" GridPane.columnIndex="5" GridPane.rowIndex="8" />
-      <ComboBox fx:id="searchBox" onAction="#searchBoxActionPerformed" prefWidth="150.0" promptText="Room type" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+      <TextField fx:id="numberTextField" prefHeight="25.0" prefWidth="119.0" promptText="Insert  number" styleClass="textfield" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <TextField fx:id="floorTextField" prefHeight="25.0" prefWidth="130.0" promptText="Insert floor" styleClass="textfield" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Button fx:id="addButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#addNewButtonClicked" prefHeight="25.0" prefWidth="114.0" text="Add new" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowIndex="7" />
+      <ComboBox fx:id="searchBox" maxWidth="600.0" onAction="#searchBoxActionPerformed" prefWidth="150.0" promptText="Room type" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
       <TableView fx:id="roomsTable" prefHeight="236.0" prefWidth="242.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
          <columns>
             <TableColumn fx:id="numberColumn" editable="false" prefWidth="185.0" text="Number" />
@@ -52,9 +53,18 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <ChoiceBox fx:id="roomTypeBox" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-      <Label fx:id="searchLabel" alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="94.0" text="Search by:" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
-      <TextField fx:id="capacityTextField" promptText="Insert capacity" GridPane.columnIndex="4" GridPane.rowIndex="7" />
-      <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonClicked" prefHeight="25.0" prefWidth="118.0" text="Delete" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+      <ChoiceBox fx:id="roomTypeBox" maxWidth="600.0" prefWidth="150.0" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" />
+      <Label fx:id="searchLabel" alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="94.0" text="Search by:" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="3.0" />
+         </GridPane.margin></Label>
+      <TextField fx:id="capacityTextField" promptText="Insert capacity" styleClass="textfield" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+      <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonClicked" prefHeight="25.0" prefWidth="118.0" text="Delete" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets top="2.0" />
+         </GridPane.margin></Button>
    </children>
+   <padding>
+      <Insets bottom="25.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
 </GridPane>

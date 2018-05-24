@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import interfaces.RoomInterface;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -78,45 +80,44 @@ public class RoomManagementController implements Initializable {
 
 	@FXML
 	void addNewButtonClicked(ActionEvent event) {
-
-		String reading = numberTextField.getText();
-		Alert alert = new Alert(AlertType.ERROR);
-		if (reading.trim().equals("")) {
-			alert.setTitle("ERROR");
-			alert.setHeaderText("No number");
-			alert.setContentText("A number needs to be specified for the new room");
-			alert.showAndWait();
-			numberTextField.requestFocus();
-		} else {
-			Integer roomNumber = Integer.parseInt(reading);
-			reading = floorTextField.getText();
+		try {
+			String reading = numberTextField.getText();
+			Alert alert = new Alert(AlertType.ERROR);
 			if (reading.trim().equals("")) {
 				alert.setTitle("ERROR");
-				alert.setHeaderText("No floor");
-				alert.setContentText("A floor needs to be specified for the new room");
+				alert.setHeaderText("No number");
+				alert.setContentText("A number needs to be specified for the new room");
 				alert.showAndWait();
-				floorTextField.requestFocus();
+				numberTextField.requestFocus();
 			} else {
-				Integer floor = Integer.parseInt(reading);
-				reading = capacityTextField.getText();
+				Integer roomNumber = Integer.parseInt(reading);
+				reading = floorTextField.getText();
 				if (reading.trim().equals("")) {
 					alert.setTitle("ERROR");
-					alert.setHeaderText("No capacity");
-					alert.setContentText("A capacity needs to be specified for the new room");
+					alert.setHeaderText("No floor");
+					alert.setContentText("A floor needs to be specified for the new room");
 					alert.showAndWait();
 					floorTextField.requestFocus();
 				} else {
-					Integer capacity = Integer.parseInt(reading);
-					reading = roomTypeBox.getSelectionModel().getSelectedItem();
-					if (reading == null) {
+					Integer floor = Integer.parseInt(reading);
+					reading = capacityTextField.getText();
+					if (reading.trim().equals("")) {
 						alert.setTitle("ERROR");
-						alert.setHeaderText("No room type");
-						alert.setContentText("A room type needs to be specified for the new room");
+						alert.setHeaderText("No capacity");
+						alert.setContentText("A capacity needs to be specified for the new room");
 						alert.showAndWait();
+						floorTextField.requestFocus();
 					} else {
-						Room room = null;
-						TextInputDialog costDialog = new TextInputDialog("");
-						try {
+						Integer capacity = Integer.parseInt(reading);
+						reading = roomTypeBox.getSelectionModel().getSelectedItem();
+						if (reading == null) {
+							alert.setTitle("ERROR");
+							alert.setHeaderText("No room type");
+							alert.setContentText("A room type needs to be specified for the new room");
+							alert.showAndWait();
+						} else {
+							Room room = null;
+							TextInputDialog costDialog = new TextInputDialog("");
 							if (reading.equals("Suite")) {
 								Float cost = JDBCRoomController.getRoomController().searchCost(Room.roomType.SUITE);
 								if (cost < 0) {
@@ -236,13 +237,25 @@ public class RoomManagementController implements Initializable {
 								JDBCRoomController.getRoomController().insertRoom(room);
 								setRooms();
 							}
-						} catch (Exception ex) {
-							ex.printStackTrace();
 						}
 					}
 				}
 			}
+
+		} catch (NumberFormatException ex) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setHeaderText("All the fields must be numbers");
+			alert.showAndWait();
+
+		} catch (Exception ex) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setHeaderText("This room number already exists");
+			alert.showAndWait();
+
 		}
+
 	}
 
 	@FXML
@@ -307,6 +320,7 @@ public class RoomManagementController implements Initializable {
 		costColumn.setCellValueFactory(new PropertyValueFactory<Room, Float>("costPerDay"));
 		roomTypeBox.getItems().addAll("Double", "Suite", "Individual", "Box", "ICU");
 		searchBox.getItems().addAll("Double", "Suite", "Individual", "Box", "ICU");
+
 		setRooms();
 	}
 

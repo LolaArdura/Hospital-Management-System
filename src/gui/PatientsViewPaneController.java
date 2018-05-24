@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXTextField;
 
 import gui.PatientDetailsController.paneType;
+import interfaces.NurseInterface;
 import interfaces.PatientInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,13 +26,20 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import jdbcManager.JDBCNurseController;
 import jdbcManager.JDBCPatientController;
+import model.Doctor;
+import model.Nurse;
 import model.Patient;
 import model.User;
 
 public class PatientsViewPaneController implements Initializable {
 	
 	private User.userType permission;
+	
+	private Doctor doctor;
+	
+	private Nurse nurse;
 
 	private Pane mainPane;
 
@@ -69,7 +77,7 @@ public class PatientsViewPaneController implements Initializable {
 				detailsPane.prefWidthProperty().bind(mainPane.widthProperty());
 
 				PatientDetailsController controller = loader.<PatientDetailsController>getController();
-				controller.initComponents(patient, mainPane, PatientDetailsController.paneType.valueOf(permission.name()));
+				controller.initComponents(patient, mainPane, PatientDetailsController.paneType.valueOf(permission.name()),doctor,nurse);
 			} else {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("No selected");
@@ -110,7 +118,15 @@ public class PatientsViewPaneController implements Initializable {
 	private ObservableList<Patient> setPatients() {
 		ObservableList<Patient> patients = FXCollections.observableArrayList();
 		if(permission.equals(User.userType.NURSE)) {
+			try {
+			NurseInterface nurseController=JDBCNurseController.getNurseController();
+			patients.addAll(nurseController.getPatientsFromNurse(nurse));
 			return patients;
+			}catch(Exception ex) {
+				ex.printStackTrace();
+				patients.clear();
+				return patients;
+			}
 		}
 		else {
 		
@@ -127,10 +143,12 @@ public class PatientsViewPaneController implements Initializable {
 	  }
 	}
 
-	public void initComponents(Pane mainPane, User.userType permission) {
+	public void initComponents(Pane mainPane, User.userType permission, Doctor doctor, Nurse nurse) {
 		this.mainPane = mainPane;
 		this.permission=permission;
 		patientsTable.setItems(setPatients());
+		this.doctor=doctor;
+		this.nurse=nurse;
 	}
 	
 	private void setPatients(List<Patient> patients) {

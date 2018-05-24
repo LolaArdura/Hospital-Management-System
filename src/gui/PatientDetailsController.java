@@ -27,6 +27,8 @@ import javafx.scene.layout.Priority;
 import javafx.util.Callback;
 import jdbcManager.JDBCPatientController;
 import jdbcManager.JDBCRoomController;
+import model.Doctor;
+import model.Nurse;
 import model.Patient;
 import model.Room;
 import model.Sex;
@@ -37,6 +39,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -49,6 +52,9 @@ public class PatientDetailsController implements Initializable {
 	}
 
 	private paneType permission;
+	
+	private Doctor doctor;
+	private Nurse nurse;
 
 	@FXML
 	private Pane mainPane;
@@ -142,8 +148,11 @@ public class PatientDetailsController implements Initializable {
 				GridPane billsPane=(GridPane) loader.load();
 				mainPane.getChildren().clear();
 				mainPane.getChildren().add(billsPane);
-			    billsPane.prefHeightProperty().bind(mainPane.widthProperty());
+			    billsPane.prefHeightProperty().bind(mainPane.heightProperty());
 			    billsPane.prefWidthProperty().bind(mainPane.widthProperty());
+			    
+			    BillsReportController controller=loader.<BillsReportController>getController();
+			    controller.initComponents(patient, mainPane, User.userType.valueOf(permission.name()), true);
 				
 			}catch(Exception ex) {
 				ex.printStackTrace();
@@ -173,6 +182,11 @@ public class PatientDetailsController implements Initializable {
 			GridPane billsPane=(GridPane) loader.load();
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(billsPane);
+		    billsPane.prefHeightProperty().bind(mainPane.heightProperty());
+		    billsPane.prefWidthProperty().bind(mainPane.widthProperty());
+		    
+		    BillsReportController controller=loader.<BillsReportController>getController();
+		    controller.initComponents(patient, mainPane, User.userType.valueOf(permission.name()), false);
 			
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -182,7 +196,24 @@ public class PatientDetailsController implements Initializable {
 	
 	@FXML
 	public void treatmentsButtonClicked(ActionEvent e) {
-		
+		try {
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("TreatmentsPane.fxml"));
+		GridPane treatmentsPane=(GridPane) loader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(treatmentsPane);
+	    treatmentsPane.prefHeightProperty().bind(mainPane.heightProperty());
+	    treatmentsPane.prefWidthProperty().bind(mainPane.widthProperty());
+	    
+	    TreatmentsController controller=loader.<TreatmentsController>getController();
+	    if(permission.equals(PatientDetailsController.paneType.DOCTOR)) {
+	    	controller.initComponents(patient,mainPane,doctor,permission);
+	    }
+	    else {
+	    controller.initComponents(patient, mainPane,null, permission);
+	    }
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -235,12 +266,15 @@ public class PatientDetailsController implements Initializable {
 
 	}
 
-	public void initComponents(Patient patient, Pane mainPane, paneType permission) {
+	public void initComponents(Patient patient, Pane mainPane, paneType permission, Doctor doctor, Nurse nurse) {
+		this.doctor=doctor;
+		this.nurse=nurse;
         this.mainPane=mainPane;
 		this.permission = permission;
 		this.patient = patient;
 		
 		if (permission.equals(paneType.NEW_PATIENT)) {
+			dischargeButton.setVisible(false);
 			treatmentLabel.setVisible(false);
 			treatmentButton.setVisible(false);
 			billsLabel.setVisible(false);
@@ -309,85 +343,7 @@ public class PatientDetailsController implements Initializable {
 			}
 		});
 
-		nameTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
-				if (!newValue) {
-					if (nameTextField.getText().trim().equals("")) {
-						Alert a = new Alert(AlertType.ERROR);
-						a.setTitle("ERROR");
-						a.setContentText("A name needs to be specified");
-						a.showAndWait();
-						nameTextField.requestFocus();
-					}
-				}
-			}
-
-		});
-
-		dayTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
-				if (!newValue) {
-					if (!dayTextField.getText().trim().equals("")) {
-						try {
-							Integer.parseInt(dayTextField.getText());
-
-						} catch (NumberFormatException ex) {
-							Alert a = new Alert(AlertType.ERROR);
-							a.setTitle("ERROR");
-							a.setContentText("This field needs to be a number");
-							a.showAndWait();
-							dayTextField.requestFocus();
-						}
-					}
-				}
-			}
-		});
-
-		monthTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
-				if (!newValue) {
-					if (!monthTextField.getText().trim().equals("")) {
-						try {
-							Integer.parseInt(monthTextField.getText());
-
-						} catch (NumberFormatException ex) {
-							Alert a = new Alert(AlertType.ERROR);
-							a.setTitle("ERROR");
-							a.setContentText("This field needs to be a number");
-							a.showAndWait();
-							monthTextField.requestFocus();
-						}
-					}
-				}
-			}
-		});
-
-		yearTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
-				if (!newValue) {
-					if (!yearTextField.getText().trim().equals("")) {
-						try {
-							Integer.parseInt(yearTextField.getText());
-
-						} catch (NumberFormatException ex) {
-							Alert a = new Alert(AlertType.ERROR);
-							a.setTitle("ERROR");
-							a.setContentText("This field needs to be a number");
-							a.showAndWait();
-							yearTextField.requestFocus();
-						}
-					}
-				}
-			}
-		});
+		
 
 	}
 
@@ -395,21 +351,14 @@ public class PatientDetailsController implements Initializable {
 
 		try {
 			RoomInterface controller = JDBCRoomController.getRoomController();
-			List<Room> freeRooms = controller.getAllRooms();
-			freeRooms.removeAll(controller.getOccupiedRooms());
+			List<Room> freeRooms=controller.getFreeRooms();
 			roomBox.getItems().clear();
 			roomBox.getItems().addAll(freeRooms);
 		} catch (Exception ex) {
-			try {
-			RoomInterface controller = JDBCRoomController.getRoomController();
-			List<Room> freeRooms = controller.getAllRooms();
-			roomBox.getItems().clear();
-			roomBox.getItems().addAll(freeRooms);
-			}catch(Exception e) {
 				ex.printStackTrace();
 			}
 		}
-	}
+	
 
 	
 	private void changePane() {
@@ -427,7 +376,7 @@ public class PatientDetailsController implements Initializable {
 				patientsViewPane.prefWidthProperty().bind(mainPane.widthProperty());
 
 				PatientsViewPaneController controller = loader.<PatientsViewPaneController>getController();
-				controller.initComponents(mainPane,User.userType.valueOf(permission.name()));
+				controller.initComponents(mainPane,User.userType.valueOf(permission.name()),doctor,nurse);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -437,10 +386,19 @@ public class PatientDetailsController implements Initializable {
 	
 
 	private Patient getPatient() {
+		try {
 		String name = nameTextField.getText();
+		if (nameTextField.getText().trim().equals("")) {
+			Alert a = new Alert(AlertType.ERROR);
+			a.setTitle("ERROR");
+			a.setContentText("A name needs to be specified");
+			a.showAndWait();
+			nameTextField.requestFocus();
+		}
+		else {
 		Date dob = Date.valueOf(
 				LocalDate.parse(dayTextField.getText()+"-" + monthTextField.getText() + "-" + yearTextField.getText(), 
-						DateTimeFormatter.ofPattern("d-MM-yyyy")));
+						DateTimeFormatter.ofPattern("dd-MM-yyyy")));
 		Sex sex;
 		if (!maleButton.isSelected() && !femaleButton.isSelected()) {
 			Alert a = new Alert(AlertType.ERROR);
@@ -452,12 +410,13 @@ public class PatientDetailsController implements Initializable {
 			} else {
 				sex = Sex.MALE;
 			}
-			Date admission = Date.valueOf(admissionDate.getValue());
-			if (admission == null) {
+			LocalDate admissionDate = this.admissionDate.getValue();
+			if (admissionDate == null) {
 				Alert a = new Alert(AlertType.ERROR);
 				a.setContentText("No admission date defined for the patient");
 				a.showAndWait();
 			} else {
+				Date admission=Date.valueOf(admissionDate);
 				Room room = roomBox.getSelectionModel().getSelectedItem();
 				if (room == null) {
 					Alert a = new Alert(AlertType.ERROR);
@@ -471,8 +430,26 @@ public class PatientDetailsController implements Initializable {
 			}
 
 		}
+		}
 		Patient p = null;
-		return p;
+	    return p;
+		}catch(NumberFormatException ex) {
+				Alert a = new Alert(AlertType.ERROR);
+				a.setTitle("ERROR");
+				a.setContentText("Dat, year and month should be expressed as numbers");
+				a.showAndWait();
+				Patient p = null;
+			    return p;
+			}catch( DateTimeParseException ex) {
+				Alert a = new Alert(AlertType.ERROR);
+				a.setTitle("ERROR");
+				a.setContentText("Day, year and month should be expressed as numbers following:\n"
+						+ "(dd/mm/yyyy");
+				a.showAndWait();
+				Patient p = null;
+			    return p;
+			}
+		}
 
 	}
-}
+

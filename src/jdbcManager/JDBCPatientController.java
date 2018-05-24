@@ -123,8 +123,8 @@ public class JDBCPatientController implements PatientInterface{
 		String sql= "SELECT * FROM bills WHERE patient_id = ? ";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, patient.getId());
-		ResultSet rs = prep.executeQuery();
 		List<Bills> billsList = new LinkedList<Bills>();
+		ResultSet rs = prep.executeQuery();
 		while(rs.next()) {
 			int id =rs.getInt("id");
 			float totalCost = rs.getFloat("totalcost");
@@ -135,15 +135,15 @@ public class JDBCPatientController implements PatientInterface{
 					
 		}
 		prep.close();
-		sql="SELECT bills.id, totalCost,bankID,paid FROM bills JOIN treatment ON bill.id=treatment.bill_id"
+		sql="SELECT bills.id, bills.cost,bankID,paid FROM bills JOIN treatment ON bills.id=treatment.bill_id "
 				+ "WHERE treatment.patient_id=?";
 		PreparedStatement p=JDBConnection.getConnection().prepareStatement(sql);
 		p.setInt(1, patient.getId());
-		ResultSet rs2 = prep.executeQuery();
+		ResultSet rs2 = p.executeQuery();
 		while(rs2.next()) {
-			int id =rs2.getInt("bills.id");
-			float totalCost = rs2.getFloat("totalcost");
-			String bankId =rs2.getString("bankId");
+			int id =rs2.getInt(1);
+			float totalCost = rs2.getFloat(2);
+			String bankId =rs2.getString("bankID");
 			boolean paid = rs2.getBoolean("paid");
 			Bills searchBill = new Bills (id, totalCost,bankId, paid);
 			billsList.add(searchBill);		

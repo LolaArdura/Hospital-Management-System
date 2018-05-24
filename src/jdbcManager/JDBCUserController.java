@@ -87,4 +87,40 @@ public class JDBCUserController implements UserInterface{
 		return users;
 	}
 
+	@Override
+	public User validateUser(User user) throws Exception {
+		String sql="SELECT id,type FROM user WHERE username = ? and password = ?";
+		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1, user.getUsername());
+		prep.setString(2,user.getPassword());
+		ResultSet rs= prep.executeQuery();
+		if(rs.next()) {
+			 user.setId(rs.getInt("id"));
+			 user.setTypeOfUser(User.userType.valueOf(rs.getString("type").toUpperCase()));
+		}
+		prep.close();
+		return user;
+	}
+
+	@Override
+	public void deleteUser(User user) throws Exception {
+		String sql = "DELETE FROM user WHERE id=?";
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1,  user.getId());
+		prep.executeUpdate();
+		prep.close();
+	}
+
+	@Override
+	public void updateUser(User user) throws Exception {
+		String sql = "UPDATE user SET username=?, password=? WHERE id=?";
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1, user.getUsername());
+		prep.setString(2, user.getPassword());
+		prep.setInt(3, user.getId());
+
+		prep.executeUpdate();
+		prep.close();
+	}
+
 }

@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import model.User;
 
 public class AdminMainSceneController {
+	private User user;
 
 	@FXML
 	private BorderPane adminPane;
@@ -85,7 +86,7 @@ public class AdminMainSceneController {
 			patientsPane.prefWidthProperty().bind(mainPane.widthProperty());
 
 			PatientsViewPaneController controller = loader.<PatientsViewPaneController>getController();
-			controller.initComponents(mainPane,User.userType.ADMIN);
+			controller.initComponents(mainPane, User.userType.ADMIN, null, null);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -182,6 +183,31 @@ public class AdminMainSceneController {
 			ex.printStackTrace();
 		}
 
+	}
+
+	public void initComponents(User user) {
+		this.user = user;
+	}
+
+	@FXML
+	void signOutClicked(ActionEvent event) {
+
+	}
+
+	@FXML
+	void myProfileClicked(ActionEvent event) {
+		try {
+		FXMLLoader loader= new FXMLLoader(getClass().getResource("myProfilePane.fxml"));
+		GridPane profilePane=(GridPane) loader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(profilePane);
+		mainPane.prefHeightProperty().bind(mainPane.heightProperty());
+		mainPane.prefWidthProperty().bind(mainPane.widthProperty());
+		//Load the controller of myProfilePane
+		
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 }
