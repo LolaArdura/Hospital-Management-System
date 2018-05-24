@@ -67,7 +67,7 @@ public class LoginSceneController implements Initializable {
 
 					Stage stage = (Stage) (loginScene.getScene().getWindow()); // (Node)
 																				// event.getResource()).getScene().getWindow();
-					Scene scene = new Scene(adminScene, 600,600);
+					Scene scene = new Scene(adminScene, 700,550);
 					stage.setScene(scene);
 					stage.setResizable(true);
 					stage.centerOnScreen();
@@ -82,7 +82,7 @@ public class LoginSceneController implements Initializable {
 						Stage stage = (Stage) loginScene.getScene().getWindow();
 						stage.setResizable(true);
 						stage.centerOnScreen();
-						Scene scene = new Scene(receptionistScene, 700,600);
+						Scene scene = new Scene(receptionistScene, 700,550);
 						stage.setScene(scene);
 					} else {
 						if (permission.equals(User.userType.DOCTOR)) {
@@ -105,7 +105,7 @@ public class LoginSceneController implements Initializable {
 										Stage stage = (Stage) loginScene.getScene().getWindow();
 										stage.setResizable(true);
 										stage.centerOnScreen();
-										Scene scene = new Scene(doctorMainPane, 600,700);
+										Scene scene = new Scene(doctorMainPane, 700,550);
 										stage.setScene(scene);
 									} else {
 										Alert a = new Alert(AlertType.ERROR);
@@ -140,7 +140,7 @@ public class LoginSceneController implements Initializable {
 									Stage stage = (Stage) loginScene.getScene().getWindow();
 									stage.setResizable(true);
 									stage.centerOnScreen();
-									Scene scene = new Scene(nurseMainPane,600,700);
+									Scene scene = new Scene(nurseMainPane,700,550);
 									stage.setScene(scene);
 								}
 							}

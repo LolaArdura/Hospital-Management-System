@@ -49,7 +49,7 @@ public class TestGUI extends Application {
     	 
     		 try {
 				Parent root= FXMLLoader.load(getClass().getResource("LoginScene.fxml"));
-                Scene scene=new Scene(root, 600, 400);
+                Scene scene=new Scene(root, 560, 405);
 				primaryStage.setScene(scene);
 				primaryStage.setResizable(false);
 				primaryStage.centerOnScreen();
@@ -70,7 +70,7 @@ public class TestGUI extends Application {
     			a.setContentText("Username: admin\nPassword:hospitalAdmin1");
     			a.showAndWait();
  				Parent root= FXMLLoader.load(getClass().getResource("LoginScene.fxml"));
-                Scene scene=new Scene(root, 600, 400);
+                Scene scene=new Scene(root, 560, 405);
  				primaryStage.setScene(scene);
  				primaryStage.setResizable(false);
  				primaryStage.centerOnScreen();
@@ -88,6 +88,7 @@ public class TestGUI extends Application {
     	 Alert a= new Alert(AlertType.CONFIRMATION,"Do you want to exit?",
  				new ButtonType("Yes", ButtonBar.ButtonData.YES), ButtonType.NO);
     	a.setTitle("Exit");
+    	a.setHeaderText("Exit");
     	String confirmation = a.showAndWait().get().getText();
  		if (confirmation.equals("Yes")) {
  			try {

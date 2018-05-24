@@ -106,7 +106,7 @@ public class RoomManagementController implements Initializable {
 						alert.setHeaderText("No capacity");
 						alert.setContentText("A capacity needs to be specified for the new room");
 						alert.showAndWait();
-						floorTextField.requestFocus();
+						capacityTextField.requestFocus();
 					} else {
 						Integer capacity = Integer.parseInt(reading);
 						reading = roomTypeBox.getSelectionModel().getSelectedItem();
@@ -236,6 +236,9 @@ public class RoomManagementController implements Initializable {
 							if (room != null) {
 								JDBCRoomController.getRoomController().insertRoom(room);
 								setRooms();
+								numberTextField.clear();
+								floorTextField.clear();
+								capacityTextField.clear();
 							}
 						}
 					}

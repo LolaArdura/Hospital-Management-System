@@ -42,6 +42,9 @@ public class BillsReportController implements Initializable {
 	private Button okButton;
 	
 	@FXML
+	private Button cancelButton;
+	
+	@FXML
 	private Button dischargeButton;
 
 	@FXML
@@ -103,6 +106,23 @@ public class BillsReportController implements Initializable {
 		}
 
 	}
+	
+	public void cancelButtonClicked(ActionEvent event) {
+		try {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("PatientsViewPane.fxml"));
+		GridPane patientsPane = (GridPane) loader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(patientsPane);
+
+		patientsPane.prefHeightProperty().bind(mainPane.heightProperty());
+		patientsPane.prefWidthProperty().bind(mainPane.widthProperty());
+
+		PatientsViewPaneController paneController = loader.<PatientsViewPaneController>getController();
+		paneController.initComponents(mainPane, permission,null,null);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 
 	public void initComponents(Patient patient, Pane mainPane, User.userType permission, boolean discharge) {
 		this.patient = patient;
@@ -110,10 +130,12 @@ public class BillsReportController implements Initializable {
 		this.permission=permission;
 		if(discharge) {
 			dischargeButton.setVisible(true);
+			cancelButton.setVisible(true);
 			okButton.setVisible(false);
 		}
 		else {
 			dischargeButton.setVisible(false);
+			cancelButton.setVisible(false);
 			okButton.setVisible(true);
 		}
 		try {

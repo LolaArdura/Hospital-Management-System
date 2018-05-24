@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 import jdbcManager.JDBCUserController;
 import model.User;
  
-public class myProfilePaneController {
+public class MyProfilePaneController {
 	private User user;
 
     @FXML

@@ -99,7 +99,7 @@ public class PatientDetailsController implements Initializable {
 
 	@FXML
 	private ComboBox<Room> roomBox;
-
+	
 	@FXML
 	private GridPane medicalInfoPane;
 

@@ -144,10 +144,10 @@ public class NursesViewPaneController implements Initializable {
 							nurse = new Nurse(name, schedule, role);
 						}
 
-						// We insert into the database the new doctor
+						// We insert into the database the new nurse
 						JDBCNurseController.getNurseController().insertNurse(nurse);
 
-						// We show the new doctor
+						// We show the new nurse
 						setNurses();
 
 						// We clear the text fields
@@ -233,6 +233,10 @@ public class NursesViewPaneController implements Initializable {
 					}
 				}
 			} else {
+				Alert a= new Alert(Alert.AlertType.WARNING);
+				a.setTitle("WARNING");
+				a.setHeaderText("No selected search field");
+				a.showAndWait();
 				setNurses();
 			}
 
@@ -322,7 +326,6 @@ public class NursesViewPaneController implements Initializable {
 	private void setNurses() {
 		try {
 			ObservableList<Nurse> nurses = FXCollections.observableArrayList();
-			// doctors.addAll(JDBCDoctorController.getDoctorController().getAllDoctors());
 			nurses.addAll(JDBCNurseController.getNurseController().getAllNurses());
 			nurseList.getItems().clear();
 			nurseList.setItems(nurses);

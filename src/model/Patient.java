@@ -109,6 +109,20 @@ public class Patient implements Serializable {
 		this.listOfNurses = new LinkedList<Nurse>();
 		this.listOfBills = new LinkedList<Bills>();
 	}
+	
+	
+
+	public Patient(String name, Sex gender, String diagnose, Date dob, Date dateAdmission,
+			Room room,List<Bills> listOfBills) {
+		super();
+		this.name = name;
+		this.gender = gender;
+		this.diagnose = diagnose;
+		this.dob = dob;
+		this.dateAdmission = dateAdmission;
+		this.listOfBills = listOfBills;
+		this.room = room;
+	}
 
 	public Patient(String name, Sex gender, String diagnose, Date dob, Date dateAdmission) {
 

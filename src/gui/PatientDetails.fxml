@@ -48,7 +48,7 @@
       <DatePicker fx:id="admissionDate" GridPane.columnIndex="7" GridPane.rowIndex="1" />
       <Label fx:id="admissionLabel" prefHeight="27.0" prefWidth="102.0" text="Admission Date" GridPane.columnIndex="5" GridPane.rowIndex="1" />
       <Label fx:id="roomLabel" prefHeight="17.0" prefWidth="89.0" text="Room #" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-      <ComboBox fx:id="roomBox" prefWidth="150.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+      <ComboBox fx:id="roomBox" maxWidth="500.0" prefWidth="150.0" GridPane.columnIndex="7" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
       <Button fx:id="dischargeButton" mnemonicParsing="false" onAction="#dischargeButtonClicked" prefHeight="25.0" prefWidth="79.0" styleClass="small-button" text="Discharge" GridPane.columnIndex="7" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
          <GridPane.margin>
             <Insets right="50.0" />
@@ -96,5 +96,7 @@
             <Insets top="2.0" />
          </GridPane.margin>
       </HBox>
+      <Label fx:id="bankIDLabel" text="Bank ID:" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+      <TextField fx:id="bankIDTextField" styleClass="textfield" GridPane.columnIndex="7" GridPane.rowIndex="3" />
    </children>
 </GridPane>

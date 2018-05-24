@@ -3,14 +3,21 @@ package gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.User;
 
 public class AdminMainSceneController {
@@ -191,7 +198,23 @@ public class AdminMainSceneController {
 
 	@FXML
 	void signOutClicked(ActionEvent event) {
-
+		Alert a= new Alert(AlertType.CONFIRMATION,"Do you want to sign out?",
+	 				new ButtonType("Yes", ButtonBar.ButtonData.YES), ButtonType.NO);
+	    a.setTitle("Exit");
+	    a.setHeaderText("Sign out");
+	    String confirmation = a.showAndWait().get().getText();
+	 	if (confirmation.equals("Yes")) {
+	 		try {
+	 		Parent loginScene= (Parent) FXMLLoader.load(getClass().getResource("LoginScene.fxml"));
+	 		Stage stage= (Stage) adminPane.getScene().getWindow();
+	 		Scene scene= new Scene(loginScene,400,400);
+	 		stage.centerOnScreen();
+	 		stage.setResizable(false);
+	 		stage.setScene(scene);
+	 		}catch(Exception ex) {
+	 			ex.printStackTrace();
+	 		}
+	 	}
 	}
 
 	@FXML
@@ -201,9 +224,11 @@ public class AdminMainSceneController {
 		GridPane profilePane=(GridPane) loader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(profilePane);
-		mainPane.prefHeightProperty().bind(mainPane.heightProperty());
-		mainPane.prefWidthProperty().bind(mainPane.widthProperty());
-		//Load the controller of myProfilePane
+		profilePane.prefHeightProperty().bind(mainPane.heightProperty());
+		profilePane.prefWidthProperty().bind(mainPane.widthProperty());
+		
+		MyProfilePaneController paneController= loader.<MyProfilePaneController>getController();
+		paneController.initComponents(user);
 		
 		}catch(Exception ex) {
 			ex.printStackTrace();
