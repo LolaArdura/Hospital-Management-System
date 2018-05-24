@@ -86,9 +86,6 @@ public class PatientDetailsController implements Initializable {
 	private Label sexLabel;
 
 	@FXML
-	private TextField sexTextField;
-
-	@FXML
 	private Label admissionLabel;
 
 	@FXML
@@ -272,6 +269,7 @@ public class PatientDetailsController implements Initializable {
         this.mainPane=mainPane;
 		this.permission = permission;
 		this.patient = patient;
+		dischargeButton.setVisible(false);
 		
 		if (permission.equals(paneType.NEW_PATIENT)) {
 			dischargeButton.setVisible(false);
@@ -283,7 +281,12 @@ public class PatientDetailsController implements Initializable {
 		} else {
 			try {
 			nameTextField.setText(patient.getName());
+			if(patient.getDob().toLocalDate().getDayOfMonth()<10) {
+				dayTextField.setText("0" + patient.getDob().toLocalDate().getDayOfMonth());
+			}
+			else {
 			dayTextField.setText("" + patient.getDob().toLocalDate().getDayOfMonth());
+			}
 			monthTextField.setText("0" + patient.getDob().toLocalDate().getMonthValue());
 			yearTextField.setText("" + patient.getDob().toLocalDate().getYear());
 			if(patient.getGender().name().toLowerCase().equals("male")) {
@@ -302,11 +305,12 @@ public class PatientDetailsController implements Initializable {
 				admissionDate.setEditable(false);
 				nameTextField.setEditable(false);
 				yearTextField.setEditable(false);
-				sexTextField.setEditable(false);
+				buttonsToolBar.setDisable(true);
 				admissionDate.setEditable(false);
 				medicalConditionArea.setEditable(false);
 				billsLabel.setVisible(false);
 				billsButton.setVisible(false);
+				
 			}
 			if (permission.equals(paneType.DOCTOR)) {
 				medicalConditionArea.setEditable(true);
@@ -314,6 +318,7 @@ public class PatientDetailsController implements Initializable {
 
 			if (permission.equals(paneType.ADMIN)) {
 				medicalConditionArea.setEditable(false);
+				dischargeButton.setVisible(true);
 			}
 			}catch(Exception ex) {
 				ex.printStackTrace();

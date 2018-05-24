@@ -207,7 +207,7 @@ public class AdminMainSceneController {
 	 		try {
 	 		Parent loginScene= (Parent) FXMLLoader.load(getClass().getResource("LoginScene.fxml"));
 	 		Stage stage= (Stage) adminPane.getScene().getWindow();
-	 		Scene scene= new Scene(loginScene,400,400);
+	 		Scene scene= new Scene(loginScene,600,405);
 	 		stage.centerOnScreen();
 	 		stage.setResizable(false);
 	 		stage.setScene(scene);

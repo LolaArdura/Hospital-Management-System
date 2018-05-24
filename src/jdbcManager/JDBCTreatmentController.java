@@ -22,10 +22,12 @@ public class JDBCTreatmentController implements TreatmentInterface {
 	public boolean insertTreatment (Treatment treatment) throws Exception {
 		Bills b = treatment.getBill();
 		JDBCBillsController.getBillsController().insertBills(b);
-		String query = "SELECT last_inserted_rowid () AS lastId";
+		String query = "SELECT last_insert_rowid () AS lastId";
 		PreparedStatement p = JDBConnection.getConnection().prepareStatement(query);
 		ResultSet rs = p.executeQuery();
 		Integer bill_id = rs.getInt("lastId");
+		treatment.getBill().setId(bill_id);
+		
 		String sql = "INSERT INTO treatment ( routeOfAdmin, startDate, endDate, cost, type, dose, doctor_id, patient_id, bill_id)"
 				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
@@ -41,6 +43,23 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		prep.executeUpdate();
 		prep.close();
 		return true;
+	}
+	
+	public void insertTreatmentWithoutBill (Treatment treatment) throws Exception {
+		String sql = "INSERT INTO treatment ( routeOfAdmin, startDate, endDate, cost, type, dose, doctor_id, patient_id)"
+				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		prep.setString(1,treatment.getRouteOfAdmin());
+		prep.setDate(2, treatment.getStartDate());
+		prep.setDate(3, treatment.getEndDate());
+		prep.setFloat(4, treatment.getCost());
+		prep.setString(5, treatment.getTreatmentType());
+		prep.setString(6, treatment.getDose());
+		prep.setInt(7, treatment.getPrescriber().getId());
+		prep.setInt(8, treatment.getPatient().getId());
+		
+		prep.executeUpdate();
+		prep.close();
 	}
 	
 	public boolean deleteTreatment (Treatment treatment) throws Exception {

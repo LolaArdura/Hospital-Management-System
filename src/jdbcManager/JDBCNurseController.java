@@ -67,7 +67,7 @@ public class JDBCNurseController implements NurseInterface {
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
-		rs.next();
+		if(rs.next()) {
 		int Id = rs.getInt("id");
 		String name = rs.getString("name");
 		byte[] photo = rs.getBytes("photo");
@@ -75,6 +75,8 @@ public class JDBCNurseController implements NurseInterface {
 		String role = rs.getString("role");
 		Nurse searchNurse = new Nurse(Id, name, photo, schedule, role);
 		return searchNurse;
+		}
+		else return null;
 	}
 	
 	public List<Nurse> searchNurseBySchedule (String schedule) throws Exception{

@@ -69,6 +69,9 @@ public class PatientsViewPaneController implements Initializable {
 		try {
 			Patient patient = (Patient) patientsTable.getSelectionModel().getSelectedItem();
 			if (patient != null) {
+				if(permission.equals(User.userType.NURSE)) {
+					patient=JDBCPatientController.getPatientController().searchPatientById(patient.getId());
+				}
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("PatientDetails.fxml"));
 				GridPane detailsPane = (GridPane) loader.load();
 				mainPane.getChildren().clear();
@@ -146,9 +149,9 @@ public class PatientsViewPaneController implements Initializable {
 	public void initComponents(Pane mainPane, User.userType permission, Doctor doctor, Nurse nurse) {
 		this.mainPane = mainPane;
 		this.permission=permission;
-		patientsTable.setItems(setPatients());
 		this.doctor=doctor;
 		this.nurse=nurse;
+		patientsTable.setItems(setPatients());
 	}
 	
 	private void setPatients(List<Patient> patients) {

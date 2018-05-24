@@ -127,7 +127,7 @@ public class JDBCPatientController implements PatientInterface{
 		ResultSet rs = prep.executeQuery();
 		while(rs.next()) {
 			int id =rs.getInt("id");
-			float totalCost = rs.getFloat("totalcost");
+			float totalCost = rs.getFloat("cost");
 			String bankId =rs.getString("bankId");
 			boolean paid = rs.getBoolean("paid");
 			Bills searchBill = new Bills (id, totalCost,bankId, paid);
@@ -165,9 +165,9 @@ public class JDBCPatientController implements PatientInterface{
 			Date startDate =rs.getDate("startDate");
 			Date endDate =rs.getDate("endDate");
 			Float cost =rs.getFloat("cost");
-			String treatmentType =rs.getString("treatmentType");
+			String treatmentType =rs.getString("type");
 			String dose =rs.getString("dose");
-			Integer prescriber_id= ((Treatment) rs).getPrescriber().getId();
+			Integer prescriber_id= rs.getInt("doctor_id");
 			Doctor prescriber = JDBCDoctorController.getDoctorController().searchDoctorById(prescriber_id);
 			Treatment searchTreatment = new Treatment (id,routeOfAdmin, startDate, endDate,
 					cost, treatmentType, dose, prescriber);
@@ -187,7 +187,7 @@ public class JDBCPatientController implements PatientInterface{
 		Sex gender = Sex.valueOf(rs.getString("gender").toUpperCase());
 		String diagnose = rs.getString("diagnose");
 		Date dob = rs.getDate("dob");
-		Date dateAdmission = rs.getDate("date_of_admission");
+		Date dateAdmission = rs.getDate("dateAdmission");
 		Patient patient = new Patient (Id, name, gender, diagnose, dob, dateAdmission);
 		return patient;
 	}

@@ -96,7 +96,5 @@
             <Insets top="2.0" />
          </GridPane.margin>
       </HBox>
-      <Label fx:id="bankIDLabel" text="Bank ID:" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-      <TextField fx:id="bankIDTextField" styleClass="textfield" GridPane.columnIndex="7" GridPane.rowIndex="3" />
    </children>
 </GridPane>

@@ -19,7 +19,7 @@ private static JDBCBillsController singleton;
 }
 	
 	public boolean insertBills (Bills bill) throws Exception{
-		String sql = "INSERT INTO bills ( totalCost, bankID, paid, patient_id) "
+		String sql = "INSERT INTO bills ( cost, bankID, paid, patient_id) "
 				+ "VALUES (?,?,?,?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setFloat(1, bill.getTotalCost());
@@ -48,7 +48,7 @@ public Bills searchBillsById (Integer id) throws Exception{
 	
 	rs.next();
 	int Id = rs.getInt("id");
-	float totalCost = rs.getFloat("totalCost");
+	float totalCost = rs.getFloat("cost");
 	String bankID = rs.getString("bankID");
 	boolean paid = rs.getBoolean("paid");
 	Bills bill = new Bills (Id, totalCost, bankID, paid);
@@ -60,7 +60,7 @@ public Bills searchBillsById (Integer id) throws Exception{
 public void updateBills (Bills bill) throws Exception {
 	String sql = "UPDATE  bills"
 			+ "SET bankID = ? ,"
-			+ "totalCost = ?, "
+			+ "cost = ?, "
 			+ "paid = ?"
 			+ "WHERE id = ?";
 	PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);

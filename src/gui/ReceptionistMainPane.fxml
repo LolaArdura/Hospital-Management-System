@@ -14,8 +14,8 @@
    <top>
       <MenuButton alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="33.0" prefWidth="125.0" text="Profile" BorderPane.alignment="TOP_RIGHT">
          <items>
-            <MenuItem fx:id="myProfileItem" mnemonicParsing="false" text="My profile" />
-            <MenuItem fx:id="signOutItem" mnemonicParsing="false" text="Sign out" />
+            <MenuItem fx:id="myProfileItem" mnemonicParsing="false" onAction="#myProfileClicked" text="My profile" />
+            <MenuItem fx:id="signOutItem" mnemonicParsing="false" onAction="#signOutClicked" text="Sign out" />
          </items>
       </MenuButton>
    </top>

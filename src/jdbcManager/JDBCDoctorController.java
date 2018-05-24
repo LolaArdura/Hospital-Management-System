@@ -78,7 +78,8 @@ public class JDBCDoctorController implements DoctorInterface {
 		Doctor doctor = new Doctor(Id, name, photo, schedule, speciality);
 		return doctor;
 		}
-	  throw new Exception();
+	  Doctor doc=null;
+	  return doc;
 	}
 	
 	public List<Doctor> searchDoctorByName (String name) throws Exception{

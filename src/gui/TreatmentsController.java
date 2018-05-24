@@ -134,11 +134,16 @@ public class TreatmentsController implements Initializable{
 							Bills bill= new Bills(cost,billingID.get(),false,patient);
 							treatment= new Treatment(routeOfAdmin,Date.valueOf(startLDate),Date.valueOf(endLDate),cost,type,
 									dose,doctor,patient,bill);
+							TreatmentInterface treatmentController= JDBCTreatmentController.getTreatmentController();
+	    					treatmentController.insertTreatment(treatment);
     					}
+    					else {
     					treatment= new Treatment(routeOfAdmin,Date.valueOf(startLDate),Date.valueOf(endLDate),cost,type,
 								dose,doctor,patient);
+    					
     					TreatmentInterface treatmentController= JDBCTreatmentController.getTreatmentController();
-    					treatmentController.insertTreatment(treatment);
+    					treatmentController.insertTreatmentWithoutBill(treatment);
+    					}
     					setTreatments();
     				}catch (NumberFormatException ex) {
     					a.setHeaderText("Costs are real numbers");
@@ -249,6 +254,7 @@ public class TreatmentsController implements Initializable{
 
 			ObservableList<Treatment> treatmentsFromPatient = FXCollections.observableArrayList();
 			treatmentsFromPatient.addAll(treatments);
+			treatmentsTable.getItems().clear();
 			treatmentsTable.getItems().addAll(treatmentsFromPatient);
 
 		} catch (Exception ex) {
