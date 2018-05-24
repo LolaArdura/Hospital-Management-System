@@ -1,6 +1,38 @@
 <!DOCTYPE Patient [
-<!ELEMENT Patient (gender,dob,dateAdmission, listOfTreatments, listOfNurses, listOfBills)>
-<!ELEMENT >
-
+<!ELEMENT Patient (gender,dob,dateAdmission,diagnose,  Treatments, Bills, Nurses, room)>
+<!ATTLIST Patient name CDATA #REQUIRED>
+<!ELEMENT gender (#PCDATA)>
+<!ELEMENT dob (#PCDATA)>
+<!ELEMENT dateAdmission (#PCDATA)>
+<!ELEMENT diagnose (#PCDATA)>
+<!ELEMENT Treatments (treatment+)>
+<!ELEMENT treatment (startDate, endDate, dose, routeOfAdmin, cost, type,  prescriber)>
+<!ATTLIST treatment id CDATA #REQUIRED>
+ <!ELEMENT routeOfAdmin (#PCDATA)>
+ <!ELEMENT startDate (#PCDATA)>
+<!ELEMENT endDate (#PCDATA)>
+<!ELEMENT cost (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT dose (#PCDATA)>
+<!ELEMENT prescriber (name, schedule, specialty)>
+<!ATTLIST prescriber id CDATA #REQUIRED>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT schedule (#PCDATA)>
+<!ELEMENT specialty (#PCDATA)>
+<!ELEMENT Nurses (Nurse+)>
+<!ELEMENT Nurse (name, schedule, role)>
+<!ATTLIST Nurse id CDATA #REQUIRED>
+<!ELEMENT role (#PCDATA)>
+<!ELEMENT Bills (bill+)>
+<!ELEMENT bill (cost, bankID, paid)>
+<!ATTLIST bill id CDATA #REQUIRED>
+<!ELEMENT bankID (#PCDATA)>
+<!ELEMENT paid (#PCDATA)>
+<!ELEMENT room (type, floor, capacity, costPerDay)>
+<!ATTLIST room id CDATA #REQUIRED 
+               number CDATA #REQUIRED>
+<!ELEMENT capacity (#PCDATA)>
+<!ELEMENT floor (#PCDATA)>
+<!ELEMENT costPerDay (#PCDATA)>
 
 ]>
