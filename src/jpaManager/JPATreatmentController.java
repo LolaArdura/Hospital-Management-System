@@ -25,6 +25,14 @@ public class JPATreatmentController implements TreatmentInterface {
 		 
 	 }
 	 
+	 //NOT SURE
+	 public void insertTreatmentWithoutBill (Treatment treatment) throws Exception{
+		 EntityManager em =DBEntityManager.getEntityManager();
+		 em.getTransaction().begin();
+		 em.persist(treatment);
+		 em.getTransaction().commit();
+	 }
+	 
 	 public boolean deleteTreatment (Treatment treatment) throws Exception{
 		 
 		 EntityManager em =DBEntityManager.getEntityManager();
