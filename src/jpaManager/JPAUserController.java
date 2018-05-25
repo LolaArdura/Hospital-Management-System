@@ -47,7 +47,7 @@ public class JPAUserController implements UserInterface{
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
-		Query q1 = em.createQuery("SELECT id, username, password FROM user WHERE usertype = ?", User.class);
+		Query q1 = em.createQuery("SELECT id, username, password FROM user WHERE type = ?", User.class);
 		q1.setParameter(1, usertype);
 		LinkedList<User> users = (LinkedList<User>) q1.getResultList();
 		return users;
