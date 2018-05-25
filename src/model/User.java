@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name="user")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {"username", "password", "type"})
+@XmlType(propOrder = {"username", "password", "typeOfUser"})
 public class User {
 	
 	@Id
@@ -24,7 +24,7 @@ public class User {
 		ADMIN,RECEPTIONIST,DOCTOR,NURSE
 	};
 	@XmlElement
-    private userType typeOfUser;
+    private userType type;
     
     public User() {
     	super();
@@ -42,14 +42,14 @@ public class User {
 		super();
 		this.username = username;
 		this.password = password;
-		this.typeOfUser = typeOfUser;
+		this.type = typeOfUser;
 	}
     
     public User(Integer id, String username,String password, userType typeOfUser) {
     	this.id=id;
     	this.username=username;
     	this.password=password;
-    	this.typeOfUser=typeOfUser;
+    	this.type=typeOfUser;
     }
 	
     public String getUsername() {
@@ -73,12 +73,12 @@ public class User {
 
 
 	public userType getTypeOfUser() {
-		return typeOfUser;
+		return type;
 	}
 
 
 	public void setTypeOfUser(userType typeOfUser) {
-		this.typeOfUser = typeOfUser;
+		this.type = typeOfUser;
 	}
 
 	public void setId(Integer id) {
@@ -99,7 +99,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", typeOfUser=" + typeOfUser + "]";
+		return "User [username=" + username + ", password=" + password + ", type=" + type + "]";
 	}
 
 	@Override
