@@ -38,10 +38,10 @@ public class JPARoomController implements  RoomInterface{
 		try {
 		em.getTransaction().begin();
 		em.remove(room);
-		em.getTransaction().commit();
+		em.getTransaction().commit(); 
 		return true;
 		}catch(Exception e) {
-			 em.getTransaction().commit();
+		 em.getTransaction().commit();
 			 throw new Exception();
 		 }
 	}
