@@ -18,6 +18,7 @@ import model.Treatment;
 public class xmlTest {
 	 
 	public static void main(String[] args) throws Exception{
+		try {
 	Date dob = new Date (2002/3/03);
 		Date dateAdmission = new Date (2018/01/02);
 		Room r = new Room (8, 208, "box", 2 , 10, 15);
@@ -38,6 +39,8 @@ public class xmlTest {
         //System.out.println(p.getListOfTreatments());
 	
 		//xmlPatient.xml2Html("./xmls/External-Patient.xml", "./xmls/Patient-Style.xslt", "./xmls/External-Patient.html");
-
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 }
