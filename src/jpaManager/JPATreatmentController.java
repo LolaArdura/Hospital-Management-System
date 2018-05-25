@@ -26,6 +26,8 @@ public class JPATreatmentController implements TreatmentInterface {
 		 treatment.setPatient(null);
 		 treatment.setDoctor(null);
 		 try {
+			 
+	
 		 em.getTransaction().begin();
 		 em.persist(treatment);
 		 em.getTransaction().commit();
@@ -51,6 +53,7 @@ public class JPATreatmentController implements TreatmentInterface {
 		 em.persist(treatment);
 		 em.getTransaction().commit();
 		 }catch(Exception e) {
+			 e.printStackTrace();
 			 em.getTransaction().commit();
 			 throw new Exception();
 		 }
@@ -67,9 +70,10 @@ public class JPATreatmentController implements TreatmentInterface {
 		 treatment.setPatient(null);
 		 treatment.setDoctor(null);
 		 em.remove(treatmentRetrieved);
-		 em.getTransaction().commit();
+		 em.getTransaction().commit();;
 		 return true;
 		 }catch(Exception e) {
+			 e.printStackTrace();
 			 em.getTransaction().commit();
 			 throw new Exception();
 		 }

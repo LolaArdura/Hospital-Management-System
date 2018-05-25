@@ -12,7 +12,6 @@ import java.util.List;
 import jpaManager.JPAPatientController;
 import model.Patient;
 import model.Room;
-import model.Room.roomType;
 import model.Sex;
 import model.Treatment;
 
@@ -21,7 +20,7 @@ public class xmlTest {
 	public static void main(String[] args) throws Exception{
 	Date dob = new Date (2002/3/03);
 		Date dateAdmission = new Date (2018/01/02);
-		Room r = new Room (8, 208, roomType.BOX, 2 , 10, 15);
+		Room r = new Room (8, 208, "box", 2 , 10, 15);
 		LinkedList<Treatment> treatments= new LinkedList<>();
 		Doctor doctor= new Doctor(2,"Harry","morning","inmunollogy");
 		treatments.add(new Treatment(23,"intravenous",dateAdmission,dateAdmission,200,"chemotherapy","deadly dose",doctor));

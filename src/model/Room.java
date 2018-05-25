@@ -33,11 +33,9 @@ public class Room implements Serializable {
     private Integer id;
 	@XmlAttribute
     private Integer number;
-    public enum roomType {
-    	SUITE, DOUBLE, INDIVIDUAL, BOX, ICU
-    };
+
 	@XmlElement
-    private roomType type; 
+    private String type; 
 	@XmlElement
     private Integer floor;
 	@XmlElement
@@ -51,7 +49,7 @@ public class Room implements Serializable {
 	private List<Patient> listOfPatients;
 	
 	//Constructor
-	public Room (Integer id, Integer number, roomType type, Integer floor, Integer capacity, float costPerDay) {
+	public Room (Integer id, Integer number, String type, Integer floor, Integer capacity, float costPerDay) {
 		this.id = id;
 		this.number = number;
 		this.type = type;
@@ -62,7 +60,7 @@ public class Room implements Serializable {
 		
 	}
 	
-    public Room ( Integer number, roomType type, Integer floor, Integer capacity, float costPerDay) {
+    public Room ( Integer number, String type, Integer floor, Integer capacity, float costPerDay) {
 		
 		this.number = number;
 		this.type = type;
@@ -72,7 +70,7 @@ public class Room implements Serializable {
 		listOfPatients = new LinkedList <Patient>();
 	}
     
-    public Room(Integer number, roomType type, Integer floor, Integer capacity) {
+    public Room(Integer number, String type, Integer floor, Integer capacity) {
 		super();
 		this.number = number;
 		this.type = type;
@@ -80,7 +78,7 @@ public class Room implements Serializable {
 		this.capacity = capacity;
 	}
 
-	public Room(Integer id, Integer number, roomType type, Integer floor, float costPerDay) {
+	public Room(Integer id, Integer number, String type, Integer floor, float costPerDay) {
 		super();
 		this.id = id;
 		this.number = number;
@@ -89,7 +87,7 @@ public class Room implements Serializable {
 		this.costPerDay = costPerDay;
 	}
 
-	public Room(Room.roomType type, float costPerDay) {
+	public Room(String type, float costPerDay) {
     	this.type=type;
     	this.costPerDay=costPerDay;
     	listOfPatients= new LinkedList <Patient>();
@@ -115,11 +113,11 @@ public class Room implements Serializable {
 		this.number = number;
 	}
 	
-	public roomType getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(roomType type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
