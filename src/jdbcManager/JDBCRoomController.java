@@ -1,6 +1,6 @@
 package jdbcManager;
 import model.*;
-import model.Room.roomType;
+
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -25,7 +25,7 @@ public class JDBCRoomController implements RoomInterface {
 		
 		try {
 		prep.setInt(1, room.getNumber());
-		prep.setString(2, room.getType().name().toLowerCase());
+		prep.setString(2, room.getType());
 		prep.setInt(3, room.getCapacity());
 		prep.setInt(4, room.getFloor());
 		prep.setFloat(5, room.getCostPerDay());
@@ -68,7 +68,7 @@ public class JDBCRoomController implements RoomInterface {
 		if(rs.next()) {
 		int Id = rs.getInt("id");
 		int number = rs.getInt("number");
-		Room.roomType type = Room.roomType.valueOf(rs.getString("type").toUpperCase());
+		String type = rs.getString("type");
 		int capacity = rs.getInt("capacity");
 		int floor = rs.getInt("floor");
 		float costPerDay = rs.getFloat("costPerDay");
@@ -90,7 +90,7 @@ public class JDBCRoomController implements RoomInterface {
 		
 		try {
 		prep.setInt(1, room.getNumber());
-		prep.setString(2, room.getType().name().toUpperCase());
+		prep.setString(2, room.getType());
 		prep.setInt(3, room.getCapacity());
 		prep.setInt(4, room.getFloor());
 		prep.setFloat(5, room.getCostPerDay());
@@ -114,7 +114,7 @@ public class JDBCRoomController implements RoomInterface {
 		while (rs.next()) {
 			int Id = rs.getInt("id");
 			int number = rs.getInt("number");
-			Room.roomType type = Room.roomType.valueOf(rs.getString("type").toUpperCase());
+			String type =rs.getString("type");
 			int floor = rs.getInt("floor");
 			int capacity = rs.getInt("capacity");
 			float costPerDay = rs.getFloat("costPerDay");
@@ -132,11 +132,11 @@ public class JDBCRoomController implements RoomInterface {
 	}
 
 	@Override
-	public float searchCost(roomType type) throws Exception {
+	public float searchCost(String type) throws Exception {
 		String sql= "SELECT costPerDay FROM room GROUP BY type HAVING type= ?";
 		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
 		try {
-		prep.setString(1, type.name().toLowerCase());
+		prep.setString(1, type);
 		ResultSet rs=prep.executeQuery();
 		Float cost=-1F;
 		if(rs.next()) {
@@ -152,18 +152,18 @@ public class JDBCRoomController implements RoomInterface {
 	}
 
 	@Override
-	public List<Room> getRoomsByType(roomType type) throws Exception {
+	public List<Room> getRoomsByType(String type) throws Exception {
 		String sql= "SELECT * FROM room WHERE type=?";
 		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
 		
 		try {
-		prep.setString(1, type.name().toLowerCase());
+		prep.setString(1, type);
 		ResultSet rs=prep.executeQuery();
 		LinkedList<Room> roomList=new LinkedList<Room>();;
 		while(rs.next()) {
 			int Id = rs.getInt("id");
 			int number = rs.getInt("number");
-			Room.roomType typeRs = Room.roomType.valueOf(rs.getString("type").toUpperCase());
+			String typeRs = rs.getString("type");
 			int floor = rs.getInt("floor");
 			int capacity = rs.getInt("capacity");
 			float costPerDay = rs.getFloat("costPerDay");
@@ -189,7 +189,7 @@ public class JDBCRoomController implements RoomInterface {
 		ResultSet rs=prep.executeQuery();
 		List<Room> roomList = new LinkedList<Room>();
 		while (rs.next()) {
-			Room.roomType type = Room.roomType.valueOf(rs.getString("type").toUpperCase());
+			String type = rs.getString("type");
 			float costPerDay = rs.getFloat("costPerDay");
 			Room room = new Room(type,costPerDay);
 			roomList.add(room);
@@ -218,7 +218,7 @@ public class JDBCRoomController implements RoomInterface {
 			int Id = rs.getInt(1);
 			int number = rs.getInt("number");
 			int floor = rs.getInt("floor");
-			Room.roomType typeRs = Room.roomType.valueOf(rs.getString("type").toUpperCase());
+			String typeRs = rs.getString("type");
 			int capacity=rs.getInt("capacity");
 			float costPerDay = rs.getFloat("costPerDay");
 			Room room = new Room(Id, number, typeRs, floor, capacity,costPerDay);
@@ -235,13 +235,13 @@ public class JDBCRoomController implements RoomInterface {
 	}
 
 	@Override
-	public void updateCost(Float cost, Room.roomType type) throws Exception {
+	public void updateCost(Float cost, String type) throws Exception {
 		String sql="UPDATE room SET costPerDay=? WHERE type=?";
 		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
 		
 		try {
 		prep.setFloat(1,cost);
-		prep.setString(2,type.name().toLowerCase());
+		prep.setString(2,type);
 		prep.executeUpdate();
 		prep.close();
 		}catch (Exception e ) {

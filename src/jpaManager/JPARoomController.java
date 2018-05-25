@@ -7,7 +7,7 @@ import javax.persistence.Query;
 
 import interfaces.*;
 import model.Room;
-import model.Room.roomType;
+
 
 public class JPARoomController implements  RoomInterface{
 	
@@ -89,14 +89,14 @@ public class JPARoomController implements  RoomInterface{
 		 }
 	}
 	
-	public float searchCost(roomType type) throws Exception{
+	public float searchCost(String type) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		try {
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT costPerDay FROM room GROUP BY type HAVING type =?", Room.class);
-		q1.setParameter(1, type.name().toLowerCase());
+		q1.setParameter(1, type);
 		Float cost = (float) q1.getSingleResult();
 		return cost;
 		}catch(Exception e) {
@@ -105,7 +105,7 @@ public class JPARoomController implements  RoomInterface{
 		 }
 	}
 	
-	public List<Room> getRoomsByType(roomType type) throws Exception {
+	public List<Room> getRoomsByType(String type) throws Exception {
 		EntityManager em = DBEntityManager.getEntityManager();
 		try {
 		em.getTransaction().begin();
@@ -151,7 +151,7 @@ public class JPARoomController implements  RoomInterface{
 		 }
 	}
 	
-	public void updateCost(Float cost, Room.roomType type) throws Exception{
+	public void updateCost(Float cost, String type) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		try {
 		em.getTransaction().begin();

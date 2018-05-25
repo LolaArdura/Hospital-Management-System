@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import model.*;
-import model.Room.roomType;
 import tables.DatabaseTables;
 
 public class Test {

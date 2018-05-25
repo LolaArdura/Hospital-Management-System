@@ -55,7 +55,7 @@ public class RoomManagementController implements Initializable {
 	private TableColumn<Room, Integer> floorColumn;
 
 	@FXML
-	private TableColumn<Room, Room.roomType> typeColumn;
+	private TableColumn<Room, String> typeColumn;
 
 	@FXML
 	private TableColumn<Room, Integer> capacityColumn;
@@ -119,7 +119,7 @@ public class RoomManagementController implements Initializable {
 							Room room = null;
 							TextInputDialog costDialog = new TextInputDialog("");
 							if (reading.equals("Suite")) {
-								Float cost = JDBCRoomController.getRoomController().searchCost(Room.roomType.SUITE);
+								Float cost = JDBCRoomController.getRoomController().searchCost(reading.toLowerCase());
 								if (cost < 0) {
 									costDialog.setTitle("New cost");
 									costDialog.setHeaderText("No cost specified for this type of room");
@@ -128,7 +128,7 @@ public class RoomManagementController implements Initializable {
 									if (costTyped.isPresent()) {
 										try {
 											cost = Float.parseFloat(costTyped.get());
-											room = new Room(roomNumber, Room.roomType.SUITE, floor, capacity, cost);
+											room = new Room(roomNumber, reading.toLowerCase(), floor, capacity, cost);
 
 										} catch (Exception ex) {
 											Alert a = new Alert(AlertType.ERROR);
@@ -136,12 +136,12 @@ public class RoomManagementController implements Initializable {
 										}
 									}
 								} else {
-									room = new Room(roomNumber, Room.roomType.SUITE, floor, capacity, cost);
+									room = new Room(roomNumber, reading.toLowerCase(), floor, capacity, cost);
 								}
 							} else {
 								if (reading.equals("Double")) {
 									Float cost = JDBCRoomController.getRoomController()
-											.searchCost(Room.roomType.DOUBLE);
+											.searchCost(reading.toLowerCase());
 									if (cost < 0) {
 										costDialog.setTitle("New cost");
 										costDialog.setHeaderText("No cost specified for this type of room");
@@ -150,7 +150,7 @@ public class RoomManagementController implements Initializable {
 										if (costTyped.isPresent()) {
 											try {
 												cost = Float.parseFloat(costTyped.get());
-												room = new Room(roomNumber, Room.roomType.DOUBLE, floor, capacity,
+												room = new Room(roomNumber, reading.toLowerCase(), floor, capacity,
 														cost);
 
 											} catch (Exception ex) {
@@ -159,14 +159,14 @@ public class RoomManagementController implements Initializable {
 											}
 										}
 									} else {
-										room = new Room(roomNumber, Room.roomType.DOUBLE, floor, capacity, cost);
+										room = new Room(roomNumber, reading.toLowerCase(), floor, capacity, cost);
 									}
 								} else {
 									if (reading.equals("Individual")) {
 										Float cost = JDBCRoomController.getRoomController()
-												.searchCost(Room.roomType.INDIVIDUAL);
+												.searchCost(reading.toLowerCase());
 										if (cost > 0) {
-											room = new Room(roomNumber, Room.roomType.INDIVIDUAL, floor, capacity,
+											room = new Room(roomNumber,reading.toLowerCase(), floor, capacity,
 													cost);
 
 										} else {
@@ -177,7 +177,7 @@ public class RoomManagementController implements Initializable {
 											if (costTyped.isPresent()) {
 												try {
 													cost = Float.parseFloat(costTyped.get());
-													room = new Room(roomNumber, Room.roomType.INDIVIDUAL, floor,
+													room = new Room(roomNumber, reading.toLowerCase(), floor,
 															capacity, cost);
 												} catch (Exception ex) {
 													Alert a = new Alert(AlertType.ERROR);
@@ -188,7 +188,7 @@ public class RoomManagementController implements Initializable {
 									} else {
 										if (reading.equals("BOX")) {
 											Float cost = JDBCRoomController.getRoomController()
-													.searchCost(Room.roomType.BOX);
+													.searchCost(reading.toLowerCase());
 											if (cost < 0) {
 												costDialog.setTitle("New cost");
 												costDialog.setHeaderText("No cost specified for this type of room");
@@ -197,7 +197,7 @@ public class RoomManagementController implements Initializable {
 												if (costTyped.isPresent()) {
 													try {
 														cost = Float.parseFloat(costTyped.get());
-														room = new Room(roomNumber, Room.roomType.BOX, floor, capacity,
+														room = new Room(roomNumber, reading.toLowerCase(), floor, capacity,
 																cost);
 
 													} catch (Exception ex) {
@@ -206,11 +206,11 @@ public class RoomManagementController implements Initializable {
 													}
 												}
 											} else {
-												room = new Room(roomNumber, Room.roomType.BOX, floor, capacity, cost);
+												room = new Room(roomNumber, reading.toLowerCase(), floor, capacity, cost);
 											}
 										} else {
 											Float cost = JDBCRoomController.getRoomController()
-													.searchCost(Room.roomType.ICU);
+													.searchCost(reading.toLowerCase());
 											if (cost < 0) {
 												costDialog.setTitle("New cost");
 												costDialog.setHeaderText("No cost specified for this type of room");
@@ -219,7 +219,7 @@ public class RoomManagementController implements Initializable {
 												if (costTyped.isPresent()) {
 													try {
 														cost = Float.parseFloat(costTyped.get());
-														room = new Room(roomNumber, Room.roomType.ICU, floor, capacity,
+														room = new Room(roomNumber, reading.toLowerCase(), floor, capacity,
 																cost);
 													} catch (Exception ex) {
 														Alert a = new Alert(AlertType.ERROR);
@@ -227,7 +227,7 @@ public class RoomManagementController implements Initializable {
 													}
 												}
 											} else {
-												room = new Room(roomNumber, Room.roomType.ICU, floor, capacity, cost);
+												room = new Room(roomNumber, reading.toLowerCase(), floor, capacity, cost);
 											}
 										}
 									}
@@ -285,28 +285,11 @@ public class RoomManagementController implements Initializable {
 		String roomType = searchBox.getSelectionModel().getSelectedItem();
 		RoomInterface controller = JDBCRoomController.getRoomController();
 		try {
-			if (roomType.equals("Double")) {
-				List<Room> rooms = controller.getRoomsByType(Room.roomType.DOUBLE);
+			
+				List<Room> rooms = controller.getRoomsByType(roomType.toLowerCase());
 				setRooms(rooms);
-			} else {
-				if (roomType.equals("Suite")) {
-					List<Room> rooms = controller.getRoomsByType(Room.roomType.SUITE);
-					setRooms(rooms);
-				} else {
-					if (roomType.equals("Individual")) {
-						List<Room> rooms = controller.getRoomsByType(Room.roomType.INDIVIDUAL);
-						setRooms(rooms);
-					} else {
-						if (roomType.equals("Box")) {
-							List<Room> rooms = controller.getRoomsByType(Room.roomType.BOX);
-							setRooms(rooms);
-						} else {
-							List<Room> rooms = controller.getRoomsByType(Room.roomType.ICU);
-							setRooms(rooms);
-						}
-					}
-				}
-			}
+			
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -318,7 +301,7 @@ public class RoomManagementController implements Initializable {
 
 		numberColumn.setCellValueFactory(new PropertyValueFactory<Room, Integer>("number"));
 		floorColumn.setCellValueFactory(new PropertyValueFactory<Room, Integer>("floor"));
-		typeColumn.setCellValueFactory(new PropertyValueFactory<Room, Room.roomType>("type"));
+		typeColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("type"));
 		capacityColumn.setCellValueFactory(new PropertyValueFactory<Room, Integer>("capacity"));
 		costColumn.setCellValueFactory(new PropertyValueFactory<Room, Float>("costPerDay"));
 		roomTypeBox.getItems().addAll("Double", "Suite", "Individual", "Box", "ICU");
