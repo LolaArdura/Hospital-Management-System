@@ -58,7 +58,7 @@ public class RoomsCostController implements Initializable {
 		if (!roomCost.equals("No room of this type yet")) {
 			try {
 				Float cost = Float.parseFloat(roomCost);
-				controller.updateCost(cost, Room.roomType.SUITE);
+				controller.updateCost(cost, "suite");
 			} catch (NumberFormatException ex) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setContentText("The cost needs to be a number");
@@ -71,7 +71,7 @@ public class RoomsCostController implements Initializable {
 		if (!roomCost.equals("No room of this type yet")) {
 			try {
 				Float cost = Float.parseFloat(roomCost);
-				controller.updateCost(cost, Room.roomType.DOUBLE);
+				controller.updateCost(cost, "double");
 			} catch (NumberFormatException ex) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setContentText("The cost needs to be a number");
@@ -84,7 +84,7 @@ public class RoomsCostController implements Initializable {
 		if (!roomCost.equals("No room of this type yet")) {
 			try {
 				Float cost = Float.parseFloat(roomCost);
-				controller.updateCost(cost, Room.roomType.INDIVIDUAL);
+				controller.updateCost(cost, "individual");
 			} catch (NumberFormatException ex) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setContentText("The cost needs to be a number");
@@ -97,7 +97,7 @@ public class RoomsCostController implements Initializable {
 		if (!roomCost.equals("No room of this type yet")) {
 			try {
 				Float cost = Float.parseFloat(roomCost);
-				controller.updateCost(cost, Room.roomType.BOX);
+				controller.updateCost(cost, "box");
 			} catch (NumberFormatException ex) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setContentText("The cost needs to be a number");
@@ -110,7 +110,7 @@ public class RoomsCostController implements Initializable {
 		if (!roomCost.equals("No room of this type yet")) {
 			try {
 				Float cost = Float.parseFloat(roomCost);
-				controller.updateCost(cost, Room.roomType.ICU);
+				controller.updateCost(cost,"icu");
 			} catch (NumberFormatException ex) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setContentText("The cost needs to be a number");
@@ -128,19 +128,19 @@ public class RoomsCostController implements Initializable {
 			RoomInterface roomController = JDBCRoomController.getRoomController();
 			List<Room> rooms = roomController.getRoomsAndCosts();
 			for (Room room : rooms) {
-				if (room.getType().equals(Room.roomType.SUITE)) {
+				if (room.getType().equals("suite")) {
 					suiteTextField.setText("" + room.getCostPerDay());
 				} else {
-					if (room.getType().equals(Room.roomType.DOUBLE)) {
+					if (room.getType().equals("double")) {
 						doubleTextField.setText("" + room.getCostPerDay());
 					} else {
-						if (room.getType().equals(Room.roomType.INDIVIDUAL)) {
+						if (room.getType().equals("individual")) {
 							individualTextField.setText("" + room.getCostPerDay());
 						} else {
-							if (room.getType().equals(Room.roomType.BOX)) {
+							if (room.getType().equals("box")) {
 								boxTextField.setText("" + room.getCostPerDay());
 							} else {
-								if (room.getType().equals(Room.roomType.ICU)) {
+								if (room.getType().equals("icu")) {
 									icuTextField.setText("" + room.getCostPerDay());
 								}
 							}
