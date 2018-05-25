@@ -39,7 +39,7 @@ public class JPADoctorController implements DoctorInterface{
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
-		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE id LIKE ?", Doctor.class);
+		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE id = ?", Doctor.class);
 		q1.setParameter(1, id);
 		Doctor doctor = (Doctor) q1.getSingleResult();
 		return doctor;

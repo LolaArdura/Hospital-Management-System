@@ -1,6 +1,7 @@
 package xmlManager;
 
 import java.io.File;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,6 +17,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import jpaManager.DBEntityManager;
 import model.Patient;
+import model.Treatment;
 import jpaManager.*;
 
 
@@ -54,8 +56,8 @@ public static Patient unmarshal (String route) throws Exception {
 		File file = new File (route);
 		Patient p = (Patient) unmarshaller.unmarshal(file);
 		
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
-		EntityManager em = factory.createEntityManager();
+		
+		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
@@ -63,7 +65,6 @@ public static Patient unmarshal (String route) throws Exception {
 		EntityTransaction tx1 = em.getTransaction();
 		tx1.begin();
 		em.persist(p);
-		
 		tx1.commit();
 		
 		return p;
