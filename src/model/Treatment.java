@@ -46,7 +46,7 @@ public class Treatment implements Serializable {
 	@JoinColumn(name="patient_id")
 	@XmlTransient
 	private Patient patient ;
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY,cascade=CascadeType.MERGE)
 	@JoinColumn(name="bill_id")
 	@XmlTransient
 	private Bills bill;
@@ -158,7 +158,7 @@ public class Treatment implements Serializable {
 		return prescriber;
 	}
 
-	public void setDoctorId(Doctor prescriber) {
+	public void setDoctor(Doctor prescriber) {
 		this.prescriber = prescriber;
 	}
 	

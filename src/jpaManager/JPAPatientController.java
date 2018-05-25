@@ -101,7 +101,7 @@ public class JPAPatientController implements PatientInterface{
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_key=ON").executeUpdate();
 		em.getTransaction().commit();
-		Query q1 = em.createNativeQuery("SELECT * FROM bills JOIN patient WHERE bills.patient_id ="+patient.getId(), Patient.class);
+		Query q1 = em.createNativeQuery("SELECT * FROM bills JOIN patient WHERE bills.patient_id ="+patient.getId(), Bills.class);
 		List <Bills> bills = (List<Bills>)q1.getResultList();
 		return bills;
 	}
@@ -111,7 +111,7 @@ public class JPAPatientController implements PatientInterface{
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_key=ON").executeUpdate();
 		em.getTransaction().commit();
-		Query q1 = em.createNativeQuery("Select * FROM treatment JOIN patient WHERE treatment.patient_id="+patient.getId(), Patient.class);
+		Query q1 = em.createNativeQuery("Select * FROM treatment JOIN patient WHERE treatment.patient_id="+patient.getId(), Treatment.class);
 		List<Treatment> treatments = (List<Treatment>)q1.getResultList();
 		return treatments;
 	}

@@ -36,8 +36,13 @@ public class JPATreatmentController implements TreatmentInterface {
 	 public boolean deleteTreatment (Treatment treatment) throws Exception{
 		 
 		 EntityManager em =DBEntityManager.getEntityManager();
+		 Treatment treatmentRetrieved= searchTreatmentById(treatment.getId());
 		 em.getTransaction().begin();
-		 em.remove(treatment);
+		 treatmentRetrieved.getPatient().removeTreatment(treatmentRetrieved);
+		 treatmentRetrieved.getPrescriber().deleteTreatment(treatmentRetrieved);
+		 treatment.setPatient(null);
+		 treatment.setDoctor(null);
+		 em.remove(treatmentRetrieved);
 		 em.getTransaction().commit();
 		 return true;
 		 
@@ -52,7 +57,7 @@ public class JPATreatmentController implements TreatmentInterface {
 		em.getTransaction().commit();
 		
 		//Search the treatments by id
-		Query q1 = em.createNativeQuery("SELECT * FROM treatments WHERE id LIKE ?", Treatment.class);
+		Query q1 = em.createNativeQuery("SELECT * FROM treatment WHERE id LIKE ?", Treatment.class);
 		q1.setParameter(1, id );
 		Treatment treatment = (Treatment)q1.getSingleResult();
 		return treatment;

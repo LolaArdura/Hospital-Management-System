@@ -71,6 +71,22 @@ public class Doctor extends Employee{
 		return this.id;
 	}
 	
+	public void addTreatment(Treatment treatment) {
+		treatments.add(treatment);
+	}
+	
+	public void deleteTreatment(Treatment treatment) {
+		treatments.remove(treatment);
+	}
+	
+	public List<Treatment> getTreatments() {
+		return treatments;
+	}
+
+	public void setTreatments(List<Treatment> treatments) {
+		this.treatments = treatments;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
