@@ -35,7 +35,8 @@ public class xmlTest {
 		//xmlPatient.marshal(p1, "./xmls/Sample-Patients.xml");
 		Patient p=xmlPatient.unmarshal("./xmls/Sample-Patients.xml");
         System.out.println(p);
-        System.out.println(p.getListOfTreatments());
+     
+        //System.out.println(p.getListOfTreatments());
 	
 		//xmlPatient.xml2Html("./xmls/External-Patient.xml", "./xmls/Patient-Style.xslt", "./xmls/External-Patient.html");
 

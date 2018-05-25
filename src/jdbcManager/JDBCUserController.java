@@ -30,6 +30,8 @@ public class JDBCUserController implements UserInterface{
 
 		String sql= "SELECT * FROM user";
 		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
 		ResultSet rs=prep.executeQuery();
 		List<User> users=new LinkedList<User>();
 		while(rs.next()) {
@@ -57,23 +59,37 @@ public class JDBCUserController implements UserInterface{
 		rs.close();
 		prep.close();
 		return users;
+		
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 	}
 
 	@Override
 	public void insertUser(User user) throws Exception {
 		String sql="INSERT INTO user (username,password, type)  VALUES (?,?,?)";
 		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
 		prep.setString(1,user.getUsername());
 		prep.setString(2, user.getPassword());
 		prep.setString(3,user.getTypeOfUser().name().toLowerCase());
 		prep.executeUpdate();
 		prep.close();
+		
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 	}
 
 	@Override
 	public List<User> searchUserByType(userType usertype) throws Exception {
 		String sql="SELECT id,username,password FROM user WHERE type = ?";
 		PreparedStatement prep=JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
 		prep.setString(1, usertype.name().toLowerCase());
 		ResultSet rs=prep.executeQuery();
 		List<User> users=new LinkedList<User>();
@@ -87,12 +103,19 @@ public class JDBCUserController implements UserInterface{
 		rs.close();
 		prep.close();
 		return users;
+		
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 	}
 
 	@Override
 	public User validateUser(User user) throws Exception {
 		String sql="SELECT id,type FROM user WHERE username = ? and password = ?";
 		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
 		prep.setString(1, user.getUsername());
 		prep.setString(2,user.getPassword());
 		ResultSet rs= prep.executeQuery();
@@ -103,27 +126,45 @@ public class JDBCUserController implements UserInterface{
 		rs.close();
 		prep.close();
 		return user;
+		
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 	}
 
 	@Override
 	public void deleteUser(User user) throws Exception {
 		String sql = "DELETE FROM user WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
 		prep.setInt(1,  user.getId());
 		prep.executeUpdate();
 		prep.close();
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 	}
 
 	@Override
 	public void updateUser(User user) throws Exception {
 		String sql = "UPDATE user SET username=?, password=? WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
 		prep.setString(1, user.getUsername());
 		prep.setString(2, user.getPassword());
 		prep.setInt(3, user.getId());
 
 		prep.executeUpdate();
 		prep.close();
+		
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 	}
 
 }
