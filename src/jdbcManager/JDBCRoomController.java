@@ -21,8 +21,9 @@ public class JDBCRoomController implements RoomInterface {
 
 	public boolean insertRoom(Room room) throws Exception {
 		String sql = "INSERT INTO room ( number, type, capacity, floor, costPerDay)" + " VALUES (?,?,?,?,?);";
-
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
 		prep.setInt(1, room.getNumber());
 		prep.setString(2, room.getType().name().toLowerCase());
 		prep.setInt(3, room.getCapacity());
@@ -31,6 +32,11 @@ public class JDBCRoomController implements RoomInterface {
 		prep.executeUpdate();
 		prep.close();
 		return true;
+		
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 
 	}
 
@@ -38,15 +44,24 @@ public class JDBCRoomController implements RoomInterface {
 	public boolean deleteRoom(Room room) throws Exception {
 		String sql = "DELETE FROM room WHERE id = ?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
 		prep.setInt(1, room.getId());
 		prep.executeUpdate();
 		prep.close();
 		return true;
+		
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 	}
 
 	public Room searchRoomById(Integer id) throws Exception {
 		String sql = "SELECT * FROM room WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 		Room room=null;
@@ -62,11 +77,18 @@ public class JDBCRoomController implements RoomInterface {
 		rs.close();
 		prep.close();
 		return room;
+		
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 	}
 
 	public void updateRoom(Room room) throws Exception {
 		String sql = "UPDATE room SET number=?, type=?, capacity=?, floor=?, costPerDay=? WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
 		prep.setInt(1, room.getNumber());
 		prep.setString(2, room.getType().name().toUpperCase());
 		prep.setInt(3, room.getCapacity());
@@ -75,11 +97,18 @@ public class JDBCRoomController implements RoomInterface {
 		prep.setInt(6, room.getId());
 		prep.executeUpdate();
 		prep.close();
+		
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 	}
 	
 	public List<Room> getAllRooms() throws Exception {
 		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT * FROM room";
+		
+		try {
 		ResultSet rs = stmt.executeQuery(sql);
 		List<Room> roomList = new LinkedList<Room>();
 		while (rs.next()) {
@@ -95,13 +124,18 @@ public class JDBCRoomController implements RoomInterface {
 		rs.close();
 		stmt.close();
 		return roomList;
+		
+		}catch (Exception e ) {
+			stmt.close();
+			throw new Exception();
+		}
 	}
 
 	@Override
 	public float searchCost(roomType type) throws Exception {
-
 		String sql= "SELECT costPerDay FROM room GROUP BY type HAVING type= ?";
 		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		try {
 		prep.setString(1, type.name().toLowerCase());
 		ResultSet rs=prep.executeQuery();
 		Float cost=-1F;
@@ -110,12 +144,19 @@ public class JDBCRoomController implements RoomInterface {
 		}
 		prep.close();
 		return cost;
+		
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 	}
 
 	@Override
 	public List<Room> getRoomsByType(roomType type) throws Exception {
 		String sql= "SELECT * FROM room WHERE type=?";
 		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
 		prep.setString(1, type.name().toLowerCase());
 		ResultSet rs=prep.executeQuery();
 		LinkedList<Room> roomList=new LinkedList<Room>();;
@@ -132,13 +173,19 @@ public class JDBCRoomController implements RoomInterface {
 		rs.close();
 		prep.close();
 		return roomList;
+		
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 	}
 
 	@Override
 	public List<Room> getRoomsAndCosts() throws Exception {
-
 		String sql= "SELECT type, costPerDay FROM room GROUP BY type";
 		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
 		ResultSet rs=prep.executeQuery();
 		List<Room> roomList = new LinkedList<Room>();
 		while (rs.next()) {
@@ -150,6 +197,11 @@ public class JDBCRoomController implements RoomInterface {
 		rs.close();
 		prep.close();
 		return roomList;
+		
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 	}
 
 
@@ -158,6 +210,8 @@ public class JDBCRoomController implements RoomInterface {
 		String sql= "SELECT room.id,number,floor,type,capacity,costPerDay,COUNT(patient.id) FROM room LEFT JOIN patient ON "
 				+ "room.id=patient.room_id GROUP BY room.id "
 				+ "HAVING COUNT(patient.id) < capacity";
+		
+		try {
 		ResultSet rs=stmt.executeQuery(sql);
 		LinkedList<Room> roomList=new LinkedList<Room>();;
 		while(rs.next()) {
@@ -173,16 +227,27 @@ public class JDBCRoomController implements RoomInterface {
 		rs.close();
 		stmt.close();
 		return roomList;
+		
+		}catch (Exception e ) {
+			stmt.close();
+			throw new Exception();
+		}
 	}
 
 	@Override
 	public void updateCost(Float cost, Room.roomType type) throws Exception {
 		String sql="UPDATE room SET costPerDay=? WHERE type=?";
 		PreparedStatement prep= JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
 		prep.setFloat(1,cost);
 		prep.setString(2,type.name().toLowerCase());
 		prep.executeUpdate();
 		prep.close();
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
 	}
 
 	
