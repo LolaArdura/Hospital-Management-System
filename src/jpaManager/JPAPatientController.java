@@ -111,7 +111,7 @@ public class JPAPatientController implements PatientInterface{
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_key=ON").executeUpdate();
 		em.getTransaction().commit();
-		Query q1 = em.createNativeQuery("Select * FROM treatment JOIN patient WHERE treatment.patient_id="+patient.getId(), Patient.class);
+		Query q1 = em.createNativeQuery("Select * FROM treatment JOIN patient WHERE treatment.patient_id="+patient.getId(), Treatment.class);
 		List<Treatment> treatments = (List<Treatment>)q1.getResultList();
 		return treatments;
 	}
