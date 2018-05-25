@@ -40,6 +40,7 @@ public class TestGUI extends Application {
     		if(users.isEmpty()) {
     			User user= new User("admin","hospitalAdmin1",User.userType.ADMIN);
     			JDBCUserController.getUserController().insertUser(user);
+    			DBEntityManager.getEntityManager();
     			
     			Alert a= new Alert(AlertType.INFORMATION);
     			a.setTitle("No users registered");
@@ -49,6 +50,7 @@ public class TestGUI extends Application {
     		}
     	 
     		 try {
+    			DBEntityManager.getEntityManager();
 				Parent root= FXMLLoader.load(getClass().getResource("LoginScene.fxml"));
                 Scene scene=new Scene(root, 560, 405);
 				primaryStage.setScene(scene);
@@ -65,6 +67,7 @@ public class TestGUI extends Application {
     			DatabaseTables.createTables();
     			User user= new User("admin","hospitalAdmin1",User.userType.ADMIN);
     			JDBCUserController.getUserController().insertUser(user);
+    			DBEntityManager.getEntityManager();
     			Alert a= new Alert(AlertType.INFORMATION);
     			a.setTitle("No users registered");
     			a.setHeaderText("Default admin user created");

@@ -20,13 +20,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.ColumnConstraints;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.util.Callback;
 import jdbcManager.JDBCPatientController;
 import jdbcManager.JDBCRoomController;
+import jpaManager.JPAPatientController;
 import model.Doctor;
 import model.Nurse;
 import model.Patient;
@@ -215,7 +216,7 @@ public class PatientDetailsController implements Initializable {
 
 	@FXML
 	public void okButtonClicked(ActionEvent event) {
-		PatientInterface controller = JDBCPatientController.getPatientController();
+		PatientInterface controller = JPAPatientController.getPatientController();
 		Patient p = getPatient();
 		if (p != null) {
 			if (permission.equals(paneType.ADMIN) || permission.equals(paneType.RECEPTIONIST)) {

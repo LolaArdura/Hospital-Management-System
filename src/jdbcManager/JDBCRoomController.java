@@ -142,6 +142,7 @@ public class JDBCRoomController implements RoomInterface {
 		if(rs.next()) {
 			cost=rs.getFloat("costPerDay");
 		}
+		rs.close();
 		prep.close();
 		return cost;
 		
