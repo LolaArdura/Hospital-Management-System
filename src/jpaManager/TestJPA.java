@@ -38,5 +38,40 @@ public class TestJPA {
 	 for(Treatment a:q) {
 		 System.out.println(a);
 	 }
+	 
+	 
+	 //TEST JPAPATIENTCONROLLER METHODS:
+	 //insertCompletePatient:
+	 Patient Lolita = new Patient (01, "Lolita", Sex.female, "mental disorder", dob, dateAdmission);
+	 JPAPatientController.getPatientController().insertCompletePatient(Lolita);
+	 System.out.println(Lolita);
+	 //InsertNoDiagnosePatient:
+	 Patient Pepa = new Patient ( "Pepa", Sex.female, dob, dateAdmission);
+	 JPAPatientController.getPatientController().insertNoDiagnosePatient(Pepa);
+	 System.out.println(Pepa);
+	 //deletePatient:
+	 //getAllPatients
+	 JPAPatientController.getPatientController().deletePatient(Pepa);
+	 System.out.println(JPAPatientController.getPatientController().getAllPatients());
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
  }
 }
