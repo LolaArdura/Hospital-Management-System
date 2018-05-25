@@ -74,14 +74,14 @@ public class Treatment implements Serializable {
 	//Constructor with id
 	
 	
-	public Treatment(String routeOfAdmin, Date startDate, Date endDate, float cost, String type, String dose,
+	public Treatment(String routeOfAdmin, Date startDate, Date endDate, float cost, String treatmentType, String dose,
 			Doctor prescriber, Patient patient, Bills bill) {
 		super();
 		this.routeOfAdmin = routeOfAdmin;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.cost = cost;
-		this.type = type;
+		this.type = treatmentType;
 		this.dose = dose;
 		this.prescriber = prescriber;
 		this.patient = patient;

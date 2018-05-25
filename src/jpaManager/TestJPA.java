@@ -29,8 +29,14 @@ public class TestJPA {
 	//JPADoctorController.getJPADoctorController().insertDoctor(d);
 	Bills b = new Bills (1, 200, "76839E2", true);
 	 //JPABillsController.getJPABillsController().insertBills(b);
-	 Treatment t = new Treatment(3, "intravenous", dob, dateAdmission, 289, "injections", "33", d, patient1, b);
-	 //JPATreatmentController.getTreatmentController().insertTreatment(t);
-	 System.out.println(t);
+	Patient patient2 = new Patient (10, "Maria", Sex.FEMALE,"pneumonia",dob,  dateAdmission );
+	//JPAPatientController.getPatientController().insertCompletePatient(patient2);
+	 Treatment w = new Treatment(7, "intravenous", dob, dateAdmission, 289, "injections", "33", d, patient2, b);
+	 //JPATreatmentController.getTreatmentController().insertTreatment(w);
+	 //System.out.println(w);
+	 List<Treatment> q = JPAPatientController.getPatientController().getTreatmentsFromPatient(patient2);
+	 for(Treatment a:q) {
+		 System.out.println(a);
+	 }
  }
 }
