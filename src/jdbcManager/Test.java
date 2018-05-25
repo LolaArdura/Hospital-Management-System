@@ -60,9 +60,9 @@ public class Test {
 //     Date dob2 = new Date (1654/06/03);     
 //     Date dob3 = new Date (1998/78/03);
 //	 Date dateAdmission = new Date (2018/01/02);
-//	 Patient patient1 = new Patient( "Ana", Sex.FEMALE , dob, dateAdmission );
-//	 Patient patient2 = new Patient( "Pepa", Sex.FEMALE , dob2, dateAdmission );
-//	 Patient patient3 = new Patient( "Manola", Sex.FEMALE , dob3, dateAdmission );
+//	 Patient patient1 = new Patient( "Ana", Sex.female , dob, dateAdmission );
+//	 Patient patient2 = new Patient( "Pepa", Sex.female , dob2, dateAdmission );
+//	 Patient patient3 = new Patient( "Manola", Sex.female , dob3, dateAdmission );
 //
 //	 JDBCPatientController.getPatientController().insertNoDiagnosePatient(patient1);
 //	List<Patient> listpatients = JDBCPatientController.getPatientController().getAllPatients();

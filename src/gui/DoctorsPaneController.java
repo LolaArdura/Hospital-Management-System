@@ -159,7 +159,7 @@ public class DoctorsPaneController implements Initializable {
 						}
 
 						// We insert into the database the new doctor
-						JDBCDoctorController.getDoctorController().insertDoctor(doctor);
+						JPADoctorController.getJPADoctorController().insertDoctor(doctor);
 
 						// We show the new doctor
 						setDoctors();

@@ -36,6 +36,9 @@ import javafx.scene.layout.Pane;
 import jdbcManager.JDBCNurseController;
 import jdbcManager.JDBCPatientController;
 import jdbcManager.JDBCTreatmentController;
+import jdbcManager.JDBConnection;
+import jpaManager.JPAPatientController;
+import jpaManager.JPATreatmentController;
 import model.Treatment;
 import model.Bills;
 import model.Doctor;
@@ -134,7 +137,8 @@ public class TreatmentsController implements Initializable{
 							Bills bill= new Bills(cost,billingID.get(),false,patient);
 							treatment= new Treatment(routeOfAdmin,Date.valueOf(startLDate),Date.valueOf(endLDate),cost,type,
 									dose,doctor,patient,bill);
-							TreatmentInterface treatmentController= JDBCTreatmentController.getTreatmentController();
+							//TreatmentInterface treatmentController= JDBCTreatmentController.getTreatmentController();
+							TreatmentInterface treatmentController= JPATreatmentController.getTreatmentController();
 	    					treatmentController.insertTreatment(treatment);
     					}
     					else {
@@ -142,6 +146,7 @@ public class TreatmentsController implements Initializable{
 								dose,doctor,patient);
     					
     					TreatmentInterface treatmentController= JDBCTreatmentController.getTreatmentController();
+    					//TreatmentInterface treatmentController= JPATreatmentController.getTreatmentController();
     					treatmentController.insertTreatmentWithoutBill(treatment);
     					}
     					setTreatments();
@@ -195,7 +200,8 @@ public class TreatmentsController implements Initializable{
 		String confirmation = a.showAndWait().get().getText();
 		if (confirmation.equals("Yes")) {
 			try {
-				TreatmentInterface treatmentController = JDBCTreatmentController.getTreatmentController();
+				//TreatmentInterface treatmentController = JDBCTreatmentController.getTreatmentController();
+				TreatmentInterface treatmentController= JPATreatmentController.getTreatmentController();
 				treatmentController.deleteTreatment(treatment);
 				setTreatments();
 			} catch (Exception e) {
@@ -256,6 +262,7 @@ public class TreatmentsController implements Initializable{
 			treatmentsFromPatient.addAll(treatments);
 			treatmentsTable.getItems().clear();
 			treatmentsTable.getItems().addAll(treatmentsFromPatient);
+
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

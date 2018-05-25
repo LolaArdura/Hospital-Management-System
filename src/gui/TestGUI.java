@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import jdbcManager.JDBCPatientController;
 import jdbcManager.JDBCUserController;
 import jdbcManager.JDBConnection;
+import jpaManager.DBEntityManager;
 import model.Patient;
 import model.User;
 import tables.DatabaseTables;
@@ -93,6 +94,7 @@ public class TestGUI extends Application {
  		if (confirmation.equals("Yes")) {
  			try {
 				JDBConnection.getConnection().close();
+				DBEntityManager.getEntityManager().close();
 				primaryStage.close();
 			} catch (Exception e) {
 				 Alert alert= new Alert(AlertType.ERROR);
