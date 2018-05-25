@@ -129,7 +129,7 @@ public class JDBCPatientController implements PatientInterface{
 		while(rs.next()) {
 			int id =rs.getInt("id");
 			float totalCost = rs.getFloat("cost");
-			String bankId =rs.getString("bankId");
+			String bankId =rs.getString("bankID");
 			boolean paid = rs.getBoolean("paid");
 			Bills searchBill = new Bills (id, totalCost,bankId, paid);
 			billsList.add(searchBill);
@@ -225,7 +225,7 @@ public class JDBCPatientController implements PatientInterface{
 		Sex gender = Sex.valueOf(rs.getString("gender").toUpperCase());
 		String diagnose = rs.getString("diagnose");
 		Date dob = rs.getDate("dob");
-		Date dateAdmission = rs.getDate("date_of_admission");
+		Date dateAdmission = rs.getDate("dateAdmission");
 		Patient patient = new Patient (Id, nameRs, gender, diagnose, dob, dateAdmission);
 		patients.add(patient);
 		}
