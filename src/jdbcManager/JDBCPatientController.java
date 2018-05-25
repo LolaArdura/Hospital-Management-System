@@ -86,7 +86,7 @@ public class JDBCPatientController implements PatientInterface{
 		while (rs.next()) {
 			int Id = rs.getInt("id");
 			String name = rs.getString("name");
-			Sex gender = Sex.valueOf(rs.getString("gender").toUpperCase());
+			Sex gender = Sex.valueOf(rs.getString("gender"));
 			String diagnose = rs.getString("diagnose");
 			Date dob = rs.getDate("dob");
 			Date dateAdmission = rs.getDate("dateAdmission");
@@ -106,7 +106,7 @@ public class JDBCPatientController implements PatientInterface{
 		while(rs.next()) {
 			int id = rs.getInt("id");
 			String name = rs.getString("name");
-			Sex gender = Sex.valueOf(rs.getString("gender").toUpperCase());
+			Sex gender = Sex.valueOf(rs.getString("gender"));
 			Date dob = rs.getDate("dob");
 			Date dateAdmission = rs.getDate("dateAdmission");
 			Integer room_id = rs.getInt("room_id");
@@ -174,6 +174,7 @@ public class JDBCPatientController implements PatientInterface{
 			Doctor prescriber = JDBCDoctorController.getDoctorController().searchDoctorById(prescriber_id);
 			Treatment searchTreatment = new Treatment (id,routeOfAdmin, startDate, endDate,
 					cost, treatmentType, dose, prescriber);
+			searchTreatment.setPatient(patient);
 			treatmentsList.add(searchTreatment);
 		}
 		rs.close();
@@ -189,7 +190,7 @@ public class JDBCPatientController implements PatientInterface{
 		rs.next();
 		int Id = rs.getInt("id");
 		String name = rs.getString("name");
-		Sex gender = Sex.valueOf(rs.getString("gender").toUpperCase());
+		Sex gender = Sex.valueOf(rs.getString("gender"));
 		String diagnose = rs.getString("diagnose");
 		Date dob = rs.getDate("dob");
 		Date dateAdmission = rs.getDate("dateAdmission");
@@ -222,7 +223,7 @@ public class JDBCPatientController implements PatientInterface{
 		while(rs.next()) {
 		int Id = rs.getInt("id");
 		String nameRs = rs.getString("name");
-		Sex gender = Sex.valueOf(rs.getString("gender").toUpperCase());
+		Sex gender = Sex.valueOf(rs.getString("gender"));
 		String diagnose = rs.getString("diagnose");
 		Date dob = rs.getDate("dob");
 		Date dateAdmission = rs.getDate("dateAdmission");

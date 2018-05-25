@@ -22,6 +22,7 @@ public class JPADoctorController implements DoctorInterface{
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
 		em.persist(doctor);
+		em.flush();
 		em.getTransaction().commit();
 		return true;
 	}
@@ -48,7 +49,6 @@ public class JPADoctorController implements DoctorInterface{
 	public List<Doctor> getAllDoctors() throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
-		em.flush();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM doctor", Doctor.class);

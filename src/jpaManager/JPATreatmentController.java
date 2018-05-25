@@ -36,8 +36,13 @@ public class JPATreatmentController implements TreatmentInterface {
 	 public boolean deleteTreatment (Treatment treatment) throws Exception{
 		 
 		 EntityManager em =DBEntityManager.getEntityManager();
+		 Treatment treatmentRetrieved= searchTreatmentById(treatment.getId());
 		 em.getTransaction().begin();
-		 em.remove(treatment);
+		 treatmentRetrieved.getPatient().removeTreatment(treatmentRetrieved);
+		 treatmentRetrieved.getPrescriber().deleteTreatment(treatmentRetrieved);
+		 treatment.setPatient(null);
+		 treatment.setDoctor(null);
+		 em.remove(treatmentRetrieved);
 		 em.getTransaction().commit();
 		 return true;
 		 

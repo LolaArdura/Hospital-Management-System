@@ -17,7 +17,7 @@ public class DBEntityManager implements ConnectionInterface{
 	}
 	@Override
 	public void stopConnection() throws SQLException {
-		// TODO Auto-generated method stub
+		em.close();
 		
 	}
 	

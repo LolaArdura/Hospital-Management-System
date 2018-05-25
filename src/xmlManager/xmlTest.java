@@ -29,7 +29,7 @@ public class xmlTest {
 		nurses.add(new Nurse(1,"Lola",null,"morning","injections"));
 		LinkedList<Bills> bills=new LinkedList<>();
 		bills.add(new Bills(1,200, "123456ESB",false));
-		Patient p1 = new Patient(2,"Ale", Sex.MALE,"dead", dob, dateAdmission,treatments,nurses,bills,r);
+		Patient p1 = new Patient(2,"Ale", Sex.male,"dead", dob, dateAdmission,treatments,nurses,bills,r);
 		//JPAPatientController.getPatientController().insertNoDiagnosePatient(p1);
 		//List<Patient> pt = JPAPatientController.getPatientController().getAllPatients();
 		//xmlPatient.marshal(p1, "./xmls/Sample-Patients.xml");
