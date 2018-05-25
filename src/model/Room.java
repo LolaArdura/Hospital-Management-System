@@ -89,9 +89,9 @@ public class Room implements Serializable {
 		this.costPerDay = costPerDay;
 	}
 
-	public Room(Room.roomType type, float cost) {
+	public Room(Room.roomType type, float costPerDay) {
     	this.type=type;
-    	this.costPerDay=cost;
+    	this.costPerDay=costPerDay;
     	listOfPatients= new LinkedList <Patient>();
     }
 
