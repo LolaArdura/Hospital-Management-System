@@ -34,11 +34,13 @@ public class JPADoctorController implements DoctorInterface{
 	public boolean deleteDoctor(Doctor doctor) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		try {
+			Doctor doctorReceived=JPADoctorController.getJPADoctorController().searchDoctorById(doctor.getId());
 			em.getTransaction().begin();
-			em.remove(doctor);
+			em.remove(doctorReceived);
 			em.getTransaction().commit();
 		return true;
 		}catch(Exception e) {
+			e.printStackTrace();
 			em.getTransaction().commit();
 			throw new Exception();
 		 }
