@@ -75,8 +75,9 @@ public class JDBCDoctorController implements DoctorInterface {
 			Doctor searchDoctor = new Doctor(Id, name, photo, schedule, speciality);
 			doctorList.add(searchDoctor);
 		}
+		    rs.close();
 		stmt.close();
-		rs.close();
+	
 		return doctorList; 
 		} catch (Exception e ) {
 			stmt.close();
@@ -88,6 +89,7 @@ public class JDBCDoctorController implements DoctorInterface {
 		String sql = "SELECT * FROM doctor WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		try { 
+			Doctor doctor=null;
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 
@@ -97,11 +99,11 @@ public class JDBCDoctorController implements DoctorInterface {
 		byte[] photo = rs.getBytes("photo");
 		String schedule = rs.getString("schedule");
 		String speciality = rs.getString("specialty");
-		Doctor doctor = new Doctor(Id, name, photo, schedule, speciality);
-		return doctor;
+		doctor = new Doctor(Id, name, photo, schedule, speciality);	
 		}
-	    Doctor doc=null;
-	    return doc;
+		rs.close();
+		prep.close();
+	    return doctor;
 	    
 		}catch (Exception e ) {
 			prep.close();
@@ -126,6 +128,7 @@ public class JDBCDoctorController implements DoctorInterface {
 			Doctor searchDoctor = new Doctor(Id, rsName, photo, schedule, speciality);
 			doctorList.add(searchDoctor);
 		}
+		rs.close();
 		prep.close();
 		return doctorList;
 		

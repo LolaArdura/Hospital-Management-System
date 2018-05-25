@@ -5,8 +5,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import interfaces.*;
-import model.Doctor;
-import model.Patient;
 import model.Treatment;
 
 public class JPATreatmentController implements TreatmentInterface {
@@ -21,25 +19,14 @@ public class JPATreatmentController implements TreatmentInterface {
 	 public boolean insertTreatment (Treatment treatment) throws Exception{
 		 
 		 EntityManager em =DBEntityManager.getEntityManager();
-		 Patient p= JPAPatientController.getPatientController().searchPatientById(treatment.getPatient().getId());
-		 Doctor d= JPADoctorController.getJPADoctorController().searchDoctorById(treatment.getPrescriber().getId());
-		 treatment.setPatient(null);
-		 treatment.setDoctor(null);
 		 try {
-			 
-	
 		 em.getTransaction().begin();
+		 em.persist(treatment.getBill());
 		 em.persist(treatment);
 		 em.getTransaction().commit();
-		 em.getTransaction().begin();
-		 p.addTreatment(treatment);
-		 d.addTreatment(treatment);
-		 treatment.setDoctor(d);
-		 treatment.setPatient(p);
-		 em.getTransaction().commit();
-		 
 		 return true;
 		 }catch(Exception e) {
+			 e.printStackTrace();
 			 em.getTransaction().commit();
 			 throw new Exception();
 		 }
@@ -65,15 +52,10 @@ public class JPATreatmentController implements TreatmentInterface {
 		 try {
 		 Treatment treatmentRetrieved= searchTreatmentById(treatment.getId());
 		 em.getTransaction().begin();
-		 treatmentRetrieved.getPatient().removeTreatment(treatmentRetrieved);
-		 treatmentRetrieved.getPrescriber().deleteTreatment(treatmentRetrieved);
-		 treatment.setPatient(null);
-		 treatment.setDoctor(null);
 		 em.remove(treatmentRetrieved);
 		 em.getTransaction().commit();;
 		 return true;
 		 }catch(Exception e) {
-			 e.printStackTrace();
 			 em.getTransaction().commit();
 			 throw new Exception();
 		 }
@@ -94,7 +76,6 @@ public class JPATreatmentController implements TreatmentInterface {
 		Treatment treatment = (Treatment)q1.getSingleResult();
 		return treatment;
 		}catch(Exception e) {
-			 em.getTransaction().commit();
 			 throw new Exception();
 		 }
 	}

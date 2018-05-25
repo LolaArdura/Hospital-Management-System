@@ -168,25 +168,26 @@ public class JDBCPatientController implements PatientInterface{
 		String sql= "SELECT * FROM bills WHERE patient_id = ? ";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		
+		try {
+			prep.setInt(1, patient.getId());
+			List<Bills> billsList = new LinkedList<Bills>();
+			ResultSet rs = prep.executeQuery();
+			while(rs.next()) {
+				int id =rs.getInt("id");
+				float totalCost = rs.getFloat("cost");
+				String bankId =rs.getString("bankID");
+				boolean paid = rs.getBoolean("paid");
+				Bills searchBill = new Bills (id, totalCost,bankId, paid);
+				billsList.add(searchBill);
+						
+			}
+			rs.close();
+			prep.close();
+			
+		
 		sql="SELECT bills.id, bills.cost,bankID,paid FROM bills JOIN treatment ON bills.id=treatment.bill_id "
 				+ "WHERE treatment.patient_id=?";
 		PreparedStatement p=JDBConnection.getConnection().prepareStatement(sql);
-		
-		try {
-		prep.setInt(1, patient.getId());
-		List<Bills> billsList = new LinkedList<Bills>();
-		ResultSet rs = prep.executeQuery();
-		while(rs.next()) {
-			int id =rs.getInt("id");
-			float totalCost = rs.getFloat("cost");
-			String bankId =rs.getString("bankID");
-			boolean paid = rs.getBoolean("paid");
-			Bills searchBill = new Bills (id, totalCost,bankId, paid);
-			billsList.add(searchBill);
-					
-		}
-		rs.close();
-		prep.close();
 		
 		p.setInt(1, patient.getId());
 		ResultSet rs2 = p.executeQuery();
@@ -202,8 +203,6 @@ public class JDBCPatientController implements PatientInterface{
 		p.close();
 		return billsList;
 		}catch (Exception e ) {
-			prep.close();
-			p.close();
 			throw new Exception();
 		}
 	}
@@ -243,11 +242,11 @@ public class JDBCPatientController implements PatientInterface{
 	public Patient searchPatientById (Integer id) throws Exception {
 		String sql = "SELECT * FROM patient WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-		
+		Patient patient=null;
 		try {
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
-		rs.next();
+		if(rs.next()) {
 		int Id = rs.getInt("id");
 		String name = rs.getString("name");
 		Sex gender = Sex.valueOf(rs.getString("gender").toLowerCase());
@@ -255,7 +254,9 @@ public class JDBCPatientController implements PatientInterface{
 		Date dob = rs.getDate("dob");
 		Date dateAdmission = rs.getDate("dateAdmission");
 		Room room =JDBCRoomController.getRoomController().searchRoomById(rs.getInt("room_id"));
-		Patient patient = new Patient (Id, name, gender, diagnose, dob, dateAdmission, room);
+		patient = new Patient (Id, name, gender, diagnose, dob, dateAdmission, room);
+		}
+		
 		rs.close();
 		prep.close();
 		return patient;

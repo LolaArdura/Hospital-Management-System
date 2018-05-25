@@ -50,7 +50,6 @@ public class JDBCRoomController implements RoomInterface {
 		prep.executeUpdate();
 		prep.close();
 		return true;
-		
 		}catch (Exception e ) {
 			prep.close();
 			throw new Exception();
@@ -142,6 +141,7 @@ public class JDBCRoomController implements RoomInterface {
 		if(rs.next()) {
 			cost=rs.getFloat("costPerDay");
 		}
+		rs.close();
 		prep.close();
 		return cost;
 		

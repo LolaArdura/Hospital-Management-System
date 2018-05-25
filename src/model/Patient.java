@@ -79,6 +79,16 @@ public class Patient implements Serializable {
 		this.listOfNurses = new LinkedList<Nurse>();
 		this.listOfBills = new LinkedList<Bills>();
 	}
+	public Patient(Integer id, String name, Sex gender, Date dob, Date dateAdmission) {
+		this.id = id;
+		this.name = name;
+		this.gender = gender;
+		this.dob = dob;
+		this.dateAdmission = dateAdmission;
+		this.listOfTreatments = new LinkedList<Treatment>();
+		this.listOfNurses = new LinkedList<Nurse>();
+		this.listOfBills = new LinkedList<Bills>();
+	}
 	
 
 	public Patient(Integer id, String name, Sex gender, String diagnose, Date dob, Date dateAdmission,
@@ -334,7 +344,8 @@ public class Patient implements Serializable {
 	@Override
 	public String toString() {
 		return "Patient id:" + id + ", name:" + name + ", gender:" + gender + ", diagnose:" + diagnose + ", dob:" + dob
-				+ ", dateAdmission:" + dateAdmission + ",room: " + room;
+				+ ", dateAdmission:" + dateAdmission + ",room: " + room + ", nurses:" + listOfNurses + ", bills:" + listOfBills
+				+ ", treatments:" + listOfTreatments;
 	}
 
 }

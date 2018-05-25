@@ -16,8 +16,12 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import jpaManager.DBEntityManager;
+import model.Doctor;
 import model.Patient;
+import model.Room;
 import model.Treatment;
+import model.Bills;
+import model.Nurse;
 import jpaManager.*;
 
 
@@ -44,8 +48,6 @@ public static void marshal (Patient p, String route) throws Exception{
 
 }
 	
-	private static final String PERSISTENCE_PROVIDER = "hospital-management";	
-	private static EntityManagerFactory factory;
 	
 	
 public static Patient unmarshal (String route) throws Exception {
@@ -62,10 +64,80 @@ public static Patient unmarshal (String route) throws Exception {
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		
-		EntityTransaction tx1 = em.getTransaction();
-		tx1.begin();
-		em.persist(p);
-		tx1.commit();
+		
+		for(Treatment treatment: p.getListOfTreatments()) {
+			//We check treatments and prescibers to see if they are already in the database
+			Doctor doctor= treatment.getPrescriber();
+			if(doctor!=null) {
+				if(doctor.getId()!=0) {
+				try {
+					JPADoctorController.getJPADoctorController().searchDoctorById(doctor.getId());
+				}catch(Exception ex) {
+					doctor.setId(null);
+					JPADoctorController.getJPADoctorController().insertDoctor(doctor);
+				}
+				}
+				else {
+					doctor.setId(null);
+					JPADoctorController.getJPADoctorController().insertDoctor(doctor);
+				}
+			}
+			
+			if(treatment.getId()!=0) {
+			try {
+				JPATreatmentController.getTreatmentController().searchTreatmentById(treatment.getId());
+			}catch(Exception ex) {
+				treatment.setId(null);
+				JPATreatmentController.getTreatmentController().insertTreatment(treatment);
+			}
+			}
+			else {
+				treatment.setId(null);
+				JPADoctorController.getJPADoctorController().insertDoctor(doctor);
+			}
+		}
+		
+		for (Bills bill: p.getListOfBills()) {
+				if(bill.getId()!=0) {
+					try {
+					JPABillsController.getJPABillsController().searchBillsById(bill.getId());
+					}catch(Exception ex) {
+						bill.setId(null);
+						JPABillsController.getJPABillsController().insertBills(bill);
+					}
+				}
+				else {
+					bill.setId(0);
+					JPABillsController.getJPABillsController().insertBills(bill);
+				}
+		}
+		
+		for (Nurse nurse: p.getListOfNurses()) {
+			if(nurse.getId()!=0) {
+				try {
+					JPANurseController.getNurseController().searchNurseById(nurse.getId());
+				}catch(Exception ex) {
+					nurse.setId(null);
+					JPANurseController.getNurseController().insertNurse(nurse);
+				}
+			}
+			else {
+				nurse.setId(null);
+				JPANurseController.getNurseController().insertNurse(nurse);
+			}
+		}
+		
+		Room room= p.getRoom();
+		if(room.getId()!=0) {
+			try {
+				JPARoomController.getJPARoomController().searchRoomById(room.getId());
+			}catch(Exception ex) {
+				room.setId(null);
+				JPARoomController.getJPARoomController().insertRoom(room);
+			}
+		}
+		
+		JPAPatientController.getPatientController().insertCompletePatient(p);
 		
 		return p;
 	}

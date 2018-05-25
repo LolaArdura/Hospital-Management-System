@@ -42,6 +42,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		prep.setInt(8, treatment.getPatient().getId());
 		prep.setInt(9, bill_id);
 		prep.executeUpdate();
+		rs.close();
 		prep.close();
 		return true;
 		
