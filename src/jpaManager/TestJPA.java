@@ -29,7 +29,7 @@ public class TestJPA {
 	//JPADoctorController.getJPADoctorController().insertDoctor(d);
 	Bills b = new Bills (1, 200, "76839E2", true);
 	 //JPABillsController.getJPABillsController().insertBills(b);
-	Patient patient2 = new Patient (10, "Maria", Sex.FEMALE,"pneumonia",dob,  dateAdmission );
+	Patient patient2 = new Patient (10, "Maria", Sex.female,"pneumonia",dob,  dateAdmission );
 	//JPAPatientController.getPatientController().insertCompletePatient(patient2);
 	 Treatment w = new Treatment(7, "intravenous", dob, dateAdmission, 289, "injections", "33", d, patient2, b);
 	 //JPATreatmentController.getTreatmentController().insertTreatment(w);
