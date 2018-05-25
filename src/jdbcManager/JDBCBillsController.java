@@ -65,6 +65,7 @@ public Bills searchBillsById (Integer id) throws Exception{
 	String bankID = rs.getString("bankID");
 	boolean paid = rs.getBoolean("paid");
 	Bills bill = new Bills (Id, totalCost, bankID, paid);
+	rs.close();
     prep.close();
 	return bill;
 	}catch (Exception e ) {

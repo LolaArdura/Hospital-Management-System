@@ -100,7 +100,12 @@ public class JDBCNurseController implements NurseInterface {
 		prep.close();
 		return searchNurse;
 		}
-		else return null;
+		
+		else {
+			rs.close();
+			prep.close();
+			return null;
+		}
 		
 		}catch (Exception e ) {
 			prep.close();

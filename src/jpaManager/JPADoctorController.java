@@ -34,13 +34,13 @@ public class JPADoctorController implements DoctorInterface{
 	public boolean deleteDoctor(Doctor doctor) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		try {
-		em.getTransaction().begin();
-		em.remove(doctor);
-		em.getTransaction().commit();
+			em.getTransaction().begin();
+			em.remove(doctor);
+			em.getTransaction().commit();
 		return true;
 		}catch(Exception e) {
-			 em.getTransaction().commit();
-			 throw new Exception();
+			em.getTransaction().commit();
+			throw new Exception();
 		 }
 	}
 	
@@ -85,7 +85,7 @@ public class JPADoctorController implements DoctorInterface{
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE name LIKE ?", Doctor.class);
 		q1.setParameter(1, name);
-		LinkedList<Doctor> doctor = (LinkedList<Doctor>) q1.getResultList();
+		List<Doctor> doctor = (List<Doctor>) q1.getResultList();
 		return doctor;
 		}catch(Exception e) {
 			 em.getTransaction().commit();
@@ -102,7 +102,7 @@ public class JPADoctorController implements DoctorInterface{
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE specialty LIKE ?", Doctor.class);
 		q1.setParameter(1, specialty);
-		LinkedList<Doctor> doctor = (LinkedList<Doctor>) q1.getResultList();
+		List<Doctor> doctor = (List<Doctor>) q1.getResultList();
 		return doctor;
 		}catch(Exception e) {
 			 em.getTransaction().commit();
@@ -119,7 +119,7 @@ public class JPADoctorController implements DoctorInterface{
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM doctor WHERE schedule LIKE ?", Doctor.class);
 		q1.setParameter(1, schedule);
-		LinkedList<Doctor> doctor = (LinkedList<Doctor>) q1.getResultList();
+		List<Doctor> doctor = (List<Doctor>) q1.getResultList();
 		return doctor;
 		}catch(Exception e) {
 			 em.getTransaction().commit();
