@@ -22,7 +22,6 @@ public class JPADoctorController implements DoctorInterface{
 		EntityManager em = DBEntityManager.getEntityManager();
 		em.getTransaction().begin();
 		em.persist(doctor);
-		em.flush();
 		em.getTransaction().commit();
 		return true;
 	}

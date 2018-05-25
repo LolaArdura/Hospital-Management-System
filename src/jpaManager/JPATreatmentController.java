@@ -5,6 +5,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import interfaces.*;
+import model.Doctor;
+import model.Patient;
 import model.Treatment;
 
 public class JPATreatmentController implements TreatmentInterface {
@@ -17,10 +19,22 @@ public class JPATreatmentController implements TreatmentInterface {
 		 return singleton;
 	 }
 	 public boolean insertTreatment (Treatment treatment) throws Exception{
+		 
 		 EntityManager em =DBEntityManager.getEntityManager();
+		 Patient p= JPAPatientController.getPatientController().searchPatientById(treatment.getPatient().getId());
+		 Doctor d= JPADoctorController.getJPADoctorController().searchDoctorById(treatment.getPrescriber().getId());
+		 treatment.setPatient(null);
+		 treatment.setDoctor(null);
 		 em.getTransaction().begin();
 		 em.persist(treatment);
 		 em.getTransaction().commit();
+		 em.getTransaction().begin();
+		 p.addTreatment(treatment);
+		 d.addTreatment(treatment);
+		 treatment.setDoctor(d);
+		 treatment.setPatient(p);
+		 em.getTransaction().commit();
+		 
 		 return true;
 		 
 	 }

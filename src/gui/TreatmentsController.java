@@ -137,8 +137,8 @@ public class TreatmentsController implements Initializable{
 							Bills bill= new Bills(cost,billingID.get(),false,patient);
 							treatment= new Treatment(routeOfAdmin,Date.valueOf(startLDate),Date.valueOf(endLDate),cost,type,
 									dose,doctor,patient,bill);
-							//TreatmentInterface treatmentController= JDBCTreatmentController.getTreatmentController();
-							TreatmentInterface treatmentController= JPATreatmentController.getTreatmentController();
+							TreatmentInterface treatmentController= JDBCTreatmentController.getTreatmentController();
+							//TreatmentInterface treatmentController= JPATreatmentController.getTreatmentController();
 	    					treatmentController.insertTreatment(treatment);
     					}
     					else {
