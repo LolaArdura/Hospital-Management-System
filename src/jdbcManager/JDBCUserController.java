@@ -54,6 +54,7 @@ public class JDBCUserController implements UserInterface{
 			}
 			users.add(user);
 		}
+		rs.close();
 		prep.close();
 		return users;
 	}
@@ -83,6 +84,7 @@ public class JDBCUserController implements UserInterface{
 			User user=new User(id,username,password,usertype);
 			users.add(user);	
 			}
+		rs.close();
 		prep.close();
 		return users;
 	}
@@ -98,6 +100,7 @@ public class JDBCUserController implements UserInterface{
 			 user.setId(rs.getInt("id"));
 			 user.setTypeOfUser(User.userType.valueOf(rs.getString("type").toUpperCase()));
 		}
+		rs.close();
 		prep.close();
 		return user;
 	}

@@ -40,6 +40,7 @@ public class JDBCRoomController implements RoomInterface {
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, room.getId());
 		prep.executeUpdate();
+		prep.close();
 		return true;
 	}
 
@@ -58,6 +59,8 @@ public class JDBCRoomController implements RoomInterface {
 		float costPerDay = rs.getFloat("costPerDay");
 		room = new Room(Id, number, type, floor, capacity, costPerDay);
 		}
+		rs.close();
+		prep.close();
 		return room;
 	}
 
@@ -71,6 +74,7 @@ public class JDBCRoomController implements RoomInterface {
 		prep.setFloat(5, room.getCostPerDay());
 		prep.setInt(6, room.getId());
 		prep.executeUpdate();
+		prep.close();
 	}
 	
 	public List<Room> getAllRooms() throws Exception {
@@ -88,6 +92,7 @@ public class JDBCRoomController implements RoomInterface {
 			Room searchRoom = new Room(Id, number, type, floor, capacity, costPerDay);
 			roomList.add(searchRoom);
 		}
+		rs.close();
 		stmt.close();
 		return roomList;
 	}
@@ -124,6 +129,7 @@ public class JDBCRoomController implements RoomInterface {
 			Room room = new Room(Id, number, typeRs, floor, capacity, costPerDay);
 			roomList.add(room);
 		}
+		rs.close();
 		prep.close();
 		return roomList;
 	}
@@ -141,6 +147,7 @@ public class JDBCRoomController implements RoomInterface {
 			Room room = new Room(type,costPerDay);
 			roomList.add(room);
 		}
+		rs.close();
 		prep.close();
 		return roomList;
 	}
@@ -163,6 +170,7 @@ public class JDBCRoomController implements RoomInterface {
 			Room room = new Room(Id, number, typeRs, floor, capacity,costPerDay);
 			roomList.add(room);
 		}
+		rs.close();
 		stmt.close();
 		return roomList;
 	}

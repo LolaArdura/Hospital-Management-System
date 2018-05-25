@@ -58,6 +58,7 @@ public class JDBCNurseController implements NurseInterface {
 			Nurse searchNurse = new Nurse(id, name, photo, schedule, role);
 			nurseList.add(searchNurse);
 		}
+		rs.close();
 		stmt.close();
 		return nurseList;
 	}
@@ -74,6 +75,8 @@ public class JDBCNurseController implements NurseInterface {
 		String schedule = rs.getString("schedule");
 		String role = rs.getString("role");
 		Nurse searchNurse = new Nurse(Id, name, photo, schedule, role);
+		rs.close();
+		prep.close();
 		return searchNurse;
 		}
 		else return null;
@@ -94,6 +97,7 @@ public class JDBCNurseController implements NurseInterface {
 			Nurse searchNurse = new Nurse(Id, name, photo, scheduleRs, role);
 			nurseList.add(searchNurse);
 		}
+		rs.close();
 		prep.close();
 		return nurseList;
 	}
@@ -113,6 +117,7 @@ public class JDBCNurseController implements NurseInterface {
 			Nurse searchNurse = new Nurse(Id, nameRs, photo, schedule, role);
 			nurseList.add(searchNurse);
 		}
+		rs.close();
 		prep.close();
 		return nurseList;
 	}
@@ -132,6 +137,7 @@ public class JDBCNurseController implements NurseInterface {
 			Nurse searchNurse = new Nurse(Id, name, photo, schedule, roleRs);
 			nurseList.add(searchNurse);
 		}
+		rs.close();
 		prep.close();
 		return nurseList;
 		
@@ -160,6 +166,7 @@ public class JDBCNurseController implements NurseInterface {
 			Patient p= new Patient(id,name);
 			patients.add(p);
 		}
+		rs.close();
 		prep.close();
 		return patients;
 	}

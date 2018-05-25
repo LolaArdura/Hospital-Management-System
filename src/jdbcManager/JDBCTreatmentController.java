@@ -87,6 +87,8 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		Doctor prescriber = JDBCDoctorController.getDoctorController().searchDoctorById(rs.getInt("doctor_id"));
 		Patient patient = JDBCPatientController.getPatientController().searchPatientById(rs.getInt("patient_id"));
 		Treatment treatment = new Treatment (Id, route, startDate, endDate, cost, type, dose, prescriber, patient);
+		rs.close();
+		prep.close();
 		return treatment;
 	}
 	
@@ -102,6 +104,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		prep.setInt(7, treatment.getPrescriber().getId());
 		prep.setInt(8, treatment.getId());
 		prep.executeUpdate();
+		prep.close();
 	}
 	
 }

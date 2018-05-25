@@ -22,7 +22,6 @@ public class JDBCPatientController implements PatientInterface{
 		String sql = "INSERT INTO patient (name, gender,diagnose, dob, dateAdmission,room_id)" 
 					+"VALUES(?,?,?,?,?,?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-	
 		prep.setString(1, patient.getName());
 		prep.setString(2,  patient.getGender().name().toLowerCase());
 		prep.setString(3, patient.getDiagnose());
@@ -38,7 +37,6 @@ public class JDBCPatientController implements PatientInterface{
 		String sql = "INSERT INTO patient (name, gender, dob, dateAdmission)" 
 					+"VALUES(?,?,?,?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-	
 		prep.setString(1, patient.getName());
 		prep.setString(2,  patient.getGender().name().toLowerCase());
 		prep.setDate(3, patient.getDob());
@@ -67,6 +65,7 @@ public class JDBCPatientController implements PatientInterface{
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1,patient.getId());
 		prep.executeUpdate();
+		prep.close();
 		return true;
 	}
 	
@@ -94,6 +93,7 @@ public class JDBCPatientController implements PatientInterface{
 			Patient searchPatient = new Patient (Id, name, gender, diagnose, dob, dateAdmission);
 			patientList.add(searchPatient);
 		}
+		rs.close();
 		stmt.close();
 		return patientList;
 	}
@@ -114,6 +114,7 @@ public class JDBCPatientController implements PatientInterface{
 			Patient searchPatient = new Patient (id, name, gender, dob, dateAdmission, room);
 			patientList.add(searchPatient);
 	}
+		rs.close();
 		stmt.close();
 		return patientList;
 		
@@ -134,6 +135,7 @@ public class JDBCPatientController implements PatientInterface{
 			billsList.add(searchBill);
 					
 		}
+		rs.close();
 		prep.close();
 		sql="SELECT bills.id, bills.cost,bankID,paid FROM bills JOIN treatment ON bills.id=treatment.bill_id "
 				+ "WHERE treatment.patient_id=?";
@@ -148,6 +150,7 @@ public class JDBCPatientController implements PatientInterface{
 			Bills searchBill = new Bills (id, totalCost,bankId, paid);
 			billsList.add(searchBill);		
 		}
+		rs2.close();
 		p.close();
 		return billsList;
 		
@@ -173,6 +176,8 @@ public class JDBCPatientController implements PatientInterface{
 					cost, treatmentType, dose, prescriber);
 			treatmentsList.add(searchTreatment);
 		}
+		rs.close();
+		prep.close();
 		return treatmentsList;
 	}
 	
@@ -189,6 +194,8 @@ public class JDBCPatientController implements PatientInterface{
 		Date dob = rs.getDate("dob");
 		Date dateAdmission = rs.getDate("dateAdmission");
 		Patient patient = new Patient (Id, name, gender, diagnose, dob, dateAdmission);
+		rs.close();
+		prep.close();
 		return patient;
 	}
 	
@@ -202,6 +209,7 @@ public class JDBCPatientController implements PatientInterface{
 		prep.setDate(5, patient.getDateAdmission());
 		prep.setInt(6, patient.getId());
 		prep.executeUpdate();
+		prep.close();
 	}
 
 	public List<Patient> searchPatientByName(String name) throws Exception {
@@ -220,6 +228,8 @@ public class JDBCPatientController implements PatientInterface{
 		Patient patient = new Patient (Id, nameRs, gender, diagnose, dob, dateAdmission);
 		patients.add(patient);
 		}
+		rs.close();
+		prep.close();
 		return patients;
 	}
 

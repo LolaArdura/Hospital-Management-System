@@ -37,6 +37,7 @@ public boolean deleteBills (Bills bill)  throws Exception{
 	PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 	prep.setInt(1,  bill.getId());
 	prep.executeUpdate();
+	prep.close();
 	return true;
 }
 public Bills searchBillsById (Integer id) throws Exception{
@@ -45,14 +46,13 @@ public Bills searchBillsById (Integer id) throws Exception{
 	PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 	prep.setInt(1, id);
 	ResultSet rs = prep.executeQuery();
-	
 	rs.next();
 	int Id = rs.getInt("id");
 	float totalCost = rs.getFloat("cost");
 	String bankID = rs.getString("bankID");
 	boolean paid = rs.getBoolean("paid");
 	Bills bill = new Bills (Id, totalCost, bankID, paid);
-
+    prep.close();
 	return bill;
 	
 }
@@ -68,6 +68,7 @@ public void updateBills (Bills bill) throws Exception {
 	prep.setFloat(2, bill.getTotalCost());
 	prep.setBoolean(3, bill.getPaid());
 	prep.executeUpdate();
+	prep.close();
 }
 
 

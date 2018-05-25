@@ -41,6 +41,7 @@ public class JDBCDoctorController implements DoctorInterface {
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setInt(1, doctor.getId());
 		prep.executeUpdate();
+		prep.close();
 		return true;
 	}
 	
@@ -60,6 +61,7 @@ public class JDBCDoctorController implements DoctorInterface {
 			doctorList.add(searchDoctor);
 		}
 		stmt.close();
+		rs.close();
 		return doctorList;
 	}
 
@@ -116,6 +118,7 @@ public class JDBCDoctorController implements DoctorInterface {
 			Doctor searchDoctor = new Doctor(Id, rsName, photo, scheduleRs, speciality);
 			doctorList.add(searchDoctor);
 		}
+		rs.close();
 		prep.close();
 		return doctorList;
 	}
@@ -135,6 +138,7 @@ public class JDBCDoctorController implements DoctorInterface {
 			Doctor searchDoctor = new Doctor(Id, rsName, photo, schedule, speciality);
 			doctorList.add(searchDoctor);
 		}
+		rs.close();
 		prep.close();
 		return doctorList;
 	}
@@ -147,7 +151,7 @@ public class JDBCDoctorController implements DoctorInterface {
 		prep.setString(2, doctor.getSchedule());
 		prep.setString(3, doctor.getSpeciality());
 		prep.setInt(4, doctor.getId());
-		
 		prep.executeUpdate();
+		prep.close();
 	}
 }
