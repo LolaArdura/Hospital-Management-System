@@ -50,7 +50,6 @@ public class JDBCRoomController implements RoomInterface {
 		prep.executeUpdate();
 		prep.close();
 		return true;
-		
 		}catch (Exception e ) {
 			prep.close();
 			throw new Exception();
