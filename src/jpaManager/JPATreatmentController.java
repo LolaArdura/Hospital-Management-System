@@ -52,7 +52,7 @@ public class JPATreatmentController implements TreatmentInterface {
 		em.getTransaction().commit();
 		
 		//Search the treatments by id
-		Query q1 = em.createNativeQuery("SELECT * FROM treatments WHERE id LIKE ?", Treatment.class);
+		Query q1 = em.createNativeQuery("SELECT * FROM treatment WHERE id LIKE ?", Treatment.class);
 		q1.setParameter(1, id );
 		Treatment treatment = (Treatment)q1.getSingleResult();
 		return treatment;
