@@ -65,7 +65,9 @@ public class TestJPA {
 	 Patient searchedPatient = JPAPatientController.getPatientController().searchPatientById(1);
 	 System.out.println(searchedPatient);
  
-	//updatePatient ?????????????????????????????'
+	//updatePatient
+	patient1=new Patient ("Ale", Sex.female,"bipolar", dob, dateAdmission);
+	System.out.println(patient1);
 	
 	//addNurseToPatient
 	JPAPatientController.getPatientController().addNurseToPatient(nurse, patient1);
@@ -74,14 +76,25 @@ public class TestJPA {
 	//deleteNurseFromPatient:
 	JPAPatientController.getPatientController().deleteNurseFromPatient(nurse, patient1);
 	System.out.println(patient1);
-*/	
+	
 	//getPatentWithoutTreatmentsAndBills: patient1 no tiene ni treatments ni bill, usamos ese.
-	List<Patient> patients =JPAPatientController.getPatientController().getAllPatients();
-	JPAPatientController.getPatientController().getPatientWithoutTreatmentsAndBills(patients);
+	//List<Patient> patients =JPAPatientController.getPatientController().getAllPatients();
+	//JPAPatientController.getPatientController().getPatientWithoutTreatmentsAndBills(patients);
 	
+	//getBillsFromPatient:
+	System.out.println(JPAPatientController.getPatientController().getBillsFromPatient(patient1));
+	
+	//getTreatmentsFromPatient:
+	System.out.println(JPAPatientController.getPatientController().getTreatmentsFromPatient(patient1));
+	
+	//searchPatientByName:
+	Patient Ines = new Patient (3,"Ines", Sex.female, "mental disorder", dob, dateAdmission);
+	JPAPatientController.getPatientController().insertCompletePatient(Ines);
+	System.out.println(Ines);
+	System.out.println(JPAPatientController.getPatientController().searchPatientByName("Ines"));
 	
 	 
-	 
+ */
 	 
 	 
 	 

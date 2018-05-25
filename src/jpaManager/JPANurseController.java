@@ -38,11 +38,13 @@ private static JPANurseController singleton;
 	public boolean deleteNurse (Nurse nurse) throws Exception{
 		EntityManager em=DBEntityManager.getEntityManager();
 		try {
+			Nurse nurseReceived=JPANurseController.getNurseController().searchNurseById(nurse.getId());
 		em.getTransaction().begin();
-		em.remove(nurse);
+		em.remove(nurseReceived);
 		em.getTransaction().commit();
 		return true;
 		}catch(Exception e) {
+			e.printStackTrace();
 			 em.getTransaction().commit();
 			 throw new Exception();
 		 }
