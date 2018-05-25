@@ -411,9 +411,9 @@ public class PatientDetailsController implements Initializable {
 			a.showAndWait();
 		} else {
 			if (femaleButton.isSelected()) {
-				sex = Sex.FEMALE;
+				sex = Sex.female;
 			} else {
-				sex = Sex.MALE;
+				sex = Sex.male;
 			}
 			LocalDate admissionDate = this.admissionDate.getValue();
 			if (admissionDate == null) {

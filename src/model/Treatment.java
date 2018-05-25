@@ -46,7 +46,7 @@ public class Treatment implements Serializable {
 	@JoinColumn(name="patient_id")
 	@XmlTransient
 	private Patient patient ;
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY,cascade=CascadeType.MERGE)
 	@JoinColumn(name="bill_id")
 	@XmlTransient
 	private Bills bill;
@@ -69,9 +69,25 @@ public class Treatment implements Serializable {
 		this.patient = patient;
 		
 	}
+	
+	
 	//Constructor with id
 	
 	
+	public Treatment(String routeOfAdmin, Date startDate, Date endDate, float cost, String treatmentType, String dose,
+			Doctor prescriber, Patient patient, Bills bill) {
+		super();
+		this.routeOfAdmin = routeOfAdmin;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.cost = cost;
+		this.type = treatmentType;
+		this.dose = dose;
+		this.prescriber = prescriber;
+		this.patient = patient;
+		this.bill = bill;
+	}
+
 	public Treatment (int Id, String routeOfAdmin, Date startDate, Date endDate, float cost ,
 			String treatmentType, String dose, Doctor prescriber, Patient patient) {
 		this.id = Id;
@@ -85,9 +101,10 @@ public class Treatment implements Serializable {
 		this.patient = patient;
 	}
 	
-	public Treatment(String routeOfAdmin, Date startDate, Date endDate, float cost, String treatmentType, String dose,
+	public Treatment(int id, String routeOfAdmin, Date startDate, Date endDate, float cost, String treatmentType, String dose,
 			Doctor prescriber, Patient patient, Bills bill) {
 		super();
+		this.id=id;
 		this.routeOfAdmin = routeOfAdmin;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -158,7 +175,7 @@ public class Treatment implements Serializable {
 		return prescriber;
 	}
 
-	public void setDoctorId(Doctor prescriber) {
+	public void setDoctor(Doctor prescriber) {
 		this.prescriber = prescriber;
 	}
 	
@@ -209,7 +226,7 @@ public class Treatment implements Serializable {
 	public String toString() {
 		return "Treatment [id=" + id + ", routeOfAdmin=" + routeOfAdmin + ", startDate=" + startDate + ", endDate="
 				+ endDate + ", cost=" + cost + ", treatmentType=" + type + ", dose=" + dose + ", prescriber="
-				+ prescriber + ", patient=" + patient + "]";
+				+ prescriber + ", patient=" + patient + ", bill="+ bill +"]";
 	}
 
 	

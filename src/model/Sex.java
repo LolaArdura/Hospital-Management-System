@@ -1,8 +1,8 @@
 package model;
 
 public enum Sex {
-	MALE("male"),
-	FEMALE("female");
+	male("male"),
+	female("female");
 	
 	private String value;
 	

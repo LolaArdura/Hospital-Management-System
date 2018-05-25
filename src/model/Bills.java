@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.*;
 @Table (name="bills")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement (name="Bills")
-@XmlType(propOrder = {"totalCost", "bankID","paid"})
+@XmlType(propOrder = {"cost", "bankID","paid"})
 public class Bills implements Serializable {
 	
 	private static final long serialVersionUID = -6423194198676609863L;

@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Doctor")
 @XmlType(propOrder = { "specialty"})
 
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class Doctor extends Employee{
 	
     @Id
@@ -71,6 +72,27 @@ public class Doctor extends Employee{
 		return this.id;
 	}
 	
+	public void setId(Integer id) {
+		super.setId(id);
+		this.id=id;
+	}
+	
+	public void addTreatment(Treatment treatment) {
+		treatments.add(treatment);
+	}
+	
+	public void deleteTreatment(Treatment treatment) {
+		treatments.remove(treatment);
+	}
+	
+	public List<Treatment> getTreatments() {
+		return treatments;
+	}
+
+	public void setTreatments(List<Treatment> treatments) {
+		this.treatments = treatments;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
