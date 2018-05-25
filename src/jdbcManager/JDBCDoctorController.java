@@ -145,12 +145,13 @@ public class JDBCDoctorController implements DoctorInterface {
 	
 
 	public void updateDoctor(Doctor doctor) throws Exception {
-		String sql = "UPDATE doctor SET name=?, schedule=?, specialty=? WHERE id=?";
+		String sql = "UPDATE doctor SET name=?, photo=?, schedule=?, specialty=? WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		prep.setString(1, doctor.getName());
-		prep.setString(2, doctor.getSchedule());
-		prep.setString(3, doctor.getSpeciality());
-		prep.setInt(4, doctor.getId());
+		prep.setBytes(2, doctor.getPhoto());
+		prep.setString(3, doctor.getSchedule());
+		prep.setString(4, doctor.getSpeciality());
+		prep.setInt(5, doctor.getId());
 		prep.executeUpdate();
 		prep.close();
 	}
