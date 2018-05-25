@@ -193,7 +193,8 @@ public class JDBCPatientController implements PatientInterface{
 		String diagnose = rs.getString("diagnose");
 		Date dob = rs.getDate("dob");
 		Date dateAdmission = rs.getDate("dateAdmission");
-		Patient patient = new Patient (Id, name, gender, diagnose, dob, dateAdmission);
+		Room room =JDBCRoomController.getRoomController().searchRoomById(rs.getInt("room"));
+		Patient patient = new Patient (Id, name, gender, diagnose, dob, dateAdmission, room);
 		rs.close();
 		prep.close();
 		return patient;
