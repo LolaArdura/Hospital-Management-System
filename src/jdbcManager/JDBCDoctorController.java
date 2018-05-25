@@ -30,7 +30,7 @@ public class JDBCDoctorController implements DoctorInterface {
 			prep.setBytes(2, null);
 		}
 		prep.setString(3, doctor.getSchedule());
-		prep.setString(4,doctor.getSpeciality());
+		prep.setString(4,doctor.getSpecialty());
 		prep.executeUpdate();
 		prep.close();
 		return true;
@@ -150,7 +150,7 @@ public class JDBCDoctorController implements DoctorInterface {
 		prep.setString(1, doctor.getName());
 		prep.setBytes(2, doctor.getPhoto());
 		prep.setString(3, doctor.getSchedule());
-		prep.setString(4, doctor.getSpeciality());
+		prep.setString(4, doctor.getSpecialty());
 		prep.setInt(5, doctor.getId());
 		prep.executeUpdate();
 		prep.close();

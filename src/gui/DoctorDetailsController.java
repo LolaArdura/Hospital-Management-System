@@ -90,7 +90,7 @@ public class DoctorDetailsController implements Initializable {
 		this.mainPane = mainPane;
 		idLabel.setText("" + doctor.getId());
 		nameTextField.setText(doctor.getName());
-		specialtyTextField.setText(doctor.getSpeciality());
+		specialtyTextField.setText(doctor.getSpecialty());
 		scheduleTextField.setText(doctor.getSchedule());
 		if (doctor.getPhoto() != null) {
 			photo.setImage(new Image(new ByteArrayInputStream(doctor.getPhoto())));
@@ -125,7 +125,7 @@ public class DoctorDetailsController implements Initializable {
 			DoctorInterface doctorController = JPADoctorController.getJPADoctorController();
 
 			doctor.setName(nameTextField.getText());
-			doctor.setSpeciality(specialtyTextField.getText());
+			doctor.setSpecialty(specialtyTextField.getText());
 			doctor.setSchedule(scheduleTextField.getText());
 			BufferedImage bufImage = SwingFXUtils.fromFXImage(this.photo.getImage(), null);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -244,7 +244,7 @@ public class DoctorDetailsController implements Initializable {
 						a.setTitle("ERROR");
 						a.setContentText("No doctor witout specialty admitted");
 						a.showAndWait();
-						specialtyTextField.setText(doctor.getSpeciality());
+						specialtyTextField.setText(doctor.getSpecialty());
 						specialtyTextField.requestFocus();
 					}
 				}

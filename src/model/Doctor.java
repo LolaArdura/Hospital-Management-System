@@ -60,11 +60,11 @@ public class Doctor extends Employee{
 		this.specialty=specialty;
 	}
 	
-	public String getSpeciality() {
+	public String getSpecialty() {
 		return specialty;
 	}
-	public void setSpeciality(String speciality) {
-		this.specialty = speciality;
+	public void setSpecialty(String specialty) {
+		this.specialty = specialty;
 	}
 	
 	public Integer getId() {
