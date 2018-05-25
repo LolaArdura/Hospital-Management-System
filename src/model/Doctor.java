@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 @Entity 
 @Table(name="doctor")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "Department")
+@XmlRootElement(name = "Doctor")
 @XmlType(propOrder = { "specialty"})
 
 public class Doctor extends Employee{
@@ -96,7 +96,7 @@ public class Doctor extends Employee{
 	}
 	@Override
 	public String toString() {
-		return "Doctor [id:" + id + "\n name:" +  name + "\n photo:" + photo + "\n schedule:" + schedule+"\n speciality:" + specialty + "]\n";
+		return "Doctor [id:" + id + "\n name:" +  name + "\n photo:" + photo + "\n schedule:" + schedule+"\n specialty:" + specialty + "]\n";
 	}
 	
 	
