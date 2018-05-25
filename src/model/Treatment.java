@@ -85,9 +85,10 @@ public class Treatment implements Serializable {
 		this.patient = patient;
 	}
 	
-	public Treatment(String routeOfAdmin, Date startDate, Date endDate, float cost, String treatmentType, String dose,
+	public Treatment(int id, String routeOfAdmin, Date startDate, Date endDate, float cost, String treatmentType, String dose,
 			Doctor prescriber, Patient patient, Bills bill) {
 		super();
+		this.id=id;
 		this.routeOfAdmin = routeOfAdmin;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -209,7 +210,7 @@ public class Treatment implements Serializable {
 	public String toString() {
 		return "Treatment [id=" + id + ", routeOfAdmin=" + routeOfAdmin + ", startDate=" + startDate + ", endDate="
 				+ endDate + ", cost=" + cost + ", treatmentType=" + type + ", dose=" + dose + ", prescriber="
-				+ prescriber + ", patient=" + patient + "]";
+				+ prescriber + ", patient=" + patient + ", bill="+ bill +"]";
 	}
 
 	
