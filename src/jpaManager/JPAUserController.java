@@ -26,13 +26,19 @@ public class JPAUserController implements UserInterface{
 	
 	public void insertUser(User user) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
+		try {
 		em.getTransaction().begin();
 		em.persist(user);
 		em.getTransaction().commit();
+		}catch(Exception e) {
+			 em.getTransaction().commit();
+			 throw new Exception();
+		 }
 	}
 	
 	public List<User> getAllUsers() throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
+		try {
 		em.getTransaction().begin();
 		em.flush();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
@@ -40,10 +46,15 @@ public class JPAUserController implements UserInterface{
 		Query q1 = em.createNativeQuery("SELECT * FROM user", User.class);
 		List <User> users = (List<User>) q1.getResultList();
 		return users;
+		}catch(Exception e) {
+			 em.getTransaction().commit();
+			 throw new Exception();
+		 }
 	}
 	
-	public List<User> searchUserByType(userType usertype){
+	public List<User> searchUserByType(userType usertype) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
+		try {
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
@@ -51,10 +62,15 @@ public class JPAUserController implements UserInterface{
 		q1.setParameter(1, usertype);
 		LinkedList<User> users = (LinkedList<User>) q1.getResultList();
 		return users;
+		}catch(Exception e) {
+			 em.getTransaction().commit();
+			 throw new Exception();
+		 }
 	}
 	
 	public User validateUser(User user) throws Exception {
 		EntityManager em = DBEntityManager.getEntityManager();
+		try {
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
@@ -63,19 +79,33 @@ public class JPAUserController implements UserInterface{
 		q1.setParameter(2, user.getPassword());
 		User u = (User) q1.getSingleResult();
 		return u;
+		}catch(Exception e) {
+			 em.getTransaction().commit();
+			 throw new Exception();
+		 }
 	}
 	
 	public void deleteUser(User user) throws Exception {
 		EntityManager em = DBEntityManager.getEntityManager();
+		try {
 		em.getTransaction().begin();
 		em.remove(user);
 		em.getTransaction().commit();
+		}catch(Exception e) {
+			 em.getTransaction().commit();
+			 throw new Exception();
+		 }
 	}
 	
 	public void updateUser(User user) throws Exception {
 		EntityManager em=DBEntityManager.getEntityManager();
+		try {
 		em.getTransaction().begin();
 		em.flush();
 		em.getTransaction().commit();
+		}catch(Exception e) {
+			 em.getTransaction().commit();
+			 throw new Exception();
+		 }
 	}
 }
