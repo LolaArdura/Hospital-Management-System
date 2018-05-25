@@ -26,7 +26,9 @@ public class JPAPatientController implements PatientInterface{
 		em.getTransaction().commit();
 		return true;
 		}catch(Exception e) {
+			e.printStackTrace();
 			em.getTransaction().commit();
+			
 			throw new Exception();
 		}
 	}
@@ -40,6 +42,7 @@ public class JPAPatientController implements PatientInterface{
 		em.getTransaction().commit();
 		return true;
 		}catch(Exception e) {
+			e.printStackTrace();
 			em.getTransaction().commit();
 			throw new Exception();
 		}
@@ -68,6 +71,7 @@ public class JPAPatientController implements PatientInterface{
 		List <Patient> patients = (List<Patient>) q1.getResultList();
 		return patients;
 		}catch (Exception e) {
+			e.printStackTrace();
 			em.getTransaction().commit();
 			throw new Exception();
 		}
