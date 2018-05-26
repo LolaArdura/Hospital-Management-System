@@ -12,4 +12,5 @@ public interface UserInterface {
 	public User validateUser(User user) throws Exception;
 	public void deleteUser(User user) throws Exception;
 	public void updateUser(User user) throws Exception;
+	public User searchUserById(Integer id) throws Exception;
 }
