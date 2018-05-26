@@ -4,15 +4,49 @@
     <dob>1970-01-01</dob>
     <dateAdmission>1970-01-01</dateAdmission>
     <diagnose>dead</diagnose>
-    <Treatments/>
-    <Bills>
-        <bill id="8">
+    <Treatments>
+     <treatment id="23">
+            <startDate>1970-01-01</startDate>
+            <endDate>1970-01-01</endDate>
+            <dose>deadly dose</dose>
+            <routeOfAdmin>intravenous</routeOfAdmin>
             <cost>200.0</cost>
-            <bankID>123456ESB</bankID>
-            <paid>false</paid>
-        </bill>
+            <type>chemotherapy</type>
+            <prescriber id="2">
+                <name>Harry</name>
+                <schedule>morning</schedule>
+                <specialty>inmunollogy</specialty>
+            </prescriber>
+        </treatment>
+         <treatment id="2">
+            <startDate>1970-01-01</startDate>
+            <endDate>1970-01-01</endDate>
+            <dose> little </dose>
+            <routeOfAdmin>intravenous</routeOfAdmin>
+            <cost>200.0</cost>
+            <type>chemotherapy</type>
+            <prescriber id="2">
+                <name>Harry</name>
+                <schedule>morning</schedule>
+                <specialty>inmunollogy</specialty>
+            </prescriber>
+        </treatment>
+    </Treatments>
+    <Bills>
+        <bill cost="200.0" bankID="123456ESB" paid="false" id="1"/>
     </Bills>
-    <Nurses/>
+    <Nurses>
+        <Nurse id="3">
+            <name>Charles</name>
+            <schedule>morning</schedule>
+            <role>injections</role>
+        </Nurse>
+        <Nurse id="1">
+            <name>Lola</name>
+            <schedule>morning</schedule>
+            <role>injections</role>
+        </Nurse>
+    </Nurses>
     <room id="8" number="208">
         <type>BOX</type>
         <floor>2</floor>

@@ -344,7 +344,7 @@ public class Patient implements Serializable {
 	@Override
 	public String toString() {
 		return "Patient id:" + id + ", name:" + name + ", gender:" + gender + ", diagnose:" + diagnose + ", dob:" + dob
-				+ ", dateAdmission:" + dateAdmission + ",room: " + room + ", nurses:" + listOfNurses + ", bills:" + listOfBills
+				+ ", dateAdmission:" + dateAdmission + ",room: " + room +  ", bills:" + listOfBills
 				+ ", treatments:" + listOfTreatments;
 	}
 

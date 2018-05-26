@@ -19,8 +19,8 @@ public class xmlTest {
 	 
 	public static void main(String[] args) throws Exception{
 		try {
-	Date dob = new Date (2002/3/03);
-		Date dateAdmission = new Date (2018/01/02);
+/*	//Date dob = new Date (2002/3/03);
+		//Date dateAdmission = new Date (2018/01/02);
 		Room r = new Room (8, 208, "box", 2 , 10, 15);
 		LinkedList<Treatment> treatments= new LinkedList<>();
 		Doctor doctor= new Doctor(2,"Harry","morning","inmunollogy");
@@ -36,9 +36,9 @@ public class xmlTest {
 		Patient p=xmlPatient.unmarshal("./xmls/Sample-Patients.xml");
         System.out.println(p);
      
-        //System.out.println(p.getListOfTreatments());
+        //System.out.println(p.getListOfTreatments());*/
 	
-		//xmlPatient.xml2Html("./xmls/External-Patient.xml", "./xmls/Patient-Style.xslt", "./xmls/External-Patient.html");
+		xmlPatient.xml2Html("./xmls/Sample-Patients.xml", "./xmls/Patient-StyleSheet.xslt", "./xmls/External-Patient.html");
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}

@@ -1,0 +1,50 @@
+table, th, td{
+	border: 1px solid #00cccc;
+}
+
+table{
+	 border-collapse: collapse;
+	 border-spacing: 70px;
+	 table-layout: fixed;
+	 margin-left:2.5%;
+	 margin-right: 2.5%;
+	 margin-bottom: 40px;
+	 padding-top:40px;
+	 width: 95%;
+}
+
+th,tr{
+	text-align: center;
+	padding: 10px;
+	font-family: "Georgia", serif;
+	font-size: 11 pt;
+}
+
+th{
+	background-color: #e6ffff;
+	height:50px;
+}
+
+tr{
+	height:40px;
+}
+
+caption{
+	caption-side: top;
+	margin-bottom: 10px;
+	font-family:  "Georgia", serif;
+	font-size: 12pt;
+}
+
+h1{
+	text-alignment: left;
+	font-family:"Georgia", serif;
+	font-size: 14pt;
+	padding-left: 2.5%;
+	padding-top:50px;
+	font-variant: small-caps;
+}
+
+body{
+	margin-bottom: 50px;
+}

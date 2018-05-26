@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import jdbcManager.JDBCRoomController;
+import jpaManager.JPARoomController;
 import model.Room;
 
 public class RoomsCostController implements Initializable {

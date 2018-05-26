@@ -1,15 +1,12 @@
 package jpaManager;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
 import model.*;
-import interfaces.*;
-
 import model.Sex;
-import tables.DatabaseTables;
+
 
 public class TestJPA {
  public static void main (String [] args) throws Exception {
