@@ -30,7 +30,6 @@ private static JPANurseController singleton;
 		em.getTransaction().commit();
 		return true;
 		}catch(Exception e) {
-			e.printStackTrace();
 			 em.getTransaction().commit();
 			 throw new Exception();
 		 }
