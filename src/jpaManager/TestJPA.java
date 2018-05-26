@@ -3,6 +3,7 @@ package jpaManager;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 
 import model.*;
@@ -13,10 +14,77 @@ import tables.DatabaseTables;
 
 public class TestJPA {
  public static void main (String [] args) throws Exception {
-	 
+	
+	 //Complete patient with list  of bills and treatments and nurses
+	/* Date dob = new Date (1998-02-01);
+		Date startDate = new Date (1998-02-01);
+		Date endDate = new Date (1998-02-01);
+		 Date admission = new Date (2018-04-03);
+		 Room room1 = new Room (9, 200, "suite", 2, 3, 15 );
+		 JPARoomController.getJPARoomController().insertRoom(room1);
+	     Bills b1= new Bills ( 20,"5115651", false,null);
+		 JPABillsController.getJPABillsController().insertBills(b1);
+		 List <Bills> billsList= new LinkedList <Bills> ();
+		 billsList.add(b1);
+	   Treatment t = new Treatment ( 20, "oral", startDate, endDate, 20, "extrange", "20 pills", null  , null, b1);
+		 JPATreatmentController.getTreatmentController().insertTreatment(t);
+		 List <Treatment> tList = new LinkedList <Treatment>();
+		 tList.add(t);
+		Nurse n = new Nurse (30, "Elena","morning", "inyections");
+		JPANurseController.getNurseController().insertNurse(n);
+		 List <Nurse> nursesList= new LinkedList <Nurse>();
+		 nursesList.add(n);
+		
+		Patient pcompleto = new Patient(8, "Lola ", Sex.female, "ill", dob, admission, tList, nursesList, billsList, room1);
+		JPAPatientController.getPatientController().insertCompletePatient(pcompleto);
+		List <Patient> patientsList= JPAPatientController.getPatientController().getPatientWithoutTreatmentsAndBills();
+	   System.out.println(patientsList);*/
+	
+		
+		
+		
+		 //TEST ROOMCONTROLLE METHODS
+		/* 
+		 //insert Room without list of patient
+		 Room room1 = new Room (1, 200, "suite", 2, 3, 15 );
+		 Room room2 = new Room (2, 102, "normal", 2, 3, 5);
+		 Room room3 = new Room (3, 201, "normal", 2, 3, 5 ); 
+		//JPARoomController.getJPARoomController().insertRoom(room1);
+		//JPARoomController.getJPARoomController().insertRoom(room2);
+		// JPARoomController.getJPARoomController().insertRoom(room3);
+		 
+		 //delete room
+		// JPARoomController.getJPARoomController().deleteRoom(room2);
+		 
+		 //getAllRooms
+		 List <Room> roomList = JPARoomController.getJPARoomController().getAllRooms();
+		 for (Room room: roomList ) {
+			 System.out.println(room);
+	 	 }/*
+		 //searchRoomsByPatient
+		 Room r = new Room ();
+		 r=  JPARoomController.getJPARoomController().searchRoomById(1);
+		 System.out.println(r);
+		
+		 //update room
+		 room2 = new Room (2,133, "suite", 2 , 4, 15);
+		 JPARoomController.getJPARoomController().insertRoom(room2);
+		 System.out.println(room2);
+		 
+		//comprobacion getRoomsType
+		 List <Room> roomSameType= JPARoomController.getJPARoomController().getRoomsByType("normal");
+		 for (Room room: roomSameType ) {
+			 System.out.println(room);
+	 	 }*/
+		 
+		 //getRoomsAndCost
+		// List <Room> roomList1= JPARoomController.getJPARoomController().getRoomsAndCosts();
+		// for (Room room: roomList1 ) {
+		//	 System.out.println(room);
+	 	// }
 	 //DatabaseTables.createTables();
-	 Date dob = Date.valueOf(LocalDate.of(1999,1, 7));
-	 Date dateAdmission = new Date (24/04/2018) ;
+	// Date dob = Date.valueOf(LocalDate.of(1999,1, 7));
+	 //Date dateAdmission = new Date (24/04/2018) ;
 /*	 Patient patient1 = new Patient ( "Ale", Sex.female,"pneumonia",dob,  dateAdmission );
 
 	 Nurse nurse = new Nurse (2, "Maruja", null, "morning", "bring lunch");
@@ -50,9 +118,9 @@ public class TestJPA {
 	 //TEST JPAPATIENTCONROLLER METHODS:
 
 	 //insertCompletePatient:
-	 Patient Lolita = new Patient (1,"Lolita", Sex.female, "mental disorder", dob, dateAdmission);
-	 JPAPatientController.getPatientController().insertCompletePatient(Lolita);
-	 System.out.println(Lolita);
+	// Patient Lolita = new Patient (1,"Lolita", Sex.female, "mental disorder", dob, dateAdmission);
+	// JPAPatientController.getPatientController().insertCompletePatient(Lolita);
+	// System.out.println(Lolita);
 /*	
 	 //InsertNoDiagnosePatient:
 	 Patient Pepa = new Patient (2,  "Pepa", Sex.female, dob, dateAdmission);
@@ -152,8 +220,8 @@ public class TestJPA {
 	  ???????????????????????????????????????
 */ 
 	 //addPatientToNurse
-	 JPANurseController.getNurseController().addPatientToNurse(nurse1, Lolita);
-	 System.out.println(JPANurseController.getNurseController().getAllNurses());
+	// JPANurseController.getNurseController().addPatientToNurse(nurse1, Lolita);
+	// System.out.println(JPANurseController.getNurseController().getAllNurses());
 	 
 	 
 	 
