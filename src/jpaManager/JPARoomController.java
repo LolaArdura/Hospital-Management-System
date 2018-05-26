@@ -128,7 +128,7 @@ public class JPARoomController implements  RoomInterface{
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
-		Query q1 = em.createNativeQuery("SELECT type, costPerDay FROM room GROUP BY type", Room.class);
+		Query q1 = em.createNativeQuery("SELECT type, costPerDay FROM room GROUP BY type",Room.class);
 		List<Room> rooms = (List<Room>) q1.getResultList();
 		return rooms;
 		}catch(Exception e) {
@@ -167,19 +167,5 @@ public class JPARoomController implements  RoomInterface{
 		 }
 	}
 	
-	public List<Room> getOccupiedRooms() throws Exception{
-		EntityManager em = DBEntityManager.getEntityManager();
-		try {
-		em.getTransaction().begin();
-		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-		em.getTransaction().commit();
-		Query q1 = em.createNativeQuery("SELECT room.id, number, floor, type, costPerDay, COUNT(patient.id) FROM room JOIN patient ON"
-				+ " room.id=patient.room_id GROUP BY room.id HAVING COUNT(patient.id)=capacity", Room.class);
-		List<Room> rooms = (List<Room>) q1.getResultList();
-		return rooms;
-		}catch(Exception e) {
-			 em.getTransaction().commit();
-			 throw new Exception();
-		 }
-	}
+
 }

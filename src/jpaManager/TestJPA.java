@@ -14,7 +14,8 @@ import tables.DatabaseTables;
 
 public class TestJPA {
  public static void main (String [] args) throws Exception {
-	
+	 
+	 
 	 //Complete patient with list  of bills and treatments and nurses
 	/* Date dob = new Date (1998-02-01);
 		Date startDate = new Date (1998-02-01);
@@ -82,9 +83,12 @@ public class TestJPA {
 		// for (Room room: roomList1 ) {
 		//	 System.out.println(room);
 	 	// }
+	 
+	 
+	 
 	 //DatabaseTables.createTables();
-	// Date dob = Date.valueOf(LocalDate.of(1999,1, 7));
-	 //Date dateAdmission = new Date (24/04/2018) ;
+	 Date dob = Date.valueOf(LocalDate.of(1999,1, 7));
+	 Date dateAdmission = new Date (24/04/2018) ;
 /*	 Patient patient1 = new Patient ( "Ale", Sex.female,"pneumonia",dob,  dateAdmission );
 
 	 Nurse nurse = new Nurse (2, "Maruja", null, "morning", "bring lunch");
@@ -121,6 +125,9 @@ public class TestJPA {
 	// Patient Lolita = new Patient (1,"Lolita", Sex.female, "mental disorder", dob, dateAdmission);
 	// JPAPatientController.getPatientController().insertCompletePatient(Lolita);
 	// System.out.println(Lolita);
+	 Patient Lolita = new Patient (1,"Lolita", Sex.female, "mental disorder", dob, dateAdmission);
+	 //JPAPatientController.getPatientController().insertCompletePatient(Lolita);
+	 //System.out.println(Lolita);
 /*	
 	 //InsertNoDiagnosePatient:
 	 Patient Pepa = new Patient (2,  "Pepa", Sex.female, dob, dateAdmission);
@@ -195,10 +202,10 @@ public class TestJPA {
 	 
 	//TEST JPANURSECONTROLLER METHODS:
 	Nurse nurse1 = new Nurse(1, "Paquita", "morning", "injections" );
-/*  Nurse nurse2 = new Nurse(2, "Florencia", "evening", "injections" );
+/*	Nurse nurse2 = new Nurse(2, "Florencia", "evening", "injections" );
 	Nurse nurse3 = new Nurse(3, "Maxima", "night", "injections" );
 	//insertNurse:
-	//JPANurseController.getNurseController().insertNurse(nurse1);
+	JPANurseController.getNurseController().insertNurse(nurse1);
 	JPANurseController.getNurseController().insertNurse(nurse2);	
 	JPANurseController.getNurseController().insertNurse(nurse3);
 	
@@ -222,6 +229,9 @@ public class TestJPA {
 	 //addPatientToNurse
 	// JPANurseController.getNurseController().addPatientToNurse(nurse1, Lolita);
 	// System.out.println(JPANurseController.getNurseController().getAllNurses());
+	 JPANurseController.getNurseController().addPatientToNurse(nurse1, Lolita);
+	 
+	 System.out.println(JPANurseController.getNurseController().getAllNurses());
 	 
 	 
 	 

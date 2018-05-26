@@ -149,6 +149,7 @@ private static JPANurseController singleton;
 		try {
 		em.getTransaction().begin();
 		nurse.addPatientToNurse(patient);
+		patient.addNurse(nurse);
 		em.getTransaction().commit();
 		}catch(Exception e) {
 			 em.getTransaction().commit();
