@@ -64,11 +64,17 @@ public class TestJPA {
 	 //searchPatientById:
 	 Patient searchedPatient = JPAPatientController.getPatientController().searchPatientById(1);
 	 System.out.println(searchedPatient);
- 
+ */
 	//updatePatient
-	patient1=new Patient ("Ale", Sex.female,"bipolar", dob, dateAdmission);
-	System.out.println(patient1);
+	//Patient ana =new Patient (5, "Ana", Sex.female,"bipolar", dob, dateAdmission);
+	//JPAPatientController.getPatientController().insertNoDiagnosePatient(ana);
+	//System.out.println(JPAPatientController.getPatientController().getAllPatients());
+	Patient tempPatient = JPAPatientController.getPatientController().searchPatientById(5);
+	tempPatient =new Patient (5, "Ana", Sex.female,"hypertension", dob, dateAdmission);
+	JPAPatientController.getPatientController().updatePatient(tempPatient);
+	System.out.println(JPAPatientController.getPatientController().getAllPatients());
 	
+/*
 	//addNurseToPatient
 	JPAPatientController.getPatientController().addNurseToPatient(nurse, patient1);
 	System.out.println(patient1);
