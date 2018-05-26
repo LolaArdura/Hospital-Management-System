@@ -51,8 +51,8 @@ public class TestJPA {
 
 	 //insertCompletePatient:
 	 Patient Lolita = new Patient (1,"Lolita", Sex.female, "mental disorder", dob, dateAdmission);
-	 JPAPatientController.getPatientController().insertCompletePatient(Lolita);
-	 System.out.println(Lolita);
+	 //JPAPatientController.getPatientController().insertCompletePatient(Lolita);
+	 //System.out.println(Lolita);
 /*	
 	 //InsertNoDiagnosePatient:
 	 Patient Pepa = new Patient (2,  "Pepa", Sex.female, dob, dateAdmission);
@@ -127,10 +127,10 @@ public class TestJPA {
 	 
 	//TEST JPANURSECONTROLLER METHODS:
 	Nurse nurse1 = new Nurse(1, "Paquita", "morning", "injections" );
-/*  Nurse nurse2 = new Nurse(2, "Florencia", "evening", "injections" );
+/*	Nurse nurse2 = new Nurse(2, "Florencia", "evening", "injections" );
 	Nurse nurse3 = new Nurse(3, "Maxima", "night", "injections" );
 	//insertNurse:
-	//JPANurseController.getNurseController().insertNurse(nurse1);
+	JPANurseController.getNurseController().insertNurse(nurse1);
 	JPANurseController.getNurseController().insertNurse(nurse2);	
 	JPANurseController.getNurseController().insertNurse(nurse3);
 	
