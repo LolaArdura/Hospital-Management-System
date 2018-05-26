@@ -153,6 +153,7 @@ public class TestJPA {
 */ 
 	 //addPatientToNurse
 	 JPANurseController.getNurseController().addPatientToNurse(nurse1, Lolita);
+	 
 	 System.out.println(JPANurseController.getNurseController().getAllNurses());
 	 
 	 
