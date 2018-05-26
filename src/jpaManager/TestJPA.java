@@ -13,10 +13,11 @@ import tables.DatabaseTables;
 
 public class TestJPA {
  public static void main (String [] args) throws Exception {
+	 
 	 //DatabaseTables.createTables();
 	 Date dob = Date.valueOf(LocalDate.of(1999,1, 7));
 	 Date dateAdmission = new Date (24/04/2018) ;
-	 Patient patient1 = new Patient ( "Ale", Sex.female,"pneumonia",dob,  dateAdmission );
+/*	 Patient patient1 = new Patient ( "Ale", Sex.female,"pneumonia",dob,  dateAdmission );
 
 	 Nurse nurse = new Nurse (2, "Maruja", null, "morning", "bring lunch");
 	 
@@ -42,15 +43,17 @@ public class TestJPA {
 	// for(Treatment a:q) {
 		 //System.out.println(a);
 	 //}
+*/	 
+	 
 	 
 	 
 	 //TEST JPAPATIENTCONROLLER METHODS:
-/*
+
 	 //insertCompletePatient:
 	 Patient Lolita = new Patient (1,"Lolita", Sex.female, "mental disorder", dob, dateAdmission);
 	 JPAPatientController.getPatientController().insertCompletePatient(Lolita);
 	 System.out.println(Lolita);
-	
+/*	
 	 //InsertNoDiagnosePatient:
 	 Patient Pepa = new Patient (2,  "Pepa", Sex.female, dob, dateAdmission);
 	 JPAPatientController.getPatientController().insertNoDiagnosePatient(Pepa);
@@ -64,11 +67,17 @@ public class TestJPA {
 	 //searchPatientById:
 	 Patient searchedPatient = JPAPatientController.getPatientController().searchPatientById(1);
 	 System.out.println(searchedPatient);
- 
-	//updatePatient
-	patient1=new Patient ("Ale", Sex.female,"bipolar", dob, dateAdmission);
-	System.out.println(patient1);
-	
+ */
+/*	//updatePatient
+	//Patient ana =new Patient (5, "Ana", Sex.female,"bipolar", dob, dateAdmission);
+	//JPAPatientController.getPatientController().insertNoDiagnosePatient(ana);
+	//System.out.println(JPAPatientController.getPatientController().getAllPatients());
+	Patient tempPatient = JPAPatientController.getPatientController().searchPatientById(5);
+	tempPatient =new Patient (5, "Ana", Sex.female,"hypertension", dob, dateAdmission);
+	JPAPatientController.getPatientController().updatePatient(tempPatient);
+	System.out.println(JPAPatientController.getPatientController().getAllPatients());
+*/	
+/*
 	//addNurseToPatient
 	JPAPatientController.getPatientController().addNurseToPatient(nurse, patient1);
 	System.out.println(patient1);
@@ -95,17 +104,61 @@ public class TestJPA {
 	
 	 
  */
+	//TEST JPABILLCONTROLLER METHODS:
+/*	Bills bill1 = new Bills(1, 1200, "1234bill", true);
+	//Bills bill2 = new Bills(2, 300, "1235bill", false);
+	//Bills bill3 = new Bills(3, 15000, "1236bill", true);
+	
+	//insertBills:
+	//getAllBills
+	JPABillsController.getJPABillsController().insertBills(bill3);
+	System.out.println(JPABillsController.getJPABillsController().getAllBills());
+	
+	//deleteBills:
+	JPABillsController.getJPABillsController().deleteBills(bill1);
+	System.out.println(JPABillsController.getJPABillsController().getAllBills());
+
+	//searchBillById:
+	System.out.println(JPABillsController.getJPABillsController().searchBillsById(1));
+	
+	//updatebills
+		????????????????????????????
+*/	
+	 
+	//TEST JPANURSECONTROLLER METHODS:
+	Nurse nurse1 = new Nurse(1, "Paquita", "morning", "injections" );
+/*  Nurse nurse2 = new Nurse(2, "Florencia", "evening", "injections" );
+	Nurse nurse3 = new Nurse(3, "Maxima", "night", "injections" );
+	//insertNurse:
+	//JPANurseController.getNurseController().insertNurse(nurse1);
+	JPANurseController.getNurseController().insertNurse(nurse2);	
+	JPANurseController.getNurseController().insertNurse(nurse3);
+	
+	//getAllNurses:
+	System.out.println(JPANurseController.getNurseController().getAllNurses());
+
+	 //searchNurseById
+	 System.out.println(JPANurseController.getNurseController().searchNurseById(1));
+	 //searchNurseBySchedule:
+	 System.out.println(JPANurseController.getNurseController().searchNurseBySchedule("night"));
+ 
+	 //searchNurseByName:
+	 System.out.println(JPANurseController.getNurseController().searchNurseByName("Florencia"));
+	 
+	 //searchNurseByRole:
+	 System.out.println(JPANurseController.getNurseController().searchNurseByRole("injections"));
+	 
+	 //updateNurse 
+	  ???????????????????????????????????????
+*/ 
+	 //addPatientToNurse
+	 JPANurseController.getNurseController().addPatientToNurse(nurse1, Lolita);
+	 System.out.println(JPANurseController.getNurseController().getAllNurses());
 	 
 	 
 	 
 	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
+	
 	 
 	 
 	 
