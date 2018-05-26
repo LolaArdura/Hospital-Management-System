@@ -5,8 +5,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import interfaces.*;
-import model.Doctor;
-import model.Patient;
 import model.Treatment;
 
 public class JPATreatmentController implements TreatmentInterface {
@@ -58,7 +56,6 @@ public class JPATreatmentController implements TreatmentInterface {
 		 em.getTransaction().commit();;
 		 return true;
 		 }catch(Exception e) {
-			 e.printStackTrace();
 			 em.getTransaction().commit();
 			 throw new Exception();
 		 }
@@ -79,7 +76,6 @@ public class JPATreatmentController implements TreatmentInterface {
 		Treatment treatment = (Treatment)q1.getSingleResult();
 		return treatment;
 		}catch(Exception e) {
-			 em.getTransaction().commit();
 			 throw new Exception();
 		 }
 	}

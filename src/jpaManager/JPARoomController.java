@@ -36,12 +36,13 @@ public class JPARoomController implements  RoomInterface{
 	public boolean deleteRoom(Room room) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		try {
+			Room roomReceived= JPARoomController.getJPARoomController().searchRoomById(room.getId());
 		em.getTransaction().begin();
-		em.remove(room);
-		em.getTransaction().commit();
+		em.remove(roomReceived);
+		em.getTransaction().commit(); 
 		return true;
 		}catch(Exception e) {
-			 em.getTransaction().commit();
+		 em.getTransaction().commit();
 			 throw new Exception();
 		 }
 	}
