@@ -1,5 +1,7 @@
 package jpaManager;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import interfaces.*;
@@ -30,11 +32,13 @@ public class JPABillsController  implements BillsInterface {
   public boolean deleteBills (Bills bill)throws Exception {
 	  EntityManager em = DBEntityManager.getEntityManager();
 	  try {
+		  Bills billReceived =JPABillsController.getJPABillsController().searchBillsById(bill.getId());
 		em.getTransaction().begin();
-	    em.remove(bill);
+	    em.remove(billReceived);
 		em.getTransaction().commit();
 		 return true;
 	  }catch(Exception e) {
+		  e.printStackTrace();
 		 em.getTransaction().commit();
 		 throw new Exception();
 	  }
@@ -51,6 +55,7 @@ public class JPABillsController  implements BillsInterface {
 	  Bills bill = (Bills)q1.getSingleResult();
 	  return bill;
 	  }catch(Exception e) {
+		  e.printStackTrace();
 		 em.getTransaction().commit();
 		 throw new Exception();
 	  }
@@ -67,4 +72,20 @@ public class JPABillsController  implements BillsInterface {
 		 throw new Exception();
 	  }
   }
+  
+  public List<Bills> getAllBills() throws Exception{
+		EntityManager em = DBEntityManager.getEntityManager();
+		try {
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1 = em.createNativeQuery("SELECT * FROM bills", Bills.class);
+		List <Bills> bills = (List<Bills>) q1.getResultList();
+		return bills;
+		}catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().commit();
+			throw new Exception();
+		}
+	}
 }

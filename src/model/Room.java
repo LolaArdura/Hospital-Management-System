@@ -188,8 +188,11 @@ public class Room implements Serializable {
 
 	@Override
 	public String toString() {
-		return ""+ number + "["+type+"]";
+		return "Room [id=" + id + ", number=" + number + ", type=" + type + ", floor=" + floor + ", capacity="
+				+ capacity + ", costPerDay=" + costPerDay + ", listOfPatients=" + listOfPatients + "]";
 	}
+
+	
 	
 	
 	
