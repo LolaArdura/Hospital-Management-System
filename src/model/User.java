@@ -19,12 +19,8 @@ public class User {
 	private String username;
 	@XmlAttribute
 	private String password;
-	@XmlEnum
-	public enum userType{
-		ADMIN,RECEPTIONIST,DOCTOR,NURSE
-	};
 	@XmlElement
-    private userType type;
+	private String type;
     
     public User() {
     	super();
@@ -38,18 +34,18 @@ public class User {
 	}
 
 
-	public User(String username, String password, userType typeOfUser) {
+	public User(String username, String password, String type) {
 		super();
 		this.username = username;
 		this.password = password;
-		this.type = typeOfUser;
+		this.type = type;
 	}
     
-    public User(Integer id, String username,String password, userType typeOfUser) {
+    public User(Integer id, String username,String password, String type) {
     	this.id=id;
     	this.username=username;
     	this.password=password;
-    	this.type=typeOfUser;
+    	this.type=type;
     }
 	
     public String getUsername() {
@@ -72,13 +68,13 @@ public class User {
 	}
 
 
-	public userType getTypeOfUser() {
+	public String getTypeOfUser() {
 		return type;
 	}
 
 
-	public void setTypeOfUser(userType typeOfUser) {
-		this.type = typeOfUser;
+	public void setTypeOfUser(String type) {
+		this.type = type;
 	}
 
 	public void setId(Integer id) {

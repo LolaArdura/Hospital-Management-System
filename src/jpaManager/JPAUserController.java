@@ -8,7 +8,6 @@ import javax.persistence.Query;
 
 import interfaces.UserInterface;
 import model.User;
-import model.User.userType;
 
 public class JPAUserController implements UserInterface{
 	private static JPAUserController singleton;
@@ -47,22 +46,24 @@ public class JPAUserController implements UserInterface{
 		List <User> users = (List<User>) q1.getResultList();
 		return users;
 		}catch(Exception e) {
+			e.printStackTrace();
 			 em.getTransaction().commit();
 			 throw new Exception();
 		 }
 	}
 	
-	public List<User> searchUserByType(userType usertype) throws Exception{
+	public List<User> searchUserByType(String type) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		try {
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
-		Query q1 = em.createQuery("SELECT id, username, password FROM user WHERE type = ?", User.class);
-		q1.setParameter(1, usertype);
-		LinkedList<User> users = (LinkedList<User>) q1.getResultList();
+		Query q1 = em.createNativeQuery("SELECT * FROM user WHERE type = ?", User.class);
+		q1.setParameter(1, type);
+		List<User> users = (List<User>) q1.getResultList();
 		return users;
 		}catch(Exception e) {
+			e.printStackTrace();
 			 em.getTransaction().commit();
 			 throw new Exception();
 		 }
@@ -88,10 +89,29 @@ public class JPAUserController implements UserInterface{
 	public void deleteUser(User user) throws Exception {
 		EntityManager em = DBEntityManager.getEntityManager();
 		try {
+		User userReceived = JPAUserController.getJPAUserController().searchUserById(user.getId());
 		em.getTransaction().begin();
-		em.remove(user);
+		em.remove(userReceived);
 		em.getTransaction().commit();
 		}catch(Exception e) {
+			e.printStackTrace();
+			 em.getTransaction().commit();
+			 throw new Exception();
+		 }
+	}
+	
+	public User searchUserById(Integer id) throws Exception{
+		EntityManager em = DBEntityManager.getEntityManager();
+		try {
+		em.getTransaction().begin();
+		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
+		em.getTransaction().commit();
+		Query q1 = em.createNativeQuery("SELECT * FROM user WHERE id LIKE ?", User.class);
+		q1.setParameter(1, id);
+		User user = (User) q1.getSingleResult();
+		return user;
+		}catch(Exception e) {
+			e.printStackTrace();
 			 em.getTransaction().commit();
 			 throw new Exception();
 		 }
