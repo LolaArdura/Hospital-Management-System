@@ -8,7 +8,6 @@ import java.util.List;
 
 import interfaces.UserInterface;
 import model.User;
-import model.User.userType;
 
 public class JDBCUserController implements UserInterface{
 	private static JDBCUserController singleton;
@@ -39,21 +38,7 @@ public class JDBCUserController implements UserInterface{
 			String username=rs.getString("username");
 			String password=rs.getString("password");
 			String usertype=rs.getString("type");
-			User user;
-			if(usertype.toLowerCase().equals("admin")) {
-				user=new User(id,username,password,User.userType.ADMIN);
-			}
-			else {
-				if(usertype.toLowerCase().equals("receptionist")) {
-					user=new User(id,username,password,User.userType.RECEPTIONIST);
-				}else {
-					if(usertype.toLowerCase().equals("doctor")) {
-						user=new User(id,username,password,User.userType.DOCTOR);
-					}else {
-						user=new User(id,username,password,User.userType.NURSE);
-					}
-				}
-			}
+			User user = new User(id, username, password, usertype);
 			users.add(user);
 		}
 		rs.close();
@@ -74,7 +59,7 @@ public class JDBCUserController implements UserInterface{
 		try {
 		prep.setString(1,user.getUsername());
 		prep.setString(2, user.getPassword());
-		prep.setString(3,user.getTypeOfUser().name().toLowerCase());
+		prep.setString(3,user.getTypeOfUser());
 		prep.executeUpdate();
 		prep.close();
 		
@@ -85,12 +70,12 @@ public class JDBCUserController implements UserInterface{
 	}
 
 	@Override
-	public List<User> searchUserByType(userType usertype) throws Exception {
+	public List<User> searchUserByType(String usertype) throws Exception {
 		String sql="SELECT id,username,password FROM user WHERE type = ?";
 		PreparedStatement prep=JDBConnection.getConnection().prepareStatement(sql);
 		
 		try {
-		prep.setString(1, usertype.name().toLowerCase());
+		prep.setString(1, usertype);
 		ResultSet rs=prep.executeQuery();
 		List<User> users=new LinkedList<User>();
 		while(rs.next()) {
@@ -121,7 +106,7 @@ public class JDBCUserController implements UserInterface{
 		ResultSet rs= prep.executeQuery();
 		if(rs.next()) {
 			 user.setId(rs.getInt("id"));
-			 user.setTypeOfUser(User.userType.valueOf(rs.getString("type").toUpperCase()));
+			 user.setTypeOfUser(rs.getString("type"));
 		}
 		rs.close();
 		prep.close();
@@ -160,6 +145,31 @@ public class JDBCUserController implements UserInterface{
 
 		prep.executeUpdate();
 		prep.close();
+		
+		}catch (Exception e ) {
+			prep.close();
+			throw new Exception();
+		}
+	}
+	
+	public User searchUserById(Integer id) throws Exception{
+		String sql="SELECT * FROM user WHERE id = ?";
+		PreparedStatement prep=JDBConnection.getConnection().prepareStatement(sql);
+		
+		try {
+		prep.setInt(1, id);
+		ResultSet rs=prep.executeQuery();
+		User user = null;
+		if(rs.next()) {
+			int Id =rs.getInt("id");
+			String username=rs.getString("username");
+			String password=rs.getString("password");
+			String type=rs.getString("type");
+			user=new User(Id,username,password,type);
+			}
+		rs.close();
+		prep.close();
+		return user;
 		
 		}catch (Exception e ) {
 			prep.close();
