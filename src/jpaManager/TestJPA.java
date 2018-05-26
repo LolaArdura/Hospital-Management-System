@@ -65,7 +65,7 @@ public class TestJPA {
 	 Patient searchedPatient = JPAPatientController.getPatientController().searchPatientById(1);
 	 System.out.println(searchedPatient);
  */
-	//updatePatient
+/*	//updatePatient
 	//Patient ana =new Patient (5, "Ana", Sex.female,"bipolar", dob, dateAdmission);
 	//JPAPatientController.getPatientController().insertNoDiagnosePatient(ana);
 	//System.out.println(JPAPatientController.getPatientController().getAllPatients());
@@ -73,7 +73,7 @@ public class TestJPA {
 	tempPatient =new Patient (5, "Ana", Sex.female,"hypertension", dob, dateAdmission);
 	JPAPatientController.getPatientController().updatePatient(tempPatient);
 	System.out.println(JPAPatientController.getPatientController().getAllPatients());
-	
+*/	
 /*
 	//addNurseToPatient
 	JPAPatientController.getPatientController().addNurseToPatient(nurse, patient1);
@@ -101,6 +101,26 @@ public class TestJPA {
 	
 	 
  */
+	//TEST JPABILLCONTROLLER METHODS:
+	Bills bill1 = new Bills(1, 1200, "1234bill", true);
+	//Bills bill2 = new Bills(2, 300, "1235bill", false);
+	//Bills bill3 = new Bills(3, 15000, "1236bill", true);
+	
+/*	//insertBills:
+	//getAllBills
+	JPABillsController.getJPABillsController().insertBills(bill3);
+	System.out.println(JPABillsController.getJPABillsController().getAllBills());
+	
+	//deleteBills:
+	JPABillsController.getJPABillsController().deleteBills(bill1);
+	System.out.println(JPABillsController.getJPABillsController().getAllBills());
+*/	
+	//searchBillById:
+	System.out.println(JPABillsController.getJPABillsController().searchBillsById(1));
+	
+	//updatebills
+			//????????????????????????????
+	
 	 
 	 
 	 
