@@ -82,7 +82,11 @@ public class JPARoomController implements  RoomInterface{
 		EntityManager em = DBEntityManager.getEntityManager();
 		try {
 		em.getTransaction().begin();
-		em.flush();
+		    room.setFloor(room.getFloor());
+			room.setNumber(room.getNumber());
+			room.setCapacity(room.getCapacity());
+			room.setType(room.getType());
+			room.setCostPerDay(room.getCostPerDay());
 		em.getTransaction().commit();
 		}catch(Exception e) {
 			 em.getTransaction().commit();
@@ -143,7 +147,7 @@ public class JPARoomController implements  RoomInterface{
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
-		Query q1 = em.createNativeQuery("SELECT room.id, number, floor, type, costPerDay FROM room JOIN patient ON "
+		Query q1 = em.createNativeQuery("SELECT room.id, number, floor, type, costPerDay FROM room LEFT JOIN patient ON "
 				+ "room.id=patient.room_id GROUP BY room.id HAVING COUNT(patient.id)<capacity", Room.class);
 		List<Room> rooms = (List<Room>) q1.getResultList();
 		return rooms;
