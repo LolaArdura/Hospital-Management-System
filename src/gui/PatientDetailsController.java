@@ -150,7 +150,7 @@ public class PatientDetailsController implements Initializable {
 			    billsPane.prefWidthProperty().bind(mainPane.widthProperty());
 			    
 			    BillsReportController controller=loader.<BillsReportController>getController();
-			    controller.initComponents(patient, mainPane, User.userType.valueOf(permission.name()), true);
+			    controller.initComponents(patient, mainPane,permission.name().toLowerCase(), true);
 				
 			}catch(Exception ex) {
 				ex.printStackTrace();
@@ -184,7 +184,7 @@ public class PatientDetailsController implements Initializable {
 		    billsPane.prefWidthProperty().bind(mainPane.widthProperty());
 		    
 		    BillsReportController controller=loader.<BillsReportController>getController();
-		    controller.initComponents(patient, mainPane, User.userType.valueOf(permission.name()), false);
+		    controller.initComponents(patient, mainPane, permission.name().toLowerCase(), false);
 			
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -270,7 +270,7 @@ public class PatientDetailsController implements Initializable {
         this.mainPane=mainPane;
 		this.permission = permission;
 		this.patient = patient;
-		dischargeButton.setVisible(false);
+		dischargeButton.setVisible(true);
 		
 		if (permission.equals(paneType.NEW_PATIENT)) {
 			dischargeButton.setVisible(false);
@@ -303,6 +303,7 @@ public class PatientDetailsController implements Initializable {
 			this.mainPane = mainPane;
 
 			if (permission.equals(paneType.DOCTOR) || permission.equals(paneType.NURSE)) {
+				dischargeButton.setVisible(true);
 				admissionDate.setEditable(false);
 				nameTextField.setEditable(false);
 				yearTextField.setEditable(false);
@@ -319,7 +320,7 @@ public class PatientDetailsController implements Initializable {
 
 			if (permission.equals(paneType.ADMIN)) {
 				medicalConditionArea.setEditable(false);
-				dischargeButton.setVisible(true);
+				dischargeButton.setVisible(false);
 			}
 			}catch(Exception ex) {
 				ex.printStackTrace();
@@ -382,7 +383,7 @@ public class PatientDetailsController implements Initializable {
 				patientsViewPane.prefWidthProperty().bind(mainPane.widthProperty());
 
 				PatientsViewPaneController controller = loader.<PatientsViewPaneController>getController();
-				controller.initComponents(mainPane,User.userType.valueOf(permission.name()),doctor,nurse);
+				controller.initComponents(mainPane,permission.name().toLowerCase(),doctor,nurse);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

@@ -32,7 +32,7 @@ public class BillsReportController implements Initializable {
 
 	private Patient patient;
 	private Pane mainPane;
-	private User.userType permission;
+	private String permission;
 	private boolean discharge;
 
 	@FXML
@@ -71,7 +71,7 @@ public class BillsReportController implements Initializable {
 		patientsPane.prefWidthProperty().bind(mainPane.widthProperty());
 
 		PatientDetailsController paneController = loader.<PatientDetailsController>getController();
-		paneController.initComponents(patient, mainPane, paneType.valueOf(permission.name()),null,null);
+		paneController.initComponents(patient, mainPane, paneType.valueOf(permission.toUpperCase()),null,null);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
@@ -124,10 +124,10 @@ public class BillsReportController implements Initializable {
 		}
 	}
 
-	public void initComponents(Patient patient, Pane mainPane, User.userType permission, boolean discharge) {
+	public void initComponents(Patient patient, Pane mainPane, String permission, boolean discharge) {
 		this.patient = patient;
 		this.mainPane = mainPane;
-		this.permission=permission;
+		this.permission=permission.toLowerCase();
 		if(discharge) {
 			dischargeButton.setVisible(true);
 			cancelButton.setVisible(true);

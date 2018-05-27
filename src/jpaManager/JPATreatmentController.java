@@ -53,7 +53,7 @@ public class JPATreatmentController implements TreatmentInterface {
 		 Treatment treatmentRetrieved= searchTreatmentById(treatment.getId());
 		 em.getTransaction().begin();
 		 em.remove(treatmentRetrieved);
-		 em.getTransaction().commit();;
+		 em.getTransaction().commit();
 		 return true;
 		 }catch(Exception e) {
 			 em.getTransaction().commit();

@@ -22,10 +22,10 @@ import model.Patient;
 import model.User;
 import tables.DatabaseTables;
 
-public class TestGUI extends Application {
+public class HospitalMainGUI extends Application {
 	
 	public static void main(String[] args) {
-		Application.launch(TestGUI.class,args);
+		Application.launch(HospitalMainGUI.class,args);
 	}
      
      public void start (Stage primaryStage) {
@@ -38,7 +38,7 @@ public class TestGUI extends Application {
     		List<User> users= JDBCUserController.getUserController().getAllUsers();
     		
     		if(users.isEmpty()) {
-    			User user= new User("admin","hospitalAdmin1",User.userType.ADMIN);
+    			User user= new User("admin","hospitalAdmin1","admin");
     			JDBCUserController.getUserController().insertUser(user);
     			DBEntityManager.getEntityManager();
     			
@@ -65,7 +65,7 @@ public class TestGUI extends Application {
     	 }catch(Exception ex) {
     		 try {
     			DatabaseTables.createTables();
-    			User user= new User("admin","hospitalAdmin1",User.userType.ADMIN);
+    			User user= new User("admin","hospitalAdmin1","admin");
     			JDBCUserController.getUserController().insertUser(user);
     			DBEntityManager.getEntityManager();
     			Alert a= new Alert(AlertType.INFORMATION);

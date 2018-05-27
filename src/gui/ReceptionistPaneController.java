@@ -89,7 +89,7 @@ public class ReceptionistPaneController {
          patientsView.prefWidthProperty().bind(mainPane.widthProperty());
          
          PatientsViewPaneController controller=loader.<PatientsViewPaneController>getController();
-         controller.initComponents(mainPane, User.userType.RECEPTIONIST,null,null);
+         controller.initComponents(mainPane, "receptionist",null,null);
          
 		} catch (IOException e) {
 			e.printStackTrace();

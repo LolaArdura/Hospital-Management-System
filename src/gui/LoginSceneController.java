@@ -58,8 +58,8 @@ public class LoginSceneController implements Initializable {
 			UserInterface controller = JDBCUserController.getUserController();
 			user = controller.validateUser(user);
 			if (user.getId() != null) {
-				User.userType permission = user.getTypeOfUser();
-				if (permission.equals(User.userType.ADMIN)) {
+				String permission = user.getTypeOfUser().toLowerCase();
+				if (permission.equals("admin")) {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminMainScene.fxml"));
 					Parent adminScene = (Parent) loader.load();
 					AdminMainSceneController adminController = loader.<AdminMainSceneController>getController();
@@ -72,7 +72,7 @@ public class LoginSceneController implements Initializable {
 					stage.setResizable(true);
 					stage.centerOnScreen();
 				} else {
-					if (permission.equals(User.userType.RECEPTIONIST)) {
+					if (permission.equals("receptionist")) {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource("ReceptionistMainPane.fxml"));
 						Parent receptionistScene = (Parent) loader.load();
 						ReceptionistPaneController receptionistController = loader
@@ -85,7 +85,7 @@ public class LoginSceneController implements Initializable {
 						Scene scene = new Scene(receptionistScene, 700,550);
 						stage.setScene(scene);
 					} else {
-						if (permission.equals(User.userType.DOCTOR)) {
+						if (permission.equals("doctor")) {
 							try {
 								TextInputDialog idDialog = new TextInputDialog("");
 								idDialog.setTitle("");

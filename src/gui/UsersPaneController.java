@@ -25,7 +25,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import jdbcManager.JDBCUserController;
 import model.User;
-import model.User.userType;
+
 
 public class UsersPaneController implements Initializable {
 
@@ -57,7 +57,7 @@ public class UsersPaneController implements Initializable {
 	private TableColumn<User, String> passwordColumn;
 
 	@FXML
-	private TableColumn<User, userType> userTypeColumn;
+	private TableColumn<User, String> userTypeColumn;
 
 	@FXML
 	private ChoiceBox<String> usertypeBox;
@@ -87,20 +87,7 @@ public class UsersPaneController implements Initializable {
 					alert.showAndWait();
 				} else {
 					User newUser;
-					if (usertype.equals("Admin")) {
-						newUser = new User(name, password, userType.ADMIN);
-					} else {
-						if (usertype.equals("Receptionist")) {
-							newUser = new User(name, password, userType.RECEPTIONIST);
-						} else {
-							if (usertype.equals("Doctor")) {
-								newUser = new User(name, password, userType.DOCTOR);
-							} else {
-								newUser = new User(name, password, userType.NURSE);
-							}
-						}
-
-					}
+					newUser = new User(name, password, usertype.toLowerCase());
 
 					UserInterface controller = JDBCUserController.getUserController();
 					try {
@@ -124,22 +111,22 @@ public class UsersPaneController implements Initializable {
 		try {
 			String selectedOption = searchBox.getSelectionModel().getSelectedItem();
 			if (selectedOption.equals("Admin")) {
-				List<User> users = JDBCUserController.getUserController().searchUserByType(User.userType.ADMIN);
+				List<User> users = JDBCUserController.getUserController().searchUserByType(selectedOption.toLowerCase());
 				setUsers(users);
 			} else {
 				if (selectedOption.equals("Receptionist")) {
 					List<User> users = JDBCUserController.getUserController()
-							.searchUserByType(User.userType.RECEPTIONIST);
+							.searchUserByType(selectedOption.toLowerCase());
 					setUsers(users);
 				} else {
 					if (selectedOption.equals("Doctor")) {
 						List<User> users = JDBCUserController.getUserController()
-								.searchUserByType(User.userType.DOCTOR);
+								.searchUserByType(selectedOption.toLowerCase());
 						setUsers(users);
 					} else {
 						if (selectedOption.equals("Nurse")) {
 							List<User> users = JDBCUserController.getUserController()
-									.searchUserByType(User.userType.NURSE);
+									.searchUserByType(selectedOption.toLowerCase());
 							setUsers(users);
 						} else {
 							setUsers();
@@ -184,7 +171,7 @@ public class UsersPaneController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		usernameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
 		passwordColumn.setCellValueFactory(new PropertyValueFactory<User, String>("password"));
-		userTypeColumn.setCellValueFactory(new PropertyValueFactory<User, userType>("typeOfUser"));
+		userTypeColumn.setCellValueFactory(new PropertyValueFactory<User, String>("typeOfUser"));
 		usertypeBox.getItems().addAll("Admin", "Receptionist", "Doctor", "Nurse");
 		searchBox.getItems().addAll("Show all", "Admin", "Receptionist", "Doctor", "Nurse");
 		setUsers();

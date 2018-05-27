@@ -93,7 +93,7 @@ public class AdminMainSceneController {
 			patientsPane.prefWidthProperty().bind(mainPane.widthProperty());
 
 			PatientsViewPaneController controller = loader.<PatientsViewPaneController>getController();
-			controller.initComponents(mainPane, User.userType.ADMIN, null, null);
+			controller.initComponents(mainPane, "admin", null, null);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

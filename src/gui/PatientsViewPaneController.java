@@ -35,7 +35,7 @@ import model.User;
 
 public class PatientsViewPaneController implements Initializable {
 	
-	private User.userType permission;
+	private String permission;
 	
 	private Doctor doctor;
 	
@@ -69,7 +69,7 @@ public class PatientsViewPaneController implements Initializable {
 		try {
 			Patient patient = (Patient) patientsTable.getSelectionModel().getSelectedItem();
 			if (patient != null) {
-				if(permission.equals(User.userType.NURSE)) {
+				if(permission.equals("nurse")) {
 					patient=JDBCPatientController.getPatientController().searchPatientById(patient.getId());
 				}
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("PatientDetails.fxml"));
@@ -80,7 +80,7 @@ public class PatientsViewPaneController implements Initializable {
 				detailsPane.prefWidthProperty().bind(mainPane.widthProperty());
 
 				PatientDetailsController controller = loader.<PatientDetailsController>getController();
-				controller.initComponents(patient, mainPane, PatientDetailsController.paneType.valueOf(permission.name()),doctor,nurse);
+				controller.initComponents(patient, mainPane, PatientDetailsController.paneType.valueOf(permission.toUpperCase()),doctor,nurse);
 			} else {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("No selected");
@@ -120,7 +120,7 @@ public class PatientsViewPaneController implements Initializable {
 
 	private ObservableList<Patient> setPatients() {
 		ObservableList<Patient> patients = FXCollections.observableArrayList();
-		if(permission.equals(User.userType.NURSE)) {
+		if(permission.equals("nurse")) {
 			try {
 			NurseInterface nurseController=JDBCNurseController.getNurseController();
 			patients.addAll(nurseController.getPatientsFromNurse(nurse));
@@ -146,7 +146,7 @@ public class PatientsViewPaneController implements Initializable {
 	  }
 	}
 
-	public void initComponents(Pane mainPane, User.userType permission, Doctor doctor, Nurse nurse) {
+	public void initComponents(Pane mainPane, String permission, Doctor doctor, Nurse nurse) {
 		this.mainPane = mainPane;
 		this.permission=permission;
 		this.doctor=doctor;
@@ -156,6 +156,7 @@ public class PatientsViewPaneController implements Initializable {
 	
 	private void setPatients(List<Patient> patients) {
 		ObservableList<Patient> observablePatients=FXCollections.observableArrayList();
+		observablePatients.addAll(patients);
 		patientsTable.getItems().clear();
 		patientsTable.getItems().setAll(observablePatients);
 	}
