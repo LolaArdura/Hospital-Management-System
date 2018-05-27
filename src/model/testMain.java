@@ -15,7 +15,7 @@ public class testMain {
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		
-		Doctor doctor=new Doctor(123,"John","morning","cardiology");
+		Doctor doctor=new Doctor("John","morning","cardiology");
 		em.getTransaction().begin();
 		em.persist(doctor);
 		em.getTransaction().commit();
