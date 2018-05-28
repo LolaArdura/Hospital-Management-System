@@ -121,7 +121,8 @@ public class JPAUserController implements UserInterface{
 		EntityManager em=DBEntityManager.getEntityManager();
 		try {
 		em.getTransaction().begin();
-		em.flush();
+			user.setUsername(user.getUsername());
+			user.setPassword(user.getPassword());
 		em.getTransaction().commit();
 		}catch(Exception e) {
 			 em.getTransaction().commit();

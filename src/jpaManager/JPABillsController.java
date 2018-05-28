@@ -61,7 +61,9 @@ public class JPABillsController  implements BillsInterface {
 	  EntityManager em = DBEntityManager.getEntityManager();
 	  try {
 	  em.getTransaction().begin();
-	  em.flush();
+	  	bill.setBankID(bill.getBankID());
+	  	bill.setTotalCost(bill.getTotalCost());
+	  	bill.setPaid(bill.getPaid());
 	  em.getTransaction().commit();
 	  }catch(Exception e) {
 		 em.getTransaction().commit();
