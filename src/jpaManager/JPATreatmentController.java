@@ -49,16 +49,11 @@ public class JPATreatmentController implements TreatmentInterface {
 	 public boolean deleteTreatment (Treatment treatment) throws Exception{
 		 
 		 EntityManager em =DBEntityManager.getEntityManager();
-		 try {
 		 Treatment treatmentRetrieved= searchTreatmentById(treatment.getId());
 		 em.getTransaction().begin();
 		 em.remove(treatmentRetrieved);
 		 em.getTransaction().commit();
 		 return true;
-		 }catch(Exception e) {
-			 em.getTransaction().commit();
-			 throw new Exception();
-		 }
 	 }
 	 
 	 

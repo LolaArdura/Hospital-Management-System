@@ -27,6 +27,9 @@ public class Bills implements Serializable {
 	@JoinColumn(name="patient_id")
 	@XmlTransient
 	private Patient patient;
+	@OneToOne(fetch=FetchType.LAZY, mappedBy = "bill")
+	@XmlTransient
+	private Treatment treatment;
 	
 	//Constructors
 

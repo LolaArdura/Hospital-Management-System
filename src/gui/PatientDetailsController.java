@@ -1,7 +1,6 @@
 package gui;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +22,7 @@ import javafx.scene.control.Alert.AlertType;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
+
 import javafx.util.Callback;
 import jdbcManager.JDBCPatientController;
 import jdbcManager.JDBCRoomController;
@@ -33,11 +32,11 @@ import model.Nurse;
 import model.Patient;
 import model.Room;
 import model.Sex;
-import model.User;
+
 
 import java.net.URL;
 import java.sql.Date;
-import java.sql.SQLException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -49,7 +48,7 @@ import interfaces.RoomInterface;
 
 public class PatientDetailsController implements Initializable {
 	public enum paneType {
-		ADMIN, NEW_PATIENT, RECEPTIONIST, DOCTOR, NURSE
+		ADMIN, NEW_PATIENT, RECEPTIONIST, DOCTOR, NURSE, NEW_PATIENT_XML
 	}
 
 	private paneType permission;
@@ -219,14 +218,16 @@ public class PatientDetailsController implements Initializable {
 		PatientInterface controller = JPAPatientController.getPatientController();
 		Patient p = getPatient();
 		if (p != null) {
-			if (permission.equals(paneType.ADMIN) || permission.equals(paneType.RECEPTIONIST)) {
+			if (permission.equals(paneType.ADMIN) || permission.equals(paneType.RECEPTIONIST) || permission.equals(paneType.NEW_PATIENT_XML)) {
 				try {
 					this.patient.setName(p.getName());
 					this.patient.setDob(p.getDob());
 					this.patient.setGender(p.getGender());
 					this.patient.setDiagnose(p.getDiagnose());
-					this.patient.setRoom(p.getRoom());
 					this.patient.setDateAdmission(p.getDateAdmission());
+					if(permission.equals(paneType.NEW_PATIENT_XML)) {
+						this.patient.setRoom(p.getRoom());
+					}
 					controller.updatePatient(this.patient);
 					changePane();
 				} catch (Exception ex) {
@@ -234,7 +235,7 @@ public class PatientDetailsController implements Initializable {
 				}
 			} else {
 				if (permission.equals(paneType.NEW_PATIENT)) {
-					try {
+					try {					
 						controller.insertCompletePatient(p);
 						Alert a = new Alert(AlertType.INFORMATION);
 						a.setHeaderText("Admission completed");
@@ -301,6 +302,17 @@ public class PatientDetailsController implements Initializable {
 			roomBox.getItems().add(patient.getRoom());
 			roomBox.getSelectionModel().select(patient.getRoom());
 			this.mainPane = mainPane;
+			
+			if(permission.equals(paneType.NEW_PATIENT_XML)) {
+				dischargeButton.setVisible(false);
+				treatmentLabel.setVisible(false);
+				treatmentButton.setVisible(false);
+				billsLabel.setVisible(false);
+				billsButton.setVisible(false);
+				setFreeRooms();
+				roomBox.getItems().add(patient.getRoom());
+				roomBox.getSelectionModel().select(patient.getRoom());
+			}
 
 			if (permission.equals(paneType.DOCTOR) || permission.equals(paneType.NURSE)) {
 				dischargeButton.setVisible(true);
@@ -369,7 +381,7 @@ public class PatientDetailsController implements Initializable {
 
 	
 	private void changePane() {
-		if (permission.equals(paneType.NEW_PATIENT)) {
+		if (permission.equals(paneType.NEW_PATIENT)|permission.equals(paneType.NEW_PATIENT_XML)) {
 			mainPane.getChildren().clear();	
 		}
 		

@@ -33,7 +33,11 @@
         </treatment>
     </Treatments>
     <Bills>
-        <bill cost="200.0" bankID="123456ESB" paid="false" id="1"/>
+        <bill  id="1">
+        <cost> 200.0 </cost>
+        <bankID> 123456ESB</bankID>
+        <paid> false</paid>
+        </bill>
     </Bills>
     <Nurses>
         <Nurse id="3">

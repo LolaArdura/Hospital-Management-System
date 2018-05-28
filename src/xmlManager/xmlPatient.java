@@ -28,7 +28,7 @@ import jpaManager.*;
 public class xmlPatient {
 	
 	
-public static void marshal (Patient p, String route) throws Exception{
+public static void marshal (Patient p, File route) throws Exception{
 		
 	
 	EntityManager em=DBEntityManager.getEntityManager();
@@ -42,21 +42,20 @@ public static void marshal (Patient p, String route) throws Exception{
 	Marshaller marshaller = jaxbContext.createMarshaller();
 	marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,Boolean.TRUE);
 
-	File file = new File (route);
-	marshaller.marshal(p, file);
-	marshaller.marshal(p, System.out);
+	marshaller.marshal(p, route);
+
 
 }
 	
 	
 	
-public static Patient unmarshal (String route) throws Exception {
+public static Patient unmarshal (File route) throws Exception {
 		
 		JAXBContext jaxbContext = JAXBContext.newInstance(Patient.class);
 		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 		
-		File file = new File (route);
-		Patient p = (Patient) unmarshaller.unmarshal(file);
+
+		Patient p = (Patient) unmarshaller.unmarshal(route);
 		
 		
 		EntityManager em = DBEntityManager.getEntityManager();
@@ -73,13 +72,12 @@ public static Patient unmarshal (String route) throws Exception {
 				try {
 					JPADoctorController.getJPADoctorController().searchDoctorById(doctor.getId());
 				}catch(Exception ex) {
-					doctor.setId(null);
-					JPADoctorController.getJPADoctorController().insertDoctor(doctor);
+					//Doctors should already be in the database
+					treatment.setDoctor(null);
 				}
 				}
 				else {
-					doctor.setId(null);
-					JPADoctorController.getJPADoctorController().insertDoctor(doctor);
+					treatment.setDoctor(null);
 				}
 			}
 			
@@ -88,12 +86,12 @@ public static Patient unmarshal (String route) throws Exception {
 				JPATreatmentController.getTreatmentController().searchTreatmentById(treatment.getId());
 			}catch(Exception ex) {
 				treatment.setId(null);
-				JPATreatmentController.getTreatmentController().insertTreatment(treatment);
+				JPATreatmentController.getTreatmentController().insertTreatmentWithoutBill(treatment);
 			}
 			}
 			else {
 				treatment.setId(null);
-				JPADoctorController.getJPADoctorController().insertDoctor(doctor);
+				JPATreatmentController.getTreatmentController().insertTreatmentWithoutBill(treatment);
 			}
 		}
 		
@@ -112,18 +110,17 @@ public static Patient unmarshal (String route) throws Exception {
 				}
 		}
 		
-		for (Nurse nurse: p.getListOfNurses()) {
-			if(nurse.getId()!=0) {
+		for (int i=0; i<p.getListOfNurses().size();i++ ) {
+			if(p.getListOfNurses().get(i).getId()!=0) {
 				try {
-					JPANurseController.getNurseController().searchNurseById(nurse.getId());
+					JPANurseController.getNurseController().searchNurseById(p.getListOfNurses().get(i).getId());
 				}catch(Exception ex) {
-					nurse.setId(null);
-					JPANurseController.getNurseController().insertNurse(nurse);
+					//Nurses should already be in the database
+					p.getListOfNurses().remove(i);
 				}
 			}
 			else {
-				nurse.setId(null);
-				JPANurseController.getNurseController().insertNurse(nurse);
+				p.getListOfNurses().remove(i);
 			}
 		}
 		
@@ -132,9 +129,13 @@ public static Patient unmarshal (String route) throws Exception {
 			try {
 				JPARoomController.getJPARoomController().searchRoomById(room.getId());
 			}catch(Exception ex) {
-				room.setId(null);
-				JPARoomController.getJPARoomController().insertRoom(room);
+				//If the room is not in the hospital, the receptionist will later assign one to the patient
+				p.setRoom(null);
 			}
+		}
+		else {
+			//If the room is not in the hospital, the receptionist will later assign one to the patient
+			p.setRoom(null);
 		}
 		
 		JPAPatientController.getPatientController().insertCompletePatient(p);
@@ -142,11 +143,11 @@ public static Patient unmarshal (String route) throws Exception {
 		return p;
 	}
 
-public static void xml2Html(String sourcePath, String xsltPath, String resultDir) {
+public static void xml2Html(String sourcePath, String resultDir) {
 	
 	TransformerFactory tFactory = TransformerFactory.newInstance();
 	try {
-		Transformer transformer = tFactory.newTransformer(new StreamSource(new File(xsltPath)));
+		Transformer transformer = tFactory.newTransformer(new StreamSource(new File("./xmls/Patient-StyleSheet.xslt")));
 		transformer.transform(new StreamSource(new File(sourcePath)),new StreamResult(new File(resultDir)));
 	} catch (Exception e) {
 		e.printStackTrace();

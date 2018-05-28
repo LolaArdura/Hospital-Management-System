@@ -95,14 +95,11 @@ public class JPAPatientController implements PatientInterface{
 	
 	public void updatePatient(Patient patient) throws Exception {
 		EntityManager em=DBEntityManager.getEntityManager();
-		try {
+
 		em.getTransaction().begin();
 		em.flush();
 		em.getTransaction().commit();
-		}catch(Exception e) {
-			em.getTransaction().commit();
-			throw new Exception();
-		}
+
 	}
 	
 	public void addNurseToPatient (Nurse nurse, Patient patient) throws Exception{

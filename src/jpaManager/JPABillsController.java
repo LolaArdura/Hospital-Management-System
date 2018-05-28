@@ -46,7 +46,7 @@ public class JPABillsController  implements BillsInterface {
   
   public Bills searchBillsById (Integer id)throws Exception{
 	  EntityManager em = DBEntityManager.getEntityManager();
-	  try {
+
 	  em.getTransaction().begin();
 	  em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 	  em.getTransaction().commit();
@@ -54,11 +54,7 @@ public class JPABillsController  implements BillsInterface {
 	  q1.setParameter(1, id );
 	  Bills bill = (Bills)q1.getSingleResult();
 	  return bill;
-	  }catch(Exception e) {
-		  e.printStackTrace();
-		 em.getTransaction().commit();
-		 throw new Exception();
-	  }
+
   }
   
   public void updateBills (Bills bill)throws Exception {

@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -20,9 +21,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Patient;
 import model.User;
+import xmlManager.xmlPatient;
 
 public class ReceptionistPaneController {
 	private User user;
@@ -56,6 +59,9 @@ public class ReceptionistPaneController {
 
     @FXML
     private Button registrationButton;
+    
+    @FXML
+    private Button loadPatientButton;
 
     @FXML
     private Pane mainPane;
@@ -138,6 +144,37 @@ public class ReceptionistPaneController {
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	@FXML
+	public void loadPatientClicked(ActionEvent event) {
+		//We register a new patient from an XML file
+		
+		try {
+		FileChooser fileChooser= new FileChooser();
+		fileChooser.setTitle("Load Patient XML");
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files","*.xml"));
+		File patientFile= fileChooser.showOpenDialog(mainPane.getScene().getWindow());
+		
+		if(patientFile!=null) {
+		Patient patient= xmlPatient.unmarshal(patientFile);
+		
+		 FXMLLoader loader=new FXMLLoader(getClass().getResource("PatientDetails.fxml"));
+         GridPane patientsView= (GridPane) loader.load();
+         mainPane.getChildren().clear();
+         mainPane.getChildren().add(patientsView);
+         patientsView.prefHeightProperty().bind(mainPane.heightProperty());
+         patientsView.prefWidthProperty().bind(mainPane.widthProperty());
+         PatientDetailsController controller=loader.<PatientDetailsController>getController();
+         controller.initComponents(patient,mainPane, PatientDetailsController.paneType.NEW_PATIENT_XML,null,null);
+		}
+		}catch(Exception ex) {
+			Alert alert= new Alert(AlertType.ERROR);
+			alert.setHeaderText("Error loading");
+			alert.setContentText("The file could not be loaded");
+			alert.showAndWait();
+		}
+		
 	}
 
 
