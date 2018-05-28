@@ -22,18 +22,22 @@ import javafx.scene.control.Alert.AlertType;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-
+import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import jdbcManager.JDBCPatientController;
 import jdbcManager.JDBCRoomController;
+import jdbcManager.JDBCTreatmentController;
 import jpaManager.JPAPatientController;
+import model.Bills;
 import model.Doctor;
 import model.Nurse;
 import model.Patient;
 import model.Room;
 import model.Sex;
+import model.Treatment;
+import xmlManager.XmlPatient;
 
-
+import java.io.File;
 import java.net.URL;
 import java.sql.Date;
 
@@ -134,6 +138,9 @@ public class PatientDetailsController implements Initializable {
 	private Button dischargeButton;
 	
 	@FXML
+	private Button generateXMLButton;
+	
+	@FXML
 	public void dischargeButtonClicked(ActionEvent e) {
 		Alert a= new Alert(AlertType.CONFIRMATION,"Do you want to generate a billing report?",
 				new ButtonType("Yes", ButtonBar.ButtonData.YES), ButtonType.NO);
@@ -212,6 +219,47 @@ public class PatientDetailsController implements Initializable {
 			ex.printStackTrace();
 		}
 	}
+	
+	@FXML
+	public void generateXMLClicked(ActionEvent event) {
+		try {
+		FileChooser fileChooser= new FileChooser();
+		fileChooser.setTitle("Save Patient");
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files","*.xml"));
+		File patientFile= fileChooser.showSaveDialog(detailsPane.getScene().getWindow());
+		
+		if(patientFile!=null) {
+			List<Treatment> treatments= JDBCPatientController.getPatientController().getTreatmentsFromPatient(patient);
+			if(treatments!=null) {
+			patient.setListOfTreatments(treatments);
+			}
+			List<Bills> bills= JDBCPatientController.getPatientController().getBillsFromPatient(patient);
+			if(bills!=null) {
+			patient.setListOfBills(bills);
+			}
+			XmlPatient.marshal(patient, patientFile);
+			
+			Alert alert= new Alert(AlertType.CONFIRMATION,"Do you want to generate a billing report?",
+				new ButtonType("Yes", ButtonBar.ButtonData.YES), ButtonType.NO);
+			alert.setTitle("HTML");
+			alert.setHeaderText("Do you want to generate an HTML page?");
+			String confirmation = alert.showAndWait().get().getText();
+			if (confirmation.equals("Yes")) {
+				String fileHtml= patientFile.getName().substring(0, patientFile.getName().length()-4)+".html";
+				File htmlFile= new File(fileHtml);
+				XmlPatient.xml2Html(patientFile, htmlFile);
+			}
+		}
+		
+		}catch(Exception ex) {
+			Alert alert= new Alert(AlertType.ERROR);
+			alert.setHeaderText("Error saving");
+			alert.setContentText("The patient could not be saved");
+			alert.showAndWait();
+			ex.printStackTrace();
+		}
+	}
+	
 
 	@FXML
 	public void okButtonClicked(ActionEvent event) {
@@ -226,7 +274,7 @@ public class PatientDetailsController implements Initializable {
 					this.patient.setDiagnose(p.getDiagnose());
 					this.patient.setDateAdmission(p.getDateAdmission());
 					if(permission.equals(paneType.NEW_PATIENT_XML)) {
-						this.patient.setRoom(p.getRoom());
+						controller.addRoomToPatient(patient,roomBox.getSelectionModel().getSelectedItem());
 					}
 					controller.updatePatient(this.patient);
 					changePane();
@@ -272,6 +320,7 @@ public class PatientDetailsController implements Initializable {
 		this.permission = permission;
 		this.patient = patient;
 		dischargeButton.setVisible(true);
+		generateXMLButton.setVisible(true);
 		
 		if (permission.equals(paneType.NEW_PATIENT)) {
 			dischargeButton.setVisible(false);
@@ -279,6 +328,7 @@ public class PatientDetailsController implements Initializable {
 			treatmentButton.setVisible(false);
 			billsLabel.setVisible(false);
 			billsButton.setVisible(false);
+			generateXMLButton.setVisible(false);
 			setFreeRooms();
 		} else {
 			try {
@@ -304,6 +354,7 @@ public class PatientDetailsController implements Initializable {
 			this.mainPane = mainPane;
 			
 			if(permission.equals(paneType.NEW_PATIENT_XML)) {
+				generateXMLButton.setVisible(false);
 				dischargeButton.setVisible(false);
 				treatmentLabel.setVisible(false);
 				treatmentButton.setVisible(false);
@@ -315,7 +366,8 @@ public class PatientDetailsController implements Initializable {
 			}
 
 			if (permission.equals(paneType.DOCTOR) || permission.equals(paneType.NURSE)) {
-				dischargeButton.setVisible(true);
+				generateXMLButton.setVisible(false);
+				dischargeButton.setVisible(false);
 				admissionDate.setEditable(false);
 				nameTextField.setEditable(false);
 				yearTextField.setEditable(false);
@@ -327,12 +379,16 @@ public class PatientDetailsController implements Initializable {
 				
 			}
 			if (permission.equals(paneType.DOCTOR)) {
+		
 				medicalConditionArea.setEditable(true);
+				
 			}
 
 			if (permission.equals(paneType.ADMIN)) {
+				generateXMLButton.setVisible(true);
 				medicalConditionArea.setEditable(false);
 				dischargeButton.setVisible(false);
+				
 			}
 			}catch(Exception ex) {
 				ex.printStackTrace();

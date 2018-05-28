@@ -34,6 +34,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import jdbcManager.JDBCDoctorController;
+import jpaManager.DBEntityManager;
 import jpaManager.JPADoctorController;
 import model.Doctor;
 

@@ -22,7 +22,7 @@ private static JDBCBillsController singleton;
 		String sql = "INSERT INTO bills ( cost, bankID, paid, patient_id) "
 				+ "VALUES (?,?,?,?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-		try {
+	
 		prep.setFloat(1, bill.getTotalCost());
 		prep.setString(2, bill.getBankID());
 		prep.setBoolean(3, bill.getPaid());
@@ -30,10 +30,7 @@ private static JDBCBillsController singleton;
 		prep.executeUpdate();
 		prep.close();
 		return true;
-		}catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+		
 	
 	}
 	
@@ -41,22 +38,18 @@ public boolean deleteBills (Bills bill)  throws Exception{
 	String sql = "DELETE FROM bills WHERE id=?";
 	PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 	
-	try {
+
 	prep.setInt(1,  bill.getId());
 	prep.executeUpdate();
 	prep.close();
 	return true;
 	
-	}catch (Exception e ) {
-		prep.close();
-		throw new Exception();
-	}
+	
 }
 public Bills searchBillsById (Integer id) throws Exception{
 	String sql = "SELECT * FROM bills WHERE id=?";
 	PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-	
-	try {
+
 	prep.setInt(1, id);
 	ResultSet rs = prep.executeQuery();
 	rs.next();
@@ -68,10 +61,6 @@ public Bills searchBillsById (Integer id) throws Exception{
 	rs.close();
     prep.close();
 	return bill;
-	}catch (Exception e ) {
-		prep.close();
-		throw new Exception();
-	}
 	
 }
 	
@@ -82,17 +71,13 @@ public void updateBills (Bills bill) throws Exception {
 			+ "paid = ?"
 			+ "WHERE id = ?";
 	PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-	
-    try {
+
 	prep.setString(1, bill.getBankID());
 	prep.setFloat(2, bill.getTotalCost());
 	prep.setBoolean(3, bill.getPaid());
 	prep.executeUpdate();
 	prep.close();
-    }catch (Exception e ) {
-		prep.close();
-		throw new Exception();
-	}
+  
 }
 
 }

@@ -226,7 +226,7 @@ public class Treatment implements Serializable {
 	public String toString() {
 		return "Treatment [id=" + id + ", routeOfAdmin=" + routeOfAdmin + ", startDate=" + startDate + ", endDate="
 				+ endDate + ", cost=" + cost + ", treatmentType=" + type + ", dose=" + dose + ", prescriber="
-				+ prescriber + ", patient=" + patient + ", bill="+ bill +"]";
+				+ prescriber  + ", bill="+ bill +"]";
 	}
 
 	

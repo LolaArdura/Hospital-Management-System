@@ -1,6 +1,9 @@
 package xmlManager;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,6 +18,11 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import jdbcManager.JDBCBillsController;
+import jdbcManager.JDBCNurseController;
+import jdbcManager.JDBCPatientController;
+import jdbcManager.JDBCTreatmentController;
+import jdbcManager.JDBConnection;
 import jpaManager.DBEntityManager;
 import model.Doctor;
 import model.Patient;
@@ -25,7 +33,7 @@ import model.Nurse;
 import jpaManager.*;
 
 
-public class xmlPatient {
+public class XmlPatient {
 	
 	
 public static void marshal (Patient p, File route) throws Exception{
@@ -63,66 +71,9 @@ public static Patient unmarshal (File route) throws Exception {
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		
-		
-		for(Treatment treatment: p.getListOfTreatments()) {
-			//We check treatments and prescibers to see if they are already in the database
-			Doctor doctor= treatment.getPrescriber();
-			if(doctor!=null) {
-				if(doctor.getId()!=0) {
-				try {
-					JPADoctorController.getJPADoctorController().searchDoctorById(doctor.getId());
-				}catch(Exception ex) {
-					//Doctors should already be in the database
-					treatment.setDoctor(null);
-				}
-				}
-				else {
-					treatment.setDoctor(null);
-				}
-			}
-			
-			if(treatment.getId()!=0) {
-			try {
-				JPATreatmentController.getTreatmentController().searchTreatmentById(treatment.getId());
-			}catch(Exception ex) {
-				treatment.setId(null);
-				JPATreatmentController.getTreatmentController().insertTreatmentWithoutBill(treatment);
-			}
-			}
-			else {
-				treatment.setId(null);
-				JPATreatmentController.getTreatmentController().insertTreatmentWithoutBill(treatment);
-			}
-		}
-		
-		for (Bills bill: p.getListOfBills()) {
-				if(bill.getId()!=0) {
-					try {
-					JPABillsController.getJPABillsController().searchBillsById(bill.getId());
-					}catch(Exception ex) {
-						bill.setId(null);
-						JPABillsController.getJPABillsController().insertBills(bill);
-					}
-				}
-				else {
-					bill.setId(0);
-					JPABillsController.getJPABillsController().insertBills(bill);
-				}
-		}
-		
-		for (int i=0; i<p.getListOfNurses().size();i++ ) {
-			if(p.getListOfNurses().get(i).getId()!=0) {
-				try {
-					JPANurseController.getNurseController().searchNurseById(p.getListOfNurses().get(i).getId());
-				}catch(Exception ex) {
-					//Nurses should already be in the database
-					p.getListOfNurses().remove(i);
-				}
-			}
-			else {
-				p.getListOfNurses().remove(i);
-			}
-		}
+		List<Treatment> treatments= p.getListOfTreatments();
+		List<Bills> bills= p.getListOfBills();
+		List<Nurse> nurses= p.getListOfNurses();
 		
 		Room room= p.getRoom();
 		if(room.getId()!=0) {
@@ -138,17 +89,76 @@ public static Patient unmarshal (File route) throws Exception {
 			p.setRoom(null);
 		}
 		
-		JPAPatientController.getPatientController().insertCompletePatient(p);
+		JDBCPatientController.getPatientController().insertNoRoomPatient(p);
+		Connection c= JDBConnection.getConnection();
+		String query = "SELECT last_insert_rowid() AS lastId";
+		PreparedStatement prep = c.prepareStatement(query);
+		ResultSet rs = prep.executeQuery();
+		Integer lastId = rs.getInt("lastId");
+		rs.close();
+		prep.close();
+		
+		p.setId(lastId);
+		
+		for(Treatment treatment: treatments) {
+			//We check treatments and prescibers to see if they are already in the database: we assume that
+			//prescribers are doctor from the hospital, therefore, they exist in the database
+			
+			
+			if(treatment.getId()!=0) {
+			try {
+				JPATreatmentController.getTreatmentController().searchTreatmentById(treatment.getId());
+			}catch(Exception ex) {
+				treatment.setId(null);
+				treatment.setPatient(p);
+				JDBCTreatmentController.getTreatmentController().insertTreatmentWithoutBill(treatment);
+			}
+			}
+			else {
+				treatment.setId(null);
+				treatment.setPatient(p);
+				JDBCTreatmentController.getTreatmentController().insertTreatmentWithoutBill(treatment);
+			}
+		}
+		
+		
+		for (Bills bill: bills) {
+				if(bill.getId()!=0) {
+					try {
+					JPABillsController.getJPABillsController().searchBillsById(bill.getId());
+					}catch(Exception ex) {
+						bill.setId(null);
+						bill.setPatient(p);
+						JDBCBillsController.getBillsController().insertBills(bill);
+					}
+				}
+				else {
+					bill.setId(0);
+					bill.setPatient(p);
+					JDBCBillsController.getBillsController().insertBills(bill);
+				}
+		}
+		
+		//We are going to assume that if the patient has nurses assigned, those nurses are already in the database
+		
+		
+		
+		//We assign the bills and the treatments to the patient
+		
+		for(Nurse n: nurses) {
+			JDBCNurseController.getNurseController().addPatientToNurse(n, p);
+		}
+		
 		
 		return p;
 	}
 
-public static void xml2Html(String sourcePath, String resultDir) {
+public static void xml2Html(File sourcePath, File resultDir) {
 	
 	TransformerFactory tFactory = TransformerFactory.newInstance();
 	try {
 		Transformer transformer = tFactory.newTransformer(new StreamSource(new File("./xmls/Patient-StyleSheet.xslt")));
-		transformer.transform(new StreamSource(new File(sourcePath)),new StreamResult(new File(resultDir)));
+		transformer.transform(new StreamSource(sourcePath),new StreamResult(resultDir));
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

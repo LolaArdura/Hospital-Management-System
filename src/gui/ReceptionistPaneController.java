@@ -25,7 +25,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Patient;
 import model.User;
-import xmlManager.xmlPatient;
+import xmlManager.XmlPatient;
 
 public class ReceptionistPaneController {
 	private User user;
@@ -157,7 +157,7 @@ public class ReceptionistPaneController {
 		File patientFile= fileChooser.showOpenDialog(mainPane.getScene().getWindow());
 		
 		if(patientFile!=null) {
-		Patient patient= xmlPatient.unmarshal(patientFile);
+		Patient patient= XmlPatient.unmarshal(patientFile);
 		
 		 FXMLLoader loader=new FXMLLoader(getClass().getResource("PatientDetails.fxml"));
          GridPane patientsView= (GridPane) loader.load();
@@ -173,6 +173,7 @@ public class ReceptionistPaneController {
 			alert.setHeaderText("Error loading");
 			alert.setContentText("The file could not be loaded");
 			alert.showAndWait();
+		
 		}
 		
 	}

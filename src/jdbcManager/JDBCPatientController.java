@@ -22,8 +22,7 @@ public class JDBCPatientController implements PatientInterface{
 		String sql = "INSERT INTO patient (name, gender,diagnose, dob, dateAdmission,room_id)" 
 					+"VALUES(?,?,?,?,?,?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-		
-		try {
+
 		prep.setString(1, patient.getName());
 		prep.setString(2,  patient.getGender().name().toLowerCase());
 		prep.setString(3, patient.getDiagnose());
@@ -33,19 +32,28 @@ public class JDBCPatientController implements PatientInterface{
 		prep.executeUpdate();
 		prep.close();
 		return true;
-		
-		}catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+
+	}
+	
+	public void insertNoRoomPatient(Patient patient) throws Exception{
+		String sql = "INSERT INTO patient (name, gender,diagnose, dob, dateAdmission)" 
+				+"VALUES(?,?,?,?,?)";
+	PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+
+	prep.setString(1, patient.getName());
+	prep.setString(2,  patient.getGender().name().toLowerCase());
+	prep.setString(3, patient.getDiagnose());
+	prep.setDate(4, patient.getDob());
+	prep.setDate(5,  patient.getDateAdmission());
+	prep.executeUpdate();
+	prep.close();
 	}
 	
 	public boolean insertNoDiagnosePatient (Patient patient) throws Exception {
 		String sql = "INSERT INTO patient (name, gender, dob, dateAdmission)" 
 					+"VALUES(?,?,?,?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-		
-		try {
+
 		prep.setString(1, patient.getName());
 		prep.setString(2,  patient.getGender().name().toLowerCase());
 		prep.setDate(3, patient.getDob());
@@ -54,10 +62,7 @@ public class JDBCPatientController implements PatientInterface{
 		prep.close();
 		return true;
 		
-		}catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+		
 	}
 	
 	
@@ -66,15 +71,12 @@ public class JDBCPatientController implements PatientInterface{
 		String sql = "INSERT INTO nurse_patient"
 				+ "(nurse_id, patient_id) VALUES (?, ?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-		try {
+		
 		prep.setInt(1,  nurse.getId());
 		prep.setInt(2,  patient.getId());
 		prep.executeUpdate();
 		prep.close();
-		}catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+		
 	}
 	
 	
@@ -82,37 +84,31 @@ public class JDBCPatientController implements PatientInterface{
 		String sql = "DELETE FROM patient WHERE id = ?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		
-		try {
+		
 		prep.setInt(1,patient.getId());
 		prep.executeUpdate();
 		prep.close();
 		return true;
-		}catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+		
 	}
 	
 	public void deleteNurseFromPatient (Nurse nurse, Patient patient) throws Exception{
 		String sql = "DELETE FROM nurse_patient WHERE patient_id =? and nurse_id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		
-		try {
+		
 		prep.setInt(1, patient.getId());
 		prep.setInt(2, nurse.getId());
 		prep.executeUpdate();
 		prep.close();
-		}catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+		
 	}
 	
 	public List<Patient> getAllPatients () throws Exception {
 		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT * FROM patient";
 		
-		try {
+	
 		ResultSet rs = stmt.executeQuery(sql);
 		List<Patient> patientList= new LinkedList <Patient>();
 		while (rs.next()) {
@@ -129,17 +125,14 @@ public class JDBCPatientController implements PatientInterface{
 		stmt.close();
 		return patientList;
 		
-		}catch (Exception e ) {
-			stmt.close();
-			throw new Exception();
-		}
+		
 	}
 	
 	public List<Patient>  getPatientWithoutTreatmentsAndBills () throws Exception{
 		Statement stmt = JDBConnection.getConnection().createStatement();
 		String sql = "SELECT id, name, gender, dob, dateAdmission, room_id FROM patient";
 		
-		try {
+	
 		ResultSet rs = stmt.executeQuery(sql);
 		List<Patient> patientList= new LinkedList <Patient>();
 		while(rs.next()) {
@@ -157,18 +150,13 @@ public class JDBCPatientController implements PatientInterface{
 		stmt.close();
 		return patientList;
 		
-		}catch (Exception e ) {
-			stmt.close();
-			e.printStackTrace();
-			throw new Exception();
-		}
 	}
 	
 	public List<Bills> getBillsFromPatient (Patient patient) throws Exception{
 		String sql= "SELECT * FROM bills WHERE patient_id = ? ";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		
-		try {
+	
 			prep.setInt(1, patient.getId());
 			List<Bills> billsList = new LinkedList<Bills>();
 			ResultSet rs = prep.executeQuery();
@@ -202,16 +190,14 @@ public class JDBCPatientController implements PatientInterface{
 		rs2.close();
 		p.close();
 		return billsList;
-		}catch (Exception e ) {
-			throw new Exception();
-		}
+		
 	}
 	
 	public List<Treatment> getTreatmentsFromPatient (Patient patient) throws Exception{
 		String sql = "SELECT * FROM treatment WHERE patient_id =?";
 		PreparedStatement prep=JDBConnection.getConnection().prepareStatement(sql);
 		
-		try {
+
 		prep.setInt(1, patient.getId());
 		ResultSet rs= prep.executeQuery();
 		List<Treatment> treatmentsList= new LinkedList<Treatment>();
@@ -233,17 +219,14 @@ public class JDBCPatientController implements PatientInterface{
 		rs.close();
 		prep.close();
 		return treatmentsList;
-		}catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+		
 	}
 	
 	public Patient searchPatientById (Integer id) throws Exception {
 		String sql = "SELECT * FROM patient WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		Patient patient=null;
-		try {
+	
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 		if(rs.next()) {
@@ -260,17 +243,14 @@ public class JDBCPatientController implements PatientInterface{
 		rs.close();
 		prep.close();
 		return patient;
-		}catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+	
 	}
 	
 	public void updatePatient (Patient patient) throws Exception{
 		String sql = "UPDATE patient SET name=?, gender=?, diagnose=?, dob=?, dateAdmission=? WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		
-		try {
+
 		prep.setString(1, patient.getName());
 		prep.setString(2, patient.getGender().name().toLowerCase());
 		prep.setString(3, patient.getDiagnose());
@@ -279,17 +259,14 @@ public class JDBCPatientController implements PatientInterface{
 		prep.setInt(6, patient.getId());
 		prep.executeUpdate();
 		prep.close();
-		}catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+		
 	}
 
 	public List<Patient> searchPatientByName(String name) throws Exception {
 		String sql = "SELECT * FROM patient WHERE name=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		
-		try {
+
 		prep.setString(1, name);
 		List<Patient> patients = new LinkedList<Patient>();
 		ResultSet rs = prep.executeQuery();
@@ -306,10 +283,19 @@ public class JDBCPatientController implements PatientInterface{
 		rs.close();
 		prep.close();
 		return patients;
-		}catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+		
+	}
+
+	@Override
+	public void addRoomToPatient(Patient patient, Room room) throws Exception {
+		String sql = "UPDATE patient SET room_id=? WHERE id=?" ;
+
+		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
+		prep.setInt(1, room.getId());
+		prep.setInt(2, patient.getId());
+		
+		prep.executeUpdate();
+		prep.close();
 	}
 
 }

@@ -20,66 +20,50 @@ public class JPAPatientController implements PatientInterface{
 	
 	public boolean insertCompletePatient(Patient patient) throws Exception{
 		EntityManager em =DBEntityManager.getEntityManager();
-		try {
+
 		em.getTransaction().begin();
 		em.persist(patient);
 		em.getTransaction().commit();
 		return true;
-		}catch(Exception e) {
-			e.printStackTrace();
-			em.getTransaction().commit();
-			
-			throw new Exception();
-		}
+	
 	}
 	
 
 	public boolean insertNoDiagnosePatient(Patient patient) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
-		try {
+
 		em.getTransaction().begin();
 		em.persist(patient);
 		em.getTransaction().commit();
 		return true;
-		}catch(Exception e) {
-			e.printStackTrace();
-			em.getTransaction().commit();
-			throw new Exception();
-		}
+
 	}
 	
 	public boolean deletePatient (Patient patient) throws Exception{
 		EntityManager em =DBEntityManager.getEntityManager();
-		try {
+
 		em.getTransaction().begin();
 		em.remove(patient);
 		em.getTransaction().commit();
 		return true;
-		}catch(Exception e) {
-			em.getTransaction().commit();
-			throw new Exception();
-		}
+		
 	}
 	
 	public List<Patient> getAllPatients() throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
-		try {
+
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM patient", Patient.class);
 		List <Patient> patients = (List<Patient>) q1.getResultList();
 		return patients;
-		}catch (Exception e) {
-			e.printStackTrace();
-			em.getTransaction().commit();
-			throw new Exception();
-		}
+	
 	}
 	
 	public Patient searchPatientById (Integer id) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
-		try {
+
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
@@ -87,10 +71,7 @@ public class JPAPatientController implements PatientInterface{
 		q1.setParameter(1, id);
 		Patient patient = (Patient) q1.getSingleResult();
 		return patient;
-		}catch(Exception e) {
-			em.getTransaction().commit();
-			throw new Exception();
-		}
+
 	}
 	
 	public void updatePatient(Patient patient) throws Exception {
@@ -102,8 +83,6 @@ public class JPAPatientController implements PatientInterface{
 			patient.setDateAdmission(patient.getDateAdmission());
 			patient.setDiagnose(patient.getDiagnose());
 			patient.setGender(patient.getGender());
-			patient.setRoom(patient.getRoom());
-			patient.getRoom().addPatient(patient);
 		em.getTransaction().commit();
 
 	}
@@ -177,6 +156,16 @@ public class JPAPatientController implements PatientInterface{
 		q1.setParameter(1, name);
 		List<Patient> patients = (List<Patient>) q1.getResultList();
 		return patients;
+		
+	}
+
+	@Override
+	public void addRoomToPatient(Patient patient, Room room) throws Exception {
+		EntityManager em = DBEntityManager.getEntityManager();
+		em.getTransaction().begin();
+		patient.setRoom(room);
+		room.addPatient(patient);
+		em.getTransaction().commit();
 		
 	}
 	

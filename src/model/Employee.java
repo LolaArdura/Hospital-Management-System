@@ -6,6 +6,9 @@ import javax.persistence.*;
 public abstract class Employee {
 	
 	@Id
+	@GeneratedValue(generator="employee")
+	@TableGenerator(name = "employee",
+	table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue="doctor")
 	protected Integer id;
 	protected String name;
 	@Basic(fetch=FetchType.LAZY)

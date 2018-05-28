@@ -132,6 +132,9 @@ public class Patient implements Serializable {
 		this.dateAdmission = dateAdmission;
 		this.listOfBills = listOfBills;
 		this.room = room;
+		listOfTreatments = new LinkedList<Treatment>();
+		listOfNurses = new LinkedList<Nurse>();
+	
 	}
 
 	public Patient(String name, Sex gender, String diagnose, Date dob, Date dateAdmission) {
@@ -164,6 +167,9 @@ public class Patient implements Serializable {
 		this.dob = dob;
 		this.dateAdmission = dateAdmission;
 		this.room = room;
+		listOfTreatments = new LinkedList<Treatment>();
+		listOfNurses = new LinkedList<Nurse>();
+		listOfBills = new LinkedList<Bills>();
 
 	}
 	public Patient(Integer id, String name, Sex gender, String diagnose, Date dob, Date dateAdmission, Room room) {
@@ -174,6 +180,9 @@ public class Patient implements Serializable {
 		this.dob = dob;
 		this.dateAdmission = dateAdmission;
 		this.room = room;
+		listOfTreatments = new LinkedList<Treatment>();
+		listOfNurses = new LinkedList<Nurse>();
+		listOfBills = new LinkedList<Bills>();
 
 	}
   
@@ -189,6 +198,8 @@ public class Patient implements Serializable {
 		this.dateAdmission = dateAdmission;
 		this.listOfNurses = listOfNurses;
 		this.room = room;
+		listOfTreatments = new LinkedList<Treatment>();
+		listOfBills = new LinkedList<Bills>();
 	}
 
 	public Patient(Integer id, String name) {

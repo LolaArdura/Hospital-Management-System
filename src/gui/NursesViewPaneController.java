@@ -34,6 +34,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import jdbcManager.JDBCNurseController;
+import jpaManager.JPANurseController;
 import model.Nurse;
 
 public class NursesViewPaneController implements Initializable {

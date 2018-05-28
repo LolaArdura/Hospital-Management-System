@@ -16,4 +16,5 @@ public interface PatientInterface {
 	public List<Bills> getBillsFromPatient (Patient patient) throws Exception;
 	public List<Treatment> getTreatmentsFromPatient (Patient patient) throws Exception;
 	public List<Patient> searchPatientByName(String name) throws Exception;
+	public void addRoomToPatient(Patient patient, Room room) throws Exception;
 }

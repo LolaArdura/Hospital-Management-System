@@ -28,7 +28,6 @@ public class JDBCTreatmentController implements TreatmentInterface {
 				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
 		
-		try {
 		ResultSet rs = p.executeQuery();
 		Integer bill_id = rs.getInt("lastId");
 		treatment.getBill().setId(bill_id);
@@ -45,20 +44,14 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		rs.close();
 		prep.close();
 		return true;
-		
-		}catch (Exception e ) {
-			p.close();
-			prep.close();
-			throw new Exception();
-		}
+
 	}
 	
 	public void insertTreatmentWithoutBill (Treatment treatment) throws Exception {
 		String sql = "INSERT INTO treatment ( routeOfAdmin, startDate, endDate, cost, type, dose, doctor_id, patient_id)"
 				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-		
-		try {
+
 		prep.setString(1,treatment.getRouteOfAdmin());
 		prep.setDate(2, treatment.getStartDate());
 		prep.setDate(3, treatment.getEndDate());
@@ -70,32 +63,24 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		
 		prep.executeUpdate();
 		prep.close();
-		}catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+
 	}
 	
 	public boolean deleteTreatment (Treatment treatment) throws Exception {
 		String sql = "DELETE FROM treatment WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-		
-		try {
+
 		prep.setInt(1,  treatment.getId());
 		prep.executeUpdate();
 		prep.close();
 		return true;
-		}catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+
 	}
 	
 	public Treatment searchTreatmentById (Integer id) throws Exception {
 		String sql = "SELECT * FROM treatment WHERE id=?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-		
-		try {
+
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 		rs.next();
@@ -112,18 +97,13 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		rs.close();
 		prep.close();
 		return treatment;
-		
-		}catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+
 	}
 	
 	public void updateTreatment (Treatment treatment) throws Exception {
 		String sql = "UPDATE treatment SET routeOfAdmin=?, startDate=?, endDate=?, cost=?, type=?, dose=?, doctor_id=? WHERE id = ?";
 		PreparedStatement prep = JDBConnection.getConnection().prepareStatement(sql);
-		
-        try {
+
 		prep.setString(1, treatment.getRouteOfAdmin());
 		prep.setDate(2, treatment.getStartDate());
 		prep.setDate(3, treatment.getEndDate());
@@ -134,10 +114,7 @@ public class JDBCTreatmentController implements TreatmentInterface {
 		prep.setInt(8, treatment.getId());
 		prep.executeUpdate();
 		prep.close();
-        }catch (Exception e ) {
-			prep.close();
-			throw new Exception();
-		}
+
 	}
 	
 }

@@ -45,11 +45,7 @@
             <schedule>morning</schedule>
             <role>injections</role>
         </Nurse>
-        <Nurse id="1">
-            <name>Lola</name>
-            <schedule>morning</schedule>
-            <role>injections</role>
-        </Nurse>
+
     </Nurses>
     <room id="8" number="208">
         <type>BOX</type>

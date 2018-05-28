@@ -31,7 +31,7 @@
                            <children>
                               <Button fx:id="viewAllButton" mnemonicParsing="false" onAction="#viewAllClicked" prefHeight="25.0" prefWidth="133.0" text="View all" />
                               <Button fx:id="registrationButton" mnemonicParsing="false" onAction="#registrationButtonClicked" prefHeight="25.0" prefWidth="133.0" text="Registration" />
-                              <Button fx:id="loadPatientButton" mnemonicParsing="false" onAction="#loadPatientClicked" prefHeight="30.0" prefWidth="156.0" text="Load patient" />
+                              <Button fx:id="loadPatientButton" mnemonicParsing="false" onAction="#loadPatientClicked" prefHeight="30.0" prefWidth="156.0" text="Load Patient" />
                            </children>
                         </VBox>
                      </content>
