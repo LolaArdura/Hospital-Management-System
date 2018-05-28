@@ -51,7 +51,7 @@ public class HospitalMainGUI extends Application {
     	 
     		 try {
     			DBEntityManager.getEntityManager();
-				Parent root= FXMLLoader.load(getClass().getResource("LoginScene.fxml"));
+				Parent root= FXMLLoader.load(getClass().getResource("./gui/LoginScene.fxml"));
                 Scene scene=new Scene(root, 560, 405);
 				primaryStage.setScene(scene);
 				primaryStage.setResizable(false);
@@ -63,6 +63,7 @@ public class HospitalMainGUI extends Application {
 			}
     		 
     	 }catch(Exception ex) {
+
     		 try {
     			DatabaseTables.createTables();
     			User user= new User("admin","hospitalAdmin1","admin");
@@ -73,7 +74,7 @@ public class HospitalMainGUI extends Application {
     			a.setHeaderText("Default admin user created");
     			a.setContentText("Username: admin\nPassword:hospitalAdmin1");
     			a.showAndWait();
- 				Parent root= FXMLLoader.load(getClass().getResource("LoginScene.fxml"));
+ 				Parent root= FXMLLoader.load(getClass().getResource("./gui/LoginScene.fxml"));
                 Scene scene=new Scene(root, 560, 405);
  				primaryStage.setScene(scene);
  				primaryStage.setResizable(false);

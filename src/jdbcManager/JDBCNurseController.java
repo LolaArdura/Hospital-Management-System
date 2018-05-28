@@ -175,7 +175,8 @@ public class JDBCNurseController implements NurseInterface {
 	}
 
 	public List<Patient> getPatientsFromNurse(Nurse nurse) throws Exception {
-		String sql="SELECT p.id,p.name FROM patient AS p JOIN nurse_patient WHERE nurse_patient.nurse_id=?";
+		String sql="SELECT p.id,p.name FROM patient AS p JOIN nurse_patient ON p.id=nurse_patient.patient_id"
+				+ " WHERE nurse_patient.nurse_id=?";
 		PreparedStatement prep=JDBConnection.getConnection().prepareStatement(sql);
 
 		prep.setInt(1, nurse.getId());

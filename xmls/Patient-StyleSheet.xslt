@@ -127,9 +127,9 @@
  			
  		<xsl:for-each select= "//Bills/bill">
  			<tr>
- 			<td> <xsl:value-of select= "@bankID"/></td>
- 					<td> <xsl:value-of select= "@cost"/></td>
- 					<td> <xsl:value-of select= "@paid"/></td>
+ 			<td> <xsl:value-of select= "bankID"/></td>
+ 			<td> <xsl:value-of select= "cost"/></td>
+ 			<td> <xsl:value-of select= "paid"/></td>
  			</tr>
  			</xsl:for-each>
  		</table>

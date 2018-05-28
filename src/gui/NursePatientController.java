@@ -77,8 +77,8 @@ public class NursePatientController implements Initializable {
 			try {
 				NurseInterface controller = JDBCNurseController.getNurseController();
 				controller.addPatientToNurse(nurse, patient);
-				patientsList.getItems().remove(patient);
-				nurseList.getItems().add(patient);
+				setAllPatients();
+				setPatientsFromNurse();
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -100,8 +100,8 @@ public class NursePatientController implements Initializable {
 			try {
 				NurseInterface controller = JDBCNurseController.getNurseController();
 				controller.deletePatientFromNurse(nurse, patient);
-				patientsList.getItems().add(patient);
-				nurseList.getItems().remove(patient);
+				setAllPatients();
+				setPatientsFromNurse();
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -179,9 +179,10 @@ public class NursePatientController implements Initializable {
 		try {
 			ObservableList<Patient> patients = FXCollections.observableArrayList();
 			NurseInterface controller = JDBCNurseController.getNurseController();
+			patients.clear();
 			patients.addAll(controller.getPatientsFromNurse(nurse));
 			nurseList.getItems().clear();
-			nurseList.setItems(patients);
+			nurseList.getItems().addAll(patients);
 			patientsList.getItems().removeAll(patients);
 
 		} catch (Exception ex) {
@@ -193,9 +194,10 @@ public class NursePatientController implements Initializable {
 		try {
 			ObservableList<Patient> patients = FXCollections.observableArrayList();
 			PatientInterface controller = JDBCPatientController.getPatientController();
+			patients.clear();
 			patients.addAll(controller.getAllPatients());
 			patientsList.getItems().clear();
-			patientsList.setItems(patients);
+			patientsList.getItems().addAll(patients);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

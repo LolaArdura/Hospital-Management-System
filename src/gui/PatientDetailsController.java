@@ -238,16 +238,22 @@ public class PatientDetailsController implements Initializable {
 			patient.setListOfBills(bills);
 			}
 			XmlPatient.marshal(patient, patientFile);
+		
 			
-			Alert alert= new Alert(AlertType.CONFIRMATION,"Do you want to generate a billing report?",
+			Alert alert= new Alert(AlertType.CONFIRMATION,
+					patientFile.getName().substring(0, patientFile.getName().length()-4)+".html",
 				new ButtonType("Yes", ButtonBar.ButtonData.YES), ButtonType.NO);
 			alert.setTitle("HTML");
 			alert.setHeaderText("Do you want to generate an HTML page?");
 			String confirmation = alert.showAndWait().get().getText();
 			if (confirmation.equals("Yes")) {
-				String fileHtml= patientFile.getName().substring(0, patientFile.getName().length()-4)+".html";
-				File htmlFile= new File(fileHtml);
+				FileChooser fileChooser2= new FileChooser();
+				fileChooser2.setTitle("Save Patient");
+				fileChooser2.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("HTML Files","*.html"));
+				File htmlFile= fileChooser2.showSaveDialog(detailsPane.getScene().getWindow());
+				if(htmlFile!=null) {
 				XmlPatient.xml2Html(patientFile, htmlFile);
+				}
 			}
 		}
 		
