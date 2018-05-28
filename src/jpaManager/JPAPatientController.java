@@ -33,7 +33,7 @@ public class JPAPatientController implements PatientInterface{
 		}
 	}
 	
-	//NOT SURE
+
 	public boolean insertNoDiagnosePatient(Patient patient) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
 		try {
@@ -103,82 +103,73 @@ public class JPAPatientController implements PatientInterface{
 			patient.setDiagnose(patient.getDiagnose());
 			patient.setGender(patient.getGender());
 			patient.setRoom(patient.getRoom());
+			patient.getRoom().addPatient(patient);
 		em.getTransaction().commit();
 
 	}
 	
 	public void addNurseToPatient (Nurse nurse, Patient patient) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
-		try {
+
 		em.getTransaction().begin();
 		patient.addNurse(nurse);
+		nurse.addPatientToNurse(patient);
 		em.getTransaction().commit();
-		}catch(Exception e) {
-			em.getTransaction().commit();
-			throw new Exception();
-		}
+
 	}
 	
 	public void deleteNurseFromPatient (Nurse nurse, Patient patient) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
-		try {
+
 		em.getTransaction().begin();
 		patient.removeNurse(nurse);
+		nurse.deletePatientFromNurse(patient);
 		em.getTransaction().commit();
-		}catch(Exception e) {
-			em.getTransaction().commit();
-			throw new Exception();
-		}
+	
 	}
 	
 	public List<Patient> getPatientWithoutTreatmentsAndBills () throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
-		try {
+
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT id, name, gender, dob, dateAdmission, room_id FROM patient", Patient.class);
 		List<Patient> patients = (List<Patient>) q1.getResultList();
 		return patients;
-		}catch(Exception e) {
-			em.getTransaction().commit();
-			throw new Exception();
-		}
+		
 	}
 	
 	public List<Bills> getBillsFromPatient (Patient patient) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
-		try {
+
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_key=ON").executeUpdate();
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("SELECT * FROM bills JOIN patient WHERE bills.patient_id ="+patient.getId(), Bills.class);
 		List <Bills> bills = (List<Bills>)q1.getResultList();
+		
+		Query q2= em.createNativeQuery("SELECT bills.id, bills.cost,bankID,paid FROM bills JOIN treatment ON bills.id=treatment.bill_id"
+				+ "WHERE treatment.patient_id="+patient.getId(),Bills.class);
+		bills.addAll((List<Bills>)q2.getResultList());
 		return bills;
-		}catch(Exception e) {
-			em.getTransaction().commit();
-			throw new Exception();
-		}
+		
 	}
 	
 	public List<Treatment> getTreatmentsFromPatient(Patient patient) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
-		try {
+
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_key=ON").executeUpdate();
 		em.getTransaction().commit();
 		Query q1 = em.createNativeQuery("Select * FROM treatment JOIN patient WHERE treatment.patient_id="+patient.getId(), Treatment.class);
 		List<Treatment> treatments = (List<Treatment>)q1.getResultList();
 		return treatments;
-		}catch(Exception e) {
-			em.getTransaction().commit();
-			throw new Exception();
-		}
+
 	}
 	
 	public List<Patient> searchPatientByName (String name) throws Exception{
 		EntityManager em = DBEntityManager.getEntityManager();
-		try {
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
@@ -186,10 +177,7 @@ public class JPAPatientController implements PatientInterface{
 		q1.setParameter(1, name);
 		List<Patient> patients = (List<Patient>) q1.getResultList();
 		return patients;
-		}catch(Exception e) {
-			em.getTransaction().commit();
-			throw new Exception();
-		}
+		
 	}
 	
 	
