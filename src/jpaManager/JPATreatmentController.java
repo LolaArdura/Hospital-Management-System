@@ -85,8 +85,13 @@ public class JPATreatmentController implements TreatmentInterface {
 		EntityManager em=DBEntityManager.getEntityManager();
 		try {
 		em.getTransaction().begin();
-		em.flush();
-		em.getTransaction().commit();
+			treatment.setRouteOfAdmin(treatment.getRouteOfAdmin());
+			treatment.setStartDate(treatment.getStartDate());
+			treatment.setEndDate(treatment.getEndDate());
+			treatment.setCost(treatment.getCost());
+			treatment.setTreatmentType(treatment.getTreatmentType());
+			treatment.setDose(treatment.getDose());
+			treatment.setDoctor(treatment.getPrescriber());
 		}catch(Exception e) {
 			 em.getTransaction().commit();
 			 throw new Exception();

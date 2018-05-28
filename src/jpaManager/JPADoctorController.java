@@ -134,7 +134,10 @@ public class JPADoctorController implements DoctorInterface{
 		EntityManager em=DBEntityManager.getEntityManager();
 		try {
 		em.getTransaction().begin();
-		em.flush();
+			doctor.setName(doctor.getName());
+			doctor.setPhoto(doctor.getPhoto());
+			doctor.setSchedule(doctor.getSchedule());
+			doctor.setSpecialty(doctor.getSpecialty());
 		em.getTransaction().commit();
 		}catch(Exception e) {
 			 em.getTransaction().commit();

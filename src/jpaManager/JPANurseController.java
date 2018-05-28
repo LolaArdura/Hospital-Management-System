@@ -135,7 +135,10 @@ private static JPANurseController singleton;
 		EntityManager em = DBEntityManager.getEntityManager();
 		try {
 		em.getTransaction();
-		em.flush();
+			nurse.setName(nurse.getName());
+			nurse.setPhoto(nurse.getPhoto());
+			nurse.setSchedule(nurse.getSchedule());
+			nurse.setRole(nurse.getRole());
 		em.getTransaction().commit();
 		}catch(Exception e) {
 			 em.getTransaction().commit();

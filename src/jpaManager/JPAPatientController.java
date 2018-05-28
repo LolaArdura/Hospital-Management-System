@@ -97,7 +97,12 @@ public class JPAPatientController implements PatientInterface{
 		EntityManager em=DBEntityManager.getEntityManager();
 		try {
 		em.getTransaction().begin();
-		em.flush();
+			patient.setName(patient.getName());
+			patient.setDob(patient.getDob());
+			patient.setDateAdmission(patient.getDateAdmission());
+			patient.setDiagnose(patient.getDiagnose());
+			patient.setGender(patient.getGender());
+			patient.setRoom(patient.getRoom());
 		em.getTransaction().commit();
 		}catch(Exception e) {
 			em.getTransaction().commit();
